@@ -1,5 +1,5 @@
 <template>
-  <div class="nuxt-page">
+  <div class="nuxt-page m-20">
     <div class="page-title">
       <h2 class="h2-medium header-text">Market</h2>
     </div>
@@ -203,6 +203,9 @@ export default {
 </style>
 
 <style scoped>
+.m-20 {
+  margin: 20px;
+}
 .market-product {
   display: flex;
   flex-wrap: wrap;
@@ -210,6 +213,20 @@ export default {
   align-items: flex-start;
   padding: 16px;
   gap: 16px;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+@media (max-width: 950px) {
+  .m-20 {
+    margin: 0;
+  padding: 16px;
+    background: var(--grey-grey6);
+  }
+  .page-title {
+    display: none;
+  }
+  .market-product {
+    padding: 0;
+    gap: 8px;
+  }
 }
 </style>

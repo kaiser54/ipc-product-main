@@ -41,7 +41,7 @@
           <button :disabled="!selectedItem" @click="goToRoute()" class="btn primary-btn">Continue</button>
           <div class="signup-link">
             <p>
-              Have an existing account?<nuxt-link :to="{ name: 'login' }">
+              Have an existing account?<nuxt-link :to="{ name: 'index' }">
                 Log in</nuxt-link
               >
             </p>

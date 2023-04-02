@@ -1,10 +1,10 @@
 <template>
-    <div class="view-page">
-      <div class="title-header">
-          <h2 class="h2-medium header-text">History</h2>
-      </div>
+  <div class="view-page">
+    <div class="title-header">
+      <h2 class="h2-medium header-text">History</h2>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
 export default {

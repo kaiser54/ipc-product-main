@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <nuxt-link :to="{ name: 'login' }" class="btn primary-btn"
+        <nuxt-link :to="{ name: 'index' }" class="btn primary-btn"
           >Back to log in</nuxt-link
         >
       </div>

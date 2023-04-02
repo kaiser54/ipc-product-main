@@ -21,15 +21,41 @@
                   />
                   <div v-show="invalidEmail" class="error">
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="15"
-                      viewBox="0 96 960 960"
-                      width="15"
-                    >
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_2260_9969)">
                       <path
-                        d="M479.789 768Q495 768 505.5 757.711q10.5-10.29 10.5-25.5Q516 717 505.711 706.5q-10.29-10.5-25.5-10.5Q465 696 454.5 706.289q-10.5 10.29-10.5 25.5Q444 747 454.289 757.5q10.29 10.5 25.5 10.5ZM444 624h72V384h-72v240Zm36.276 336Q401 960 331 930q-70-30-122.5-82.5T126 725.042q-30-69.959-30-149.5Q96 496 126 426.5t82.5-122Q261 252 330.958 222q69.959-30 149.5-30Q560 192 629.5 222t122 82.5Q804 357 834 426.724q30 69.725 30 149Q864 655 834 725q-30 70-82.5 122.5T629.276 930q-69.725 30-149 30ZM480 888q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"
+                        d="M8 5.33334V8"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
-                    </svg>
+                      <path
+                        d="M8 10.6797V10.6667"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2260_9969">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
                     <p>Field cannot be empty</p>
                   </div>
                 </div>
@@ -47,15 +73,41 @@
                   />
                   <div v-show="invalidEmail" class="error">
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="15"
-                      viewBox="0 96 960 960"
-                      width="15"
-                    >
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_2260_9969)">
                       <path
-                        d="M479.789 768Q495 768 505.5 757.711q10.5-10.29 10.5-25.5Q516 717 505.711 706.5q-10.29-10.5-25.5-10.5Q465 696 454.5 706.289q-10.5 10.29-10.5 25.5Q444 747 454.289 757.5q10.29 10.5 25.5 10.5ZM444 624h72V384h-72v240Zm36.276 336Q401 960 331 930q-70-30-122.5-82.5T126 725.042q-30-69.959-30-149.5Q96 496 126 426.5t82.5-122Q261 252 330.958 222q69.959-30 149.5-30Q560 192 629.5 222t122 82.5Q804 357 834 426.724q30 69.725 30 149Q864 655 834 725q-30 70-82.5 122.5T629.276 930q-69.725 30-149 30ZM480 888q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"
+                        d="M8 5.33334V8"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
-                    </svg>
+                      <path
+                        d="M8 10.6797V10.6667"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2260_9969">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
                     <p>Field cannot be empty</p>
                   </div>
                 </div>
@@ -75,13 +127,39 @@
                 <div v-show="invalidEmail" class="error">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="15"
-                    viewBox="0 96 960 960"
-                    width="15"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
-                    <path
-                      d="M479.789 768Q495 768 505.5 757.711q10.5-10.29 10.5-25.5Q516 717 505.711 706.5q-10.29-10.5-25.5-10.5Q465 696 454.5 706.289q-10.5 10.29-10.5 25.5Q444 747 454.289 757.5q10.29 10.5 25.5 10.5ZM444 624h72V384h-72v240Zm36.276 336Q401 960 331 930q-70-30-122.5-82.5T126 725.042q-30-69.959-30-149.5Q96 496 126 426.5t82.5-122Q261 252 330.958 222q69.959-30 149.5-30Q560 192 629.5 222t122 82.5Q804 357 834 426.724q30 69.725 30 149Q864 655 834 725q-30 70-82.5 122.5T629.276 930q-69.725 30-149 30ZM480 888q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"
-                    />
+                    <g clip-path="url(#clip0_2260_9969)">
+                      <path
+                        d="M8 5.33334V8"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8 10.6797V10.6667"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2260_9969">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
                   </svg>
                   <p>Enter a valid Email address</p>
                 </div>
@@ -101,13 +179,39 @@
                 <div v-show="invalidEmail" class="error">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="15"
-                    viewBox="0 96 960 960"
-                    width="15"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
-                    <path
-                      d="M479.789 768Q495 768 505.5 757.711q10.5-10.29 10.5-25.5Q516 717 505.711 706.5q-10.29-10.5-25.5-10.5Q465 696 454.5 706.289q-10.5 10.29-10.5 25.5Q444 747 454.289 757.5q10.29 10.5 25.5 10.5ZM444 624h72V384h-72v240Zm36.276 336Q401 960 331 930q-70-30-122.5-82.5T126 725.042q-30-69.959-30-149.5Q96 496 126 426.5t82.5-122Q261 252 330.958 222q69.959-30 149.5-30Q560 192 629.5 222t122 82.5Q804 357 834 426.724q30 69.725 30 149Q864 655 834 725q-30 70-82.5 122.5T629.276 930q-69.725 30-149 30ZM480 888q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"
-                    />
+                    <g clip-path="url(#clip0_2260_9969)">
+                      <path
+                        d="M8 5.33334V8"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8 10.6797V10.6667"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2260_9969">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
                   </svg>
                   <p>Enter a valid phone number</p>
                 </div>
@@ -153,13 +257,39 @@
                 <div v-show="invalidPassword" class="error">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="15"
-                    viewBox="0 96 960 960"
-                    width="15"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
                   >
-                    <path
-                      d="M479.789 768Q495 768 505.5 757.711q10.5-10.29 10.5-25.5Q516 717 505.711 706.5q-10.29-10.5-25.5-10.5Q465 696 454.5 706.289q-10.5 10.29-10.5 25.5Q444 747 454.289 757.5q10.29 10.5 25.5 10.5ZM444 624h72V384h-72v240Zm36.276 336Q401 960 331 930q-70-30-122.5-82.5T126 725.042q-30-69.959-30-149.5Q96 496 126 426.5t82.5-122Q261 252 330.958 222q69.959-30 149.5-30Q560 192 629.5 222t122 82.5Q804 357 834 426.724q30 69.725 30 149Q864 655 834 725q-30 70-82.5 122.5T629.276 930q-69.725 30-149 30ZM480 888q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"
-                    />
+                    <g clip-path="url(#clip0_2260_9969)">
+                      <path
+                        d="M8 5.33334V8"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8 10.6797V10.6667"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                        stroke="#FF3B2D"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_2260_9969">
+                        <rect width="16" height="16" fill="white" />
+                      </clipPath>
+                    </defs>
                   </svg>
                   <p>{{ passwordErrorMessage }}</p>
                 </div>
@@ -178,7 +308,7 @@
               <div class="pass-link">
                 <p>
                   Have an account already?
-                  <nuxt-link :to="{ name: 'login' }">Log in</nuxt-link>
+                  <nuxt-link :to="{ name: 'index' }">Log in</nuxt-link>
                 </p>
               </div>
             </div>

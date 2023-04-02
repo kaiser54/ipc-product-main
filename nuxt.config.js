@@ -1,4 +1,5 @@
 export default {
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'independence_purchasing_company',
@@ -18,7 +19,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/reset.css', '@/assets/css/base.css', '@/assets/css/main.css'
+    '@/assets/css/reset.css', '@/assets/css/base.css', '@/assets/css/main.css', 'animate.css/animate.min.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -46,8 +47,17 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+      if (ctx.isClient) {
+        config.optimization.splitChunks.maxSize = 200000;
+      }
+    },
+    publicPath: '/dist/'
   },
   server: {
     host: '0.0.0.0'
-  },
+  }
 }

@@ -84,7 +84,8 @@ export default {};
 
   max-width: 206px;
   width: 100%;
-  height: 161px;
+  height: 100%;
+  max-height: 161px;
   position: relative;
 
   /* White */
@@ -118,7 +119,7 @@ export default {};
   padding: 0px;
   gap: 4px;
 
-  width: 206px;
+  max-width: 206px;
   height: 76px;
 }
 .productcard-name p {
@@ -151,5 +152,28 @@ button p {
   /* Primary/P300 */
 
   color: var(--primary-p300);
+}
+
+@media (max-width: 950px) {
+.product-card {
+  width: 167px;
+  height: 243px;
+}
+.product-img-grp img {
+  max-width: 100px;
+  width: 100%;
+}
+.productcard-details {
+  max-width: 141px;
+}
+.productcard-name p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+button svg {
+  display: none;
+}
 }
 </style>
