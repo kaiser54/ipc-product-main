@@ -46,7 +46,16 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  /*
+  ** You can extend webpack config here
+  */
+  extend(config, ctx) {
+    if (ctx.isClient) {
+      config.optimization.splitChunks.maxSize = 200000;
+    }
   },
+  publicPath: '/my-dist-folder/'
+},
   server: {
     host: '0.0.0.0'
   },
