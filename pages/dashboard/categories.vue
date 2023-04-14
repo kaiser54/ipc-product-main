@@ -101,6 +101,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   padding: 0px;
   gap: 24px;
 

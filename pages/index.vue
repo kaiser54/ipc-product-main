@@ -261,6 +261,7 @@ export default {
       } else if (!this.invalidEmail && !this.invalidPassword) {
         // Submit form or perform other actions
         console.log("valid");
+        this.$router.push("/dashboard/market");
       }
     },
   },
@@ -302,12 +303,5 @@ export default {
 }
 .signup-link a {
   color: var(--primary-p300);
-}
-</style>
-
-
-<style>
-.__nuxt-error-page .error{
-  flex-direction: column;
 }
 </style>

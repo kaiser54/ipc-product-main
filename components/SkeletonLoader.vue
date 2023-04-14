@@ -272,6 +272,7 @@
   </div>
 </template>
 
+
 <style scoped>
 .skeleton-loader {
   display: flex;
@@ -347,132 +348,6 @@ section {
 
   background: #ffffff;
 }
-.product-loader {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0px;
-  gap: 8px;
-}
-.products {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-
-  width: 167px;
-  height: 231.14px;
-
-  /* White */
-
-  background: #ffffff;
-  border-radius: 8px;
-}
-.product-skeleton {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 8px;
-  gap: 8px;
-
-  width: 167px;
-  height: 231.14px;
-
-  /* White */
-
-  background: #ffffff;
-  border-radius: 8px;
-}
-.skeleton-loader__image {
-  width: 151px;
-  height: 126px;
-
-  /* Grey/Grey6 */
-
-  background: var(--grey-grey6);
-  border-radius: 8px;
-  margin-bottom: 10px;
-  animation: skeleton-loader__image 1s ease-in-out infinite;
-}
-
-.skeleton-loader__title {
-  width: 146.37px;
-  height: 16.57px;
-
-  /* Grey/Grey6 */
-
-  background: var(--grey-grey6);
-  border-radius: 8px;
-
-  animation: skeleton-loader__title 1s ease-in-out infinite;
-}
-.skeleton-loader__price {
-  width: 73.1px;
-  height: 16.57px;
-
-  /* Grey/Grey6 */
-
-  background: var(--grey-grey6);
-  border-radius: 8px;
-
-  animation: skeleton-loader__title 1s ease-in-out infinite;
-}
-.skeleton-loader__button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 12px;
-  gap: 4px;
-
-  width: 151px;
-  height: 32px;
-
-  /* Grey/Grey6 */
-
-  background: var(--grey-grey6);
-  border-radius: 8px;
-  animation: skeleton-loader__title 1s ease-in-out infinite;
-}
-
-@keyframes skeleton-loader__image {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes skeleton-loader__title {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes skeleton-loader__description {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.4;
-  }
-}
-
 .mobile-bottom-nav {
   width: 100%;
 }

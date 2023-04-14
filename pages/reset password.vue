@@ -4,7 +4,7 @@
     <div class="content">
       <div class="container">
         <div class="wrapper">
-          <nuxt-link :to="{ name: 'login' }">
+          <nuxt-link :to="{ name: 'index' }">
             <div class="nav-btn">
               <svg
                 width="24"

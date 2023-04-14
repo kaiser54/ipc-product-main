@@ -180,7 +180,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .slide-up-enter-active {
   animation: slide-up-in 0.5s ease-out;
 }

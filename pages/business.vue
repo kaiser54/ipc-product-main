@@ -19,4 +19,3 @@ export default {
   // Other component properties and methods
 };
 </script>
-
