@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="logout-modal">
-      <div class="WH-auto animate__animated animate__bounce">
+      <div class="WH-auto animate__animated animate__zoomIn">
         <div class="modal">
           <div class="modal-msg">
             <div class="head-x">

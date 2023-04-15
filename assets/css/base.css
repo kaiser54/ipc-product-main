@@ -824,3 +824,45 @@ label.label {
   background: none;
   outline: none;
 }
+.tag {
+  display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 4px 12px;
+gap: 10px;
+
+/* width: 69px; */
+height: 32px;
+
+border-radius: 100px;
+
+
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+}
+.pending {
+  /* Warning/W50 */
+
+background: var(--warning-w50);
+/* Warning/W75 */
+
+border: 1px solid var(--warning-w75);
+/* Warning/W400 */
+
+color: var(--warning-w400);
+}
+.verified {
+  /* Positive/P50 */
+
+background: var(--positive-p50);
+/* Positive/P75 */
+
+border: 1px solid var(--positive-p75);
+/* Positive/P400 */
+
+color: var(--positive-p400);
+}

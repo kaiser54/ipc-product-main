@@ -2,21 +2,22 @@
   <div class="view-page">
     <div class="profile">
       <div class="title-header">
-      <h2 class="h2-medium header-text">Profile</h2>
-      <div class="account-type">
-        Individual account
+        <h2 class="h2-medium header-text">Profile</h2>
+        <div class="account-type">
+          Individual account
+        </div>
       </div>
-    </div>
-    <div class="profile-switch-tab">
-      <div class="table" :class="{ 'active': activetab }" @click="activetab = true">Account details</div>
-      <div class="table" :class="{ 'active': !activetab }" @click="activetab = false">Address book</div>
-    </div>
-    <div class="userdetails">
-      <accountDetails v-if="activetab"/>
-      <addressDetails v-if="!activetab"/>
+      <div class="profile-switch-tab" v-if="!mobile">
+        <div class="table" :class="{ 'active': activetab }" @click="activetab = true">Account details</div>
+        <div class="table" :class="{ 'active': !activetab }" @click="activetab = false">Address book</div>
+      </div>
+      <div class="userdetails" v-if="!mobile">
+        <accountDetails v-if="activetab"></accountDetails>
+        <addressDetails v-if="!activetab"></addressDetails>
+      </div>
+      <mobileUserProfile v-if="mobile"></mobileUserProfile>
     </div>
   </div>
-    </div>
 </template>
 
 <script>
@@ -27,6 +28,7 @@ export default {
     return {
       pageTitle: "IPC | Profile",
       activetab: true,
+      mobile: false,
     };
   },
   head() {
@@ -34,10 +36,26 @@ export default {
       title: this.pageTitle,
     };
   },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
+  },
   methods: {
+    checkScreenSize() {
+      if (window.innerWidth <= 950) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      };
+      console.log(window.innerWidth)
+    },
   }
 };
 </script>
+
 
 <style scoped>
 .profile {
@@ -109,5 +127,14 @@ color: var(--grey-grey3);
   max-width: 574px;
   margin-left: 24px;
   margin-bottom: 100px;
+}
+@media (max-width: 950px) {
+  .title-header {
+    justify-content: space-between;
+  }
+  .profile {
+    margin-top: -43px;
+    gap: 32px;
+  }
 }
 </style>

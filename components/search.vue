@@ -84,7 +84,7 @@ export default {
       this.searchTerm = ""
     },
     redirectTobackPage() {
-        this.$router.push("/dashboard");
+      this.$router.go(-1);
       }
   },
 }
