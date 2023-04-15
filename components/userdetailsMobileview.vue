@@ -141,7 +141,11 @@
 
 <script>
     export default {
-        
+        data() {
+          return {
+            isVerified: false,
+          }
+        }
     }
 </script>
 
