@@ -119,7 +119,7 @@ export default {
   position: absolute;
   width: 24px;
   height: 24px;
-  left: 335px;
+  right: 17px;
   top: 15.75px;
 }
 .frame-2 p {
