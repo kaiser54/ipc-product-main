@@ -85,7 +85,7 @@ export default {
     },
     redirectTobackPage() {
       this.$router.go(-1);
-      }
+    }
   },
 }
 </script>

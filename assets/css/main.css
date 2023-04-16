@@ -36,5 +36,41 @@ p {
     flex-direction: column;
 }
 
-  
 
+.badge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    gap: 10px;
+  
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 30px;
+    top: 0px;
+    aspect-ratio: 1 !important;
+  
+    /* Base-color/Negative */
+  
+    background: #ff3b2d;
+  
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.2s ease-in;
+  }
+  .badge svg:hover {
+    fill: var(--grey-grey1);
+    fill: red;
+  }
+  .badge p {
+    font-weight: 500;
+    font-size: 12px;
+    /* line-height: 18px; */
+    /* identical to box height, or 150% */
+  
+    /* baseColor/white */
+  
+    color: var(--white) !important;
+  }

@@ -763,10 +763,10 @@ gap: 10px;
 
 /* Primary/P50 */
 
-background: var(--primary-p50);
+/* background: var(--primary-p50); */
 /* Primary/P75 */
 
-border: 1px solid var(--primary-p75);
+/* border: 1px solid var(--primary-p75); */
 border-radius: 100px;
 font-weight: 400;
 font-size: 12px;
@@ -776,7 +776,21 @@ line-height: 18px;
 
 /* Primary/P400 */
 
+/* color: var(--primary-p400); */
+}
+.account-type.indivudual {
+border: 1px solid var(--primary-p75);
+background: var(--primary-p50);
 color: var(--primary-p400);
+}
+.account-type.business {
+/* Positive/P50 */
+
+background: var(--positive-p50);
+/* Positive/P75 */
+
+border: 1px solid var(--positive-p75);
+color: var(--positive-p400);
 }
 
 
@@ -816,7 +830,15 @@ label.label {
 
   /* Grey/Grey1 */
 
-  color: var(--grey-grey1);
+  color: var(--grey-grey1) !important;
+}
+.styled[value=""],
+.styled:not([value]),
+.value.input[type="text"]::placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+.value.input[type="text"] {
+  color: black;
 }
 .value.input:disabled {
   border: 1px solid var(--grey-grey4);

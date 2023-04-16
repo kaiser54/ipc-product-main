@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="title-header">
         <h2 class="h2-medium header-text">Profile</h2>
-        <div class="account-type">
+        <div class="account-type indivudual">
           Individual account
         </div>
       </div>
@@ -16,6 +16,7 @@
         <addressDetails v-if="!activetab"></addressDetails>
       </div>
       <mobileUserProfile v-if="mobile"></mobileUserProfile>
+      <button class="btn">Log out</button>
     </div>
   </div>
 </template>
@@ -50,7 +51,6 @@ export default {
       } else {
         this.mobile = false;
       };
-      console.log(window.innerWidth)
     },
   }
 };
@@ -128,6 +128,23 @@ color: var(--grey-grey3);
   margin-left: 24px;
   margin-bottom: 100px;
 }
+.btn {
+  border: none;
+  outline: none;
+  background: none;
+
+
+  font-weight: 700;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+padding: 16px 24px;
+
+
+/* Negative/N300 */
+
+color: var(--negative-n300);
+}
 @media (max-width: 950px) {
   .title-header {
     justify-content: space-between;
@@ -135,6 +152,7 @@ color: var(--grey-grey3);
   .profile {
     margin-top: -43px;
     gap: 32px;
+    margin-bottom: 100px;
   }
 }
 </style>

@@ -209,7 +209,7 @@ section.view {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 99999999;
+    z-index: 1;
   }
   section.view {
     margin-top: 153px;

@@ -169,7 +169,7 @@
   height: 76px;
   left: 0px;
   bottom: 0px;
-  z-index: 999;
+  z-index: 1;
 
   /* White */
 
