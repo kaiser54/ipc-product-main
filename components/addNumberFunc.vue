@@ -20,17 +20,29 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p>Phone number</p>
+          <p v-if="!showOtp" >Phone number</p>
+          <p v-else>Enter OTP</p>
         </div>
       </div>
     </header>
     <div class="frame-content">
-        <div class="frame-content-header">
-            <h3 class="h3-heading">Enter phone number</h3>
-            <p class="snippet">We will send you a verification code by SMS.</p>
+            <div v-if="!showOtp" class="frame-content-header">
+                <h3 class="h3-heading">Enter phone number</h3>
+                <p  class="snippet">We will send you a verification code by SMS.</p>
+            </div>
+            <div v-else class="frame-content-header">
+            <h3 class="h3-heading">Enter OTP</h3>
+            <p  class="snippet">We sent you a verification code by SMS, when you get code, please type it in here.</p>
+            </div>
+        <PhoneNumber v-model="myValue" v-if="!showOtp"/>
+        <enterOTP v-model="myOTP" v-else/>
+        <div class="btn-group">
+            <button v-if="!showOtp" class="btn primary-btn" @click="validatePhoneNumber">continue</button>
+            <div v-else class="btn-group2">
+                <button class="btn primary-btn" @click="validatePhoneNumber">submit</button>
+                <button class="btn neutral-btn" @click="validatePhoneNumber">Resend code</button>
+            </div>
         </div>
-        <PhoneNumber v-model="myValue"/>
-      <button class="btn primary-btn" @click="validatePhoneNumber">continue</button>
     </div>
   </div>
 </template>
@@ -40,13 +52,17 @@ import "animate.css";
 export default {
   data() {
     return {
-      myValue: ''
+      myValue: '',
+      myOTP: '',
+      showOtp: false,
     }
   },
   methods: {
     validatePhoneNumber() {
-      if (this.myValue.startsWith('0') && this.myValue.length === 11) {
+    //   if (this.myValue.startsWith('0') && this.myValue.length === 11) {
+      if (/^0\d{10}$/.test(this.myValue)) {
         console.log('Valid phone number');
+        this.showOtp = true;
       } else {
         console.log('Invalid phone number');
       }
@@ -56,6 +72,9 @@ export default {
 </script>
 
 <style scoped>
+.animate__animated.animate__slideInUp {
+  --animate-duration: .5s;
+}
 .addNumberFunc {
   background: var(--white);
   height: 100vh;
@@ -172,5 +191,15 @@ line-height: 24px;
 /* Grey/Grey2 */
 
 color: var(--grey-gre2);
+}
+
+.btn-group,
+.btn-group2 {
+    width: 100%;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
 }
 </style>
