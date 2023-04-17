@@ -208,6 +208,16 @@
   color: var(--grey-grey3);
 }
 
+@media (max-width: 374px) {
+  .mobile-nav-bar {
+    /* padding: 0; */
+    gap: 0;
+  }
+  .mobile-nav-content {
+    padding: 0;
+    justify-content: center;
+  }
+}
 
 
 

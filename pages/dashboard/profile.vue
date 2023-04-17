@@ -15,9 +15,10 @@
         <accountDetails v-if="activetab"></accountDetails>
         <addressDetails v-if="!activetab"></addressDetails>
       </div>
-      <mobileUserProfile v-if="mobile"></mobileUserProfile>
+      <mobileUserProfile @openMail="toggleIsVerifyMail" v-if="mobile"></mobileUserProfile>
       <button class="btn">Log out</button>
     </div>
+    <verifyMail v-if="isVerifyMail" @close="toggleIsVerifyMail" />
   </div>
 </template>
 
@@ -30,6 +31,7 @@ export default {
       pageTitle: "IPC | Profile",
       activetab: true,
       mobile: false,
+      isVerifyMail : false,
     };
   },
   head() {
@@ -52,6 +54,9 @@ export default {
         this.mobile = false;
       };
     },
+    toggleIsVerifyMail() {
+      this.isVerifyMail = !this.isVerifyMail
+    }
   }
 };
 </script>

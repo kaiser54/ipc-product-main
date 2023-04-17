@@ -42,7 +42,7 @@
         />
       </svg>
     </div>
-    <div class="user__details__head__address udhs">
+    <div class="user__details__head__address udhs" @click="$emit('openMail')">
       <div class="udh__svg__group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
