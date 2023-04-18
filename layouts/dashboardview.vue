@@ -98,7 +98,7 @@ export default {
       this.logout = false;
     },
     checkScreenSize() {
-      if (window.innerWidth <= 950) {
+      if (window.innerWidth <= 951) {
         this.mobile = true;
       } else {
         this.mobile = false;

@@ -29,6 +29,7 @@ export default {
     flex-direction: column;
     padding: 0px;
     gap: 32px;
+    width: 100%;
 }
 
 .addressDetails-head {

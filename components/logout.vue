@@ -31,7 +31,7 @@
           </div>
           <div class="button-grp">
             <button @click="$emit('closeLogout')" class="btn neutral-btn">Cancel</button>
-            <nuxt-link :to="{ name: 'index' }"><button class="btn negative-btn">Log Out</button></nuxt-link>
+            <nuxt-link :to="{ name: 'index' }"><button class="btn negative-btn">Log Out</button></nuxt-link>  
           </div>
         </div>
       </div>

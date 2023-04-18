@@ -213,6 +213,12 @@ h3 {
   line-height: 30px;
 }
 
+button {
+  outline: 0;
+  border: 0;
+  background: none;
+}
+
 .btn {
   display: flex;
   flex-direction: row;

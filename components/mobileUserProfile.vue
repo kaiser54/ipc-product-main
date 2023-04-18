@@ -6,7 +6,7 @@
       <div class="user__details__head">
         <p>ACCOUNT</p>
       </div>
-      <userdetailsMobileview @openMail="$emit('openMail')"/>
+      <userdetailsMobileview @openMail="$emit('openMail')" @changePassword="$emit('changePassword')"/> 
     </div>
     <div class="user__details">
       <div class="user__details__head">
