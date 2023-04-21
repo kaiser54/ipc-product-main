@@ -1,5 +1,6 @@
 <template>
   <div>
+    <cart @openCart="toggleCart" v-if="isCart"/>
     <div v-if="loading && mobile">
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
@@ -28,11 +29,11 @@
             <div class="ipc-top-fixed">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <topDetails />
+                <topDetails @openCart="toggleCart"/> 
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <mobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc"/>
+                <mobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc" @openCart="toggleCart"/>
               </section>
             </div>
             <div class="view-wrapper">
@@ -66,6 +67,7 @@ export default {
       mobile: false,
       loading: false,
       logout: false,
+      isCart: false,
     };
   },
   mounted() {
@@ -82,6 +84,10 @@ export default {
     }
   },
   methods: {
+    toggleCart() {
+      this.isCart = !this.isCart;
+      console.log("cart clicked")
+    },
     updateShowPopup(value) {
       this.showPopup = value;
     },

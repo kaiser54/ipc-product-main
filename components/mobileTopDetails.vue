@@ -64,7 +64,7 @@
           </div>
         </div>
 
-        <div class="cart">
+        <div class="cart" @click="triggerCart">
           <div class="circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@
         type=""
         name=""
         id=""
-        placeholder="Search for products"
+        placeholder="Search for products" 
       />
     </div>
   </section>
@@ -139,6 +139,9 @@ export default {
     redirectToSearchPage() {
       this.$emit("redirectToSearchPage");
     },
+    triggerCart() {
+    this.$emit('openCart')
+  }
   },
   created() {
     const currentRoute = this.$route.path;

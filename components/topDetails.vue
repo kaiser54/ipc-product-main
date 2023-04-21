@@ -99,7 +99,7 @@
           </div>
         </nuxt-link>
 
-        <div class="cart">
+        <div class="cart" @click="triggerCart">
           <div class="circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,12 @@
 
 <script>
     export default {
-        
+      methods: {
+  triggerCart() {
+    this.$emit('openCart')
+  }
+}
+
     }
 </script>
 
