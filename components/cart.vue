@@ -26,7 +26,7 @@
               <p class="price">₦20,000</p>
             </div>
           </div>
-          <button class="btn primary-btn">Checkout</button>
+          <button class="btn primary-btn" @click="checkout">Checkout</button>
         </div>
       </div>
     </div>
@@ -40,6 +40,13 @@ export default {
     triggerCart() {
       this.$emit("openCart");
     },
+    checkout() {
+      this.triggerCart()
+      this.gotoCart()
+    },
+    gotoCart() {
+      this.$router.push('/dashboard/market/cart')
+    }
   },
 };
 </script>
@@ -206,5 +213,8 @@ p.price {
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
+}
+a {
+  width: 100%;
 }
 </style>

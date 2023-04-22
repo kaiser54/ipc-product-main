@@ -88,21 +88,54 @@ svg {
 ::-webkit-scrollbar {
   /* display: none; */
   /* display: block !important; */
-  width: 3px; /* Set width of the scrollbar */
+  width: 8px !important; /* Set width of the scrollbar */
 }
 
 /* Style the scrollbar track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Set background color of the scrollbar track */
+  background: #e1e1e1; /* Set background color of the scrollbar track */
 }
 
 /* Style the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
   background: #888; /* Set background color of the scrollbar thumb */
-  border-radius: 5px; /* Set border radius of the scrollbar thumb */
+  border-radius: 20px; /* Set border radius of the scrollbar thumb */
 }
 
 /* Style the scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Set background color of the scrollbar thumb on hover */
+  background: #303030; /* Set background color of the scrollbar thumb on hover */
 }
+
+
+
+/* ::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F7F7F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #B2B2B2;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9B9B9B;
+} */
+
+/* ::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c9c9c9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+} */

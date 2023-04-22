@@ -123,7 +123,7 @@
         type=""
         name=""
         id=""
-        placeholder="Search for products" 
+        placeholder="Search for products"
       />
     </div>
   </section>
@@ -140,8 +140,8 @@ export default {
       this.$emit("redirectToSearchPage");
     },
     triggerCart() {
-    this.$emit('openCart')
-  }
+      this.$emit("openCart");
+    },
   },
   created() {
     const currentRoute = this.$route.path;

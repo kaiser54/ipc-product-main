@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cart @openCart="toggleCart" v-if="isCart"/>
+    <cart @openCart="toggleCart" v-if="isCart && !mobile"/>
     <div v-if="loading && mobile">
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />

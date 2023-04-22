@@ -627,7 +627,7 @@ a.desktop-nav:visited {
   gap: 10px;
 
   width: 100%;
-  height: 76px;
+  /* height: 76px; */
 }
 
 .view-page {
