@@ -2,21 +2,44 @@
   <div>
     <div class="product-detail-con">
       <goback />
-      <productCarousel />
-      <div class="product-details-wrapper">
+      <div class="mobile-product-details" v-if="mobile">
+        <productCarousel />
+        <div class="product-content">
+          <div class="product-details-title">
+            <h3 class="h3-small-medium">
+              Mama'S Choice Nigerian Parboiled Rice 25kg
+            </h3>
+            <p class="product-details-brand">
+              Brand: <span>Mama’s Choice</span>
+            </p>
+          </div>
+          <div class="product-details-price-grp">
+            <h3 class="h3-bold">₦ 75,000</h3>
+            <tags />
+          </div>
+          <p class="product-details-snippet">
+            Mama's Pride Rice is not only delicious, but also incredibly simple to prepare. This brand of high-quality
+            rice boasts both indigenous and international flavors.
+          </p>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="product-details-wrapper" v-else>
         <div class="product-details-main">
           <div class="product-img-thumb">
             <div class="product-img">
-              <img :src="require(`~/assets/images/${product.images[productImage]}`)" />
+              <img :src="require(`~/assets/images/${product.images[productImage]}`)
+                " />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
             <div class="product-thumb">
               <div class="thumb" v-for="(image, index) in product.images" :key="index">
-                <img
-                  :src="require(`~/assets/images/${image}`)"
-                  alt=""
-                  @click="changeImage(index)"
-                />
+                <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" />
               </div>
             </div>
           </div>
@@ -26,31 +49,23 @@
                 <h3 class="h3-small-medium">
                   Mama'S Choice Nigerian Parboiled Rice 25kg
                 </h3>
-                <p class="product-details-brand">Brand: <span>Mama’s Choice</span></p>
+                <p class="product-details-brand">
+                  Brand: <span>Mama’s Choice</span>
+                </p>
               </div>
               <div class="circle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
             </div>
             <p class="product-details-snippet">
-              Mama's Pride Rice tastes so good and it is very easy to cook. This indigenous international quality rice brands cooks
+              Mama's Pride Rice tastes so good and it is very easy to cook. This
+              indigenous international quality rice brands cooks
             </p>
             <div class="product-details-price-grp">
-              <p class="product-details-price">₦ 75,000</p>
               <h3 class="h3-bold">₦ 75,000</h3>
               <tags />
             </div>
@@ -65,8 +80,8 @@
 </template>
 
 <script>
-import guarantee from '~/components/guarantee.vue';
-import RelatedProduuct from '~/components/relatedProduuct.vue';
+import guarantee from "~/components/guarantee.vue";
+import RelatedProduuct from "~/components/relatedProduuct.vue";
 export default {
   components: { guarantee, RelatedProduuct },
   layout: "dashboardview",
@@ -74,6 +89,7 @@ export default {
   data() {
     return {
       pageTitle: "IPC | Market",
+      mobile: false,
       product: {
         id: 1,
         name: "Product Name",
@@ -96,7 +112,21 @@ export default {
       title: this.pageTitle,
     };
   },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
+  },
   methods: {
+    checkScreenSize() {
+      if (window.innerWidth <= 951) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    },
     changeImage(index) {
       this.productImage = index;
     },
@@ -114,14 +144,31 @@ export default {
   flex-direction: column;
   gap: 32px;
 }
+
+.mobile-product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.product-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+}
+
 .product-details-wrapper {
   display: flex;
-  display: none !important;
+  /* display: none !important; */
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 124px;
 }
+
 .product-details-main {
   display: flex;
   flex-direction: row;
@@ -129,6 +176,7 @@ export default {
   padding: 0px;
   gap: 51px;
 }
+
 .product-img-thumb {
   display: flex;
   flex-direction: column;
@@ -139,19 +187,22 @@ export default {
   width: 100%;
   max-width: 272px;
 }
+
 .product-img {
   width: 266.67px;
-height: 300px;
+  height: 300px;
 
   /* Grey/Grey6 */
 
   background: #f4f5f8;
   border-radius: 8px;
 }
+
 .product-img img {
   object-fit: contain;
   height: inherit;
 }
+
 .product-thumb {
   display: flex;
   flex-direction: row;
@@ -162,6 +213,7 @@ height: 300px;
   width: 272px;
   height: 48px;
 }
+
 .thumb {
   display: flex;
   align-items: center;
@@ -176,9 +228,11 @@ height: 300px;
   border: 1px solid var(--grey-grey5);
   border-radius: 8px;
 }
+
 .thumb img {
   height: 90%;
 }
+
 .product-details-content {
   display: flex;
   flex-direction: column;
@@ -187,6 +241,7 @@ height: 300px;
   gap: 16px;
   max-width: 359.55px;
 }
+
 .product-details-title-like {
   display: flex;
   flex-direction: row;
@@ -196,9 +251,10 @@ height: 300px;
 
   width: 100%;
   max-width: 359.55px;
-  
+
   position: relative;
 }
+
 .product-details-title {
   display: flex;
   flex-direction: column;
@@ -209,9 +265,11 @@ height: 300px;
   width: 100%;
   max-width: 255.55px;
 }
+
 .product-details-title h3 {
   color: var(--grey-grey1);
 }
+
 .product-details-brand {
   font-weight: 400;
   font-size: 14px;
@@ -222,9 +280,11 @@ height: 300px;
 
   color: var(--grey-grey1);
 }
+
 .product-details-brand span {
   color: var(--primary-p300);
 }
+
 .circle {
   /* position: absolute; */
   top: 0;
@@ -244,37 +304,40 @@ height: 300px;
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
 }
+
 p.product-details-snippet {
   font-weight: 400;
-font-size: 14px;
-line-height: 21px;
-/* or 150% */
+  font-size: 14px;
+  line-height: 21px;
+  /* or 150% */
 
+  /* Grey/Grey3 */
 
-/* Grey/Grey3 */
-
-color: var(--grey-grey3);
+  color: var(--grey-grey3);
 }
+
 .product-details-price-grp {
   display: flex;
-flex-direction: row;
-align-items: center;
-padding: 0px;
-gap: 8px;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
 }
 </style>
 
 <style>
-
 .nuxt-link-active .desktop-nav {
   background: var(--primary-p300);
 }
+
 .nuxt-link-active .desktop-nav p {
   color: #fff;
 }
+
 .nuxt-link-active .desktop-nav svg {
   stroke: #fff;
 }
+
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
 }

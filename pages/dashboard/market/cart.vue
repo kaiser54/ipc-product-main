@@ -1,12 +1,12 @@
 <template>
   <div class="cart-view">
-    <div class="title-header">
+    <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
         <goback />
         <h2 class="h2-medium">Shopping bag</h2>
       </div>
     </div>
-    <div class="listed-cart">
+    <div class="listed-cart" v-if="!mobile">
       <div class="listed-cart-product">
         <cartList />
       </div>
@@ -37,12 +37,28 @@ export default {
   data() {
     return {
       pageTitle: "IPC | cart",
+      mobile: false,
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
+  },
+  methods: {
+    checkScreenSize() {
+      if (window.innerWidth <= 950) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    },
   },
 };
 </script>

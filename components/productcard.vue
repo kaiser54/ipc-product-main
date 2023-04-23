@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  width: 100%;
+}
 .product-top-wrap {
   display: flex;
     flex-wrap: wrap;
@@ -302,7 +305,8 @@ button p {
 @media (max-width: 950px) {
   .product-card {
     width: 167px;
-    height: 243px;
+    height: 287px;
+    justify-content: space-between;
   }
   .product-img-grp img {
     max-width: 100px;

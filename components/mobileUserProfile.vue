@@ -12,7 +12,7 @@
       <div class="user__details__head">
         <p>ABOUT IPC</p>
       </div>
-      <FAQmobileview />
+      <FAQmobileview /> 
     </div>
   </div>
 </template>

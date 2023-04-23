@@ -186,7 +186,7 @@ export default {
   .profile {
     margin-top: -43px;
     gap: 32px;
-    margin-bottom: 100px;
+    margin-bottom: 100px; 
   }
 }
 </style>

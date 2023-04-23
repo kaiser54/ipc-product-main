@@ -5,7 +5,7 @@
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
     </div>
-    <div class="dashboard-wrapper" v-else>
+    <div class="dashboard-wrapper" v-else> 
       <section class="section-wrapper">
         <div class="ipc-nav">
           <div class="fixed" v-if="!mobile">
@@ -86,6 +86,9 @@ export default {
   methods: {
     toggleCart() {
       this.isCart = !this.isCart;
+      if (this.mobile) {
+        this.$router.push("/dashboard/market/cart");
+      }
       console.log("cart clicked")
     },
     updateShowPopup(value) {
