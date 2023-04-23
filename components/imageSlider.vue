@@ -1,4 +1,4 @@
-<template>
+"<template>
     <div class="carousel-container">
         <div class="carousel-wrapper" ref="carousel">
             <div class="carousel-slide" v-for="(image, index) in images" :key="index">
@@ -59,14 +59,23 @@ export default {
 }
 
 .carousel-slide {
-    width: 100%;
+    display: flex;
+    width: calc(100% - 16px);
+    margin-right: 16px;
     flex-shrink: 0;
+    height: 233px;
+    background: var(--white);
+    border: 1px solid var(--grey-grey5);
+    border-radius: 16px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .carousel-slide img {
+    margin-inline: auto;
+    max-width: 150px;
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 </style>
-  

@@ -1,16 +1,22 @@
 <template>
-  <div class="cart-list">
-    <div class="cart-list-con">
+  <div class="div">
+    <div
+      v-for="(product, index) in products"
+      :key="index"
+      class="cart-list-con"
+    >
       <div class="cart-wrap">
         <div class="cart-product">
           <div class="image">
-            <img src="../assets/images/p1.png" alt="" />
+            <!-- <img :src="product.image" alt="" /> -->
+        <img :src="require(`~/assets/images/${product.image}`)" />
+
           </div>
         </div>
         <div class="cart-product-details">
           <div class="name-price">
-            <p class="name">Mama'S Choice Nigerian Parboiled Rice 25kg</p>
-            <p class="price">₦ 75,000</p>
+            <p class="name">{{ product.name }}</p>
+            <p class="price">₦ {{ product.price }}</p>
           </div>
           <div class="button-group">
             <div class="delete-tag">
@@ -31,7 +37,9 @@
                   />
                 </svg>
               </div>
-              <div class="stock-tag in-stock">In stock</div>
+              <div class="stock-tag" :class="{ 'in-stock': product.inStock }">
+                {{ product.inStock ? "In stock" : "Out of stock" }}
+              </div>
             </div>
             <div class="quantity">
               <div class="circle">
@@ -51,7 +59,7 @@
                   />
                 </svg>
               </div>
-              <div class="counter">2</div>
+              <div class="counter">{{ product.quantity }}</div>
               <div class="circle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,14 +83,14 @@
         <div class="divider-"></div>
       </div>
     </div>
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
 
     <div class="cart-list-con">
       <div class="cart-wrap">
@@ -1373,11 +1381,50 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      products: [
+        {
+          id: 1,
+          name: "Mama'S Choice Nigerian Parboiled Rice 25kg",
+          price: 75000,
+          image: "p1.png",
+          quantity: 2,
+          inStock: true,
+        },
+        {
+          id: 2,
+          name: "Product 2",
+          price: 1000,
+          image: "p2.png",
+          quantity: 1,
+          inStock: false,
+        },
+        {
+          id: 3,
+          name: "Product 3",
+          price: 2000,
+          image: "p3.png",
+          quantity: 3,
+          inStock: true,
+        },
+        {
+          id: 4,
+          name: "Product 4",
+          price: 15000,
+          image: "p4.png",
+          quantity: 3,
+          inStock: true,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style scoped>
-.cart-list {
+.div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1385,8 +1432,6 @@ export default {};
   gap: 24px;
 
   width: 100%;
-  height: calc(100vh - 100px - 193px);
-  overflow-y: scroll;
 }
 
 .cart-list-con {
@@ -1396,7 +1441,8 @@ export default {};
   padding: 0px;
   padding-bottom: 32px;
 
-  width: 441px;
+  /* width: 441px; */
+  width: 100%;
   height: 122px;
   border-bottom: 1px solid var(--grey-grey5);
 }
@@ -1409,7 +1455,7 @@ export default {};
   gap: 16px;
 
   max-width: 399px;
-  width: 100%;
+  /* width: 100%; */
   /* height: 90px; */
 }
 
@@ -1419,6 +1465,7 @@ export default {};
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
+  width: 100%;
 }
 
 .image {
@@ -1443,7 +1490,7 @@ export default {};
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
-
+  width: 100%;
   /* width: 327px;
 height: 90px; */
 }
@@ -1452,10 +1499,13 @@ height: 90px; */
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 0px;
-  gap: 16px;
+  /* gap: 16px; */
+  gap: 33px;
 
-  width: 327px;
+  /* width: 327px; */
+  width: 100%;
   height: 42px;
 }
 
@@ -1515,13 +1565,13 @@ p.price {
   gap: 16px;
 }
 
-.divider- {
+/* .divider- {
   width: 100%;
   max-width: 441px;
   height: 0px;
 
-  /* Grey/Grey5 */
+
 
   border-bottom: 1px solid var(--grey-grey5);
-}
+} */
 </style>

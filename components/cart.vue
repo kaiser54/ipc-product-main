@@ -12,7 +12,9 @@
             <h3 class="h3-medium">Shopping bag</h3>
           </div>
         </header>
-        <cartList />
+        <div class="cart-list">
+          <cartList />
+        </div>
         <div class="checkout-container">
           <div class="checkout-details">
             <div class="checkout-title">
@@ -135,6 +137,17 @@ header {
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
+}
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+
+  width: 100%;
+  height: calc(100vh - 100px - 193px);
+  overflow-y: scroll;
 }
 
 .checkout-container {

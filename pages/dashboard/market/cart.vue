@@ -1,93 +1,96 @@
 <template>
-    <div class="cart-view">
-        <div class="title-header">
-            <div class="page-head-content">
-                <goback />
-                <h2 class="h2-medium">Shopping bag</h2>
-            </div>
-        </div>
-        <div class="listed-cart">
-        <div class="listed-cart-product"></div>
-        <div class="checkout-container">
-            <div class="checkout-header">
-                <p>Cart summary</p>
-            </div>
-          <div class="checkout-details">
-            <div class="checkout-title">
-              <p>Orders</p>
-              <div class="item-list-tag">
-                7 items
-              </div>
-            </div>
-            <div class="total-price checkout-title">
-              <p class="total">Subtotal</p>
-              <p class="price">₦20,000</p>
-            </div>
-          </div>
-          <button class="btn primary-btn">Checkout</button>
-        </div>
-        </div>
+  <div class="cart-view">
+    <div class="title-header">
+      <div class="page-head-content">
+        <goback />
+        <h2 class="h2-medium">Shopping bag</h2>
+      </div>
     </div>
+    <div class="listed-cart">
+      <div class="listed-cart-product">
+        <cartList />
+      </div>
+      <div class="checkout-container">
+        <div class="checkout-header">
+          <p>Cart summary</p>
+        </div>
+        <div class="checkout-details">
+          <div class="checkout-title">
+            <p>Orders</p>
+            <div class="item-list-tag">7 items</div>
+          </div>
+          <div class="total-price checkout-title">
+            <p class="total">Subtotal</p>
+            <p class="price">₦20,000</p>
+          </div>
+        </div>
+        <button class="btn primary-btn">Checkout</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    layout: "dashboardview",
-    // Other component properties and methods
-    data() {
-        return {
-            pageTitle: "IPC | cart",
-        };
-    },
-    head() {
-        return {
-            title: this.pageTitle,
-        };
-    },
+  layout: "dashboardview",
+  // Other component properties and methods
+  data() {
+    return {
+      pageTitle: "IPC | cart",
+    };
+  },
+  head() {
+    return {
+      title: this.pageTitle,
+    };
+  },
 };
 </script>
 
-
 <style scoped>
 .cart-view {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
+
 .page-head-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
 }
+
 .page-head-content h2 {
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 44px;
-    letter-spacing: -1px;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 44px;
+  letter-spacing: -1px;
 
-    /* Grey/Grey1 */
+  /* Grey/Grey1 */
 
-    color: var(--grey-grey1);
+  color: var(--grey-grey1);
 }
+
 .listed-cart {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    max-width: calc(100vw - 278px - 63px);
+    position: relative;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: calc(100vw - 278px - 63px);
 }
-.listed-cart-product {
-    display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 0px;
-gap: 34px;
 
-width: 681px;
-height: 726px;
+.listed-cart-product {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 34px;
+  width: 100%;
+  max-width: 681px;
 }
 
 .checkout-container {
@@ -98,7 +101,7 @@ height: 726px;
   gap: 24px;
 
   width: 100%;
-  max-width: 287px;;
+  max-width: 287px;
   height: fit-content;
 
   /* White */
@@ -111,30 +114,34 @@ height: 726px;
 
   position: sticky;
   top: 16px;
+  /* top: calc(100vh - 16px - 44px - 726px - 24px); */
 }
+
 .checkout-header {
-    display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 16px;
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
 
-/* Grey/Grey5 */
+  /* Grey/Grey5 */
 
-border-bottom: 1px solid var(--grey-grey5);
+  border-bottom: 1px solid var(--grey-grey5);
 }
+
 .checkout-header p {
-    font-weight: 500;
-font-size: 16px;
-line-height: 24px;
-/* identical to box height, or 150% */
-padding: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+  padding: 16px;
 
-/* Grey/Grey1 */
+  /* Grey/Grey1 */
 
-color: var(--grey-grey1);
+  color: var(--grey-grey1);
 }
+
 .checkout-details {
   display: flex;
   flex-direction: column;
@@ -144,7 +151,6 @@ color: var(--grey-grey1);
 
   width: 100%;
   /* height: 56px; */
-
 }
 
 .checkout-title {
@@ -165,7 +171,6 @@ color: var(--grey-grey1);
   line-height: 21px;
   /* identical to box height, or 150% */
 
-
   /* Grey/Grey2 */
 
   color: var(--grey-grey2);
@@ -176,7 +181,6 @@ p.total {
   font-size: 14px;
   line-height: 21px;
   /* identical to box height, or 150% */
-
 
   /* Grey/Grey2 */
 
@@ -195,21 +199,20 @@ p.price {
 }
 </style>
 
-
 <style>
 .nuxt-link-active .desktop-nav {
-    background: var(--primary-p300);
+  background: var(--primary-p300);
 }
 
 .nuxt-link-active .desktop-nav p {
-    color: #fff;
+  color: #fff;
 }
 
 .nuxt-link-active .desktop-nav svg {
-    stroke: #fff;
+  stroke: #fff;
 }
 
 .nuxt-link-active .desktop-nav .nav-content svg path {
-    stroke: #fff !important;
+  stroke: #fff !important;
 }
 </style>

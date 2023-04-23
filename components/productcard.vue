@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="product-card">
+  <div class="product-top-wrap">
+    <div v-for="(product, index) in products" :key="index" class="product-card">
       <div class="product-img-grp">
         <div class="circle">
           <svg
@@ -19,17 +19,22 @@
             />
           </svg>
         </div>
-        <img src="../assets/images/p1.png" alt="" />
+        <!-- <img :src="product.image" alt="" /> -->
+        <img :src="require(`~/assets/images/${product.image}`)" />
       </div>
       <div class="productcard-details">
         <div class="productcard-name">
-          <p>Mama'S Choice Nigerian Parboiled Rice 25kg</p>
+          <p>{{ product.name }}</p>
         </div>
         <div class="productcard-price">
-          <p>₦ 75,000</p>
+          <p>₦ {{ product.price }}</p>
         </div>
       </div>
-      <button class="btn secondary-btn-small">
+      <button
+        class="btn secondary-btn-small"
+        @click="addToCart(index)"
+        v-if="!product.addedToCart"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="17"
@@ -47,22 +52,132 @@
         </svg>
         <p>Add to cart</p>
       </button>
+      <div v-else class="counter-btn">
+        <button
+          @click="decrementCount(index)"
+          :disabled="product.itemCount < 2"
+          class="circle btn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M3.33325 8H12.6666"
+              stroke="#0009B3"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+        <div class="counter">{{ product.itemCount }}</div>
+        <button @click="incrementCount(index)" class="circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+              stroke="#0009B3"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      products: [
+        {
+          name: "Mama'S Choice Nigerian Parboiled Rice 25kg",
+          price: 75000,
+          image: "p1.png",
+          addedToCart: false,
+          itemCount: 1,
+        },
+        {
+          name: "Product 2",
+          price: 2000,
+          image: "p2.png",
+          addedToCart: false,
+          itemCount: 1,
+        },
+        {
+          name: "Product 3",
+          price: 5000,
+          image: "p3.png",
+          addedToCart: false,
+          itemCount: 1,
+        },
+        {
+          name: "Product 4",
+          price: 5000,
+          image: "p4.png",
+          addedToCart: false,
+          itemCount: 1,
+        },
+      ],
+    };
+  },
+  methods: {
+    addToCart(index) {
+      // Reset all other products to their original state
+      this.products.forEach((product) => {
+        product.addedToCart = false;
+      });
+
+      // Add the selected product to the cart
+      this.products[index].addedToCart = true;
+    },
+    incrementCount(index) {
+      this.products[index].itemCount++;
+    },
+    decrementCount(index) {
+      this.products[index].itemCount--;
+    },
+  },
+};
 </script>
 
 <style scoped>
+.product-top-wrap {
+  display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-between;
+}
+@media (max-width: 950px) {
+  .product-top-wrap {
+    padding: 0;
+    gap: 8px;
+  }
+}
 .product-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 12px;
   gap: 8px;
-
+  width: 100%;
   max-width: 230px;
   height: 309px;
 
@@ -153,28 +268,60 @@ button p {
 
   color: var(--primary-p300);
 }
-
-@media (max-width: 950px) {
-.product-card {
-  width: 167px;
-  height: 243px;
-}
-.product-img-grp img {
-  max-width: 100px;
+.counter-btn {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
   width: 100%;
 }
-.productcard-details {
-  max-width: 141px;
+.counter-btn .circle {
+  position: relative;
+  /* Primary/P75 */
+
+  border: 1px solid var(--primary-p75);
+  width: 40px;
+  height: 40px;
 }
-.productcard-name p{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 140px;
+.counter {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
 }
-button svg {
-  display: none;
-}
+
+@media (max-width: 950px) {
+  .product-card {
+    width: 167px;
+    height: 243px;
+  }
+  .product-img-grp img {
+    max-width: 100px;
+    width: 100%;
+  }
+  .productcard-details {
+    max-width: 141px;
+    width: 100%;
+  }
+  .productcard-name p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+  }
+  button svg {
+    display: none;
+  }
+  .counter-btn svg {
+    display: block;
+  }
 }
 </style>
 relative

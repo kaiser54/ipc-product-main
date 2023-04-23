@@ -2,6 +2,7 @@
   <div>
     <div class="product-detail-con">
       <goback />
+      <productCarousel />
       <div class="product-details-wrapper">
         <div class="product-details-main">
           <div class="product-img-thumb">
@@ -49,7 +50,7 @@
               Mama's Pride Rice tastes so good and it is very easy to cook. This indigenous international quality rice brands cooks
             </p>
             <div class="product-details-price-grp">
-              <!-- <p class="product-details-price">₦ 75,000</p> -->
+              <p class="product-details-price">₦ 75,000</p>
               <h3 class="h3-bold">₦ 75,000</h3>
               <tags />
             </div>
@@ -115,6 +116,7 @@ export default {
 }
 .product-details-wrapper {
   display: flex;
+  display: none !important;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;

@@ -55,15 +55,25 @@ export default {
 
 .carousel-wrapper {
     display: flex;
+    /* gap: 16px; */
     transition: all 1s ease-in-out;
 }
 
 .carousel-slide {
+    display: flex;
     width: 100%;
     flex-shrink: 0;
+    height: 233px;
+    background: var(--white);
+    border: 1px solid var(--grey-grey5);
+    border-radius: 16px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .carousel-slide img {
+    margin-inline: auto;
+    max-width: 150px;
     width: 100%;
     height: auto;
     object-fit: cover;
