@@ -1,6 +1,7 @@
 <template>
   <div class="product-top-wrap">
     <div v-for="(product, index) in products" :key="index" class="product-card">
+      <nuxt-link :to="`/dashboard/market/${product.name}`">
       <div class="product-img-grp">
         <div class="circle">
           <svg
@@ -30,6 +31,7 @@
           <p>₦ {{ product.price }}</p>
         </div>
       </div>
+      </nuxt-link>
       <button
         class="btn secondary-btn-small"
         @click="addToCart(index)"
