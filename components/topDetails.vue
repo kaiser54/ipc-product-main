@@ -67,7 +67,7 @@
         />
       </div>
       <div class="notify-cart">
-        <nuxt-link to="/dashboard/notifications">
+        <nuxt-link to="/dashboard/market/notifications">
           <div class="notification">
             <div class="circle">
               <svg
