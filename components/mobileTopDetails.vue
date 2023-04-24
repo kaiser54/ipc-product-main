@@ -1,6 +1,6 @@
 <template>
   <section class="mobile-top-details">
-    <div class="welcome-cart" v-if="!isCartPage">
+    <div class="welcome-cart" v-if="!isCartPage && !isNotificationPage">
       <div class="username-welcome">
         <div class="welcome">
           <p>Hello,</p>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-search search-input" @click="redirectToSearchPage" v-if="!isCartPage">
+    <div class="mobile-search search-input" @click="redirectToSearchPage" v-if="!isCartPage && !isNotificationPage">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <g clip-path="url(#clip0_2006_2516)">
           <path
@@ -62,14 +62,14 @@
       </svg>
       <input class="input-search" type="" name="" id="" placeholder="Search for products" />
     </div>
-    <div class="cart-page-header" v-if="isCartPage">
+    <div class="cart-page-header" v-if="isCartPage || isNotificationPage">
       <svg @click="goBack" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
         <path d="M3 12.5L10 19.5M21 12.5H3H21ZM3 12.5L10 5.5L3 12.5Z" stroke="#565C69" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round" />
       </svg>
-      <p>Shopping</p>
+      <p>{{ header }}</p>
       <nuxt-link to="/dashboard/search">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none" v-if="!isNotificationPage">
           <path
             d="M17 17.5L22 22.5L17 17.5ZM19.5 11.25C19.5 16.0825 15.5825 20 10.75 20C5.91751 20 2 16.0825 2 11.25C2 6.41751 5.91751 2.5 10.75 2.5C15.5825 2.5 19.5 6.41751 19.5 11.25Z"
             stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -86,6 +86,8 @@ export default {
     return {
       isProfilePage: false,
       isCartPage: false,
+      isNotificationPage: false,
+      header: '',
     };
   },
   methods: {
@@ -102,20 +104,34 @@ export default {
   created() {
     const currentRoute = this.$route.path;
     if (currentRoute === "/dashboard/profile") {
-      this.isProfilePage = true;
+      this.isProfilePage = true; 
     } else if (currentRoute === "/dashboard/market/cart") {
-      this.isCartPage = true;
+      this.isCartPage = true
+      this.header = 'Shopping';
+    }
+     else if (currentRoute === "/dashboard/market/notifications") {
+      this.isNotificationPage = true;
+      this.header = 'Notifications';
     }
     this.$router.afterEach((to, from) => {
       if (to.path === "/dashboard/profile") {
         this.isProfilePage = true;
         this.isCartPage = false;
+        this.isNotificationPage = false;
       } else if (to.path === "/dashboard/market/cart") {
+        this.header = 'Shopping';
         this.isCartPage = true;
+        this.isProfilePage = false;
+        this.isNotificationPage = false;
+      } else if (to.path === "/dashboard/market/notifications") {
+        this.header = 'Notifications';
+        this.isNotificationPage = true;
+        this.isCartPage = false;
         this.isProfilePage = false;
       } else {
         this.isProfilePage = false;
         this.isCartPage = false;
+        this.isNotificationPage = false;
       }
     });
   },
@@ -124,13 +140,22 @@ export default {
     if (currentRoute === "/dashboard/profile") {
       this.isProfilePage = true;
     } else if (currentRoute === "/dashboard/market/cart") {
+      this.header = 'Shopping';
       this.isCartPage = true;
+    } else if (currentRoute === "/dashboard/market/notifications") {
+      this.header = 'Notifications';
+      this.isNotificationPage = true;
     }
     if (this.isProfilePage) {
       this.$el.classList.add("profile-page");
     }
     if (this.isCartPage) {
       this.$el.classList.add("cart-page");
+      this.header = 'Shopping';
+    }
+    if (this.isNotificationPage) {
+      this.$el.classList.add("notifications-page");
+      this.header = 'Notifications';
     }
   },
   watch: {
@@ -138,6 +163,7 @@ export default {
       if (newVal) {
         this.$el.classList.add("profile-page");
         this.$el.classList.remove("cart-page"); // remove cart-page class if isProfilePage is true
+        this.$el.classList.remove("notifications-page"); // remove cart-page class if isProfilePage is true
       } else {
         this.$el.classList.remove("profile-page");
       }
@@ -146,8 +172,18 @@ export default {
       if (newVal) {
         this.$el.classList.add("cart-page");
         this.$el.classList.remove("profile-page"); // remove profile-page class if isCartPage is true
+        this.$el.classList.remove("notifications-page"); // remove profile-page class if isCartPage is true
       } else {
         this.$el.classList.remove("cart-page");
+      }
+    },
+    isNotificationPage(newVal, oldVal) {
+      if (newVal) {
+        this.$el.classList.add("notifications-page");
+        this.$el.classList.remove("profile-page"); // remove profile-page class if isCartPage is true
+        this.$el.classList.remove("cart-page"); // remove profile-page class if isCartPage is true
+      } else {
+        this.$el.classList.remove("notifications-page");
       }
     },
   },
@@ -208,7 +244,8 @@ export default {
     width: auto !important;
   }
 
-  section.cart-page {
+  section.cart-page,
+  section.notifications-page {
     flex-direction: row;
     justify-content: space-between;
 
@@ -216,11 +253,13 @@ export default {
   }
 
   .cart-page .welcome-cart,
+  .notifications-page .welcome-cart,
   .cart-page .mobile-search {
     display: none;
   }
 
-  .cart-page .cart-page-header {
+  .cart-page .cart-page-header,
+  .notifications-page .cart-page-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -229,7 +268,8 @@ export default {
     width: 100%;
   }
 
-  .cart-page .cart-page-header p {
+  .cart-page .cart-page-header p,
+  .notifications-page .cart-page-header p {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -240,6 +280,9 @@ export default {
     /* Grey/Grey1 */
 
     color: var(--grey-grey1);
+  }
+  .notifications-page .search-page {
+    display: none;
   }
 }
 

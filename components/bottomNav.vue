@@ -1,6 +1,6 @@
 <template>
   <div class="root-nav">
-    <div class="mobile-nav-bar" v-if="!isCartPage">
+    <div class="mobile-nav-bar" v-if="!isCartPage && !isNotificationPage">
       <nuxt-link to="/dashboard/market">
         <div class="mobile-nav">
           <div class="mobile-nav-content">
@@ -81,6 +81,7 @@ export default {
   data() {
     return {
       isCartPage: false,
+      isNotificationPage: false,
     };
   },
   methods: {},
@@ -89,11 +90,21 @@ export default {
     if (currentRoute === "/dashboard/market/cart") {
       this.isCartPage = true;
     }
+    else if (currentRoute === "/dashboard/market/notifications") {
+      this.isNotificationPage = true;
+    }
     this.$router.afterEach((to, from) => {
       if (to.path === "/dashboard/market/cart") {
         this.isCartPage = true;
-      } else {
+      } 
+      else if (to.path === "/dashboard/market/notifications") {
+        this.header = 'Notifications';
+        this.isNotificationPage = true;
         this.isCartPage = false;
+      }
+        else {
+        this.isCartPage = false;
+        this.isNotificationPage = false;
       }
     });
   },
@@ -101,17 +112,31 @@ export default {
     const currentRoute = this.$route.path;
     if (currentRoute === "/dashboard/market/cart") {
       this.isCartPage = true;
+    } else if (currentRoute === "/dashboard/market/notifications") {
+      this.isNotificationPage = true;
     }
     if (this.isCartPage) {
       this.$el.classList.add("cart-page");
+    }
+    if (this.isNotificationPage) {
+      this.$el.classList.add("notifications-page");
     }
   },
   watch: {
     isCartPage(newVal, oldVal) {
       if (newVal) {
         this.$el.classList.add("cart-page");
+        this.$el.classList.remove("notifications-page"); // remove profile-page class if isCartPage is true
       } else {
         this.$el.classList.remove("cart-page");
+      }
+    },
+    isNotificationPage(newVal, oldVal) {
+      if (newVal) {
+        this.$el.classList.add("notifications-page");
+        this.$el.classList.remove("cart-page"); // remove profile-page class if isCartPage is true
+      } else {
+        this.$el.classList.remove("notifications-page");
       }
     },
   },

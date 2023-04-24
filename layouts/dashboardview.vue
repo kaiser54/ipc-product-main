@@ -212,6 +212,7 @@ section.view {
   }
   .view-wrapper {
     overflow-y: visible;
+    height: 100%;
   }
   .mobile-dashboard-top-fixed {
     position: fixed;
