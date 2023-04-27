@@ -250,34 +250,41 @@ export default {
     }
   },
   watch: {
-    isProfilePage(newVal, oldVal) {
-      if (newVal) {
-        this.$el.classList.add("profile-page");
-        this.$el.classList.remove("cart-page"); // remove cart-page class if isProfilePage is true
-        this.$el.classList.remove("notifications-page"); // remove cart-page class if isProfilePage is true
-      } else {
+  isProfilePage(newVal, oldVal) {
+    if (newVal) {
+      this.$el.classList.add("profile-page");
+      this.$el.classList.remove("cart-page");
+      this.$el.classList.remove("notifications-page");
+    } else {
+      setTimeout(() => {
         this.$el.classList.remove("profile-page");
-      }
-    },
-    isCartPage(newVal, oldVal) {
-      if (newVal) {
-        this.$el.classList.add("cart-page");
-        this.$el.classList.remove("profile-page"); // remove profile-page class if isCartPage is true
-        this.$el.classList.remove("notifications-page"); // remove profile-page class if isCartPage is true
-      } else {
-        this.$el.classList.remove("cart-page");
-      }
-    },
-    isNotificationPage(newVal, oldVal) {
-      if (newVal) {
-        this.$el.classList.add("notifications-page");
-        this.$el.classList.remove("profile-page"); // remove profile-page class if isCartPage is true
-        this.$el.classList.remove("cart-page"); // remove profile-page class if isCartPage is true
-      } else {
-        this.$el.classList.remove("notifications-page");
-      }
-    },
+      }, 500);
+    }
   },
+  isCartPage(newVal, oldVal) {
+    if (newVal) {
+      this.$el.classList.add("cart-page");
+      this.$el.classList.remove("profile-page");
+      this.$el.classList.remove("notifications-page");
+    } else {
+      setTimeout(() => {
+        this.$el.classList.remove("cart-page");
+      }, 200);
+    }
+  },
+  isNotificationPage(newVal, oldVal) {
+    if (newVal) {
+      this.$el.classList.add("notifications-page");
+      this.$el.classList.remove("profile-page");
+      this.$el.classList.remove("cart-page");
+    } else {
+      setTimeout(() => {
+        this.$el.classList.remove("notifications-page");
+      }, 500);
+    }
+  },
+},
+
 };
 </script>
 
