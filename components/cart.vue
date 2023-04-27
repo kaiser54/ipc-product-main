@@ -47,7 +47,7 @@ export default {
       this.gotoCart()
     },
     gotoCart() {
-      this.$router.push('/dashboard/market/cart')
+      this.$router.push('/dashboard/market/cart') 
     }
   },
 };
