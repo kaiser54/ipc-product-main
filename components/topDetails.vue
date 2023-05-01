@@ -61,8 +61,8 @@
       <input
         class="input-search"
         type="search"
-        name=""
-        id=""
+        name="search"
+        id="search"
         placeholder="Search for products"
       />
     </div>
@@ -208,6 +208,7 @@ input {
   width: 100%;
   padding-left: 52px;
   /* max-width: 522px; */
+  max-width: 100%;
 }
 .notify-cart {
   display: flex;

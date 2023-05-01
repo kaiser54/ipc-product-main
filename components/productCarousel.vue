@@ -23,11 +23,14 @@ export default {
     };
   },
   mounted() {
-    this.slideNext();
+    this.$nextTick(() => {
+      this.slideNext();
+    });
   },
   methods: {
     slideNext() {
       const carousel = this.$refs.carousel;
+      if (!carousel) return; // check if carousel exists
       const slideWidth = carousel.offsetWidth;
       const nextIndex = (this.currentIndex + 1) % this.images.length;
 
@@ -45,6 +48,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .carousel-container {
