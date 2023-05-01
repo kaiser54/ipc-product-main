@@ -4,31 +4,62 @@
       <div class="full-cart animate__animated animate__slideInRight">
         <header>
           <div class="modal-title">
-            <svg @click="triggerNotification" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-              fill="none">
-              <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+            <svg
+              @click="triggerNotification"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M5 19L19 5M5 5L19 19L5 5Z"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
-            <h3 class="h3-medium">Shopping bag</h3>
+            <h3 class="h3-medium">Notifications</h3>
           </div>
         </header>
         <div class="cart-list">
-          <cartList />
-        </div>
-        <div class="checkout-container">
-          <div class="checkout-details">
-            <div class="checkout-title">
-              <p>Orders</p>
-              <div class="item-list-tag">
-                7 items
+          <div class="notification-wrapper">
+            <div
+              class="notification"
+              v-for="(notification, index) in notifications"
+              :key="index"
+            >
+              <div class="time">{{ notification.time }}</div>
+              <div class="notification-header">
+                <div class="title">{{ notification.title }}</div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                >
+                  <path
+                    d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337"
+                    stroke="#565C69"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div class="message">{{ notification.message }}</div>
+              <div class="notification-product">
+                <div class="image">
+                  <img
+                    :src="require(`~/assets/images/${notification.image}`)"
+                  />
+                </div>
+                <div class="product-name">{{ notification.productName }}</div>
               </div>
             </div>
-            <div class="total-price checkout-title">
-              <p class="total">Subtotal</p>
-              <p class="price">₦20,000</p>
-            </div>
           </div>
-          <button class="btn primary-btn">Checkout</button>
         </div>
       </div>
     </div>
@@ -38,13 +69,101 @@
 <script>
 import "animate.css";
 export default {
+  data() {
+    return {
+      pageTitle: "IPC | Market",
+      notifications: [
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p1.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p2.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p3.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p4.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p1.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p2.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p3.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p4.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+        {
+          id: 1,
+          time: "13-01-2023",
+          title: "Order processing!",
+          message:
+            "Your order 1384216322 is being processed and is expected to be delivered between 13-Feb-2023 and 20-Feb-2023. Thank you for procuring with IPC",
+          image: "p1.png",
+          productName: "Mama'S Choice Nigerian Parboiled Rice...",
+        },
+      ],
+    };
+  },
   methods: {
     triggerNotification() {
       this.$emit("openNotification");
     },
     gotoCart() {
-      this.$router.push('/dashboard/market/cart') 
-    }
+      this.$router.push("/dashboard/market/cart");
+    },
   },
 };
 </script>
@@ -142,88 +261,123 @@ header {
   gap: 24px;
 
   width: 100%;
-  height: calc(100vh - 100px - 193px);
+  /* height: calc(100vh - 100px - 193px); */
   overflow-y: scroll;
 }
 
-.checkout-container {
+a {
+  width: 100%;
+}
+.notification-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 16px;
-  gap: 24px;
+  gap: 16px;
+}
 
-  width: 100%;
-  /* height: 160px; */
+.notification {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  gap: 8px;
 
-  /* White */
+  /* width: 342px;
+height: 189px; */
 
-  background: var(--white);
   /* Grey/Grey5 */
 
   border: 1px solid var(--grey-grey5);
   border-radius: 16px;
 }
 
-.checkout-details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
+.time {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  /* identical to box height, or 150% */
 
-  width: 100%;
-  /* height: 56px; */
+  /* Grey/Grey3 */
 
+  color: var(--grey-grey3);
 }
 
-.checkout-title {
+.notification-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0px;
-  /* gap: 345px; */
-
+  gap: 3px;
   width: 100%;
-  /* height: 24px; */
 }
-
-.checkout-title p {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-
-  /* Grey/Grey2 */
-
-  color: var(--grey-grey2);
-}
-
-p.total {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-
-  /* Grey/Grey2 */
-
-  color: var(--grey-grey2);
-}
-
-p.price {
+.notification-header .title {
   font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 21px;
   /* identical to box height, or 150% */
 
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
 }
-a {
+.message {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  /* or 150% */
+
+  /* Grey/Grey2 */
+
+  color: var(--grey-grey2);
+}
+.notification-product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+
+  max-width: 318px;
   width: 100%;
+  height: 48px;
+
+  /* Grey/Grey6 */
+
+  border: 1px solid var(--grey-grey6);
+  border-radius: 12px;
+}
+.notification-product .image {
+  width: 28.44px;
+  height: 32px;
+}
+.notification-product img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.product-name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+@media (min-width: 950px) {
+  .notification-product{
+    max-width: 100%;
+  }
+  .message {
+    font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+  }
+  .product-name {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 </style>
