@@ -139,7 +139,6 @@ export default {
 
 <style scoped>
 .product-detail-con {
-  margin: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 32px;
