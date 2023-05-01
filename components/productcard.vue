@@ -329,4 +329,22 @@ button p {
     display: block;
   }
 }
+@media (max-width: 374px) {
+.product-card {
+  max-width: 150px;
+  width: 100%;
+}
+.productcard-name p {
+  width: 100px;
+}
+}
+@media (max-width: 339px) {
+.product-card {
+  max-width: 120px;
+  width: 100%;
+}
+.productcard-name p {
+  width: 100px;
+}
+}
 </style>

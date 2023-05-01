@@ -1,5 +1,5 @@
 <template>
-  <div class="nuxt-page m-20">
+  <div class="nuxt-page">
     <div class="page-title">
       <h2 class="h2-medium header-text">Market</h2>
     </div>
@@ -203,9 +203,6 @@ export default {
 </style>
 
 <style scoped>
-.m-20 {
-  margin: 20px;
-}
 .market-product {
   display: flex;
   flex-wrap: wrap;

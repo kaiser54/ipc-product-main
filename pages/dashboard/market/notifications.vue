@@ -130,8 +130,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 16px;
-  margin-top: -57px;
   gap: 16px;
 }
 

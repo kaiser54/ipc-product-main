@@ -44,7 +44,6 @@ export default {
   align-items: flex-start;
   padding: 0px;
   gap: 32px;
-  margin: 0 16px;
 }
 .user__details {
   display: flex;

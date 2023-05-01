@@ -1,11 +1,12 @@
 <template>
   <div>
-    <cart @openCart="toggleCart" v-if="isCart && !mobile"/>
+    <cart @openCart="toggleCart" v-if="isCart && !mobile" />
+    <notificationDesktop @openNotification="toggleNotification" v-if="isNotification && !mobile"/>
     <div v-if="loading && mobile">
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
     </div>
-    <div class="dashboard-wrapper" v-else> 
+    <div class="dashboard-wrapper" v-else>
       <section class="section-wrapper">
         <div class="ipc-nav">
           <div class="fixed" v-if="!mobile">
@@ -29,22 +30,30 @@
             <div class="ipc-top-fixed">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <topDetails @openCart="toggleCart"/> 
+                <topDetails @openCart="toggleCart" @openNotification="toggleNotification"/>
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <mobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc" @openCart="toggleCart"/>
+                <mobileTopDetails
+                  @redirectToSearchPage="redirectToSearchPageFunc"
+                  @openCart="toggleCart"
+                />
               </section>
             </div>
             <div class="view-wrapper">
               <section class="view">
-                <div class="page-wrapper">
+                <div class="page-wrapper nuxt-page-here">
+                  <promptAlert />
                   <div class="page-container">
-                    <div class="" v-if="loading && !mobile" style="margin: 20px">
+                    <div
+                      class=""
+                      v-if="loading && !mobile"
+                      style="margin: 20px"
+                    >
                       <!-- css skeleton loading state on the website for desktop view -->
                       <webskeleton style="overflow: hidden; height: 100vh" />
                     </div>
-                    <nuxt v-else />
+                      <nuxt v-else/>
                   </div>
                 </div>
               </section>
@@ -68,6 +77,7 @@ export default {
       loading: false,
       logout: false,
       isCart: false,
+      isNotification: false,
     };
   },
   mounted() {
@@ -89,7 +99,14 @@ export default {
       if (this.mobile) {
         this.$router.push("/dashboard/market/cart");
       }
-      console.log("cart clicked")
+      console.log("cart clicked");
+    },
+    toggleNotification() {
+      this.isNotification = !this.isNotification;
+      if (this.mobile) {
+        this.$router.push("/dashboard/market/notifications");
+      }
+      console.log("cart clicked");
     },
     updateShowPopup(value) {
       this.showPopup = value;
@@ -196,12 +213,20 @@ section.view {
   flex-direction: column;
   width: 100%;
   max-width: calc(100vw - 278px);
+  margin-bottom: 100px;
 }
 
 ::-webkit-scrollbar {
   /* display: none; */
   display: block !important;
   width: auto; /* Set width of the scrollbar */
+}
+.nuxt-page-here {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 20px;
+  justify-content: center;
 }
 
 @media (max-width: 950px) {
@@ -214,15 +239,14 @@ section.view {
     overflow-y: visible;
     height: 100%;
   }
-  .mobile-dashboard-top-fixed {
-    position: fixed;
+
+  .ipc-top-fixed {
+    position: sticky;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
     z-index: 1;
-  }
-  section.view {
-    margin-top: 153px;
   }
   .page-container {
     display: flex;
@@ -230,6 +254,11 @@ section.view {
     align-items: center;
     padding: 0px;
     gap: 8px;
+    width: 100%;
+  }
+  .nuxt-page-here {
+    margin: 16px;
+    gap: 16px;
   }
 }
 </style>

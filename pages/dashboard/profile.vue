@@ -184,9 +184,7 @@ export default {
     justify-content: space-between;
   }
   .profile {
-    margin-top: -43px;
     gap: 32px;
-    margin-bottom: 100px; 
   }
 }
 </style>
