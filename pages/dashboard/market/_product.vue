@@ -77,11 +77,12 @@
       <div class="product-details-wrapper" v-else>
         <div class="product-details-main">
           <div class="product-img-thumb">
-            <div class="product-img">
+            <div class="product-img zoom-container" ref="zoomContainer">
               <img
                 :src="
                   require(`~/assets/images/${product.images[productImage]}`)
                 "
+                class="zoom-image" ref="zoomImage"
               />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
@@ -181,6 +182,23 @@ export default {
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
+
+
+    const zoomImage = this.$refs.zoomImage;
+    const zoomContainer = this.$refs.zoomContainer;
+    const zoomLevel = 2; // Change this value to adjust the zoom level
+    
+    zoomImage.addEventListener('mousemove', e => {
+      const mouseX = e.offsetX / zoomContainer.offsetWidth;
+      const mouseY = e.offsetY / zoomContainer.offsetHeight;
+  
+      zoomImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
+      zoomImage.style.transform = `scale(${zoomLevel})`;
+    });
+
+    zoomImage.addEventListener('mouseleave', () => {
+      zoomImage.style.transform = 'scale(1)';
+    });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -204,6 +222,14 @@ export default {
 </script>
 
 <style scoped>
+.zoom-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.zoom-image {
+  transition: transform .2s ease-in-out;
+}
 .user-details-component {
   background: var(--white);
   height: 100vh;
