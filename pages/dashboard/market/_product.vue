@@ -1,6 +1,6 @@
 <template>
-  <div class="user-details-component">
-    <div class="component-header">
+  <div :class="{'user-details-component': mobile}">
+    <div class="component-header" v-if="mobile">
       <div class="component-header-main">
         <svg
         @click="$router.go(-1)"
