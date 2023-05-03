@@ -34,9 +34,6 @@ export default {
 </script>
 
 <style scoped>
-.animate__animated.animate__slideInUp {
-  --animate-duration: .5s;
-}
 .verifyMail {
     position: fixed;
     width: 100%;
