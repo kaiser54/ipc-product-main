@@ -230,72 +230,7 @@ export default {
 .zoom-image {
   transition: transform .2s ease-in-out;
 }
-.user-details-component {
-  background: var(--white);
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  overflow: auto;
-  z-index: 2;
-}
-.component-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 24px 16px 16px;
-  gap: 16px;
 
-  /* White */
-
-  background: var(--white);
-  /* Grey/Grey5 */
-
-  border-bottom: 1px solid var(--grey-grey5);
-}
-
-.component-header-main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-  width: 100%;
-
-  gap: 17px;
-}
-
-.component-header-main p {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  text-align: center;
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-
-.component-cart {
-  display: flex;
-  position: relative;
-  width: 30px;
-  height: 30px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.badge {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  left: 14px;
-  top: 0px;
-}
 .product-detail-con {
   display: flex;
   flex-direction: column;

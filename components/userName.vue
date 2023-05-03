@@ -1,11 +1,17 @@
 <template>
-    <div class="userName">
-      <div class="nameInput" v-for="(field, index) in userName" :key="index">
-        <label :for=field.label class="label">{{ field.label }}</label>
-        <input class="value input" :name=field.label type="text" v-model="field.value"
-          style="margin-top: 0px;color: black;" readonly>
-      </div>
+  <div class="userName">
+    <div class="nameInput" v-for="(field, index) in userName" :key="index">
+      <label :for="field.label" class="label">{{ field.label }}</label>
+      <input
+        class="value input"
+        :name="field.label"
+        type="text"
+        v-model="field.value"
+        style="margin-top: 0px; color: black"
+        readonly
+      />
     </div>
+  </div>
 </template>
 
 <script>
@@ -28,7 +34,6 @@ export default {
 </script>
 
 <style scoped>
-
 .userName {
   display: flex;
   flex-direction: row;
@@ -50,7 +55,6 @@ export default {
 }
 
 @media (max-width: 950px) {
-
   .userName,
   .flex {
     width: auto;
@@ -59,4 +63,5 @@ export default {
   input.input {
     cursor: not-allowed !important;
   }
-}</style>
+}
+</style>

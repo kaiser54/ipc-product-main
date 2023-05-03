@@ -1,6 +1,6 @@
 :root {
-  --animate-duration: 200ms;
-  --animate-delay: 0.3s;
+  --animate-duration: 150ms !important;
+  --animate-delay: 0.2s !important;
 }
 
 /* Color palette from ipc color system */
@@ -623,7 +623,7 @@ a.desktop-nav:visited {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 16px 19px;
+  padding: 16px 3px;
   gap: 10px;
 
   width: 100%;
@@ -902,6 +902,9 @@ label.label {
   /* identical to box height, or 150% */
 
 }
+.tag-small {
+  height: 24px;
+}
 
 .pending {
   /* Warning/W50 */
@@ -943,14 +946,14 @@ label.label {
 
 .in-stock {
   font-weight: 400;
-font-size: 12px;
-line-height: 18px;
-/* identical to box height, or 150% */
+  font-size: 12px;
+  line-height: 18px;
+  /* identical to box height, or 150% */
 
 
-/* Positive/P400 */
+  /* Positive/P400 */
 
-color: var(--positive-p400);
+  color: var(--positive-p400);
   /* Positive/P50 */
 
   background: var(--positive-p50);

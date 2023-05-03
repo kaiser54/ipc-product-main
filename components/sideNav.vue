@@ -189,7 +189,7 @@
         </div>
 
         <div class="popup" v-if="showPopup" ref="popup" @click="togglePopup">
-          <nuxt-link :to="{ name: 'index' }">
+          <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
                 <svg
@@ -239,7 +239,7 @@
               </div>
             </div>
           </nuxt-link>
-          <nuxt-link :to="{ name: 'index' }">
+          <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
                 <svg
