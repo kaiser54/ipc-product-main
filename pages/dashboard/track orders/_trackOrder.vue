@@ -103,6 +103,7 @@ export default {
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
+  padding-bottom: 60px;
 }
 .bdr {
   display: flex;
@@ -152,5 +153,24 @@ export default {
   /* identical to box height, or 150% */
 
   letter-spacing: -0.5px;
+}
+</style>
+
+
+<style>
+.nuxt-link-active .desktop-nav {
+  background: var(--primary-p300);
+}
+
+.nuxt-link-active .desktop-nav p {
+  color: #fff;
+}
+
+.nuxt-link-active .desktop-nav svg {
+  stroke: #fff;
+}
+
+.nuxt-link-active .desktop-nav .nav-content svg path {
+  stroke: #fff !important;
 }
 </style>
