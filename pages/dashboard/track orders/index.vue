@@ -42,8 +42,9 @@
           </div>
         </div>
       </nuxt-link>
-      <orderProduct />
-
+      <nuxt-link to="/dashboard/track orders/product one">
+        <orderProduct :showSvg="true"/>
+      </nuxt-link>
       <nuxt-link to="/dashboard/track orders/product one"
         ><div class="order-wrapper">
           <div class="order-product">
@@ -584,8 +585,8 @@ export default {
 
 <style scoped>
 a {
-    color: inherit;
-    width: 100%;
+  color: inherit;
+  width: 100%;
 }
 .order-container {
   display: flex;

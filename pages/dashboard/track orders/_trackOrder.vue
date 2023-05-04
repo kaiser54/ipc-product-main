@@ -8,7 +8,7 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <orderProduct />
+        <orderProduct :showSvg="false"/>
         <div class="user-info">
           <div class="client-user-name bdr">
             <div class="client-frame">

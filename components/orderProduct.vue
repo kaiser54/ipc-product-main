@@ -1,50 +1,56 @@
 <template>
-  <nuxt-link to="/dashboard/track orders/product one">
-    <div class="order-wrapper">
-      <div class="order-product">
-        <div class="image">
-          <img src="~/assets/images/p1.png" alt="" />
-        </div>
-        <div class="order-product-details">
-          <div class="order-content">
-            <div class="title">Mama'S Choice Nigerian Parboiled Rice 25kg</div>
-            <div class="order-id">Order Id: 1234567</div>
-            <div class="tag pending tag-small">Ready for delivery</div>
-          </div>
-
-          <div class="price-qty">
-            <div class="order-price">#75,000</div>
-            <div class="order-qty">Qty: 1</div>
-          </div>
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="33"
-          viewBox="0 0 32 33"
-          fill="none"
-        >
-          <path
-            d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+  <div class="order-wrapper">
+    <div class="order-product">
+      <div class="image">
+        <img src="~/assets/images/p1.png" alt="" />
       </div>
+      <div class="order-product-details">
+        <div class="order-content">
+          <div class="title">Mama'S Choice Nigerian Parboiled Rice 25kg</div>
+          <div class="order-id">Order Id: 1234567</div>
+          <div class="tag pending tag-small">Ready for delivery</div>
+        </div>
+
+        <div class="price-qty">
+          <div class="order-price">#75,000</div>
+          <div class="order-qty">Qty: 1</div>
+        </div>
+      </div>
+      <svg
+        v-if="showSvg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="33"
+        viewBox="0 0 32 33"
+        fill="none"
+      >
+        <path
+          d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
+          stroke="#565C69"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
     </div>
-  </nuxt-link>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    showSvg: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
 a {
-    width: 100%;
-    color: inherit;
+  width: 100%;
+  color: inherit;
 }
 .order-wrapper {
   display: flex;
