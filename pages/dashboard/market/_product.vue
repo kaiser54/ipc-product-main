@@ -184,25 +184,40 @@ export default {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
-    const zoomImage = this.$refs.zoomImage;
-    const zoomContainer = this.$refs.zoomContainer;
     const zoomLevel = 2; // Change this value to adjust the zoom level
 
-    zoomImage.addEventListener("mousemove", (e) => {
-      const mouseX = e.offsetX / zoomContainer.offsetWidth;
-      const mouseY = e.offsetY / zoomContainer.offsetHeight;
+    const addZoomListeners = () => {
+      const zoomImage = this.$refs.zoomImage;
+      const zoomContainer = this.$refs.zoomContainer;
 
-      zoomImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
-      zoomImage.style.transform = `scale(${zoomLevel})`;
-    });
+      if (!zoomImage) {
+        return;
+      }
 
-    zoomImage.addEventListener("mouseleave", () => {
-      zoomImage.style.transform = "scale(1)";
-    });
+      zoomImage.addEventListener("mousemove", (e) => {
+        const mouseX = e.offsetX / zoomContainer.offsetWidth;
+        const mouseY = e.offsetY / zoomContainer.offsetHeight;
+
+        zoomImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
+        zoomImage.style.transform = `scale(${zoomLevel})`;
+      });
+
+      zoomImage.addEventListener("mouseleave", () => {
+        zoomImage.style.transform = "scale(1)";
+      });
+    };
+
+    addZoomListeners();
+
+    this.zoomInterval = setInterval(() => {
+      addZoomListeners();
+    }, 1000 * 60); // Check every minute
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
+    clearInterval(this.zoomInterval);
   },
+
   methods: {
     checkScreenSize() {
       if (window.innerWidth <= 951) {
