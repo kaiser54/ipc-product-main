@@ -5,9 +5,15 @@
     </div>
     <div class="page-content">
       <div class="categories-content">
-        <div class="category" v-for="(category, index) in categories" :key="index">
-          <!-- <img :src="`/${category.image}`" alt="" /> -->           <!-- use this method if your pulling the images from the static folder -->
-          <img :src="require(`~/assets/images/${category.image}`)" alt="" />  <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
+        <div
+          class="category"
+          v-for="(category, index) in categories"
+          :key="index"
+        >
+          <!-- <img :src="`/${category.image}`" alt="" /> -->
+          <!-- use this method if your pulling the images from the static folder -->
+          <img :src="require(`~/assets/images/${category.image}`)" alt="" />
+          <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
           <div class="category-header">
             <p class="title">{{ category.title }}</p>
             <p class="snippet truncate">{{ category.snippet }}</p>
@@ -80,8 +86,8 @@ export default {
           image: "category8.png",
           title: "Fruits and vegetables",
           snippet: "Spices and condiments",
-        }
-      ]
+        },
+      ],
     };
   },
   head() {
@@ -171,9 +177,9 @@ export default {
 }
 .snippet.truncate {
   white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 198px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 198px;
 }
 
 @media (max-width: 950px) {
@@ -200,13 +206,13 @@ export default {
   }
   .category-header .title {
     font-weight: 400;
-font-size: 16px;
-line-height: 24px;
+    font-size: 16px;
+    line-height: 24px;
   }
   .category-header .p {
     font-weight: 400;
-font-size: 14px;
-line-height: 21px;
+    font-size: 14px;
+    line-height: 21px;
   }
   .snippet.truncate {
     max-width: 197px;

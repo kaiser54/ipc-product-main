@@ -1,9 +1,9 @@
 <template>
-  <div :class="{'user-details-component': mobile}">
+  <div :class="{ 'user-details-component': mobile }">
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
         <svg
-        @click="$router.go(-1)"
+          @click="$router.go(-1)"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -82,7 +82,8 @@
                 :src="
                   require(`~/assets/images/${product.images[productImage]}`)
                 "
-                class="zoom-image" ref="zoomImage"
+                class="zoom-image"
+                ref="zoomImage"
               />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
@@ -183,21 +184,20 @@ export default {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
-
     const zoomImage = this.$refs.zoomImage;
     const zoomContainer = this.$refs.zoomContainer;
     const zoomLevel = 2; // Change this value to adjust the zoom level
-    
-    zoomImage.addEventListener('mousemove', e => {
+
+    zoomImage.addEventListener("mousemove", (e) => {
       const mouseX = e.offsetX / zoomContainer.offsetWidth;
       const mouseY = e.offsetY / zoomContainer.offsetHeight;
-  
+
       zoomImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
       zoomImage.style.transform = `scale(${zoomLevel})`;
     });
 
-    zoomImage.addEventListener('mouseleave', () => {
-      zoomImage.style.transform = 'scale(1)';
+    zoomImage.addEventListener("mouseleave", () => {
+      zoomImage.style.transform = "scale(1)";
     });
   },
   beforeDestroy() {
@@ -228,7 +228,7 @@ export default {
 }
 
 .zoom-image {
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .product-detail-con {
