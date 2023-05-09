@@ -175,3 +175,50 @@ p {
     left: 14px;
     top: 0px;
 }
+
+.tab {
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    /* Grey/Grey6 */
+
+    background: var(--grey-grey6);
+    border-radius: 100px;
+
+
+    font-style: normal;
+    font-weight: 400;
+
+
+    /* Grey/Grey2 */
+
+    color: var(--grey-grey2);
+}
+
+.tab-standard {
+    padding: 16px 24px;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 21px;
+    /* identical to box height, or 150% */
+
+    height: 48px;
+    min-width: 121px;
+    /* if I have any issue with the bas, check here */
+}
+
+.tab-small {
+    height: 32px;
+    padding: 4px 12px;
+    gap: 10px;
+    min-width: 86px;
+    ;
+
+    font-size: 12px;
+    line-height: 18px;
+}

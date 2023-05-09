@@ -6,33 +6,38 @@
     <div class="page-content">
       <div class="categories-content">
         <div
-          class="category"
+          style="width: 100%; max-width: 387px;"
           v-for="(category, index) in categories"
           :key="index"
         >
-          <!-- <img :src="`/${category.image}`" alt="" /> -->
-          <!-- use this method if your pulling the images from the static folder -->
-          <img :src="require(`~/assets/images/${category.image}`)" alt="" />
-          <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
-          <div class="category-header">
-            <p class="title">{{ category.title }}</p>
-            <p class="snippet truncate">{{ category.snippet }}</p>
-          </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
+          <nuxt-link
+            class="category"
+            :to="`/dashboard/categories/${category.title}`"
           >
-            <path
-              d="M13.3333 10.666L18.6667 15.9993L13.3333 21.3327"
-              stroke="#565C69"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+            <!-- <img :src="`/${category.image}`" alt="" /> -->
+            <!-- use this method if your pulling the images from the static folder -->
+            <img :src="require(`~/assets/images/${category.image}`)" alt="" />
+            <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
+            <div class="category-header">
+              <p class="title">{{ category.title }}</p>
+              <p class="snippet truncate">{{ category.snippet }}</p>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+            >
+              <path
+                d="M13.3333 10.666L18.6667 15.9993L13.3333 21.3327"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -99,6 +104,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  width: 100% !important;
+}
 .page-content {
   width: 100%;
 }
@@ -123,7 +131,6 @@ export default {
   padding: 16px;
   gap: 16px;
 
-  max-width: 387px;
   width: 100%;
   height: 128px;
 
