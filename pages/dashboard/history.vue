@@ -125,23 +125,21 @@ export default {
 .datepicker-toggle {
   display: inline-block;
   position: relative;
-  width: 180px;
-  height: 40px;
 }
 .datepicker-toggle-button {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 180px;
+  height: 40px;
   /* background-image: url('@/static/category2.png'); */
 }
 .datepicker-input {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 180px;
+  height: 40px;
   opacity: 0;
   cursor: pointer;
   box-sizing: border-box;
@@ -150,8 +148,8 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 180px;
+  height: 40px;
   margin: 0;
   padding: 0;
   cursor: pointer;
