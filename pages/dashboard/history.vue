@@ -1,5 +1,5 @@
 <template>
-  <div class="view-page">
+  <div class="view-page history">
     <div class="title-header history-head" v-show="visible">
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
@@ -139,7 +139,9 @@
             <td>{{ item.orderId }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.price }}</td>
-            <td>{{ item.status }}</td>
+            <td>
+              <div class="stock-tag in-stock">{{ item.status }}</div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -352,9 +354,12 @@ export default {
 </script>
 
 <style scoped>
-/* .table-container {
-  overflow-x: auto;
-} */
+.history {
+  max-width: calc(100vw - 278px - 83px - 16px);
+}
+.stock-tag {
+  width: fit-content;
+}
 table {
   margin: auto;
   transform: translateZ(0px);
