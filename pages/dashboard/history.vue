@@ -1,6 +1,6 @@
 <template>
   <div class="view-page">
-    <div class="title-header">
+    <div class="title-header history-head" v-show="visible">
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
         <div class="filter-tabs">
@@ -120,30 +120,30 @@
         </div>
       </div>
     </div>
-    <div>
-      <label for="start-date">Start Date:</label>
-      <input
-        class="input"
-        type="date"
-        id="start-date"
-        v-model="startDate"
-        placeholder="MM-DD-YYYY"
-      />
-
-      <label for="end-date">End Date:</label>
-      <input
-        class="input"
-        type="date"
-        id="end-date"
-        v-model="endDate"
-        placeholder="MM-DD-YYYY"
-      />
-
-      <button @click="handleFilter">Filter</button>
+    <div class="table-container history-content">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="header in tableHeaders" :key="header">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in tableData" :key="item.id">
+            <td style="display: flex; align-items: center; gap: 5px">
+              <div class="img">
+                <img src="@/assets/images/p1.png" alt="" />
+              </div>
+              {{ item.name }}
+            </td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.orderId }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.status }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <ul>
-      <li v-for="item in filteredData" :key="item.id">{{ item.name }}</li>
-    </ul>
   </div>
 </template>
 
@@ -155,6 +155,115 @@ export default {
   data() {
     return {
       pageTitle: "IPC | History",
+      tableHeaders: [
+        "Product’s name",
+        "Date",
+        "Order ID",
+        "Quantity",
+        "Price",
+        "Status",
+      ],
+      tableData: [
+        {
+          id: 1,
+          name: "Mama’s pride rice",
+          date: "2022-05-01",
+          orderId: "12345",
+          quantity: 2,
+          price: 10.99,
+          status: "Delivered",
+        },
+        {
+          id: 2,
+          name: "Mama’s pride rice",
+          date: "2022-05-02",
+          orderId: "67890",
+          quantity: 1,
+          price: 19.99,
+          status: "Shipped",
+        },
+        {
+          id: 3,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 4,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 5,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 6,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 7,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 8,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 9,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 10,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+        {
+          id: 11,
+          name: "Mama’s pride rice",
+          date: "2022-05-03",
+          orderId: "24680",
+          quantity: 3,
+          price: 7.99,
+          status: "Cancelled",
+        },
+      ],
       data: [
         { id: 1, name: "Item 1", date: "01-01-2022" },
         { id: 2, name: "Item 2", date: "15-02-2022" },
@@ -165,7 +274,16 @@ export default {
       startDate: "",
       endDate: "",
       tabs: ["All", "Completed", "Pending", "Cancelled"],
+      tableHead: [
+        "Product’s name",
+        "Date",
+        "Order ID",
+        "Quantity",
+        "Price",
+        "Status",
+      ],
       activeTabs: [0], // set the default active tab to be "All"
+      visible: true,
     };
   },
   head() {
@@ -194,6 +312,12 @@ export default {
       return filteredData;
     },
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   methods: {
     handleFilter() {
       this.filteredData = this.data.filter((item) => {
@@ -216,11 +340,65 @@ export default {
         this.activeTabs.push(index);
       }
     },
+    handleScroll() {
+      if (window.pageYOffset > 50 && this.visible) {
+        this.visible = false;
+      } else if (window.pageYOffset < 50 && !this.visible) {
+        this.visible = true;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+/* .table-container {
+  overflow-x: auto;
+} */
+table {
+  margin: auto;
+  transform: translateZ(0px);
+  width: 100%;
+  border-collapse: collapse;
+}
+thead tr th {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+tbody tr:first-child td {
+  padding-top: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+tbody tr td {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+td {
+  padding-block: 12px;
+}
+th,
+td {
+  text-align: start;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+
+.is-hidden {
+  display: none !important;
+}
+.history-head {
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  z-index: 9;
+  background: white;
+}
 .datepicker-toggle {
   display: flex;
   flex-direction: row;
@@ -331,6 +509,76 @@ export default {
   /* Accent/A200 */
 
   border: 1px solid var(--accent-a200);
+}
+.history-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 32px;
+  gap: 32px;
+
+  width: 100%;
+  /* White */
+
+  background: var(--white);
+  /* Grey/Grey5 */
+
+  border: 1px solid var(--grey-grey5);
+  border-radius: 16px;
+
+  /* height: 50vh; */
+}
+.hc-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  gap: 16px;
+
+  /* Grey/Grey5 */
+
+  border-bottom: 1px solid var(--grey-grey5);
+}
+.hc-header-tab {
+  display: flex;
+  align-items: flex-start;
+  max-width: 153px;
+  width: 100%;
+  text-align: left;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+.hc-product-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+}
+.hc-product {
+  width: 100%;
+  height: 52px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+.hc-product .hc-header-tab {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+.img {
+  width: 32px;
+  height: 36px;
 }
 </style>
 <style>
