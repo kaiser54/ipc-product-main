@@ -1,6 +1,5 @@
 <template>
   <div class="view-page history">
-    
     <div class="title-header history-head" v-show="visible">
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
@@ -431,12 +430,33 @@ export default {
 
   border: 1px solid var(--accent-a200);
 }
+
+@media (max-width: 1300px) {
+  .history {
+    max-width: 100%;
+  }
+  .filter-dates {
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+  }
+}
+  @media (max-width: 1040px) {
+    .history {
+      max-width: 100%;
+    }
+    .filter-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    }
+    .filter-dates {
+      justify-content: center;
+      align-items: flex-end;
+      flex-direction: row;
+    }
+  }
 </style>
-
-
-
-
-
 
 <style>
 .nuxt-link-active .desktop-nav {

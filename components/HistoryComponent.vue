@@ -139,4 +139,14 @@ span.tag {
   background: var(--white);
   z-index: 2;
 }
+@media (max-width: 1300px) {
+  .sticky-header {
+    top: 192px;
+  }
+}
+@media (max-width: 1040px) {
+  .sticky-header {
+    top: 213px;
+  }
+}
 </style>
