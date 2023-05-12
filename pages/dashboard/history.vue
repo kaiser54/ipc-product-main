@@ -1,5 +1,6 @@
 <template>
   <div class="view-page history">
+    
     <div class="title-header history-head" v-show="visible">
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
@@ -120,32 +121,11 @@
         </div>
       </div>
     </div>
-    <div class="table-container history-content">
-      <table>
-        <thead>
-          <tr>
-            <th v-for="header in tableHeaders" :key="header">{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in tableData" :key="item.id">
-            <td style="display: flex; align-items: center; gap: 5px">
-              <div class="img">
-                <img src="@/assets/images/p1.png" alt="" />
-              </div>
-              {{ item.name }}
-            </td>
-            <td>{{ item.date }}</td>
-            <td>{{ item.orderId }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
-            <td>
-              <div class="stock-tag in-stock">{{ item.status }}</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <history-component
+      :tableData="tableData"
+      :activeTabs="activeTabs"
+      :tableHeaders="tableHeaders"
+    />
   </div>
 </template>
 
@@ -173,7 +153,7 @@ export default {
           orderId: "12345",
           quantity: 2,
           price: 10.99,
-          status: "Delivered",
+          status: "Completed",
         },
         {
           id: 2,
@@ -182,7 +162,7 @@ export default {
           orderId: "67890",
           quantity: 1,
           price: 19.99,
-          status: "Shipped",
+          status: "Pending",
         },
         {
           id: 3,
@@ -191,7 +171,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 4,
@@ -200,7 +180,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 5,
@@ -209,7 +189,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 6,
@@ -218,7 +198,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 7,
@@ -227,7 +207,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 8,
@@ -236,7 +216,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 9,
@@ -245,7 +225,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 10,
@@ -254,7 +234,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
         {
           id: 11,
@@ -263,7 +243,7 @@ export default {
           orderId: "24680",
           quantity: 3,
           price: 7.99,
-          status: "Cancelled",
+          status: "Completed",
         },
       ],
       data: [
@@ -357,46 +337,7 @@ export default {
 .history {
   max-width: calc(100vw - 278px - 83px - 16px);
 }
-.stock-tag {
-  width: fit-content;
-}
-table {
-  margin: auto;
-  transform: translateZ(0px);
-  width: 100%;
-  border-collapse: collapse;
-}
-thead tr th {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-tbody tr:first-child td {
-  padding-top: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-tbody tr td {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
 
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-td {
-  padding-block: 12px;
-}
-th,
-td {
-  text-align: start;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-
-.is-hidden {
-  display: none !important;
-}
 .history-head {
   position: sticky;
   top: 0px;
@@ -410,16 +351,6 @@ td {
   align-items: center;
   gap: 18px;
   position: relative;
-}
-.datepicker-toggle p {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
 }
 .datepicker-toggle-button {
   /* position: absolute;
@@ -446,10 +377,6 @@ td {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
 }
-.datepicker-toggle .input {
-  background: none !important;
-  border: none;
-}
 .datepicker-input {
   position: absolute;
   left: 0;
@@ -459,16 +386,6 @@ td {
   opacity: 0;
   cursor: pointer;
   box-sizing: border-box;
-}
-.datepicker-input::-webkit-calendar-picker-indicator {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 180px;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
 }
 .btn-dsp {
   display: flex;
@@ -509,83 +426,18 @@ td {
 }
 .tab.clicked {
   /* Accent/A75 */
-
   background: var(--accent-a75);
   /* Accent/A200 */
 
   border: 1px solid var(--accent-a200);
 }
-.history-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px 32px;
-  gap: 32px;
-
-  width: 100%;
-  /* White */
-
-  background: var(--white);
-  /* Grey/Grey5 */
-
-  border: 1px solid var(--grey-grey5);
-  border-radius: 16px;
-
-  /* height: 50vh; */
-}
-.hc-header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  gap: 16px;
-
-  /* Grey/Grey5 */
-
-  border-bottom: 1px solid var(--grey-grey5);
-}
-.hc-header-tab {
-  display: flex;
-  align-items: flex-start;
-  max-width: 153px;
-  width: 100%;
-  text-align: left;
-
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-.hc-product-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 12px;
-}
-.hc-product {
-  width: 100%;
-  height: 52px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-.hc-product .hc-header-tab {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-}
-.img {
-  width: 32px;
-  height: 36px;
-}
 </style>
+
+
+
+
+
+
 <style>
 .nuxt-link-active .desktop-nav {
   background: var(--primary-p300);
