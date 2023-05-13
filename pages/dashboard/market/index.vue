@@ -1,6 +1,7 @@
 <template>
   <div class="nuxt-page">
     <div class="page-title">
+      <Breadcrumb :route="$route" />
       <h2 class="h2-medium header-text">Market</h2>
     </div>
     <section class="market-product">

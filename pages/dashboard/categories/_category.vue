@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    <Breadcrumb :route="$route" />
+    <h1>Categories Page</h1>
+  </div>
 </template>
 
 <script>

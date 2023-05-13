@@ -57,5 +57,8 @@ export default {
       mobile: 950,
       desktop: Infinity
     }
+  },
+  router: {
+    middleware: 'redirect'
   }
 }
