@@ -256,9 +256,10 @@ export default {
       this.$el.classList.remove("cart-page");
       this.$el.classList.remove("notifications-page");
     } else {
-      setTimeout(() => {
-        this.$el.classList.remove("profile-page");
-      }, 500);
+      this.$el.classList.remove("profile-page");
+      // setTimeout(() => {
+      //   this.$el.classList.remove("profile-page");
+      // }, 500);
     }
   },
   isCartPage(newVal, oldVal) {
@@ -267,9 +268,11 @@ export default {
       this.$el.classList.remove("profile-page");
       this.$el.classList.remove("notifications-page");
     } else {
-      setTimeout(() => {
-        this.$el.classList.remove("cart-page");
-      }, 200);
+      this.$el.classList.remove("cart-page");
+
+      // setTimeout(() => {
+      //   this.$el.classList.remove("cart-page");
+      // }, 200);
     }
   },
   isNotificationPage(newVal, oldVal) {
@@ -278,9 +281,11 @@ export default {
       this.$el.classList.remove("profile-page");
       this.$el.classList.remove("cart-page");
     } else {
-      setTimeout(() => {
         this.$el.classList.remove("notifications-page");
-      }, 500);
+
+      // setTimeout(() => {
+      //   this.$el.classList.remove("notifications-page");
+      // }, 500);
     }
   },
 },
