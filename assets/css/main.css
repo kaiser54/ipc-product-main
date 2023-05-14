@@ -222,3 +222,20 @@ p {
     font-size: 12px;
     line-height: 18px;
 }
+
+.market-product {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 16px;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 950px) {
+    .market-product {
+        padding: 0;
+        gap: 8px;
+    }
+}

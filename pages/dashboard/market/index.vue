@@ -1,7 +1,7 @@
 <template>
   <div class="nuxt-page">
     <div class="page-title">
-      <Breadcrumb :route="$route" />
+      <!-- <Breadcrumb :route="$route" /> -->
       <h2 class="h2-medium header-text">Market</h2>
     </div>
     <section class="market-product">
@@ -204,15 +204,7 @@ export default {
 </style>
 
 <style scoped>
-.market-product {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 16px;
-  gap: 16px;
-  justify-content: space-evenly;
-}
+
 @media (max-width: 950px) {
   .m-20 {
     margin: 0;
@@ -221,10 +213,6 @@ export default {
   }
   .page-title {
     display: none;
-  }
-  .market-product {
-    padding: 0;
-    gap: 8px;
   }
 }
 </style>
