@@ -4,28 +4,56 @@
       <table>
         <thead>
           <tr>
-            <th class="sticky-header" v-for="header in tableHeaders" :key="header">{{ header }}</th>
+            <th
+              class="sticky-header"
+              v-for="header in tableHeaders"
+              :key="header"
+            >
+              {{ header }}
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in tableData" :key="item.id">
+          <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails">
             <td style="display: flex; align-items: center; gap: 5px">
-              <div class="img">
-                <img src="@/assets/images/p1.png" alt="" />
-              </div>
-              {{ item.name }}
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">
+                <div class="img">
+                  <img src="@/assets/images/p1.png" alt="" />
+                </div>
+                {{ item.name }}
+              </nuxt-link>
             </td>
-            <td>{{ item.date }}</td>
-            <td>{{ item.orderId }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
             <td>
-              <span
-                v-if="item.status === 'Pending'"
-                :class="['tag', 'pending']"
-                >{{ item.status }}</span
-              >
-              <span v-else :class="['tag', 'verified']">{{ item.status }}</span>
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">
+                {{ item.date }}
+              </nuxt-link>
+            </td>
+            <td>
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">{{
+                item.orderId
+              }}</nuxt-link>
+            </td>
+            <td>
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">{{
+                item.quantity
+              }}</nuxt-link>
+            </td>
+            <td>
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">{{
+                item.price
+              }}</nuxt-link>
+            </td>
+            <td>
+              <nuxt-link :to="`/dashboard/track orders/${item.name}`">
+                <span
+                  v-if="item.status === 'Pending'"
+                  :class="['tag', 'pending']"
+                  >{{ item.status }}</span
+                >
+                <span v-else :class="['tag', 'verified']">{{
+                  item.status
+                }}</span>
+              </nuxt-link>
             </td>
           </tr>
         </tbody>
@@ -34,29 +62,34 @@
   </div>
 </template>
 
-
 <script>
 export default {
   props: {
-  activeTabs: {
-    type: Array,
-    required: true
+    activeTabs: {
+      type: Array,
+      required: true,
+    },
+    tableHeaders: {
+      type: Array,
+      required: true,
+    },
+    tableData: {
+      type: Array,
+      required: true,
+    },
   },
-  tableHeaders: {
-    type: Array,
-    required: true
+  data() {
+    return {
+      startDate: "",
+      endDate: "",
+    };
   },
-  tableData: {
-    type: Array,
-    required: true
+  methods: {
+    toHistoryDetails(value) {
+      const baseURL = "/dashboard/track orders/"
+      // this.$router.push(baseURL + value)
+    }
   }
-},
-data() {
-  return {
-    startDate: '',
-    endDate: ''
-  }
-}
 };
 </script>
 
@@ -79,7 +112,7 @@ tbody tr:first-child td {
   border-bottom: 1px solid var(--grey-grey5);
 }
 
-tbody tr td {
+tbody tr td a{
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -106,7 +139,11 @@ td {
   text-align: start;
   border-bottom: 1px solid var(--grey-grey5);
 }
-
+td a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .history-content {
   display: flex;
   flex-direction: column;

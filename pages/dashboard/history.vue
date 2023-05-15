@@ -1,6 +1,6 @@
 <template>
   <div class="view-page history">
-    <div class="title-header history-head" v-show="visible">
+    <div class="title-header history-head">
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
         <div class="filter-tabs">
@@ -293,12 +293,6 @@ export default {
       return filteredData;
     },
   },
-  mounted() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.handleScroll);
-  },
   methods: {
     handleFilter() {
       this.filteredData = this.data.filter((item) => {
@@ -319,13 +313,6 @@ export default {
         );
       } else {
         this.activeTabs.push(index);
-      }
-    },
-    handleScroll() {
-      if (window.pageYOffset > 50 && this.visible) {
-        this.visible = false;
-      } else if (window.pageYOffset < 50 && !this.visible) {
-        this.visible = true;
       }
     },
   },

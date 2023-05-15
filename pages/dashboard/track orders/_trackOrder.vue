@@ -91,10 +91,10 @@ export default {
 }
 .product-description {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 0px;
   gap: 16px;
-  max-width: 579px;
+  /* max-width: 579px; */
   width: 100%;
 }
 .user-info {
@@ -104,6 +104,8 @@ export default {
   padding: 0px;
   gap: 16px;
   padding-bottom: 60px;
+  max-width: 356px;
+  width: 100%;
 }
 .bdr {
   display: flex;

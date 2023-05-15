@@ -96,6 +96,7 @@ a {
   align-items: flex-start;
   padding: 0px;
   gap: 4px;
+  max-width: 579px;
   width: 100%;
 }
 .order-content {
