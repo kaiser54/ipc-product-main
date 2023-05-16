@@ -40,6 +40,14 @@
         <option v-for="lga in selectedState" :key="lga" :value="lga">{{ lga }}</option>
       </select>
     </div>
+
+
+
+    <div>
+    <DatePicker v-model="selectedDate" />
+  </div>
+
+  
   </div>
 </template>
 
@@ -54,6 +62,7 @@ export default {
       lgas: [], // add empty lgas array here
       selectedState: null,
       selectedLga: null,
+      selectedDate: null
     };
   },
   mounted() {
