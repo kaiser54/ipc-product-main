@@ -37,17 +37,32 @@
       <label for="lgas">Select LGA</label>
       <select id="lgas" v-model="selectedLga" :disabled="!selectedState">
         <option disabled value="">Please select a state first</option>
-        <option v-for="lga in selectedState" :key="lga" :value="lga">{{ lga }}</option>
+        <option v-for="lga in selectedState" :key="lga" :value="lga">
+          {{ lga }}
+        </option>
       </select>
     </div>
 
-
-
     <div>
-    <DatePicker v-model="selectedDate" />
-  </div>
+      <DatePicker v-model="selectedDate" />
+    </div>
 
-  
+    <div class="input-container">
+      <input class="input" type="date" />
+    </div>
+
+    <div class="calendar">
+      <div class="header">
+        <button @click="previousMonth">Previous</button>
+        <h2>{{ currentMonth }}</h2>
+        <button @click="nextMonth">Next</button>
+      </div>
+      <div class="days">
+        <button v-for="day in daysInMonth" :key="day" @click="selectDate(day)">
+          {{ day }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,8 +77,20 @@ export default {
       lgas: [], // add empty lgas array here
       selectedState: null,
       selectedLga: null,
-      selectedDate: null
+      selectedDate: null,
+      currentDate: new Date(),
     };
+  },
+  computed: {
+    currentMonth() {
+      return this.currentDate.toLocaleString("default", { month: "long", year: "numeric" });
+    },
+    daysInMonth() {
+      const year = this.currentDate.getFullYear();
+      const month = this.currentDate.getMonth();
+      const days = new Date(year, month + 1, 0).getDate();
+      return Array.from({ length: days }, (_, index) => index + 1);
+    },
   },
   mounted() {
     fetch("/Statelist.json")
@@ -93,6 +120,15 @@ export default {
         this.lgas = [];
       }
       this.selectedLga = null; // reset selected LGA
+    },
+    previousMonth() {
+      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
+    },
+    nextMonth() {
+      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 1);
+    },
+    selectDate(day) {
+      console.log("Selected date:", day);
     },
   },
 };
@@ -138,5 +174,22 @@ export default {
 .new-phone-number.hide {
   max-height: 0;
   opacity: 0;
+}
+
+.input-container {
+  position: relative;
+  width: 152px;
+}
+
+.input-container input[type="date"] {
+  padding-right: 25px;
+  border-radius: 100px;
+}
+
+.input-container svg {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
 }
 </style>
