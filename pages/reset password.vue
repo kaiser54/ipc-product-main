@@ -4,7 +4,7 @@
     <div class="content">
       <div class="container">
         <div class="wrapper">
-          <nuxt-link :to="{ name: 'index' }">
+          <div @click="goBack">
             <div class="nav-btn">
               <svg
                 width="24"
@@ -22,7 +22,7 @@
                 />
               </svg>
             </div>
-          </nuxt-link>
+          </div>
           <div class="header">
             <div class="header-group">
               <h2 class="h2-medium header-text">Reset password</h2>
@@ -33,7 +33,18 @@
           </div>
           <div class="form-group">
             <div class="form-field">
-              <div class="input-field email-field">
+              <InputField
+                id="email"
+                label="Email address"
+                v-model="email"
+                :value="emailValue"
+                type="email"
+                placeholder="Enter your email address"
+                :required="true"
+                :invalid="invalidEmail"
+                :errorMessage="emailErrorMessage"
+              />
+              <!-- <div class="input-field email-field">
                 <label for="email">Email address</label><br />
                 <input
                   class="input"
@@ -84,7 +95,7 @@
                   </svg>
                   <p>Enter a valid Email address</p>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="submit-reset">
               <button @click.prevent="submitReset" class="btn primary-btn">
@@ -109,6 +120,7 @@ export default {
     return {
       email: "",
       invalidEmail: false,
+      emailErrorMessage: "",
       pageTitle: "IPC | Reset Password",
     };
   },
@@ -124,6 +136,14 @@ export default {
       // Check if the input email matches the regular expression
       return emailRegex.test(this.email);
     },
+    emailValue: {
+      get() {
+        return this.email;
+      },
+      set(newValue) {
+        this.email = newValue;
+      },
+    },
   },
   watch: {
     email(newValue) {
@@ -134,8 +154,10 @@ export default {
         newValue.indexOf("@") === -1
       ) {
         this.invalidEmail = true;
+        this.emailErrorMessage = "Invalid email address";
       } else {
         this.invalidEmail = false;
+        this.emailErrorMessage = "";
       }
     },
   },
@@ -146,7 +168,8 @@ export default {
       localStorage.setItem("maskedEmail", maskedEmail);
       if (!this.isEmailValid) {
         this.invalidEmail = true;
-      } else if (!this.invalidEmail && !this.invalidPassword) {
+        this.emailErrorMessage = "Invalid email address";
+      } else {
         // Submit form or perform other actions
         // Navigate to another page with query parameters
         // this.$router.push({
@@ -154,8 +177,6 @@ export default {
         //   params: { maskedEmail },
         // });
         this.$router.push({ name: "confirmation" });
-
-        console.log("valid");
       }
     },
     maskEmail: (email) => {
@@ -166,6 +187,9 @@ export default {
       const [username, domain] = email.split("@");
       const maskedUsername = `${username.substring(0, 3)}${"*".repeat(4)}`;
       return `${maskedUsername}@${domain}`;
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };
