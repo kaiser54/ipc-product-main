@@ -1,15 +1,17 @@
 <template>
-  <div class="input-field" :class="{ 'input-error': invalid }">
+  <div class="input-field">
     <label :for="id">{{ label }}</label>
     <div class="input-container" :class="{ password: type === 'password' }">
       <input
         class="input"
+        :class="{ 'input-error': invalid }"
         :type="inputType"
         :id="id"
         :name="id"
-        v-model="value"
+        :value="internalValue"
         :placeholder="placeholder"
         :required="required"
+        @input="updateValue($event.target.value)"
       />
       <span
         v-if="type === 'password'"
@@ -122,6 +124,7 @@ export default {
     return {
       showPassword: false,
       inputType: this.type,
+      internalValue: this.value,
     };
   },
   methods: {
@@ -129,27 +132,15 @@ export default {
       this.showPassword = !this.showPassword;
       this.inputType = this.showPassword ? "text" : "password";
     },
+    updateValue(value) {
+      this.internalValue = value;
+      this.$emit("input", value);
+    },
   },
 };
 </script>
 
 <style scoped>
-.input-field {
-  /* Styles for the input field container */
-}
-
-.input-error {
-  /* Styles for the input field when it's invalid */
-}
-
-.label {
-  /* Styles for the label */
-}
-
-.input-container {
-  /* Styles for the input container */
-}
-
 .password {
   position: relative;
 }
@@ -158,13 +149,5 @@ export default {
   right: 16px;
   top: 14px;
   fill: var(--grey-grey3);
-}
-
-.toggle-password {
-  /* Styles for the password visibility toggle */
-}
-
-.error {
-  /* Styles for the error message */
 }
 </style>
