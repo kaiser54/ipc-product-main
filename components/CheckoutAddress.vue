@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout-wrapper">
+  <div class="checkout-wrap">
     <h3 class="h3-medium header-text">Address details</h3>
     <div class="myAuth-group">
       <div class="myAuth">
@@ -361,7 +361,7 @@ export default {
 </script>
 
 <style scoped>
-.checkout-wrapper {
+.checkout-wrap {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

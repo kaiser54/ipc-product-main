@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="checkout-wrapper">
     <CheckoutAddress />
   </div>
 </template>
@@ -14,9 +14,9 @@ export default {
 .checkout-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 32px;
-  max-width: 491px;
+  max-width: 833px;
   width: 100%;
 }
 </style>
