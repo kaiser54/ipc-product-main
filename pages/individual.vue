@@ -8,7 +8,7 @@
           </nuxt-link>
         </p>
       </div>
-      <individualForm />
+      <individualForm /> 
     </div>
   </div>
 </template>

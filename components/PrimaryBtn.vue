@@ -1,5 +1,5 @@
 <template>
-    <button @click.prevent="handleClick" class="btn primary-btn">
+    <button @click="handleClick" class="btn primary-btn">
       {{ buttonText }}
     </button>
   </template>

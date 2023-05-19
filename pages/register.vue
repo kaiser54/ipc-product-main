@@ -15,7 +15,12 @@
               <div class="list-select-header">
                 <h3 class="h3-medium">{{ item.title }}</h3>
                 <label>
-                  <input type="radio" :value="item.value" v-model="selectedItem" hidden />
+                  <input
+                    type="radio"
+                    :value="item.value"
+                    v-model="selectedItem"
+                    hidden
+                  />
                   <svg
                     :class="{ selected: selectedItem === item.value }"
                     viewBox="0 0 25 25"
@@ -24,7 +29,7 @@
                   >
                     <circle cx="12" cy="12" r="11" />
                     <path
-                   v-if="selectedItem === item.value"
+                      v-if="selectedItem === item.value"
                       d="M8.5,12l2.5,2.5L15.5,10"
                       fill="none"
                       stroke="#fff"
@@ -38,7 +43,11 @@
               <p class="snippet">{{ item.snippet }}</p>
             </div>
           </div>
-          <button :disabled="!selectedItem" @click="goToRoute()" class="btn primary-btn">Continue</button>
+          <PrimaryBtn
+            :disabled="!selectedItem"
+            @click="goToRoute()"
+            buttonText="Continue"
+          />
           <div class="signup-link">
             <p>
               Have an existing account?<nuxt-link :to="{ name: 'index' }">
@@ -100,7 +109,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .content-select {
@@ -179,39 +187,37 @@ button:disabled {
   justify-content: space-between;
 }
 .signup-link p {
-  font-family: 'DM Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 24px;
-/* identical to box height, or 150% */
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
 
+  /* Grey/Grey1 */
 
-/* Grey/Grey1 */
-
-color: var(--grey-grey1);
+  color: var(--grey-grey1);
 }
 .signup-link p a {
   font-weight: 500;
   font-size: 14px;
-line-height: 21px;
-/* identical to box height, or 150% */
+  line-height: 21px;
+  /* identical to box height, or 150% */
 
+  /* Primary/P300 */
 
-/* Primary/P300 */
-
-color: var(--primary-p300);
+  color: var(--primary-p300);
 }
 @media (max-width: 750px) {
- .content-box {
-  padding: 0;
-  background-color: #ffffff;
- }
- .content-box button {
-  max-width: none;
- }
- .content-select {
-  flex-direction: column;
- }
+  .content-box {
+    padding: 0;
+    background-color: #ffffff;
+  }
+  .content-box button {
+    max-width: none;
+  }
+  .content-select {
+    flex-direction: column;
+  }
 }
 </style>
