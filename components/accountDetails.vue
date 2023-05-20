@@ -19,8 +19,14 @@
     </div>
     <div class="num-btn">
       <div class="phone-number">
-        <div class="phone-num" v-for="(number, index) in phoneNumbers" :key="index">
-          <label :for="'phone-number-' + (index + 1)">Phone number {{ index + 1 }}</label>
+        <div
+          class="phone-num"
+          v-for="(number, index) in phoneNumbers"
+          :key="index"
+        >
+          <label :for="'phone-number-' + (index + 1)"
+            >Phone number {{ index + 1 }}</label
+          >
           <input
             class="input"
             :id="'phone-number-' + (index + 1)"
@@ -30,18 +36,39 @@
           />
         </div>
       </div>
-      <div class="new-phone-number animate__animated animate__slideInDown" v-if="showNewPhoneNumber">
-        <input class="input" type="tel" v-model="newPhoneNumber" placeholder="Add new number"/>
+      <div
+        class="new-phone-number animate__animated animate__slideInDown"
+        v-if="localShowNewPhoneNumber"
+      >
+        <InputField
+          class="inputed"
+          id="number"
+          v-model="newPhoneNumber"
+          :value="numberValue"
+          type="tel"
+          placeholder="Add new number"
+          :required="false"
+          :invalid="invalidNumber"
+          errorMessage="Enter a valid phone number"
+        />
+        <!-- <input
+          class="inputed"
+          type="tel"
+          v-model="newPhoneNumber"
+          placeholder="Add new number"
+        /> -->
         <PrimaryBtn @click="savePhoneNumber" buttonText="Add" />
-        <svg @click="showNewPhoneNumber = false"
+        <svg
+          @click="closeNumber"
+          style="margin-top: 14px"
           xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
           fill="none"
         >
           <path
-            d="M14.166 25.8307L25.8327 14.1641M14.166 14.1641L25.8327 25.8307L14.166 14.1641Z"
+            d="M4.16602 15.8307L15.8327 4.16406M4.16602 4.16406L15.8327 15.8307L4.16602 4.16406Z"
             stroke="#565C69"
             stroke-width="2"
             stroke-linecap="round"
@@ -55,7 +82,7 @@
 </template>
 
 <script>
-import 'animate.css';
+import "animate.css";
 export default {
   props: {
     userName: {
@@ -66,31 +93,51 @@ export default {
       type: Array,
       required: true,
     },
+    invalidNumber: {
+      type: Boolean,
+      required: true,
+    },
+    showNewPhoneNumber: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
+      localShowNewPhoneNumber: this.showNewPhoneNumber,
       newPhoneNumber: "",
-      showNewPhoneNumber: false,
     };
+  },
+  computed: {
+    numberValue: {
+      get() {
+        return this.newPhoneNumber;
+      },
+      set(newValue) {
+        this.newPhoneNumber = newValue;
+      },
+    },
   },
   methods: {
     emitAddNumber() {
       this.$emit("add-number");
-      this.showNewPhoneNumber = true;
+      this.localShowNewPhoneNumber = true; // Update the local data property
     },
     openAddNumber() {
-      this.showNewPhoneNumber = true;
+      this.localShowNewPhoneNumber = true; // Update the local data property
+    },
+    closeNumber() {
+      this.$emit("close-number");
+      this.localShowNewPhoneNumber = false; // Update the local data property
     },
     savePhoneNumber() {
-      // Emit event to add the new phone number to the array in the parent component
       this.$emit("add-number", this.newPhoneNumber);
-      this.showNewPhoneNumber = false;
+      // this.localShowNewPhoneNumber = false; // Update the local data property
       this.newPhoneNumber = ""; // Clear the input field
     },
   },
 };
 </script>
-
 
 <style scoped>
 .accountDetails {
@@ -150,17 +197,20 @@ export default {
 }
 .phone-num {
   width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 }
 .new-phone-number {
   max-width: 429px;
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   padding: 0px;
   gap: 16px;
 }
-.new-phone-number .input {
+.new-phone-number .inputed {
   max-width: 277px;
   width: 100%;
 }

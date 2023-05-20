@@ -7,7 +7,8 @@
       </div>
       <switchTab
         v-show="!mobile"
-        @toggleTab="activetab = !activetab"
+        @toggleTab="activetab = true"
+        @toggleTab2="activetab = false"
         :myTab="activetab"
         text1="Account details"
         text2="Address book"
@@ -18,7 +19,10 @@
             <accountDetails
               :user-name="userName"
               :phone-numbers="phoneNumbers"
+              :invalidNumber="invalidNumber"
+              :show-new-phone-number="showNewPhoneNumber"
               @add-number="handleAddNumber"
+              @close-number="closeNumber"
             />
           </div>
           <emaildesktop />
@@ -57,9 +61,10 @@ export default {
         { label: "First Name", value: "Lanre" },
         { label: "Last Name", value: "Bello" },
       ],
-      phoneNumbers: ["1234567890"],
+      phoneNumbers: ["08100023262"],
+      invalidNumber: false,
       // newPhoneNumber: "", // phone number entered in the new phone number field
-      // showNewPhoneNumber: false, // whether to show the new phone number field
+      showNewPhoneNumber: false, // whether to show the new phone number field
     };
   },
   head() {
@@ -92,9 +97,21 @@ export default {
       this.isChangePassword = !this.isChangePassword;
     },
     handleAddNumber(newPhoneNumber) {
-      // Add a new phone number
-      this.phoneNumbers.push(newPhoneNumber);
-      // this.showNewPhoneNumber = false;
+      const phoneNumberRegex =
+        /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
+
+      if (phoneNumberRegex.test(newPhoneNumber)) {
+        this.phoneNumbers.push(newPhoneNumber);
+        this.showNewPhoneNumber = false; // Hide the new-phone-number div
+        this.invalidNumber = false; // Reset the invalidNumber flag
+      } else {
+        this.invalidNumber = true;
+        this.showNewPhoneNumber = true;
+      }
+    },
+    closeNumber() {
+      this.invalidNumber = false;
+      this.showNewPhoneNumber = false;
     },
   },
 };

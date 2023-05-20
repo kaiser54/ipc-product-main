@@ -10,7 +10,7 @@
     <div
       class="table"
       :class="{ active: !myTab }"
-      @click="() => $emit('toggleTab')"
+      @click="() => $emit('toggleTab2')"
     >
       {{ text2 }}
     </div>

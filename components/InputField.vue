@@ -93,7 +93,7 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      // required: true,
     },
     value: {
       type: String,

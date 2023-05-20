@@ -15,8 +15,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-input {
-    margin-top: 8px;
+label {
+    margin-bottom: 8px !important;
 }
 
 a {
