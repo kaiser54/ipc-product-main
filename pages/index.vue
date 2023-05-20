@@ -6,7 +6,7 @@
           <div class="header">
             <LoginWelcome />
           </div>
-          <form class="form-group">
+          <div class="form-group">
             <div class="form-field">
               <InputField
                 id="email"
@@ -42,7 +42,7 @@
                 </p>
               </div>
             </div>
-          </form>
+          </div>
           <div class="signup-link">
             <p>
               Are you new to IPC?<nuxt-link :to="{ name: 'register' }">
@@ -129,14 +129,6 @@ export default {
     },
   },
   methods: {
-    togglePassword() {
-      this.showPassword = !this.showPassword;
-      if (this.showPassword === false) {
-        this.inputType = "text";
-      } else {
-        this.inputType = "password";
-      }
-    },
     submitLogin() {
       if (!this.isEmailValid) {
         this.invalidEmail = true;
