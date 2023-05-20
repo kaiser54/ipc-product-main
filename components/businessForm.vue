@@ -213,7 +213,11 @@ export default {
       }
     },
     password(newValue) {
-      if (newValue.trim() > 4) {
+      if (newValue.length < 4) {
+        this.invalidPassword = true;
+        this.passwordErrorMessage =
+          "Password must be at least 4 characters long";
+      } else {
         this.invalidPassword = false;
         this.passwordErrorMessage = "";
       }
@@ -252,7 +256,9 @@ export default {
       this.FNErrorMessage = this.invalidName ? "Field cannot be empty" : "";
       this.LNErrorMessage = this.invalidLastName ? "Field cannot be empty" : "";
       this.PNErrorMessage = this.invalidPhoneNum ? "Field cannot be empty" : "";
-      this.businessErrorMessage = this.invalidBusinessName ? "Field cannot be empty" : "";
+      this.businessErrorMessage = this.invalidBusinessName
+        ? "Field cannot be empty"
+        : "";
     },
   },
 };

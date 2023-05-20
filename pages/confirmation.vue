@@ -46,7 +46,7 @@ export default {
   computed: {
     maskedEmail() {
       return this.$route.params.maskedEmail;
-    }
+    },
   },
   mounted() {
     this.$store.subscribe((mutation, state) => {
@@ -59,12 +59,9 @@ export default {
     if (maskedEmail) {
       this.$store.commit("setMaskedEmail", maskedEmail);
     }
-  }
+  },
 };
-
 </script>
-
-
 
 <style scoped>
 .confirmation {

@@ -185,7 +185,11 @@ export default {
       }
     },
     password(newValue) {
-      if (newValue.trim() !== "") {
+      if (newValue.length < 4) {
+        this.invalidPassword = true;
+        this.passwordErrorMessage =
+          "Password must be at least 4 characters long";
+      } else {
         this.invalidPassword = false;
         this.passwordErrorMessage = "";
       }

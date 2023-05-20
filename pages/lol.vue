@@ -9,7 +9,7 @@
         type="tel"
         :value="number"
         @input="updatePhoneNumber(index, $event.target.value)"
-        readonly
+        readonly 
       />
       <button class="remove-number" @click="removePhoneNumber(index)">
         Remove

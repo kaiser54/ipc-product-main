@@ -15,25 +15,11 @@
       <div class="userdetails" v-if="!mobile">
         <div class="account-details-desktop" v-if="activetab">
           <div class="acc-btn">
-            <accountDetails />
-            <button class="add-num-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M4.16663 10.0013H15.8333M9.99996 4.16797V15.8346V4.16797Z"
-                  stroke="#0009B3"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <p>Add new phone number</p>
-            </button>
+            <accountDetails
+              :user-name="userName"
+              :phone-numbers="phoneNumbers"
+              @add-number="handleAddNumber"
+            />
           </div>
           <emaildesktop />
         </div>
@@ -67,6 +53,13 @@ export default {
       isVerifyMail: false,
       isLogout: false,
       isChangePassword: false,
+      userName: [
+        { label: "First Name", value: "Lanre" },
+        { label: "Last Name", value: "Bello" },
+      ],
+      phoneNumbers: ["1234567890"],
+      // newPhoneNumber: "", // phone number entered in the new phone number field
+      // showNewPhoneNumber: false, // whether to show the new phone number field
     };
   },
   head() {
@@ -97,6 +90,11 @@ export default {
     },
     toggleChangePassword() {
       this.isChangePassword = !this.isChangePassword;
+    },
+    handleAddNumber(newPhoneNumber) {
+      // Add a new phone number
+      this.phoneNumbers.push(newPhoneNumber);
+      // this.showNewPhoneNumber = false;
     },
   },
 };
@@ -135,29 +133,8 @@ export default {
 
   width: 100%;
 }
-.add-num-btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 12px;
-  gap: 8px;
-
-  border-radius: 100px;
-  margin-top: 16px;
-}
 .acc-btn {
   width: 100%;
-}
-.add-num-btn p {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
 }
 .btn {
   border: none;

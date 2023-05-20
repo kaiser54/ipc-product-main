@@ -4,13 +4,93 @@
     <div class="avatar">
       <img src="../assets/images/avatar1.png" alt="" />
     </div>
-    <userName />
+    <div class="userName">
+      <div class="nameInput" v-for="(field, index) in userName" :key="index">
+        <label :for="field.label" class="label">{{ field.label }}</label>
+        <input
+          class="value input"
+          :name="field.label"
+          type="text"
+          :value="field.value"
+          style="margin-top: 0px; color: black"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="num-btn">
+      <div class="phone-number">
+        <div class="phone-num" v-for="(number, index) in phoneNumbers" :key="index">
+          <label :for="'phone-number-' + (index + 1)">Phone number {{ index + 1 }}</label>
+          <input
+            class="input"
+            :id="'phone-number-' + (index + 1)"
+            type="tel"
+            :value="number"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="new-phone-number animate__animated animate__slideInDown" v-if="showNewPhoneNumber">
+        <input class="input" type="tel" v-model="newPhoneNumber" placeholder="Add new number"/>
+        <PrimaryBtn @click="savePhoneNumber" buttonText="Add" />
+        <svg @click="showNewPhoneNumber = false"
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+        >
+          <path
+            d="M14.166 25.8307L25.8327 14.1641M14.166 14.1641L25.8327 25.8307L14.166 14.1641Z"
+            stroke="#565C69"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <add-num-btn @click="openAddNumber" />
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import 'animate.css';
+export default {
+  props: {
+    userName: {
+      type: Array,
+      required: true,
+    },
+    phoneNumbers: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      newPhoneNumber: "",
+      showNewPhoneNumber: false,
+    };
+  },
+  methods: {
+    emitAddNumber() {
+      this.$emit("add-number");
+      this.showNewPhoneNumber = true;
+    },
+    openAddNumber() {
+      this.showNewPhoneNumber = true;
+    },
+    savePhoneNumber() {
+      // Emit event to add the new phone number to the array in the parent component
+      this.$emit("add-number", this.newPhoneNumber);
+      this.showNewPhoneNumber = false;
+      this.newPhoneNumber = ""; // Clear the input field
+    },
+  },
+};
 </script>
+
 
 <style scoped>
 .accountDetails {
@@ -34,5 +114,68 @@ export default {};
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.userName {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  /* max-width: 575px; */
+  width: 100%;
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+}
+.num-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+.phone-number {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+.phone-num {
+  width: 100%;
+}
+.new-phone-number {
+  max-width: 429px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+}
+.new-phone-number .input {
+  max-width: 277px;
+  width: 100%;
+}
+.new-phone-number button {
+  max-width: 80px;
+}
+
+@media (max-width: 950px) {
+  .userName,
+  .flex {
+    width: auto;
+  }
+
+  input.input {
+    cursor: not-allowed !important;
+  }
 }
 </style>
