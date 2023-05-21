@@ -5,9 +5,9 @@
         <div class="modal">
           <div class="modal-msg">
             <div class="head-x">
-              <h3 class="h3-medium">Log out of IPC?</h3>
+              <h3 class="h3-medium">{{ title }}</h3>
               <svg
-              @click="$emit('closeLogout')"
+                @click="closeModal"
                 class="circle"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -24,16 +24,20 @@
                 />
               </svg>
             </div>
-            <p class="snippet">
-              It is so sad to see you want to log out at this time. You can always log
-              back in at any time.
-            </p>
+            <p class="snippet">{{ snippet }}</p>
           </div>
           <div class="button-grp">
-            <button @click="$emit('closeLogout')" class="btn neutral-btn">Cancel</button>
-            <nuxt-link :to="{ name: 'index' }"><button class="btn negative-btn">Log Out</button></nuxt-link>  
+            <button @click="closeModal" class="btn" :class="buttonClass">
+              {{ buttonText }}
+            </button>
+            <nuxt-link :to="{ name: 'index' }"
+              ><button class="btn" :class="buttonClass2">
+                {{ buttonText2 }}
+              </button></nuxt-link
+            >
           </div>
         </div>
+        <div class="modalbg WH-auto logout-modal" ref="modalRef"></div>
       </div>
     </div>
   </div>
@@ -41,7 +45,54 @@
 
 <script>
 import "animate.css";
-export default {};
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    snippet: {
+      type: String,
+      required: true,
+    },
+    buttonText: {
+      type: String,
+      required: true,
+    },
+    buttonText2: {
+      type: String,
+      required: true,
+    },
+    buttonClass: {
+      type: String,
+      required: true,
+    },
+    buttonClass2: {
+      type: String,
+      required: true,
+    },
+  },
+  mounted() {
+    // Add a global click event listener
+    window.addEventListener('click', this.handleOutsideClick);
+  },
+  beforeDestroy() {
+    // Remove the global click event listener to avoid memory leaks
+    window.removeEventListener('click', this.handleOutsideClick);
+  },
+  methods: {
+    handleOutsideClick(event) {
+      const modalElement = this.$refs.modalRef;
+      if (modalElement.contains(event.target)) {
+        // Emit the event to close the modal
+        this.$emit('closeModalBG');
+      }
+    },
+    closeModal() {
+      this.$emit('closeModal')
+    }
+  },
+};
 </script>
 
 <style scoped>
@@ -52,11 +103,15 @@ export default {};
   width: 100%;
   height: 100%;
 
-  background: rgba(48, 50, 55, 0.3);
 }
 .WH-auto {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+.modalbg {
+  background: rgba(48, 50, 55, 0.3);
+  position: relative;
+  z-index: -1;
 }
 .modal {
   display: flex;
@@ -78,9 +133,9 @@ export default {};
   background: var(--white);
   /* Raised */
 
-  box-shadow: 0px 138px 55px rgba(0, 2, 46, 0.01), 0px 78px 47px rgba(0, 2, 46, 0.05),
-    0px 35px 35px rgba(0, 2, 46, 0.09), 0px 9px 19px rgba(0, 2, 46, 0.1),
-    0px 0px 0px rgba(0, 2, 46, 0.1);
+  box-shadow: 0px 138px 55px rgba(0, 2, 46, 0.01),
+    0px 78px 47px rgba(0, 2, 46, 0.05), 0px 35px 35px rgba(0, 2, 46, 0.09),
+    0px 9px 19px rgba(0, 2, 46, 0.1), 0px 0px 0px rgba(0, 2, 46, 0.1);
   border-radius: 16px;
 }
 .modal-msg {
@@ -135,7 +190,7 @@ p.snippet {
   gap: 16px;
 }
 .button-grp a {
-    width: 100%;
+  width: 100%;
 }
 .background {
   position: relative;

@@ -200,7 +200,7 @@ input {
   max-width: 522px;
 }
 .search-input svg {
-  top: 22.5px;
+  top: 14px;
   left: 16px;
   position: absolute;
 }

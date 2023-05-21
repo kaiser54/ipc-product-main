@@ -57,7 +57,9 @@
           v-model="newPhoneNumber"
           placeholder="Add new number"
         /> -->
-        <PrimaryBtn @click="savePhoneNumber" buttonText="Add" />
+        <!-- <button class="btn primary-btn" @click="addNumBtn">Add</button> -->
+        <PrimaryBtn @click="addNumBtn" buttonText="Add" />
+        <!-- second button -->
         <svg
           @click="closeNumber"
           style="margin-top: 14px"
@@ -75,8 +77,10 @@
             stroke-linejoin="round"
           />
         </svg>
+        <!-- third button -->
       </div>
       <add-num-btn @click="openAddNumber" />
+      <!-- first button -->
     </div>
   </div>
 </template>
@@ -106,6 +110,7 @@ export default {
     return {
       localShowNewPhoneNumber: this.showNewPhoneNumber,
       newPhoneNumber: "",
+      localInvalidNumber: this.invalidNumber,
     };
   },
   computed: {
@@ -119,21 +124,15 @@ export default {
     },
   },
   methods: {
-    emitAddNumber() {
-      this.$emit("add-number");
-      this.localShowNewPhoneNumber = true; // Update the local data property
-    },
     openAddNumber() {
       this.localShowNewPhoneNumber = true; // Update the local data property
     },
     closeNumber() {
-      this.$emit("close-number");
-      this.localShowNewPhoneNumber = false; // Update the local data property
+      this.localShowNewPhoneNumber = false;
+      this.localInvalidNumber = false
     },
-    savePhoneNumber() {
+    addNumBtn() {
       this.$emit("add-number", this.newPhoneNumber);
-      // this.localShowNewPhoneNumber = false; // Update the local data property
-      this.newPhoneNumber = ""; // Clear the input field
     },
   },
 };

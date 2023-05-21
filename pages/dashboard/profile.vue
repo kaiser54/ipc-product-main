@@ -22,7 +22,6 @@
               :invalidNumber="invalidNumber"
               :show-new-phone-number="showNewPhoneNumber"
               @add-number="handleAddNumber"
-              @close-number="closeNumber"
             />
           </div>
           <emaildesktop />
@@ -99,19 +98,15 @@ export default {
     handleAddNumber(newPhoneNumber) {
       const phoneNumberRegex =
         /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
-
       if (phoneNumberRegex.test(newPhoneNumber)) {
         this.phoneNumbers.push(newPhoneNumber);
         this.showNewPhoneNumber = false; // Hide the new-phone-number div
         this.invalidNumber = false; // Reset the invalidNumber flag
+        newPhoneNumber = null;
       } else {
         this.invalidNumber = true;
         this.showNewPhoneNumber = true;
       }
-    },
-    closeNumber() {
-      this.invalidNumber = false;
-      this.showNewPhoneNumber = false;
     },
   },
 };

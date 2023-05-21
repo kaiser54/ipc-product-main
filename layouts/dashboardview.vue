@@ -1,7 +1,7 @@
 <template>
   <div>
     <cart @openCart="toggleCart" v-if="isCart && !mobile" />
-    <notificationDesktop @openNotification="toggleNotification" v-if="isNotification && !mobile"/>
+    <notificationDesktop @openNotification="toggleNotification" v-if="isNotification && !mobile" />
     <div v-if="loading && mobile">
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
@@ -12,11 +12,7 @@
           <div class="fixed" v-if="!mobile">
             <div class="solv">
               <!-- side navigation bar -->
-              <sideNav
-                :show-popup="showPopup"
-                @update:showPopup="updateShowPopup"
-                @update:logout="updatelogout"
-              />
+              <sideNav :show-popup="showPopup" @update:showPopup="updateShowPopup" @update:logout="updatelogout" />
             </div>
             <div class="backdrop" v-if="showPopup" @click="closePopup"></div>
           </div>
@@ -30,14 +26,11 @@
             <div class="ipc-top-fixed">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <topDetails @openCart="toggleCart" @openNotification="toggleNotification"/>
+                <topDetails @openCart="toggleCart" @openNotification="toggleNotification" />
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <mobileTopDetails
-                  @redirectToSearchPage="redirectToSearchPageFunc"
-                  @openCart="toggleCart"
-                />
+                <mobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc" @openCart="toggleCart" />
               </section>
             </div>
             <div class="view-wrapper">
@@ -45,15 +38,11 @@
                 <div class="page-wrapper nuxt-page-here">
                   <promptAlert />
                   <div class="page-container">
-                    <div
-                      class=""
-                      v-if="loading && !mobile"
-                      style="margin: 20px"
-                    >
+                    <div class="" v-if="loading && !mobile" style="margin: 20px">
                       <!-- css skeleton loading state on the website for desktop view -->
                       <webskeleton style="overflow: hidden; height: 100vh" />
                     </div>
-                      <nuxt v-else/>
+                    <nuxt v-else />
                   </div>
                 </div>
               </section>
@@ -63,7 +52,10 @@
       </section>
     </div>
     <transition name="modal-fade">
-      <logout v-if="logout" @closeLogout="logoutUser" />
+      <popupModal v-if="logout" title="Log out of IPC?"
+        snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
+        buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
+        @closeModal="logoutUser" @closeModalBG="logoutUserBG" />
     </transition>
   </div>
 </template>
@@ -138,6 +130,9 @@ export default {
     logoutUser() {
       this.logout = !this.logout; // set logout to true
     },
+    logoutUserBG() {
+      this.logout = false; // set logout to true
+    },
   },
 };
 </script>
@@ -146,6 +141,7 @@ export default {
 section {
   background: none;
 }
+
 .dashboard-wrapper {
   display: flex;
   max-width: 100%;
@@ -160,6 +156,7 @@ section {
   width: 100%;
   padding-right: 0px;
 }
+
 .fixed {
   position: relative;
 }
@@ -180,12 +177,14 @@ div.top-fixed {
   height: 100%;
   z-index: 10;
 }
+
 section.dashview {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
 }
+
 .dashboard-top-fixed {
   height: 136px;
 
@@ -201,6 +200,7 @@ section.dashview {
   align-items: center;
   justify-content: flex-start;
 }
+
 .view-wrapper {
   display: flex;
   overflow-y: scroll;
@@ -208,6 +208,7 @@ section.dashview {
   max-width: calc(100vw - 278px);
   justify-content: center;
 }
+
 section.view {
   display: flex;
   flex-direction: column;
@@ -219,8 +220,10 @@ section.view {
 ::-webkit-scrollbar {
   /* display: none; */
   display: block !important;
-  width: auto; /* Set width of the scrollbar */
+  width: auto;
+  /* Set width of the scrollbar */
 }
+
 .nuxt-page-here {
   display: flex;
   flex-direction: column;
@@ -231,11 +234,13 @@ section.view {
 }
 
 @media (max-width: 950px) {
+
   .top-details,
   .view-wrapper,
   section.view {
     max-width: 100%;
   }
+
   .view-wrapper {
     overflow-y: visible;
     height: 100%;
@@ -249,6 +254,7 @@ section.view {
     width: 100%;
     z-index: 1;
   }
+
   .page-container {
     display: flex;
     flex-direction: column;
@@ -257,6 +263,7 @@ section.view {
     gap: 8px;
     width: 100%;
   }
+
   .nuxt-page-here {
     margin: 16px;
     gap: 16px;

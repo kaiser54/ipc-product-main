@@ -8,37 +8,19 @@
           </div>
           <div class="form-group">
             <div class="form-field">
-              <InputField
-                id="email"
-                label="Email address"
-                v-model="email"
-                :value="emailValue"
-                type="email"
-                placeholder="Enter your email address"
-                :required="true"
-                :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage"
-              />
-              <InputField
-                id="password"
-                label="Password"
-                v-model="password"
-                :value="passwordValue"
-                :type="inputType"
-                placeholder="Enter your password"
-                :required="true"
-                :invalid="invalidPassword"
-                :errorMessage="passwordErrorMessage"
-              />
+              <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
+                placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
+                :errorMessage="emailErrorMessage" />
+              <InputField id="password" label="Password" v-model="password" :value="passwordValue" :type="inputType"
+                placeholder="Enter your password" :required="true" :invalid="invalidPassword"
+                :errorMessage="passwordErrorMessage" />
             </div>
             <div class="submit-reset">
               <PrimaryBtn buttonText="Log in" @click="submitLogin" />
               <div class="pass-link">
                 <p>
                   Forgot password?
-                  <nuxt-link :to="{ name: 'reset password' }"
-                    >Reset it here</nuxt-link
-                  >
+                  <nuxt-link :to="{ name: 'reset password' }">Reset it here</nuxt-link>
                 </p>
               </div>
             </div>
@@ -46,8 +28,7 @@
           <div class="signup-link">
             <p>
               Are you new to IPC?<nuxt-link :to="{ name: 'register' }">
-                Create an account</nuxt-link
-              >
+                Create an account</nuxt-link>
             </p>
           </div>
         </div>
@@ -156,6 +137,7 @@ export default {
   padding: 0px;
   gap: 16px;
 }
+
 .pass-link,
 .signup-link {
   font-family: "DM Sans";
@@ -166,12 +148,15 @@ export default {
   align-self: center;
   line-height: 21px;
 }
+
 .pass-link p {
   color: var(--grey-grey3);
 }
+
 .pass-link a {
   color: var(--grey-grey1);
 }
+
 .signup-link a {
   color: var(--primary-p300);
 }
