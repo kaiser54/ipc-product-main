@@ -2,35 +2,37 @@
   <div class="product-top-wrap">
     <div v-for="(product, index) in products" :key="index" class="product-card">
       <nuxt-link :to="`/dashboard/market/${product.name}`">
-      <div class="product-img-grp">
-        <div class="circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-              stroke="#565C69"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+        <div class="product-img-grp">
+          <div class="circle">
+            <svg
+              :class="{ liked: isLiked }"
+              @click="toggleLike"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <!-- <img :src="product.image" alt="" /> -->
+          <img :src="require(`~/assets/images/${product.image}`)" />
         </div>
-        <!-- <img :src="product.image" alt="" /> -->
-        <img :src="require(`~/assets/images/${product.image}`)" />
-      </div>
-      <div class="productcard-details">
-        <div class="productcard-name">
-          <p>{{ product.name }}</p>
+        <div class="productcard-details">
+          <div class="productcard-name">
+            <p>{{ product.name }}</p>
+          </div>
+          <div class="productcard-price">
+            <p>₦ {{ product.price }}</p>
+          </div>
         </div>
-        <div class="productcard-price">
-          <p>₦ {{ product.price }}</p>
-        </div>
-      </div>
       </nuxt-link>
       <button
         class="btn secondary-btn-small"
@@ -104,6 +106,7 @@
 export default {
   data() {
     return {
+      isLiked: false,
       products: [
         {
           name: "Mama'S Choice Nigerian Parboiled Rice 25kg",
@@ -152,6 +155,9 @@ export default {
     decrementCount(index) {
       this.products[index].itemCount--;
     },
+    toggleLike() {
+      this.isLiked = !this.isLiked;
+    }
   },
 };
 </script>
@@ -162,13 +168,13 @@ a {
 }
 .product-top-wrap {
   display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 16px;
-    gap: 16px;
-    width: 100%;
-    justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 16px;
+  width: 100%;
+  justify-content: space-between;
 }
 @media (max-width: 950px) {
   .product-top-wrap {
@@ -231,6 +237,9 @@ a {
 
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
+}
+.circle .liked {
+  fill: red;
 }
 .productcard-details {
   display: flex;
@@ -330,21 +339,21 @@ button p {
   }
 }
 @media (max-width: 374px) {
-.product-card {
-  max-width: 150px;
-  width: 100%;
-}
-.productcard-name p {
-  width: 100px;
-}
+  .product-card {
+    max-width: 150px;
+    width: 100%;
+  }
+  .productcard-name p {
+    width: 100px;
+  }
 }
 @media (max-width: 339px) {
-.product-card {
-  max-width: 120px;
-  width: 100%;
-}
-.productcard-name p {
-  width: 100px;
-}
+  .product-card {
+    max-width: 120px;
+    width: 100%;
+  }
+  .productcard-name p {
+    width: 100px;
+  }
 }
 </style>

@@ -24,7 +24,9 @@
               @add-number="handleAddNumber"
             />
           </div>
-          <emaildesktop />
+          <emaildesktop 
+          @openMail="toggleIsVerifyMail"
+          @openPassword="toggleIsVerifyMail"/>
         </div>
         <addressDetails
           v-if="!activetab"
@@ -35,11 +37,34 @@
         @openMail="toggleIsVerifyMail"
         @changePassword="toggleChangePassword"
         v-if="mobile"
-      ></mobileUserProfile>
+      >
+      </mobileUserProfile>
       <button class="btn mqdn" @click="toggleLogout">Log out</button>
     </div>
-    <verifyMail v-if="isVerifyMail" @close="toggleIsVerifyMail" />
-    <mobileLogout v-if="isLogout" @close="toggleLogout" />
+    <popupModal
+      v-if="isVerifyMail"
+      animate="animate__slideInUp"
+      title="Check your email address"
+      snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
+      buttonText="Resend code"
+      buttonText2="Got it"
+      buttonClass="neutral-btn"
+      buttonClass2="primary-btn"
+      @closeModal="toggleIsVerifyMail"
+      @closeModalBG="toggleIsVerifyMail"
+    />
+    <popupModal
+      v-if="isLogout"
+      animate="animate__slideInUp"
+      title="Log out of IPC?"
+      snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
+      buttonText="Cancel"
+      buttonText2="Log out"
+      buttonClass="neutral-btn"
+      buttonClass2="negative-btn"
+      @closeModal="toggleLogout"
+      @closeModalBG="toggleLogout"
+    />
     <changePassword v-if="isChangePassword" @close="toggleChangePassword" />
   </div>
 </template>
@@ -74,6 +99,8 @@ export default {
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
+    if (this.mobile) {
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -118,6 +145,7 @@ export default {
   flex-direction: column;
   gap: 24px;
 }
+
 .title-header {
   display: flex;
   align-items: center;
@@ -125,6 +153,7 @@ export default {
   gap: 16px;
   height: 76px;
 }
+
 .userdetails {
   display: flex;
   flex-direction: column;
@@ -136,6 +165,7 @@ export default {
   margin-left: 24px;
   margin-bottom: 100px;
 }
+
 .account-details-desktop {
   display: flex;
   flex-direction: column;
@@ -145,9 +175,11 @@ export default {
 
   width: 100%;
 }
+
 .acc-btn {
   width: 100%;
 }
+
 .btn {
   border: none;
   outline: none;
@@ -163,15 +195,18 @@ export default {
 
   color: var(--negative-n300);
 }
+
 @media (min-width: 950px) {
   .mqdn {
     display: none;
   }
 }
+
 @media (max-width: 950px) {
   .title-header {
     justify-content: space-between;
   }
+
   .profile {
     gap: 32px;
   }

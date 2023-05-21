@@ -1,7 +1,10 @@
 <template>
   <div>
     <cart @openCart="toggleCart" v-if="isCart && !mobile" />
-    <notificationDesktop @openNotification="toggleNotification" v-if="isNotification && !mobile" />
+    <notificationDesktop
+      @openNotification="toggleNotification"
+      v-if="isNotification && !mobile"
+    />
     <div v-if="loading && mobile">
       <!-- css skeleton loading state on the website for desktop view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
@@ -12,7 +15,11 @@
           <div class="fixed" v-if="!mobile">
             <div class="solv">
               <!-- side navigation bar -->
-              <sideNav :show-popup="showPopup" @update:showPopup="updateShowPopup" @update:logout="updatelogout" />
+              <sideNav
+                :show-popup="showPopup"
+                @update:showPopup="updateShowPopup"
+                @update:logout="updatelogout"
+              />
             </div>
             <div class="backdrop" v-if="showPopup" @click="closePopup"></div>
           </div>
@@ -26,19 +33,29 @@
             <div class="ipc-top-fixed">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <topDetails @openCart="toggleCart" @openNotification="toggleNotification" />
+                <topDetails
+                  @openCart="toggleCart"
+                  @openNotification="toggleNotification"
+                />
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <mobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc" @openCart="toggleCart" />
+                <mobileTopDetails
+                  @redirectToSearchPage="redirectToSearchPageFunc"
+                  @openCart="toggleCart"
+                />
               </section>
             </div>
             <div class="view-wrapper">
               <section class="view">
                 <div class="page-wrapper nuxt-page-here">
-                  <promptAlert />
+                  <promptAlert @openMail="handleOpenMail" />
                   <div class="page-container">
-                    <div class="" v-if="loading && !mobile" style="margin: 20px">
+                    <div
+                      class=""
+                      v-if="loading && !mobile"
+                      style="margin: 20px"
+                    >
                       <!-- css skeleton loading state on the website for desktop view -->
                       <webskeleton style="overflow: hidden; height: 100vh" />
                     </div>
@@ -52,10 +69,33 @@
       </section>
     </div>
     <transition name="modal-fade">
-      <popupModal v-if="logout" title="Log out of IPC?"
+      <popupModal
+        v-if="logout"
+        animate="animate__zoomIn"
+        title="Log out of IPC?"
         snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
-        buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
-        @closeModal="logoutUser" @closeModalBG="logoutUserBG" />
+        buttonText="Cancel"
+        buttonText2="Log out"
+        buttonClass="neutral-btn"
+        buttonClass2="negative-btn"
+        @closeModal="logoutUser"
+        @closeModalBG="logoutUserBG"
+      />
+    </transition>
+    <transition name="modal-fade">
+      <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
+      <popupModal
+        v-if="checkMail"
+        animate="animate__zoomIn"
+        title="Check your email address"
+        snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
+        buttonText="Resend code"
+        buttonText2="Got it"
+        buttonClass="neutral-btn"
+        buttonClass2="primary-btn"
+        @closeModal="handleOpenMail"
+        @closeModalBG="handleOpenMail"
+      />
     </transition>
   </div>
 </template>
@@ -70,6 +110,7 @@ export default {
       logout: false,
       isCart: false,
       isNotification: false,
+      checkMail: false,
     };
   },
   mounted() {
@@ -132,6 +173,9 @@ export default {
     },
     logoutUserBG() {
       this.logout = false; // set logout to true
+    },
+    handleOpenMail() {
+      this.checkMail = !this.checkMail;
     },
   },
 };
@@ -234,7 +278,6 @@ section.view {
 }
 
 @media (max-width: 950px) {
-
   .top-details,
   .view-wrapper,
   section.view {

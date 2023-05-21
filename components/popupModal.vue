@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="logout-modal">
-      <div class="WH-auto animate__animated animate__zoomIn">
+      <div class="WH-auto animate__animated" :class="animate">
         <div class="modal">
           <div class="modal-msg">
             <div class="head-x">
@@ -47,6 +47,10 @@
 import "animate.css";
 export default {
   props: {
+    animate: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -204,5 +208,20 @@ p.snippet {
   /* Modal */
 
   background: rgba(48, 50, 55, 0.3);
+}
+@media (max-width: 950px) {
+  .logout-modal {
+    z-index: 1;
+  }
+  .modal {
+    z-index: 3;
+    max-width: 100%;
+    height: auto;
+    top: auto;
+    bottom: 0px;
+    transform: translate(-50%, -0%);
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 </style>
