@@ -78,23 +78,23 @@ export default {
   },
   mounted() {
     // Add a global click event listener
-    window.addEventListener('click', this.handleOutsideClick);
+    window.addEventListener("click", this.handleOutsideClick);
   },
   beforeDestroy() {
     // Remove the global click event listener to avoid memory leaks
-    window.removeEventListener('click', this.handleOutsideClick);
+    window.removeEventListener("click", this.handleOutsideClick);
   },
   methods: {
     handleOutsideClick(event) {
       const modalElement = this.$refs.modalRef;
       if (modalElement.contains(event.target)) {
         // Emit the event to close the modal
-        this.$emit('closeModalBG');
+        this.$emit("closeModalBG");
       }
     },
     closeModal() {
-      this.$emit('closeModal')
-    }
+      this.$emit("closeModal");
+    },
   },
 };
 </script>
@@ -106,7 +106,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-
 }
 .WH-auto {
   width: 100%;
@@ -222,6 +221,14 @@ p.snippet {
     transform: translate(-50%, -0%);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    padding: 16px;
+  }
+  .head-x h3 {
+    font-size: 20px;
+    line-height: 30px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.5px;
   }
 }
 </style>
