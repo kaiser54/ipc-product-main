@@ -233,4 +233,15 @@ export default {
 .nuxt-link-exact-active .mobile-nav .mobile-nav-content svg path {
   stroke: var(--primary-p300) !important;
 }
+.nuxt-link-active .mobile-nav p {
+  color: var(--primary-p300);
+}
+
+.nuxt-link-active .mobile-nav svg {
+  stroke: var(--primary-p300);
+}
+
+.nuxt-link-active .mobile-nav .mobile-nav-content svg path {
+  stroke: var(--primary-p300) !important;
+}
 </style>
