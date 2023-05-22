@@ -75,14 +75,14 @@ export default {
         {
           title: "As a Business",
           snippet:
-            "Select to join and procure your food & kitchen  items today at Independent Purchasing Company",
+            "Sign up and join IPC today as a business and enjoy great benefits.",
           value: "business",
           route: "/business",
         },
         {
           title: "As an Individual",
           snippet:
-            "Select to join and procure your food & kitchen  items today at Independent Purchasing Company",
+            "Purchase your food & kitchen items today at IPC with discounted prices.",
           value: "individual",
           route: "/individual",
         },

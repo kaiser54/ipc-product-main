@@ -109,12 +109,12 @@ export default {
   width: 100%;
 }
 .search-bar-input .search-svg {
-  top: 22.5px;
+  top: 14px;
   left: 16px;
   position: absolute;
 }
 .search-bar-input svg.cancel-svg {
-  top: 22.5px;
+  top: 14px;
   right: 16px;
   position: absolute;
 }
