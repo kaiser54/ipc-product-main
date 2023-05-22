@@ -356,6 +356,7 @@ form {
     gap: 32px;
     margin-inline: 16px;
     margin-top: 116px;
+    width: auto;
   }
   .change-password {
     display: block;
@@ -364,6 +365,7 @@ form {
     left: 0;
     width: 100%;
     height: 100vh;
+    transform: none;
   }
   .frame-content-header {
     display: flex;
@@ -371,6 +373,9 @@ form {
     align-items: flex-start;
     padding: 0px;
     gap: 8px;
+  }
+  .circle {
+    border: none;
   }
 }
 </style>

@@ -17,6 +17,7 @@ body {
 
 label {
     margin-bottom: 8px !important;
+    display: block;
 }
 
 a {
