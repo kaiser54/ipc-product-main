@@ -23,7 +23,7 @@
 
     <div>
       <label for="states">Select State</label>
-      <select id="states" v-model="selectedState" @change="updateLgas">
+      <select id="states" v-model="selectedState" @change="updateLgas" :disabled="selectedState">
         <option disabled value="">Please select a state</option>
         <option
           v-for="(state, stateName) in states"
@@ -35,7 +35,7 @@
       </select>
 
       <label for="lgas">Select LGA</label>
-      <select id="lgas" v-model="selectedLga" :disabled="!selectedState">
+      <select id="lgas" v-model="selectedLga" :disabled="!selectedState || selectedLga">
         <option disabled value="">Please select a state first</option>
         <option v-for="lga in selectedState" :key="lga" :value="lga">
           {{ lga }}

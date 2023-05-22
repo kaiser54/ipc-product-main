@@ -26,7 +26,7 @@
           </div>
           <emaildesktop 
           @openMail="toggleIsVerifyMail"
-          @openPassword="toggleIsVerifyMail"/>
+          @openPassword="toggleChangePassword"/>
         </div>
         <addressDetails
           v-if="!activetab"

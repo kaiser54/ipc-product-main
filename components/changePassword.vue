@@ -1,65 +1,72 @@
 <template>
   <div class="addNumberFunc animate__animated animate__slideInUp">
-    <header>
-      <div class="frame-bg">
-        <div class="frame-1"></div>
-        <div class="frame-2">
-          <svg
-            @click="$emit('close')"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M5 19L19 5M5 5L19 19L5 5Z"
-              stroke="#565C69"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p>Change password</p>
+    <div class="change-password">
+      <header>
+        <div class="frame-bg">
+          <div class="frame-1"></div>
+          <div class="frame-2">
+            <div class="circle">
+              <svg
+                @click="$emit('close')"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M5 19L19 5M5 5L19 19L5 5Z"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <p>Change password</p>
+          </div>
         </div>
-      </div>
-    </header>
-    <div class="frame-content">
-      <div class="frame-content-header">
-        <h3 class="h3-heading">Enter Change password</h3>
-      </div>
+      </header>
+      <div class="frame-content">
+        <div class="frame-content-header">
+          <h3 class="h3-heading">Enter Change password</h3>
+        </div>
 
-      <div class="form-field">
-        <inputComponent
-          id="oldPassword"
-          label="Enter your old password"
-          name="password"
-          required
-          v-model="oldPassword"
-          :invalidPassword="validOldPassword"
-          :passwordErrorMessage="errOldPassword"
-        />
-        <inputComponent
-          id="newPassword"
-          label="Enter your new password"
-          name="password"
-          required
-          v-model="newPassword"
-          :invalidPassword="validNewPassword"
-          :passwordErrorMessage="errNewPassword"
-        />
-        <inputComponent
-          id="confirmPassword"
-          label="Enter your new password again"
-          name="password"
-          required
-          v-model="confirmPassword"
-          :invalidPassword="ValidConfirmPassword"
-          :passwordErrorMessage="errConfirmPassword"
-        />
+        <div class="form-field">
+          <inputComponent
+            id="oldPassword"
+            label="Enter your old password"
+            name="password"
+            required
+            v-model="oldPassword"
+            :invalidPassword="validOldPassword"
+            :passwordErrorMessage="errOldPassword"
+          />
+          <inputComponent
+            id="newPassword"
+            label="Enter your new password"
+            name="password"
+            required
+            v-model="newPassword"
+            :invalidPassword="validNewPassword"
+            :passwordErrorMessage="errNewPassword"
+          />
+          <inputComponent
+            id="confirmPassword"
+            label="Enter your new password again"
+            name="password"
+            required
+            v-model="confirmPassword"
+            :invalidPassword="ValidConfirmPassword"
+            :passwordErrorMessage="errConfirmPassword"
+          />
+        </div>
+        <button class="btn primary-btn" @click="handleChangePassword">
+          Change password
+        </button>
       </div>
-      <button class="btn primary-btn" @click="handleChangePassword">Change password</button>
     </div>
+    <div class="passBG" @click="$emit('close')"></div>
   </div>
 </template>
 
@@ -144,7 +151,7 @@ export default {
 }
 
 .addNumberFunc {
-  background: var(--white);
+  /* background: var(--white); */
   height: 100vh;
   position: fixed;
   top: 0;
@@ -153,69 +160,49 @@ export default {
   overflow: hidden;
   z-index: 3;
 }
-
-.addNumberFunc header {
-  position: absolute;
+header,
+.frame-content {
   width: 100%;
-  height: 92px;
-  left: 0px;
-  top: 0px;
-  background: var(--primary-p500);
 }
-
-.frame-bg {
+.change-password {
   display: flex;
-  position: absolute;
-  width: 100%;
-  height: 68px;
-  left: 0px;
-  top: 24px;
   flex-direction: column;
-  align-items: center;
-}
-
-.frame-1 {
-  box-sizing: border-box;
+  align-items: flex-end;
+  padding: 24px;
+  gap: 32px;
 
   position: absolute;
-  width: 95%;
-  height: 68px;
-  top: 0px;
+  width: 432px;
+  height: auto;
+  /* left: calc(50% - 432px / 2 + 36.01px);
+  top: 192.25px; */
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  /* Grey/Grey5 */
+  /* White */
 
-  background: var(--grey-grey5);
-  /* Grey/Grey5 */
+  background: #ffffff;
+  /* Raised */
 
-  border-bottom: 0.934481px solid var(--grey-grey5);
-  border-radius: 16px 16px 0px 0px;
+  box-shadow: 0px 138px 55px rgba(0, 2, 46, 0.01),
+    0px 78px 47px rgba(0, 2, 46, 0.05), 0px 35px 35px rgba(0, 2, 46, 0.09),
+    0px 9px 19px rgba(0, 2, 46, 0.1), 0px 0px 0px rgba(0, 2, 46, 0.1);
+  border-radius: 16px;
 }
 
 .frame-2 {
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 56px;
-  left: 0px;
-  top: 12.25px;
-  background: var(--white);
-  border-radius: 16px 16px 0px 0px;
   display: flex;
-  justify-content: center;
-}
-
-.frame-2 svg {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  right: 17px;
-  top: 15.75px;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .frame-2 p {
   font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 36px;
   /* identical to box height, or 150% */
 
   text-align: center;
@@ -224,23 +211,21 @@ export default {
 
   color: var(--grey-grey1);
 }
+.circle {
+padding: 6px;
+gap: 10px;
 
+width: 32px;
+height: 32px;
+}
 .frame-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
   gap: 32px;
-  margin-inline: 16px;
-  margin-top: 116px;
 }
 
 .frame-content-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
+  display: none;
 }
 
 .frame-content-header h3 {
@@ -288,5 +273,104 @@ form {
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
+}
+.passBG {
+  background: rgba(48, 50, 55, 0.3);
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 950px) {
+  .addNumberFunc header {
+    position: absolute;
+    width: 100%;
+    height: 92px;
+    left: 0px;
+    top: 0px;
+    background: var(--primary-p500);
+  }
+  .frame-1 {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 95%;
+    height: 68px;
+    top: 0px;
+
+    /* Grey/Grey5 */
+
+    background: var(--grey-grey5);
+    /* Grey/Grey5 */
+
+    border-bottom: 0.934481px solid var(--grey-grey5);
+    border-radius: 16px 16px 0px 0px;
+  }
+
+  .frame-2 {
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 56px;
+    left: 0px;
+    top: 12.25px;
+    background: var(--white);
+    border-radius: 16px 16px 0px 0px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .frame-2 p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    text-align: center;
+
+    /* Grey/Grey1 */
+
+    color: var(--grey-grey1);
+  }
+
+  .frame-2 svg {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 17px;
+    top: 15.75px;
+  }
+  .frame-bg {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 68px;
+    left: 0px;
+    top: 24px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .frame-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    margin-inline: 16px;
+    margin-top: 116px;
+  }
+  .change-password {
+    display: block;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  .frame-content-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+  }
 }
 </style>
