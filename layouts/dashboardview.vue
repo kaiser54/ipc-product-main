@@ -89,7 +89,7 @@
         animate="animate__zoomIn"
         title="Check your email address"
         snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-        buttonText="Resend code"
+        buttonText="Resend link"
         buttonText2="Got it"
         buttonClass="neutral-btn"
         buttonClass2="primary-btn"

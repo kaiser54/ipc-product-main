@@ -31,6 +31,7 @@
           </div>
           <div class="productcard-price">
             <p>₦ {{ product.price }}</p>
+            <p class="slashprice">₦ {{ product.slashPrice }}</p>
           </div>
         </div>
       </nuxt-link>
@@ -110,6 +111,7 @@ export default {
       products: [
         {
           name: "Mama'S Choice Nigerian Parboiled Rice 25kg",
+          slashPrice: 13000,
           price: 75000,
           image: "p1.png",
           addedToCart: false,
@@ -117,6 +119,7 @@ export default {
         },
         {
           name: "Product 2",
+          slashPrice: 13000,
           price: 2000,
           image: "p2.png",
           addedToCart: false,
@@ -124,6 +127,7 @@ export default {
         },
         {
           name: "Product 3",
+          slashPrice: 13000,
           price: 5000,
           image: "p3.png",
           addedToCart: false,
@@ -131,6 +135,7 @@ export default {
         },
         {
           name: "Product 4",
+          slashPrice: 13000,
           price: 5000,
           image: "p4.png",
           addedToCart: false,
@@ -157,7 +162,7 @@ export default {
     },
     toggleLike() {
       this.isLiked = !this.isLiked;
-    }
+    },
   },
 };
 </script>
@@ -261,6 +266,11 @@ a {
 
   color: var(--grey-grey2);
 }
+.productcard-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .productcard-price p {
   font-weight: 700;
   font-size: 16px;
@@ -271,6 +281,20 @@ a {
 
   /* Grey/Grey1 */
   color: var(--grey-grey1);
+}
+
+.productcard-price .slashprice {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  text-align: right;
+  text-decoration-line: line-through;
+
+  /* Grey/Grey3 */
+
+  color: var(--grey-grey3);
 }
 button p {
   font-weight: 500;
