@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <goback />
+    <goback style="margin-top: 28px" />
     <div class="product-detail-con">
       <div class="mobile-product-details" v-if="mobile">
         <productCarousel />
