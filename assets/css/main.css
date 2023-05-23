@@ -115,11 +115,14 @@ p {
     top: 0;
     right: 0;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
     z-index: 2;
 }
 
 .component-header {
+    position: sticky;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

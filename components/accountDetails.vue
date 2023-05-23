@@ -5,6 +5,19 @@
       <img src="../assets/images/avatar1.png" alt="" />
     </div>
     <div class="userName">
+      <div class="nameInput">
+        <label for="BusinessName" class="label">Business name</label>
+        <input
+          class="value input"
+          name="BusinessName"
+          type="text"
+          :value="BusinessName"
+          style="margin-top: 0px; color: black"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="userName">
       <div class="nameInput" v-for="(field, index) in userName" :key="index">
         <label :for="field.label" class="label">{{ field.label }}</label>
         <input
@@ -62,7 +75,7 @@
         <!-- second button -->
         <svg
           @click="closeNumber"
-          style="margin-top: 14px"
+          style="margin-top: 22px"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
@@ -103,6 +116,10 @@ export default {
     },
     showNewPhoneNumber: {
       type: Boolean,
+      required: true,
+    },
+    BusinessName: {
+      type: String,
       required: true,
     },
   },
@@ -215,6 +232,7 @@ export default {
 }
 .new-phone-number button {
   max-width: 80px;
+  margin-top: 8px;
 }
 
 @media (max-width: 950px) {
@@ -225,6 +243,12 @@ export default {
 
   input.input {
     cursor: not-allowed !important;
+  }
+  .accountDetails h3 {
+    display: none;
+  }
+  .avatar {
+    display: none;
   }
 }
 </style>

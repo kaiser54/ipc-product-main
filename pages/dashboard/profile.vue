@@ -17,6 +17,7 @@
         <div class="account-details-desktop" v-if="activetab">
           <div class="acc-btn">
             <accountDetails
+              :BusinessName="BusinessName"
               :user-name="userName"
               :phone-numbers="phoneNumbers"
               :invalidNumber="invalidNumber"
@@ -24,9 +25,10 @@
               @add-number="handleAddNumber"
             />
           </div>
-          <emaildesktop 
-          @openMail="toggleIsVerifyMail"
-          @openPassword="toggleChangePassword"/>
+          <emaildesktop
+            @openMail="toggleIsVerifyMail"
+            @openPassword="toggleChangePassword"
+          />
         </div>
         <addressDetails
           v-if="!activetab"
@@ -89,6 +91,7 @@ export default {
       invalidNumber: false,
       // newPhoneNumber: "", // phone number entered in the new phone number field
       showNewPhoneNumber: false, // whether to show the new phone number field
+      BusinessName: "Chicken Republic",
     };
   },
   head() {

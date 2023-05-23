@@ -50,33 +50,25 @@
         </div>
       </div>
     </div>
-    <userNameMail />
-    <div class="flex">
-      <userName />
-      <PhoneNumber v-model="myValue" :disabled="isDisabled" />
-      <button class="btn" @click="toggleAddNumberFunc">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-        >
-          <path
-            d="M4.16663 10.0013H15.8333M9.99996 4.16797V15.8346V4.16797Z"
-            stroke="#0009B3"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+    <div class="profile-wrapper" style="height: 110vh">
+      <userNameMail />
+      <div class="flex">
+        <div class="acc-btn">
+          <accountDetails
+            :BusinessName="BusinessName"
+            :user-name="userName"
+            :phone-numbers="phoneNumbers"
+            :invalidNumber="invalidNumber"
+            :show-new-phone-number="showNewPhoneNumber"
+            @add-number="handleAddNumber"
           />
-        </svg>
-        <p>Add new phone number</p>
-      </button>
+        </div>
+      </div>
+      <addNumberFunc
+        v-if="addNumberFunc"
+        @toggleAddNumberFunc="toggleAddNumberFunc"
+      />
     </div>
-    <addNumberFunc
-      v-if="addNumberFunc"
-      @toggleAddNumberFunc="toggleAddNumberFunc"
-    />
   </div>
 </template>
 
@@ -88,18 +80,39 @@ export default {
       addNumberFunc: false,
       myValue: "08123456789",
       isDisabled: true,
+      userName: [
+        { label: "First Name", value: "Lanre" },
+        { label: "Last Name", value: "Bello" },
+      ],
+      phoneNumbers: ["08100023262"],
+      invalidNumber: false,
+      // newPhoneNumber: "", // phone number entered in the new phone number field
+      showNewPhoneNumber: false, // whether to show the new phone number field
+      BusinessName: "Chicken Republic",
     };
   },
   methods: {
     toggleAddNumberFunc() {
       this.addNumberFunc = !this.addNumberFunc;
     },
+    handleAddNumber(newPhoneNumber) {
+      const phoneNumberRegex =
+        /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
+      if (phoneNumberRegex.test(newPhoneNumber)) {
+        this.phoneNumbers.push(newPhoneNumber);
+        this.showNewPhoneNumber = false; // Hide the new-phone-number div
+        this.invalidNumber = false; // Reset the invalidNumber flag
+        newPhoneNumber = null;
+      } else {
+        this.invalidNumber = true;
+        this.showNewPhoneNumber = true;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-
 .flex {
   display: flex;
   flex-direction: column;

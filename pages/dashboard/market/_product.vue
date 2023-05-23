@@ -50,6 +50,7 @@
         </div>
       </div>
     </div>
+    <goback />
     <div class="product-detail-con">
       <div class="mobile-product-details" v-if="mobile">
         <productCarousel />
