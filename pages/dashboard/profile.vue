@@ -1,73 +1,72 @@
 <template>
   <div class="view-page">
-    <div class="profile">
-      <div class="title-header">
-        <h2 class="h2-medium header-text">Profile</h2>
-        <div class="account-type indivudual">Individual account</div>
-      </div>
-      <switchTab
-        v-show="!mobile"
-        @toggleTab="activetab = true"
-        @toggleTab2="activetab = false"
-        :myTab="activetab"
-        text1="Account details"
-        text2="Address book"
-      />
-      <div class="userdetails" v-if="!mobile">
-        <div class="account-details-desktop" v-if="activetab">
-          <div class="acc-btn">
-            <accountDetails
-              :BusinessName="BusinessName"
-              :user-name="userName"
-              :phone-numbers="phoneNumbers"
-              :invalidNumber="invalidNumber"
-              :show-new-phone-number="showNewPhoneNumber"
-              @add-number="handleAddNumber"
-            />
-          </div>
-          <emaildesktop
-            @openMail="toggleIsVerifyMail"
-            @openPassword="toggleChangePassword"
-          />
+    <div class="profile-web-mobile">
+      <div class="profile" v-if="!mobile || !userHeaderComponent">
+        <div class="title-header">
+          <h2 class="h2-medium header-text">Profile</h2>
+          <div class="account-type indivudual">Individual account</div>
         </div>
-        <addressDetails
-          v-if="!activetab"
-          switchedHeader="Address Book"
-        ></addressDetails>
+        <switchTab v-show="!mobile" @toggleTab="activetab = true" @toggleTab2="activetab = false" :myTab="activetab"
+          text1="Account details" text2="Address book" />
+        <div class="userdetails" v-if="!mobile">
+          <div class="account-details-desktop" v-if="activetab">
+            <div class="acc-btn">
+              <accountDetails :BusinessName="BusinessName" :user-name="userName" :phone-numbers="phoneNumbers"
+                :invalidNumber="invalidNumber" :show-new-phone-number="showNewPhoneNumber"
+                @add-number="handleAddNumber" />
+            </div>
+            <emaildesktop @openMail="toggleIsVerifyMail" @openPassword="toggleChangePassword" />
+          </div>
+          <addressDetails v-if="!activetab" switchedHeader="Address Book"></addressDetails>
+        </div>
       </div>
-      <mobileUserProfile
-        @openMail="toggleIsVerifyMail"
-        @changePassword="toggleChangePassword"
-        v-if="mobile"
-      >
-      </mobileUserProfile>
-      <button class="btn mqdn" @click="toggleLogout">Log out</button>
+
+      <!-- profile content for the mobile view -->
+
+      <div class="mobileUserProfile" v-if="mobile">
+
+        <!-- user profile and name -->
+        <userHeader @clicked="toggleuserHeaderComponent" />
+        <userHeaderComponent v-if="userHeaderComponent" @redirectToprofilepage="redirectToprofilepage" />
+        <!-- ---------------------------------- -->
+
+        <!-- address verify and change password -->
+        <div class="user__details" v-if="!userHeaderComponent">
+          <div class="user__details__head">
+            <p>ACCOUNT</p>
+          </div>
+          <userdetailsMobileview @openMail="toggleIsVerifyMail" @changePassword="toggleChangePassword" />
+        </div>
+        <!-- ---------------------------------- -->
+
+        <!-- FAQ customer privacy -->
+        <div class="user__details" v-if="!userHeaderComponent">
+          <div class="user__details__head">
+            <p>ABOUT IPC</p>
+          </div>
+          <FAQmobileview />
+        </div>
+      </div>
+      <button class="btn mqdn" @click="toggleLogout" v-if="!userHeaderComponent">Log out</button>
     </div>
-    <popupModal
-      v-if="isVerifyMail"
-      animate="animate__slideInUp"
-      title="Check your email address"
+    <!-- ---------------------------- -->
+
+    <!-- verify email popup -->
+
+    <popupModal v-if="isVerifyMail" animate="animate__slideInUp" title="Check your email address"
       snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-      buttonText="Resend code"
-      buttonText2="Got it"
-      buttonClass="neutral-btn"
-      buttonClass2="primary-btn"
-      @closeModal="toggleIsVerifyMail"
-      @closeModalBG="toggleIsVerifyMail"
-    />
-    <popupModal
-      v-if="isLogout"
-      animate="animate__slideInUp"
-      title="Log out of IPC?"
+      buttonText="Resend code" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
+      @closeModal="toggleIsVerifyMail" @closeModalBG="toggleIsVerifyMail" />
+    <!-- ---------------------------- -->
+
+    <!-- logout popup -->
+
+    <popupModal v-if="isLogout" animate="animate__slideInUp" title="Log out of IPC?"
       snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
-      buttonText="Cancel"
-      buttonText2="Log out"
-      buttonClass="neutral-btn"
-      buttonClass2="negative-btn"
-      @closeModal="toggleLogout"
-      @closeModalBG="toggleLogout"
-    />
+      buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
+      @closeModal="toggleLogout" @closeModalBG="toggleLogout" />
     <changePassword v-if="isChangePassword" @close="toggleChangePassword" />
+    <!-- ---------------------------- -->
   </div>
 </template>
 
@@ -83,6 +82,7 @@ export default {
       isVerifyMail: false,
       isLogout: false,
       isChangePassword: false,
+      userHeaderComponent: false,
       userName: [
         { label: "First Name", value: "Lanre" },
         { label: "Last Name", value: "Bello" },
@@ -138,6 +138,12 @@ export default {
         this.showNewPhoneNumber = true;
       }
     },
+    toggleuserHeaderComponent() {
+      this.userHeaderComponent = true;
+    },
+    redirectToprofilepage() {
+      this.userHeaderComponent = false;
+    }
   },
 };
 </script>
@@ -179,6 +185,36 @@ export default {
   width: 100%;
 }
 
+.mobileUserProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+}
+
+.user__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+
+  background: var(--white);
+}
+
+.user__details__head p {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey3 */
+
+  color: var(--grey-grey3);
+}
+
 .acc-btn {
   width: 100%;
 }
@@ -213,5 +249,4 @@ export default {
   .profile {
     gap: 32px;
   }
-}
-</style>
+}</style>
