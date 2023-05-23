@@ -48,8 +48,7 @@
             </div>
             <div class="view-wrapper">
               <section class="view">
-                <div class="page-wrapper nuxt-page-here">
-                  <promptAlert @openMail="handleOpenMail" />
+                <div class="page-wrapper nuxt-page-here"> 
                   <div class="page-container">
                     <div
                       class=""
@@ -80,21 +79,6 @@
         buttonClass2="negative-btn"
         @closeModal="logoutUser"
         @closeModalBG="logoutUserBG"
-      />
-    </transition>
-    <transition name="modal-fade">
-      <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
-      <popupModal
-        v-if="checkMail"
-        animate="animate__zoomIn"
-        title="Check your email address"
-        snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-        buttonText="Resend link"
-        buttonText2="Got it"
-        buttonClass="neutral-btn"
-        buttonClass2="primary-btn"
-        @closeModal="handleOpenMail"
-        @closeModalBG="handleOpenMail"
       />
     </transition>
   </div>
