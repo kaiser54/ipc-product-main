@@ -26,7 +26,7 @@
       <div class="mobileUserProfile" v-if="mobile">
 
         <!-- user profile and name -->
-        <userHeader @clicked="toggleuserHeaderComponent" />
+        <userHeader @clicked="toggleuserHeaderComponent" v-if="!userHeaderComponent"/>
         <userHeaderComponent v-if="userHeaderComponent" @redirectToprofilepage="redirectToprofilepage" />
         <!-- ---------------------------------- -->
 

@@ -124,6 +124,9 @@ export default {
   /* max-width: 575px; */
   width: auto;
 }
+.acc-btn {
+  width: 100%;
+}
 
 button.btn {
   display: flex;
