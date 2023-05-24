@@ -26,7 +26,7 @@
       <div class="mobileUserProfile" v-if="mobile">
 
         <!-- user profile and name -->
-        <userHeader @clicked="toggleuserHeaderComponent" v-if="!userHeaderComponent"/>
+        <userHeader @clicked="toggleuserHeaderComponent" v-if="!userHeaderComponent" />
         <userHeaderComponent v-if="userHeaderComponent" @redirectToprofilepage="redirectToprofilepage" />
         <!-- ---------------------------------- -->
 
@@ -249,4 +249,5 @@ export default {
   .profile {
     gap: 32px;
   }
-}</style>
+}
+</style>

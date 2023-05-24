@@ -13,34 +13,15 @@
 
           <div class="form-group">
             <div class="form-field">
-              <InputField
-                id="password"
-                label="Create new password"
-                v-model="password"
-                :value="passwordValue"
-                :type="inputType"
-                placeholder="Enter password (min. of 4 characters)"
-                :required="true"
-                :invalid="invalidPassword"
-                :errorMessage="passwordErrorMessage"
-              />
-              <InputField
-                id="rePassword"
-                label="Re-enter new password"
-                v-model="rePassword"
-                :value="rePasswordValue"
-                :type="inputType"
-                placeholder="Enter password (min. of 4 characters)"
-                :required="true"
-                :invalid="invalidRePassword"
-                :errorMessage="rePasswordErrorMessage"
-              />
+              <InputField id="password" label="Create new password" v-model="password" :value="passwordValue"
+                :type="inputType" placeholder="Enter password (min. of 4 characters)" :required="true"
+                :invalid="invalidPassword" :errorMessage="passwordErrorMessage" />
+              <InputField id="rePassword" label="Re-enter new password" v-model="rePassword" :value="rePasswordValue"
+                :type="inputType" placeholder="Enter password (min. of 4 characters)" :required="true"
+                :invalid="invalidRePassword" :errorMessage="rePasswordErrorMessage" />
             </div>
             <div class="submit-reset">
-              <PrimaryBtn
-                buttonText="Reset password and log in"
-                @click="submitLogin"
-              />
+              <PrimaryBtn buttonText="Reset password and log in" @click="submitLogin" />
             </div>
           </div>
         </div>

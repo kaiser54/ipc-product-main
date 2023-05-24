@@ -44,7 +44,7 @@ export default {
     return {
       title: this.pageTitle,
     };
-  },mounted() {
+  }, mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -90,7 +90,7 @@ export default {
 }
 
 .listed-cart {
-    position: relative;
+  position: relative;
   margin-left: 20px;
   display: flex;
   flex-direction: row;

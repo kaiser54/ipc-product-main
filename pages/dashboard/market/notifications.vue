@@ -1,25 +1,13 @@
 <template>
   <div>
     <div class="notification-wrapper">
-      <div class="notification" v-for="(notification, index) in notifications"
-      :key="index">
+      <div class="notification" v-for="(notification, index) in notifications" :key="index">
         <div class="time">{{ notification.time }}</div>
         <div class="notification-header">
           <div class="title">{{ notification.title }}</div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-          >
-            <path
-              d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337"
-              stroke="#565C69"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+            <path d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337" stroke="#565C69" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
         <div class="message">{{ notification.message }}</div>
@@ -169,28 +157,31 @@ height: 189px; */
   gap: 3px;
   width: 100%;
 }
+
 .notification-header .title {
   font-weight: 500;
-font-size: 14px;
-line-height: 21px;
-/* identical to box height, or 150% */
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
 
 
-/* Grey/Grey1 */
+  /* Grey/Grey1 */
 
-color: var(--grey-grey1);
+  color: var(--grey-grey1);
 }
+
 .message {
   font-weight: 400;
-font-size: 12px;
-line-height: 18px;
-/* or 150% */
+  font-size: 12px;
+  line-height: 18px;
+  /* or 150% */
 
 
-/* Grey/Grey2 */
+  /* Grey/Grey2 */
 
-color: var(--grey-grey2);
+  color: var(--grey-grey2);
 }
+
 .notification-product {
   display: flex;
   flex-direction: row;
@@ -206,15 +197,18 @@ color: var(--grey-grey2);
   border: 1px solid var(--grey-grey6);
   border-radius: 12px;
 }
+
 .notification-product .image {
   width: 28.44px;
   height: 32px;
 }
+
 .notification-product img {
   width: 100%;
   height: auto;
   object-fit: contain;
 }
+
 .product-name {
   font-weight: 400;
   font-size: 14px;

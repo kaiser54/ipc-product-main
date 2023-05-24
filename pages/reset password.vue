@@ -6,20 +6,9 @@
         <div class="wrapper">
           <div @click="goBack">
             <div class="nav-btn">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
-                  stroke="#303237"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
               </svg>
             </div>
           </div>
@@ -33,23 +22,13 @@
           </div>
           <div class="form-group">
             <div class="form-field">
-              <InputField
-                id="email"
-                label="Email address"
-                v-model="email"
-                :value="emailValue"
-                type="email"
-                placeholder="Enter your email address"
-                :required="true"
-                :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage"
-              />
+              <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
+                placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
+                :errorMessage="emailErrorMessage" />
             </div>
             <div class="submit-reset">
               <PrimaryBtn buttonText="Continue" @click="submitReset" />
-              <nuxt-link :to="{ name: 'index' }" class="btn ghost-btn"
-                >Back to log in</nuxt-link
-              >
+              <nuxt-link :to="{ name: 'index' }" class="btn ghost-btn">Back to log in</nuxt-link>
             </div>
           </div>
         </div>
@@ -154,11 +133,13 @@ export default {
 
   background: var(--grey-grey6);
 }
+
 .header .header-group {
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
 }
+
 .header .header-group .header-snippet {
   font-weight: 400;
   font-size: 16px;
@@ -166,6 +147,7 @@ export default {
 
   color: var(--grey-grey2);
 }
+
 .submit-reset {
   display: flex;
   flex-direction: column;
@@ -177,6 +159,7 @@ export default {
     width: 36px;
     height: 36px;
   }
+
   .nav-btn svg {
     width: 20px !important;
     height: 20px !important;

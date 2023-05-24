@@ -24,29 +24,18 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
         </div>
       </nuxt-link>
       <nuxt-link to="/dashboard/track orders/product one">
-        <orderProduct :showSvg="true"/>
+        <orderProduct :showSvg="true" />
       </nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -65,25 +54,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -102,25 +81,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -139,25 +108,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -176,25 +135,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -213,25 +162,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -250,25 +189,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -287,25 +216,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -324,25 +243,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -361,25 +270,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -398,25 +297,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -435,25 +324,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -472,25 +351,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -509,25 +378,15 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
-      <nuxt-link to="/dashboard/track orders/product one"
-        ><div class="order-wrapper">
+          </div>
+        </div>
+      </nuxt-link>
+      <nuxt-link to="/dashboard/track orders/product one">
+        <div class="order-wrapper">
           <div class="order-product">
             <div class="image">
               <img src="~/assets/images/p1.png" alt="" />
@@ -546,23 +405,13 @@
                 <div class="order-qty">Qty: 1</div>
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="33"
-              viewBox="0 0 32 33"
-              fill="none"
-            >
-              <path
-                d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+              <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </div></div
-      ></nuxt-link>
+          </div>
+        </div>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -588,6 +437,7 @@ a {
   color: inherit;
   width: 100%;
 }
+
 .order-container {
   display: flex;
   flex-direction: column;
@@ -596,6 +446,7 @@ a {
   gap: 16px;
   width: 100%;
 }
+
 .order-wrapper {
   display: flex;
   flex-direction: column;
@@ -605,6 +456,7 @@ a {
   max-width: 784px;
   width: 100%;
 }
+
 .order-product {
   box-sizing: border-box;
 
@@ -624,6 +476,7 @@ a {
   border: 1px solid var(--grey-grey5);
   border-radius: 16px;
 }
+
 .image {
   width: 64px;
   height: 72px;
@@ -633,6 +486,7 @@ a {
   background: var(--grey-grey6);
   border-radius: 1.70667px;
 }
+
 .order-product-details {
   display: flex;
   flex-direction: row;
@@ -642,6 +496,7 @@ a {
   gap: 4px;
   width: 100%;
 }
+
 .order-content {
   display: flex;
   flex-direction: column;
@@ -649,6 +504,7 @@ a {
   padding: 0px;
   gap: 8px;
 }
+
 .order-content .title {
   font-weight: 400;
   font-size: 16px;
@@ -659,6 +515,7 @@ a {
 
   color: var(--grey-grey1);
 }
+
 .order-content .order-id {
   font-weight: 400;
   font-size: 14px;
@@ -669,6 +526,7 @@ a {
 
   color: var(--grey-grey2);
 }
+
 .price-qty {
   display: flex;
   flex-direction: column;
@@ -677,6 +535,7 @@ a {
   gap: 4px;
   width: auto;
 }
+
 .order-content .order-price {
   font-weight: 700;
   font-size: 16px;
@@ -689,6 +548,7 @@ a {
 
   color: var(--grey-grey1);
 }
+
 .order-content .order-qty {
   font-weight: 400;
   font-size: 14px;

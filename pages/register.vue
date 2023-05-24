@@ -5,54 +5,27 @@
         <div class="content-box">
           <h2 class="h2-medium header-text">How would you like to join IPC?</h2>
           <div class="content-select">
-            <div
-              class="list-select"
-              :class="{ clicked: selectedItem === item.value }"
-              v-for="(item, index) in listSelect"
-              :key="index"
-              @click="selectItem(item.value)"
-            >
+            <div class="list-select" :class="{ clicked: selectedItem === item.value }" v-for="(item, index) in listSelect"
+              :key="index" @click="selectItem(item.value)">
               <div class="list-select-header">
                 <h3 class="h3-medium">{{ item.title }}</h3>
                 <label>
-                  <input
-                    type="radio"
-                    :value="item.value"
-                    v-model="selectedItem"
-                    hidden
-                  />
-                  <svg
-                    :class="{ selected: selectedItem === item.value }"
-                    viewBox="0 0 25 25"
-                    width="25"
-                    height="25"
-                  >
+                  <input type="radio" :value="item.value" v-model="selectedItem" hidden />
+                  <svg :class="{ selected: selectedItem === item.value }" viewBox="0 0 25 25" width="25" height="25">
                     <circle cx="12" cy="12" r="11" />
-                    <path
-                      v-if="selectedItem === item.value"
-                      d="M8.5,12l2.5,2.5L15.5,10"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
+                    <path v-if="selectedItem === item.value" d="M8.5,12l2.5,2.5L15.5,10" fill="none" stroke="#fff"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </label>
               </div>
               <p class="snippet">{{ item.snippet }}</p>
             </div>
           </div>
-          <PrimaryBtn
-            :disabled="!selectedItem"
-            @click="goToRoute()"
-            buttonText="Continue"
-          />
+          <PrimaryBtn :disabled="!selectedItem" @click="goToRoute()" buttonText="Continue" />
           <div class="signup-link">
             <p>
               Have an existing account?<nuxt-link :to="{ name: 'index' }">
-                Log in</nuxt-link
-              >
+                Log in</nuxt-link>
             </p>
           </div>
         </div>
@@ -117,6 +90,7 @@ export default {
   align-items: center;
   gap: 24px;
 }
+
 .content-box {
   display: flex;
   flex-direction: column;
@@ -131,9 +105,11 @@ export default {
   background: var(--grey-grey6);
   border-radius: 24px;
 }
+
 .h3-medium {
   color: var(--grey-grey1);
 }
+
 p.snippet {
   font-style: normal;
   font-weight: 400;
@@ -141,9 +117,11 @@ p.snippet {
   line-height: 24px;
   color: var(--grey-grey3);
 }
+
 .content-box button {
   max-width: 308px;
 }
+
 svg circle {
   stroke: var(--grey-grey4);
   stroke-width: 2px;
@@ -155,6 +133,7 @@ svg circle {
   stroke: none;
   fill: var(--primary-p300);
 }
+
 /* .radio-svg {
   fill: var(--primary-p300);
 } */
@@ -175,17 +154,21 @@ svg circle {
   border: 1px solid var(--grey-grey4);
   border-radius: 16px;
 }
+
 button:disabled {
   cursor: not-allowed;
 }
+
 .clicked,
 .list-select:hover {
   border: 1px solid var(--primary-p300);
 }
+
 .list-select-header {
   display: flex;
   justify-content: space-between;
 }
+
 .signup-link p {
   font-family: "DM Sans";
   font-style: normal;
@@ -198,6 +181,7 @@ button:disabled {
 
   color: var(--grey-grey1);
 }
+
 .signup-link p a {
   font-weight: 500;
   font-size: 14px;
@@ -208,14 +192,17 @@ button:disabled {
 
   color: var(--primary-p300);
 }
+
 @media (max-width: 750px) {
   .content-box {
     padding: 0;
     background-color: #ffffff;
   }
+
   .content-box button {
     max-width: none;
   }
+
   .content-select {
     flex-direction: column;
   }

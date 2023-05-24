@@ -4,20 +4,9 @@
       <div class="confirmation">
         <div class="confirmation-wrap">
           <div class="svg-bg">
-            <svg
-              width="64"
-              height="64"
-              viewBox="0 0 64 64"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 32L24 48L56 16"
-                stroke="#20AF0B"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 32L24 48L56 16" stroke="#20AF0B" stroke-width="5" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </div>
           <div class="message">
@@ -25,16 +14,13 @@
             <div class="snippet">
               <p>
                 We have sent a secured reset link to
-                <span>{{ $store.state.maskedEmail }}</span
-                ><br />
+                <span>{{ $store.state.maskedEmail }}</span><br />
                 Click on the link to reset your password.
               </p>
             </div>
           </div>
         </div>
-        <nuxt-link :to="{ name: 'index' }" class="btn primary-btn"
-          >Back to log in</nuxt-link
-        >
+        <nuxt-link :to="{ name: 'index' }" class="btn primary-btn">Back to log in</nuxt-link>
       </div>
     </div>
   </div>
@@ -74,6 +60,7 @@ export default {
   max-width: 446px;
   margin-inline: auto;
 }
+
 .confirmation-wrap {
   display: flex;
   flex-direction: column;
@@ -81,9 +68,11 @@ export default {
   padding: 0px;
   gap: 24px;
 }
+
 .confirmation .btn {
   width: auto;
 }
+
 .svg-bg {
   display: flex;
   flex-direction: row;
@@ -98,6 +87,7 @@ export default {
   background: var(--positive-p50);
   border-radius: 100%;
 }
+
 .message {
   display: flex;
   flex-direction: column;
@@ -106,6 +96,7 @@ export default {
   gap: 8px;
   text-align: center;
 }
+
 .snippet p,
 .snippet {
   font-style: normal;
@@ -118,22 +109,27 @@ export default {
 
   color: var(--grey-grey3);
 }
+
 .message span {
   font-weight: 700;
   color: var(--grey-grey1);
 }
+
 @media (max-width: 750px) {
   br {
     display: none;
   }
+
   .svg-bg {
     width: 96px;
     height: 96px;
   }
+
   svg {
     width: 48px;
     height: 48px;
   }
+
   h2 {
     font-weight: 500;
     font-size: 24px;

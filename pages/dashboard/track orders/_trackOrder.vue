@@ -8,7 +8,7 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <orderProduct :showSvg="false"/>
+        <orderProduct :showSvg="false" />
         <div class="user-info">
           <div class="client-user-name bdr">
             <div class="client-frame">
@@ -18,8 +18,7 @@
               <span>Phone number</span><span class="bold">09156581205</span>
             </div>
             <div class="client-frame">
-              <span>Street address</span
-              ><span class="bold">91, lagos road</span>
+              <span>Street address</span><span class="bold">91, lagos road</span>
             </div>
             <div class="client-frame">
               <span>Local govt. area</span><span class="bold">Epe</span>
@@ -74,6 +73,7 @@ export default {
 .view-page {
   gap: 32px;
 }
+
 .top-header {
   display: flex;
   flex-direction: column;
@@ -81,14 +81,17 @@ export default {
   padding: 0px;
   gap: 16px;
 }
+
 .title-header {
   gap: 16px;
 }
+
 .product-transaction {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 }
+
 .product-description {
   display: flex;
   flex-direction: row;
@@ -97,6 +100,7 @@ export default {
   /* max-width: 579px; */
   width: 100%;
 }
+
 .user-info {
   display: flex;
   flex-direction: column;
@@ -107,6 +111,7 @@ export default {
   max-width: 356px;
   width: 100%;
 }
+
 .bdr {
   display: flex;
   padding: 16px;
@@ -117,11 +122,13 @@ export default {
   border: 1px solid var(--grey-grey5);
   border-radius: 16px;
 }
+
 .client-user-name {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
 }
+
 .client-frame {
   display: flex;
   flex-direction: row;
@@ -139,15 +146,18 @@ export default {
 
   color: var(--grey-grey2);
 }
+
 .client-frame .bold {
   color: var(--grey-grey1);
 }
+
 .total {
   color: var(--grey-grey1);
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
 }
+
 .total .bold {
   font-weight: 700;
   font-size: 20px;
@@ -174,5 +184,4 @@ export default {
 
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
-}
-</style>
+}</style>

@@ -4,13 +4,8 @@
       <h2 class="h2-medium header-text">History</h2>
       <div class="filter-head">
         <div class="filter-tabs">
-          <div
-            v-for="(tab, index) in tabs"
-            :key="index"
-            class="tab tab-standard"
-            @click="toggleTab(index)"
-            :class="{ clicked: activeTabs.includes(index) }"
-          >
+          <div v-for="(tab, index) in tabs" :key="index" class="tab tab-standard" @click="toggleTab(index)"
+            :class="{ clicked: activeTabs.includes(index) }">
             {{ tab }}
           </div>
         </div>
@@ -21,50 +16,21 @@
             <button class="datepicker-toggle-button">
               <span v-if="startDate">{{ startDate }}</span>
               <span v-else class="btn-dsp">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                   <path
                     d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3 8.33203H18"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M13.834 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7.16602 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    stroke="#303237" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M3 8.33203H18" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M13.834 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M7.16602 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
                 <p>YYYY-MM-DD</p>
               </span>
             </button>
-            <input
-              type="date"
-              class="input datepicker-input"
-              v-model="startDate"
-            />
+            <input type="date" class="input datepicker-input" v-model="startDate" />
           </div>
           <div class="datepicker-toggle">
             <p>To</p>
@@ -72,59 +38,26 @@
             <button class="datepicker-toggle-button">
               <span v-if="endDate">{{ endDate }}</span>
               <span v-else class="btn-dsp">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                   <path
                     d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3 8.33203H18"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M13.834 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7.16602 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    stroke="#303237" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M3 8.33203H18" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M13.834 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M7.16602 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
                 <p>YYYY-MM-DD</p>
               </span>
             </button>
-            <input
-              type="date"
-              class="input datepicker-input"
-              v-model="endDate"
-            />
+            <input type="date" class="input datepicker-input" v-model="endDate" />
           </div>
         </div>
       </div>
     </div>
-    <history-component
-      :tableData="tableData"
-      :activeTabs="activeTabs"
-      :tableHeaders="tableHeaders"
-    />
+    <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" />
   </div>
 </template>
 
@@ -331,6 +264,7 @@ export default {
   z-index: 9;
   background: white;
 }
+
 .datepicker-toggle {
   display: flex;
   flex-direction: row;
@@ -338,6 +272,7 @@ export default {
   gap: 18px;
   position: relative;
 }
+
 .datepicker-toggle-button {
   /* position: absolute;
   left: 0;
@@ -363,6 +298,7 @@ export default {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
 }
+
 .datepicker-input {
   position: absolute;
   left: 0;
@@ -373,12 +309,14 @@ export default {
   cursor: pointer;
   box-sizing: border-box;
 }
+
 .btn-dsp {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
+
 .btn-dsp p {
   font-weight: 500;
   font-size: 14px;
@@ -395,12 +333,14 @@ export default {
   justify-content: space-between;
   width: 100%;
 }
+
 .filter-tabs {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
+
 .filter-dates {
   display: flex;
   flex-direction: row;
@@ -410,6 +350,7 @@ export default {
   gap: 16px;
   position: relative;
 }
+
 .tab.clicked {
   /* Accent/A75 */
   background: var(--accent-a75);
@@ -422,27 +363,31 @@ export default {
   .history {
     max-width: 100%;
   }
+
   .filter-dates {
     justify-content: center;
     align-items: flex-end;
     flex-direction: column;
   }
 }
-  @media (max-width: 1040px) {
-    .history {
-      max-width: 100%;
-    }
-    .filter-head {
+
+@media (max-width: 1040px) {
+  .history {
+    max-width: 100%;
+  }
+
+  .filter-head {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
-    }
-    .filter-dates {
-      justify-content: center;
-      align-items: flex-end;
-      flex-direction: row;
-    }
   }
+
+  .filter-dates {
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}
 </style>
 
 <style>

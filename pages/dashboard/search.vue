@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="product-search">
-      <search @search-term-updated="handleSearchTermUpdated" /> 
+      <search @search-term-updated="handleSearchTermUpdated" />
       <!-- @search-term-updated is catched from the search component  -->
     </div>
   </div>

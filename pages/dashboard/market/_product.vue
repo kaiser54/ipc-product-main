@@ -2,21 +2,10 @@
   <div :class="{ 'user-details-component': mobile }">
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
-        <svg
-          @click="$router.go(-1)"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+        <svg @click="$router.go(-1)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none">
+          <path d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
         <p>Product details</p>
         <div class="component-cart">
@@ -24,27 +13,12 @@
             <p>9</p>
           </div>
           <nuxt-link to="/dashboard/market/cart">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
                 d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+                stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888" stroke="#565C69"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </nuxt-link>
         </div>
@@ -79,26 +53,13 @@
         <div class="product-details-main">
           <div class="product-img-thumb">
             <div class="product-img zoom-container" ref="zoomContainer">
-              <img
-                :src="
-                  require(`~/assets/images/${product.images[productImage]}`)
-                "
-                class="zoom-image"
-                ref="zoomImage"
-              />
+              <img :src="require(`~/assets/images/${product.images[productImage]}`)
+                " class="zoom-image" ref="zoomImage" />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
             <div class="product-thumb">
-              <div
-                class="thumb"
-                v-for="(image, index) in product.images"
-                :key="index"
-              >
-                <img
-                  :src="require(`~/assets/images/${image}`)"
-                  alt=""
-                  @click="changeImage(index)"
-                />
+              <div class="thumb" v-for="(image, index) in product.images" :key="index">
+                <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" />
               </div>
             </div>
           </div>
@@ -113,20 +74,10 @@
                 </p>
               </div>
               <div class="circle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
             </div>

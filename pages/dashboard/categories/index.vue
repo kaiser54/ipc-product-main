@@ -5,15 +5,8 @@
     </div>
     <div class="page-content">
       <div class="categories-content">
-        <div
-          style="width: 100%; max-width: 387px;"
-          v-for="(category, index) in categories"
-          :key="index"
-        >
-          <nuxt-link
-            class="category"
-            :to="`/dashboard/categories/${category.title}`"
-          >
+        <div style="width: 100%; max-width: 387px;" v-for="(category, index) in categories" :key="index">
+          <nuxt-link class="category" :to="`/dashboard/categories/${category.title}`">
             <!-- <img :src="`/${category.image}`" alt="" /> -->
             <!-- use this method if your pulling the images from the static folder -->
             <img :src="require(`~/assets/images/${category.image}`)" alt="" />
@@ -22,20 +15,9 @@
               <p class="title">{{ category.title }}</p>
               <p class="snippet truncate">{{ category.snippet }}</p>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-            >
-              <path
-                d="M13.3333 10.666L18.6667 15.9993L13.3333 21.3327"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M13.3333 10.666L18.6667 15.9993L13.3333 21.3327" stroke="#565C69" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </nuxt-link>
         </div>
@@ -107,9 +89,11 @@ export default {
 a {
   width: 100% !important;
 }
+
 .page-content {
   width: 100%;
 }
+
 .categories-content {
   display: flex;
   flex-direction: row;
@@ -123,6 +107,7 @@ a {
   margin-inline: auto;
   margin-bottom: 100px;
 }
+
 .category {
   display: flex;
   flex-direction: row;
@@ -151,6 +136,7 @@ a {
 .category:focus {
   border: 1px solid var(--primary-p300);
 }
+
 .category img {
   max-width: 68px;
   width: 100%;
@@ -172,6 +158,7 @@ a {
 
   color: var(--grey-grey1);
 }
+
 .category-header .snippet {
   font-weight: 400;
   font-size: 16px;
@@ -182,6 +169,7 @@ a {
 
   color: var(--grey-grey3);
 }
+
 .snippet.truncate {
   white-space: nowrap;
   overflow: hidden;
@@ -200,27 +188,33 @@ a {
     max-width: 341px;
     /* height: 816px; */
   }
+
   .category {
     max-width: 341px;
     height: 88px;
   }
+
   .category img {
     max-width: 48px;
     width: 100%;
   }
+
   .category-header {
     max-width: 197px;
   }
+
   .category-header .title {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
   }
+
   .category-header .p {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
   }
+
   .snippet.truncate {
     max-width: 197px;
   }
