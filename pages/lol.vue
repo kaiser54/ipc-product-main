@@ -1,16 +1,7 @@
 <template>
   <div class="phone-form">
-    <div
-      class="phone-number"
-      v-for="(number, index) in phoneNumbers"
-      :key="index"
-    >
-      <input
-        type="tel"
-        :value="number"
-        @input="updatePhoneNumber(index, $event.target.value)"
-        readonly 
-      />
+    <div class="phone-number" v-for="(number, index) in phoneNumbers" :key="index">
+      <input type="tel" :value="number" @input="updatePhoneNumber(index, $event.target.value)" readonly />
       <button class="remove-number" @click="removePhoneNumber(index)">
         Remove
       </button>
@@ -25,11 +16,7 @@
       <label for="states">Select State</label>
       <select id="states" v-model="selectedState" @change="updateLgas" :disabled="selectedState">
         <option disabled value="">Please select a state</option>
-        <option
-          v-for="(state, stateName) in states"
-          :key="stateName"
-          :value="state"
-        >
+        <option v-for="(state, stateName) in states" :key="stateName" :value="state">
           {{ stateName }}
         </option>
       </select>
@@ -63,6 +50,18 @@
         </button>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    <VerticalProgressBar :steps="steps" />
   </div>
 </template>
 
@@ -79,6 +78,15 @@ export default {
       selectedLga: null,
       selectedDate: null,
       currentDate: new Date(),
+
+
+      steps: [
+        { value: true }, // Step 1
+        { value: true }, // Step 2
+        { value: true }, // Step 3
+        { value: true }, // Step 4
+        { value: false } // Step 5
+      ],
     };
   },
   computed: {
