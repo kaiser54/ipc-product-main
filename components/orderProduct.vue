@@ -163,6 +163,9 @@ a {
   .order-content {
     width: 100%;
   }
+  .order-product-details {
+    justify-content: space-evenly;
+  }
   .order-product {
     gap: 8px;
   }
@@ -209,6 +212,9 @@ a {
   }
 }
 @media (max-width: 450px) {
+  .order-content {
+    max-width: 190px;
+  }
   .order-content .title {
     max-width: 150px;
   }
