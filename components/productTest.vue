@@ -8,10 +8,12 @@
             <span>{{ getProductQuantity }}</span>
             <button @click="incrementQuantity">+</button>
         </div>
+        <button @click="removeFromCart(product.id)">Delete</button>
     </div>
 </template>
   
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
     props: {
         product: {
@@ -24,6 +26,7 @@ export default {
         },
     },
     computed: {
+        ...mapState(['cart']),
         isInCart() {
             const productInCart = this.$store.state.cart.find(
                 (p) => p.id === this.product.id
@@ -38,6 +41,7 @@ export default {
         },
     },
     methods: {
+        ...mapMutations(['removeFromCart']),
         addToCart() {
             this.$store.commit('addToCart', this.product);
         },

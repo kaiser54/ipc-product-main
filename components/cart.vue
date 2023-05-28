@@ -12,8 +12,11 @@
             <h3 class="h3-medium">Shopping bag</h3>
           </div>
         </header>
+        <div v-if="cart.length === 0">
+          <p>Your cart is empty.</p>
+        </div>
         <div class="cart-list">
-          <cartList />
+          <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
         </div>
         <div class="checkout-container">
           <div class="checkout-details">
@@ -36,9 +39,14 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 import "animate.css";
 export default {
+  computed: {
+    ...mapState(['cart']),
+  },
   methods: {
+    ...mapMutations(['removeFromCart']),
     triggerCart() {
       this.$emit("openCart");
     },
@@ -47,7 +55,7 @@ export default {
       this.gotoCart()
     },
     gotoCart() {
-      this.$router.push('/dashboard/market/cart') 
+      this.$router.push('/dashboard/market/cart')
     }
   },
 };
@@ -138,6 +146,7 @@ header {
 
   color: var(--grey-grey1);
 }
+
 .cart-list {
   display: flex;
   flex-direction: column;
@@ -227,6 +236,7 @@ p.price {
 
   color: var(--grey-grey1);
 }
+
 a {
   width: 100%;
 }

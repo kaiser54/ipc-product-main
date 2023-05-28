@@ -5,12 +5,7 @@
         <div v-if="cart.length === 0">
             <p>Your cart is empty.</p>
         </div>
-        <productTest
-        v-for="product in cart"
-        :key="product.id"
-        :product="product"
-        :inCart="true"
-      />
+        <productTest v-for="product in cart" :key="product.id" :product="product" :inCart="true" />
     </div>
 </template>
 

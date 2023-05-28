@@ -19,12 +19,12 @@ export default {
     },
     async mounted() {
         // Fetch product details from the FakeStoreAPI
-        const productId = 1; // Replace with the desired product ID
+        // const productId = 1; // Replace with the desired product ID
         const response = await this.$axios.$get(
             `https://fakestoreapi.com/products`
         );
         this.product = response;
-        this.inCart = this.$store.state.cart.some((p) => p.id === productId);
+        // this.inCart = this.$store.state.cart.some((p) => p.id === productId);
     },
 };
 </script>

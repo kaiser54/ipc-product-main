@@ -2,7 +2,7 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <nuxt-link :to="`/dashboard/market/${product.name}`">
+    <nuxt-link :to="`/dashboard/market/${product.title}`">
       <div class="product-img-grp">
 
         <!-- like button -->
@@ -21,9 +21,13 @@
         <!-- <img :src="product.image" alt="" /> -->
 
         <!-- product image -->
+        <div class="image-container">
 
-        <img :src="require(`~/assets/images/${product.image}`)" />
+          <!-- <img :src="require(`~/assets/images/${product.image}`)" /> -->
+          <img :src="product.image" alt="Product Image" />
 
+
+        </div>
         <!-- -------------------------------- -->
 
       </div>
@@ -31,12 +35,12 @@
       <!-- product details here -->
 
       <div class="productcard-details">
-        <div class="productcard-name">
-          <p>{{ product.name }}</p>
+        <div class="productcard-name text-container">
+          <p>{{ product.title }}</p>
         </div>
         <div class="productcard-price">
           <p>₦ {{ product.price }}</p>
-          <p class="slashprice">₦ {{ product.slashPrice }}</p>
+          <p class="slashprice">₦ {{ product.price }}</p>
         </div>
       </div>
 
@@ -46,7 +50,7 @@
 
     <!-- add to cart button  -->
 
-    <button v-if="!product.showCounter" class="btn secondary-btn-small" @click="addToCart">
+    <button class="btn secondary-btn-small" @click="addToCart" v-if="!isInCart">
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
         <path d="M3.83325 7.99992H13.1666M8.49992 3.33325V12.6666V3.33325Z" stroke="#0009B3" stroke-width="1.5"
           stroke-linecap="round" stroke-linejoin="round" />
@@ -56,20 +60,20 @@
 
     <!-- -------------------------------- -->
 
-    <div v-if="product.showCounter" class="counter-btn">
+    <div v-else class="counter-btn">
 
       <!-- counter button -->
 
-      <button @click="decrement" class="circle btn">
+      <button @click="decrementQuantity" class="circle btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3.33325 8H12.6666" stroke="#0009B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
 
       <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-      <div class="counter">{{ product.itemCount }}</div>
+      <div class="counter">{{ getProductQuantity }}</div>
 
-      <button @click="increment" class="circle">
+      <button @click="incrementQuantity" class="circle">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z" stroke="#0009B3" stroke-width="1.5"
             stroke-linecap="round" stroke-linejoin="round" />
@@ -93,26 +97,39 @@ export default {
       type: Object,
       required: true,
     },
+    inCart: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    isInCart() {
+      const productInCart = this.$store.state.cart.find(
+        (p) => p.id === this.product.id
+      );
+      return productInCart !== undefined;
+    },
+    getProductQuantity() {
+      const productInCart = this.$store.state.cart.find(
+        (p) => p.id === this.product.id
+      );
+      return productInCart ? productInCart.quantity : 0;
+    },
   },
   methods: {
     addToCart() {
-      this.product.showCounter = true; // Show the counter
-      this.$store.commit('addToCart', this.product); // Add product to cart array in Vuex store
+      this.$store.commit('addToCart', this.product);
     },
-    increment() {
-      this.product.itemCount++; // Increase the quantity of ordered products
+    incrementQuantity() {
+      this.$store.commit('incrementQuantity', { productId: this.product.id });
     },
-    decrement() {
-      if (this.product.itemCount > 0) {
-        this.product.itemCount--; // Decrease the quantity of ordered products
-      }
+    decrementQuantity() {
+      this.$store.commit('decrementQuantity', { productId: this.product.id });
     },
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked
     }
-
-
   },
 };
 </script>
@@ -187,6 +204,26 @@ a {
   fill: red;
 }
 
+.image-container {
+  width: 149px;
+  /* Set the desired width */
+  height: 149px;
+  /* Set the desired height */
+  overflow: hidden;
+  /* Hide any overflowing content */
+  position: relative;
+  /* Establish a positioning context for the child image */
+}
+
+.image-container img {
+  width: 100%;
+  /* Make the image fill the container */
+  height: 100%;
+  /* Maintain the image's aspect ratio */
+  object-fit: contain;
+  /* Clip the image to fit within the container */
+}
+
 .productcard-details {
   display: flex;
   flex-direction: column;
@@ -213,6 +250,28 @@ a {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.text-container {
+  display: -webkit-box; /* For Safari and old versions of Chrome */
+  display: -webkit-flex; /* For old versions of Safari */
+  display: -ms-flexbox; /* For Internet Explorer */
+  display: flex; /* Standard display value */
+  -webkit-box-orient: vertical; /* For Safari and old versions of Chrome */
+  -webkit-line-clamp: 2; /* Limit to 2 lines of text */
+  -webkit-box-pack: center; /* For Safari and old versions of Chrome */
+  -webkit-justify-content: center; /* For old versions of Safari */
+  -ms-flex-pack: center; /* For Internet Explorer */
+  justify-content: center; /* Center the text vertically */
+  overflow: hidden; /* Hide any overflowing content */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+}
+
+.text-container p {
+  -webkit-box-orient: vertical; /* For Safari and old versions of Chrome */
+  display: -webkit-box; /* For Safari and old versions of Chrome */
+  -webkit-line-clamp: 2; /* Limit to 2 lines of text */
+  overflow: hidden; /* Hide any overflowing content */
 }
 
 .productcard-price p {
@@ -336,5 +395,4 @@ button p {
   .productcard-name p {
     width: 100px;
   }
-}
-</style>
+}</style>

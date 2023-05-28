@@ -7,7 +7,7 @@
     </div>
     <section class="market-product">
       <div class="product-top-wrap">
-        <productcard v-for="(product) in products" :key="product.id" :product="product" />
+        <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart"/>
       </div>
     </section>
     <transition name="modal-fade">
@@ -28,7 +28,8 @@ export default {
     return {
       pageTitle: "IPC | Market",
       checkMail: false,
-      toggleBTN: false,
+      product: {},
+      inCart: false,
     };
   },
   head() {
@@ -36,10 +37,12 @@ export default {
       title: this.pageTitle,
     };
   },
-  computed: {
-    products() {
-      return this.$store.state.products;
-    },
+  async mounted() {
+    // Fetch product details from the FakeStoreAPI
+    const response = await this.$axios.$get(
+      `https://fakestoreapi.com/products`
+    );
+    this.product = response;
   },
   methods: {
     handleOpenMail() {

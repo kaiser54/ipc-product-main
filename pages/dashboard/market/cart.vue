@@ -7,8 +7,11 @@
       </div>
     </div>
     <div class="listed-cart" v-if="!mobile">
+      <div v-if="cart.length === 0">
+        <p>Your cart is empty.</p>
+      </div>
       <div class="listed-cart-product">
-        <cartList />
+        <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
       </div>
       <div class="checkout-container">
         <div class="checkout-header">
@@ -31,6 +34,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
   layout: "dashboardview",
   // Other component properties and methods
@@ -51,7 +55,14 @@ export default {
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
   },
+  computed: {
+    ...mapState(['cart']),
+    // cartItems() {
+    //   return this.$store.state.cart;
+    // },
+  },
   methods: {
+    ...mapMutations(['removeFromCart']),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -107,6 +118,19 @@ export default {
   gap: 34px;
   width: 100%;
   max-width: 681px;
+}
+
+.cart-list-con {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  padding-bottom: 32px;
+
+  /* width: 441px; */
+  width: 100%;
+  height: 122px;
+  border-bottom: 1px solid var(--grey-grey5);
 }
 
 .checkout-container {
