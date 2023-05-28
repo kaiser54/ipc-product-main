@@ -65,7 +65,7 @@ export default {
     extendRoutes(routes, resolve) {
       routes.push({
         name: 'product',
-        path: '/dashboard/market/:id',
+        path: '/dashboard/market/:title',
         component: resolve(__dirname, 'pages/dashboard/market/_product.vue')
       });
     }

@@ -83,11 +83,10 @@
               </div>
             </div>
             <p class="product-details-snippet">
-              Mama's Pride Rice tastes so good and it is very easy to cook. This
-              indigenous international quality rice brands cooks
+              {{ product.description }}
             </p>
             <div class="product-details-price-grp">
-              <h3 class="h3-bold">₦ 75,000</h3>
+              <h3 class="h3-bold">₦ {{ product.price }}</h3>
               <tags />
             </div>
             <button class="btn primary-btn">Add to cart</button>
@@ -113,6 +112,7 @@ export default {
       productTitle: null,
       product: {},
       productImage: 0,
+      currentPage: "",
     };
   },
   head() {
@@ -121,12 +121,17 @@ export default {
     };
   },
   async mounted() {
-    this.productId = this.$route.params.id;
-    this.productTitle = this.$route.params.title;
-    console.log(this.productId);
+    const pathArray = this.$route.path.split('/');
+    const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
+    this.currentPage = lastSegment;
+    console.log(this.currentPage);
+    // this.productId = this.$route.params.id;
+    // this.productTitle = this.$route.params.title;
+    // console.log(this.productId);
 
     try {
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
+      // const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
+      const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.currentPage}`);
       this.product = response;
     } catch (error) {
       console.error('Error fetching products:', error);
