@@ -4,28 +4,28 @@
       <!-- css skeleton loading state on the website for desktop view -->
       <webskeleton style="overflow: hidden; height: 100vh" />
     </div>
-     <div v-if="loading" class="SkeletonLoader">
+    <div v-if="loading" class="SkeletonLoader">
       <!-- css skeleton loading state on the website for mobile view -->
       <SkeletonLoader style="overflow: hidden; height: 100vh" />
     </div>
-    <div class="nuxt-page">
+    <div class="nuxt-page" v-else>
       <promptAlert @openMail="handleOpenMail" />
-    <div class="page-title">
-      <!-- <Breadcrumb :route="$route" /> -->
-      <h2 class="h2-medium header-text">Market</h2>
-    </div>
-    <section class="market-product">
-      <div class="product-top-wrap">
-        <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart" />
+      <div class="page-title">
+        <!-- <Breadcrumb :route="$route" /> -->
+        <h2 class="h2-medium header-text">Market</h2>
       </div>
-    </section>
-    <transition name="modal-fade">
-      <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
-      <popupModal v-if="checkMail" animate="animate__zoomIn" title="Check your email address"
-        snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-        buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
-        @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
-    </transition>
+      <section class="market-product">
+        <div class="product-top-wrap">
+          <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart" />
+        </div>
+      </section>
+      <transition name="modal-fade">
+        <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
+        <popupModal v-if="checkMail" animate="animate__zoomIn" title="Check your email address"
+          snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
+          buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
+          @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
+      </transition>
     </div>
   </div>
 </template>
@@ -96,18 +96,22 @@ export default {
   .webskeleton {
     display: block;
   }
+
   .SkeletonLoader {
     display: none;
   }
 }
+
 @media (max-width: 950px) {
   .product-top-wrap {
     padding: 0;
     gap: 8px;
   }
+
   .webskeleton {
     display: none;
   }
+
   .SkeletonLoader {
     display: block;
   }

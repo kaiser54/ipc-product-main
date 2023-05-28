@@ -34,6 +34,7 @@
           <button class="btn primary-btn" @click="checkout">Checkout</button>
         </div>
       </div>
+      <div class="cart-bg" @click="closeCart"></div>
     </div>
   </div>
 </template>
@@ -50,13 +51,16 @@ export default {
     triggerCart() {
       this.$emit("openCart");
     },
+    closeCart() {
+      this.$emit("openCart");
+    },
     checkout() {
       this.triggerCart()
       this.gotoCart()
     },
     gotoCart() {
       this.$router.push('/dashboard/market/cart')
-    }
+    },
   },
 };
 </script>
@@ -77,7 +81,6 @@ export default {
   height: 100vh;
   left: 0px;
   top: 0px;
-  background: rgba(48, 50, 55, 0.3);
 }
 
 .full-cart {
@@ -248,7 +251,11 @@ p.price {
 
   color: var(--grey-grey1);
 }
-
+.cart-bg {
+  width: 100%;
+  height: 100vh;
+  background: rgba(48, 50, 55, 0.3);
+}
 a {
   width: 100%;
 }
