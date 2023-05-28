@@ -252,28 +252,6 @@ a {
   gap: 8px;
 }
 
-.text-container {
-  display: -webkit-box; /* For Safari and old versions of Chrome */
-  display: -webkit-flex; /* For old versions of Safari */
-  display: -ms-flexbox; /* For Internet Explorer */
-  display: flex; /* Standard display value */
-  -webkit-box-orient: vertical; /* For Safari and old versions of Chrome */
-  -webkit-line-clamp: 2; /* Limit to 2 lines of text */
-  -webkit-box-pack: center; /* For Safari and old versions of Chrome */
-  -webkit-justify-content: center; /* For old versions of Safari */
-  -ms-flex-pack: center; /* For Internet Explorer */
-  justify-content: center; /* Center the text vertically */
-  overflow: hidden; /* Hide any overflowing content */
-  text-overflow: ellipsis; /* Add ellipsis for truncated text */
-}
-
-.text-container p {
-  -webkit-box-orient: vertical; /* For Safari and old versions of Chrome */
-  display: -webkit-box; /* For Safari and old versions of Chrome */
-  -webkit-line-clamp: 2; /* Limit to 2 lines of text */
-  overflow: hidden; /* Hide any overflowing content */
-}
-
 .productcard-price p {
   font-weight: 700;
   font-size: 16px;

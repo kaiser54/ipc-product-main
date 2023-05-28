@@ -158,6 +158,18 @@ header {
   height: calc(100vh - 100px - 193px);
   overflow-y: scroll;
 }
+.cart-list-con {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  padding-bottom: 32px;
+
+  /* width: 441px; */
+  width: 100%;
+  height: 122px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
 
 .checkout-container {
   display: flex;

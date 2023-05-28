@@ -5,10 +5,7 @@
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile"
     />
-    <div v-if="loading && mobile">
-      <!-- css skeleton loading state on the website for desktop view -->
-      <SkeletonLoader style="overflow: hidden; height: 100vh" />
-    </div>
+   
     <div class="dashboard-wrapper" v-else>
       <section class="section-wrapper">
         <div class="ipc-nav">
@@ -50,15 +47,7 @@
               <section class="view">
                 <div class="page-wrapper nuxt-page-here"> 
                   <div class="page-container">
-                    <div
-                      class=""
-                      v-if="loading && !mobile"
-                      style="margin: 20px"
-                    >
-                      <!-- css skeleton loading state on the website for desktop view -->
-                      <webskeleton style="overflow: hidden; height: 100vh" />
-                    </div>
-                    <nuxt v-else />
+                    <nuxt/>
                   </div>
                 </div>
               </section>
@@ -90,7 +79,7 @@ export default {
     return {
       showPopup: false,
       mobile: false,
-      loading: false,
+      loading: true,
       logout: false,
       isCart: false,
       isNotification: false,

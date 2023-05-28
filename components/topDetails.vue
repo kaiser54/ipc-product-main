@@ -122,8 +122,8 @@
             />
           </svg>
         </div>
-        <div class="badge">
-          <p>10</p>
+        <div class="badge" v-if="cart.length > 0">
+          <p>{{ getCartLength }}</p>
         </div>
       </div>
     </div>
@@ -131,7 +131,15 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
+  computed: {
+    ...mapState(['cart']),
+    getCartLength() {
+      const cartLength = this.$store.state.cart.length;
+      return cartLength
+    }
+  },
   methods: {
     triggerCart() {
       this.$emit("openCart");

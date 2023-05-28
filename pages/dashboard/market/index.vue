@@ -1,13 +1,22 @@
 <template>
-  <div class="nuxt-page">
-    <promptAlert @openMail="handleOpenMail" />
+  <div>
+    <div class="webskeleton" v-if="loading" style="margin: 20px">
+      <!-- css skeleton loading state on the website for desktop view -->
+      <webskeleton style="overflow: hidden; height: 100vh" />
+    </div>
+     <div v-if="loading" class="SkeletonLoader">
+      <!-- css skeleton loading state on the website for mobile view -->
+      <SkeletonLoader style="overflow: hidden; height: 100vh" />
+    </div>
+    <div class="nuxt-page">
+      <promptAlert @openMail="handleOpenMail" />
     <div class="page-title">
       <!-- <Breadcrumb :route="$route" /> -->
       <h2 class="h2-medium header-text">Market</h2>
     </div>
     <section class="market-product">
       <div class="product-top-wrap">
-        <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart"/>
+        <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart" />
       </div>
     </section>
     <transition name="modal-fade">
@@ -17,7 +26,7 @@
         buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
         @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
     </transition>
-    <mycart />
+    </div>
   </div>
 </template>
 
@@ -30,6 +39,7 @@ export default {
       checkMail: false,
       product: {},
       inCart: false,
+      loading: false
     };
   },
   head() {
@@ -38,11 +48,16 @@ export default {
     };
   },
   async mounted() {
-    // Fetch product details from the FakeStoreAPI
-    const response = await this.$axios.$get(
-      `https://fakestoreapi.com/products`
-    );
-    this.product = response;
+    try {
+      this.loading = true;
+      // Fetch product details from the FakeStoreAPI
+      const response = await this.$axios.$get(`https://fakestoreapi.com/products`);
+      this.product = response;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      this.loading = false;
+    }
   },
   methods: {
     handleOpenMail() {
@@ -77,10 +92,24 @@ export default {
   justify-content: space-between;
 }
 
+@media (min-width: 950px) {
+  .webskeleton {
+    display: block;
+  }
+  .SkeletonLoader {
+    display: none;
+  }
+}
 @media (max-width: 950px) {
   .product-top-wrap {
     padding: 0;
     gap: 8px;
+  }
+  .webskeleton {
+    display: none;
+  }
+  .SkeletonLoader {
+    display: block;
   }
 }
 
