@@ -17,7 +17,7 @@
             </div>
             <emaildesktop @openMail="toggleIsVerifyMail" @openPassword="toggleChangePassword" />
           </div>
-          <addressDetails v-if="!activetab" switchedHeader="Address Book"></addressDetails>
+          <addressDetails v-if="!activetab" switchedHeader="Address Book" />
         </div>
       </div>
 
@@ -53,7 +53,7 @@
 
     <!-- verify email popup -->
 
-    <popupModal v-if="isVerifyMail" animate="animate__slideInUp" title="Check your email address"
+    <popupModal v-if="isVerifyMail" :animate="animate" title="Check your email address"
       snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
       buttonText="Resend code" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
       @closeModal="toggleIsVerifyMail" @closeModalBG="toggleIsVerifyMail" />
@@ -61,11 +61,13 @@
 
     <!-- logout popup -->
 
-    <popupModal v-if="isLogout" animate="animate__slideInUp" title="Log out of IPC?"
+    <popupModal v-if="isLogout" :animate="animate" title="Log out of IPC?"
       snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
       buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
       @closeModal="toggleLogout" @closeModalBG="toggleLogout" />
-    <changePassword v-if="isChangePassword" @close="toggleChangePassword" />
+
+      <!-- change password -->
+    <changePassword v-if="isChangePassword" @close="toggleChangePassword" :animate="animate"/>
     <!-- ---------------------------- -->
   </div>
 </template>
@@ -92,6 +94,7 @@ export default {
       // newPhoneNumber: "", // phone number entered in the new phone number field
       showNewPhoneNumber: false, // whether to show the new phone number field
       BusinessName: "Chicken Republic",
+      animate: null,
     };
   },
   head() {
@@ -112,8 +115,10 @@ export default {
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
+        this.animate = "animate__slideInUp";
       } else {
         this.mobile = false;
+        this.animate = "animate__zoomIn";
       }
     },
     toggleIsVerifyMail() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="addNumberFunc animate__animated animate__slideInUp">
+  <div class="addNumberFunc animate__animated" :class="animate">
     <div class="change-password">
       <header>
         <div class="frame-bg">
@@ -73,6 +73,12 @@
 <script>
 import "animate.css";
 export default {
+  props: {
+    animate: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       oldPassword: "",
