@@ -25,7 +25,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     // '@nuxtjs/device'
-    { src: '~/plugins/vue2-datepicker.js', mode: 'client' }
+    // { src: '~/plugins/vue2-datepicker.js', mode: 'client' },
+    '~/plugins/fakestoreapi.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

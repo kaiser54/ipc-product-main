@@ -163,9 +163,11 @@ a {
   .order-content {
     width: 100%;
   }
+
   .order-product-details {
     justify-content: space-evenly;
   }
+
   .order-product {
     gap: 8px;
   }
@@ -202,22 +204,25 @@ a {
 
     color: var(--grey-grey2);
   }
+
   .order-content .order-id-price .order-qty,
   .order-content .order-price {
     display: flex;
-}
-@media (max-width: 450px) {
-  .order-content .title {
-    max-width: 150px;
   }
-}
-@media (max-width: 450px) {
-  .order-content {
-    max-width: 190px;
+
+  @media (max-width: 450px) {
+    .order-content .title {
+      max-width: 150px;
+    }
   }
-  .order-content .title {
-    max-width: 150px;
+
+  @media (max-width: 450px) {
+    .order-content {
+      max-width: 190px;
+    }
+
+    .order-content .title {
+      max-width: 150px;
+    }
   }
-}
-}
-</style>
+}</style>

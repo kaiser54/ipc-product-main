@@ -60,8 +60,7 @@
 
 
 
-
-    <VerticalProgressBar :steps="steps" />
+   
   </div>
 </template>
 
