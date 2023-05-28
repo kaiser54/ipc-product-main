@@ -4,57 +4,29 @@
       <div class="full-cart animate__animated animate__slideInRight">
         <header>
           <div class="modal-title">
-            <svg
-              @click="triggerNotification"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M5 19L19 5M5 5L19 19L5 5Z"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+            <svg @click="triggerNotification" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none">
+              <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
             <h3 class="h3-medium">Notifications</h3>
           </div>
         </header>
         <div class="cart-list">
           <div class="notification-wrapper">
-            <div
-              class="notification"
-              v-for="(notification, index) in notifications"
-              :key="index"
-            >
+            <div class="notification" v-for="(notification, index) in notifications" :key="index">
               <div class="time">{{ notification.time }}</div>
               <div class="notification-header">
                 <div class="title">{{ notification.title }}</div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="17"
-                  height="17"
-                  viewBox="0 0 17 17"
-                  fill="none"
-                >
-                  <path
-                    d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                  <path d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337" stroke="#565C69" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
               <div class="message">{{ notification.message }}</div>
               <div class="notification-product">
                 <div class="image">
-                  <img
-                    :src="require(`~/assets/images/${notification.image}`)"
-                  />
+                  <img :src="require(`~/assets/images/${notification.image}`)" />
                 </div>
                 <div class="product-name">{{ notification.productName }}</div>
               </div>
@@ -62,6 +34,7 @@
           </div>
         </div>
       </div>
+      <div class="cart-bg" @click="triggerNotification"></div>
     </div>
   </div>
 </template>
@@ -184,7 +157,6 @@ export default {
   height: 100vh;
   left: 0px;
   top: 0px;
-  background: rgba(48, 50, 55, 0.3);
 }
 
 .full-cart {
@@ -253,6 +225,7 @@ header {
 
   color: var(--grey-grey1);
 }
+
 .cart-list {
   display: flex;
   flex-direction: column;
@@ -268,6 +241,7 @@ header {
 a {
   width: 100%;
 }
+
 .notification-wrapper {
   display: flex;
   flex-direction: column;
@@ -311,6 +285,7 @@ height: 189px; */
   gap: 3px;
   width: 100%;
 }
+
 .notification-header .title {
   font-weight: 500;
   font-size: 14px;
@@ -321,6 +296,7 @@ height: 189px; */
 
   color: var(--grey-grey1);
 }
+
 .message {
   font-weight: 400;
   font-size: 12px;
@@ -331,6 +307,7 @@ height: 189px; */
 
   color: var(--grey-grey2);
 }
+
 .notification-product {
   display: flex;
   flex-direction: row;
@@ -347,15 +324,18 @@ height: 189px; */
   border: 1px solid var(--grey-grey6);
   border-radius: 12px;
 }
+
 .notification-product .image {
   width: 28.44px;
   height: 32px;
 }
+
 .notification-product img {
   width: 100%;
   height: auto;
   object-fit: contain;
 }
+
 .product-name {
   font-weight: 400;
   font-size: 14px;
@@ -366,18 +346,27 @@ height: 189px; */
 
   color: var(--grey-grey1);
 }
+
 @media (min-width: 950px) {
-  .notification-product{
+  .notification-product {
     max-width: 100%;
   }
+
   .message {
     font-weight: 400;
-font-size: 14px;
-line-height: 21px;
+    font-size: 14px;
+    line-height: 21px;
   }
+
   .product-name {
     font-size: 16px;
     line-height: 24px;
   }
+}
+
+.cart-bg {
+  width: 100%;
+  height: 100vh;
+  background: rgba(48, 50, 55, 0.3);
 }
 </style>

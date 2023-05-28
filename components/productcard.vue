@@ -2,7 +2,11 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <nuxt-link :to="`/dashboard/market/${product.title}`">
+    <!-- <nuxt-link :to="`/dashboard/market/${product.id}`"> -->
+    <nuxt-link :to="{
+  name: 'product',
+  params: { id: product.id, title: product.title }
+}">
       <div class="product-img-grp">
 
         <!-- like button -->
@@ -58,7 +62,7 @@
       <p>Add to cart</p>
     </button>
 
-    <!-- -------------------------------- -->
+    <!-- -------------------------------- --> 
 
     <div v-else class="counter-btn">
 

@@ -61,6 +61,13 @@ export default {
     }
   },
   router: {
-    middleware: 'redirect'
+    middleware: 'redirect',
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'product',
+        path: '/dashboard/market/:id',
+        component: resolve(__dirname, 'pages/dashboard/market/_product.vue')
+      });
+    }
   }
 }

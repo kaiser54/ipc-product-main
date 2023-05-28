@@ -6,7 +6,7 @@
       v-if="isNotification && !mobile"
     />
    
-    <div class="dashboard-wrapper" v-else>
+    <div class="dashboard-wrapper">
       <section class="section-wrapper">
         <div class="ipc-nav">
           <div class="fixed" v-if="!mobile">

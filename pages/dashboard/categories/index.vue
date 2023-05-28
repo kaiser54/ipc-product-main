@@ -6,12 +6,17 @@
     <div class="page-content">
       <div class="categories-content">
         <div style="width: 100%; max-width: 387px;" v-for="(category, index) in categories" :key="index">
-          <nuxt-link class="category" :to="`/dashboard/categories/${category.title}`">
+          <nuxt-link class="category" :to="`/dashboard/categories/${category}`">
             <!-- <img :src="`/${category.image}`" alt="" /> -->
             <!-- use this method if your pulling the images from the static folder -->
-            <img :src="require(`~/assets/images/${category.image}`)" alt="" />
+            <!-- <img :src="require(`~/assets/images/${category.image}`)" alt="" /> -->
             <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
             <div class="category-header">
+
+              <!-- remove this when the backend sends the api -->
+              <p class="title">{{ category }}</p>
+              <!-- ------------------------------------------ -->
+
               <p class="title">{{ category.title }}</p>
               <p class="snippet truncate">{{ category.snippet }}</p>
             </div>
@@ -33,54 +38,18 @@ export default {
   data() {
     return {
       pageTitle: "IPC | Categories",
-      categories: [
-        {
-          image: "category1.png",
-          title: "Spices and condiments",
-          snippet: "Pepper, seasoning, cubes, and so on",
-        },
-        {
-          image: "category2.png",
-          title: "Dairy and eggs",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category3.png",
-          title: "Frozen foods",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category4.png",
-          title: "Food packaging and disposables",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category5.png",
-          title: "Paperware and cleaning",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category6.png",
-          title: "Stationery",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category7.png",
-          title: "Sauces",
-          snippet: "Spices and condiments",
-        },
-        {
-          image: "category8.png",
-          title: "Fruits and vegetables",
-          snippet: "Spices and condiments",
-        },
-      ],
+      categories: [],
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },
+  async mounted() {
+    // Fetch categories details from the FakeStoreAPI
+    const response = await this.$axios.$get(`https://fakestoreapi.com/products/categories`);
+    this.categories = response;
   },
 };
 </script>

@@ -53,13 +53,14 @@
         <div class="product-details-main">
           <div class="product-img-thumb">
             <div class="product-img zoom-container" ref="zoomContainer">
-              <img :src="require(`~/assets/images/${product.images[productImage]}`)
-                " class="zoom-image" ref="zoomImage" />
+              <!-- <img :src="require(`~/assets/images/${product.images[productImage]}`)
+                " class="zoom-image" ref="zoomImage" /> -->
+              <img :src="product.image" alt="Product Image" class="zoom-image" ref="zoomImage" />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
             <div class="product-thumb">
               <div class="thumb" v-for="(image, index) in product.images" :key="index">
-                <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" />
+                <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
               </div>
             </div>
           </div>
@@ -67,7 +68,7 @@
             <div class="product-details-title-like">
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
-                  Mama'S Choice Nigerian Parboiled Rice 25kg
+                  {{ product.title }}
                 </h3>
                 <p class="product-details-brand">
                   Brand: <span>Mama’s Choice</span>
@@ -100,30 +101,17 @@
 </template>
 
 <script>
-import guarantee from "~/components/guarantee.vue";
-import RelatedProduuct from "~/components/relatedProduuct.vue";
 export default {
-  components: { guarantee, RelatedProduuct },
+  name: 'product',
   layout: "dashboardview",
   // Other component properties and methods
   data() {
     return {
       pageTitle: "IPC | Market",
       mobile: false,
-      product: {
-        id: 1,
-        name: "Product Name",
-        description: "Product Description",
-        price: "$100",
-        images: [
-          "p1.png",
-          "category1.png",
-          "category2.png",
-          "category3.png",
-          "category4.png",
-        ],
-        // other product data
-      },
+      productId: null,
+      productTitle: null,
+      product: {},
       productImage: 0,
     };
   },
@@ -132,7 +120,17 @@ export default {
       title: this.pageTitle,
     };
   },
-  mounted() {
+  async mounted() {
+    this.productId = this.$route.params.id;
+    this.productTitle = this.$route.params.title;
+    console.log(this.productId);
+
+    try {
+      const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
+      this.product = response;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    };
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
