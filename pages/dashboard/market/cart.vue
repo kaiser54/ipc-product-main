@@ -1,5 +1,8 @@
 <template>
   <div class="cart-view">
+    <div class="mobile-cart" v-if="mobile">
+      <mobileCart />
+    </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
         <goback />
@@ -81,6 +84,7 @@ export default {
   gap: 32px;
 }
 
+
 .page-head-content {
   display: flex;
   flex-direction: column;
@@ -112,7 +116,7 @@ export default {
 
 .listed-cart-product {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 34px;

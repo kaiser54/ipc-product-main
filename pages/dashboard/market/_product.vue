@@ -1,5 +1,13 @@
 <template>
   <div :class="{ 'user-details-component': mobile }">
+    <div class="webskeleton" v-if="loading" style="margin: 20px">
+      <!-- css skeleton loading state on the website for desktop view -->
+      <webskeleton style="overflow: hidden; height: 100vh" />
+    </div>
+    <div v-if="loading" class="SkeletonLoader">
+      <!-- css skeleton loading state on the website for mobile view -->
+      <SkeletonLoader style="overflow: hidden; height: 100vh" />
+    </div>
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
         <svg @click="$router.go(-1)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -49,23 +57,32 @@
         </div>
       </div>
 
+      <!-- product details page for desktop view -->
       <div class="product-details-wrapper" v-else>
         <div class="product-details-main">
           <div class="product-img-thumb">
+
+            <!-- image container -->
             <div class="product-img zoom-container" ref="zoomContainer">
               <!-- <img :src="require(`~/assets/images/${product.images[productImage]}`)
                 " class="zoom-image" ref="zoomImage" /> -->
               <img :src="product.image" alt="Product Image" class="zoom-image" ref="zoomImage" />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
+            <!-- --------------- -->
+
+            <!-- product thumbnail under the main product image -->
             <div class="product-thumb">
               <div class="thumb" v-for="(image, index) in product.images" :key="index">
                 <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
               </div>
+              <!-- -------------------------------------------- -->
             </div>
           </div>
           <div class="product-details-content">
             <div class="product-details-title-like">
+
+              <!-- product title, brand name and like button -->
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
                   {{ product.title }}
@@ -82,6 +99,8 @@
                 </svg>
               </div>
             </div>
+            <!-- ------------------------------- -->
+
             <p class="product-details-snippet">
               {{ product.description }}
             </p>
@@ -89,12 +108,48 @@
               <h3 class="h3-bold">₦ {{ product.price }}</h3>
               <tags />
             </div>
-            <button class="btn primary-btn">Add to cart</button>
+            <!-- cart button -->
+
+            <!-- add to cart button  -->
+
+            <!-- <button class="btn primary-btn">Add to cart</button> -->
+
+            <button class="btn primary-btn" @click="addToCart" v-if="!isInCart">
+              Add to cart
+            </button>
+
+            <!-- -------------------------------- -->
+
+            <div v-else class="counter-btn">
+
+              <!-- counter button -->
+
+              <button @click="decrementQuantity" class="circle btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.33325 8H12.6666" stroke="#0009B3" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
+
+              <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+              <div class="counter">{{ getProductQuantity }}</div>
+
+              <button @click="incrementQuantity" class="circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z" stroke="#0009B3" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+
+              <!-- -------------------------------- -->
+            </div>
+            <!-- --------- -->
             <guarantee />
           </div>
         </div>
         <relatedProduuct />
       </div>
+      <!-- ---------------------------------- -->
     </div>
   </div>
 </template>
@@ -113,12 +168,28 @@ export default {
       product: {},
       productImage: 0,
       currentPage: "",
+      inCart: false,
+      loading: false,
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },
+  computed: {
+    isInCart() {
+      const productInCart = this.$store.state.cart.find(
+        (p) => p.id === this.product.id
+      );
+      return productInCart !== undefined;
+    },
+    getProductQuantity() {
+      const productInCart = this.$store.state.cart.find(
+        (p) => p.id === this.product.id
+      );
+      return productInCart ? productInCart.quantity : 0;
+    },
   },
   async mounted() {
     const pathArray = this.$route.path.split('/');
@@ -130,11 +201,14 @@ export default {
     // console.log(this.productId);
 
     try {
+      this.loading = true;
       // const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
       const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.currentPage}`);
       this.product = response;
     } catch (error) {
       console.error('Error fetching products:', error);
+    } finally {
+      this.loading = false;
     };
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
@@ -185,7 +259,13 @@ export default {
       this.productImage = index;
     },
     addToCart() {
-      // Add product to cart
+      this.$store.commit('addToCart', this.product);
+    },
+    incrementQuantity() {
+      this.$store.commit('incrementQuantity', { productId: this.product.id });
+    },
+    decrementQuantity() {
+      this.$store.commit('decrementQuantity', { productId: this.product.id });
     },
   },
 };
@@ -264,6 +344,7 @@ export default {
 .product-img img {
   object-fit: contain;
   height: inherit;
+  margin-inline: auto;
 }
 
 .product-thumb {
@@ -302,7 +383,7 @@ export default {
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
-  max-width: 359.55px;
+  max-width: 466.55px;
 }
 
 .product-details-title-like {
@@ -310,10 +391,11 @@ export default {
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  gap: 64px;
+  justify-content: space-between;
+  gap: 16px;
 
   width: 100%;
-  max-width: 359.55px;
+  /* max-width: 359.55px; */
 
   position: relative;
 }
@@ -326,7 +408,7 @@ export default {
   gap: 4px;
 
   width: 100%;
-  max-width: 255.55px;
+  /* max-width: 255.55px; */
 }
 
 .product-details-title h3 {
@@ -385,6 +467,62 @@ p.product-details-snippet {
   align-items: center;
   padding: 0px;
   gap: 8px;
+}
+
+.counter-btn {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+}
+
+.counter-btn .circle {
+  position: relative;
+  /* Primary/P75 */
+
+  border: 1px solid var(--primary-p75);
+  width: 40px;
+  height: 40px;
+}
+
+.counter {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+
+@media (min-width: 950px) {
+  .webskeleton {
+    display: block;
+  }
+
+  .SkeletonLoader {
+    display: none;
+  }
+}
+
+@media (max-width: 950px) {
+  .product-top-wrap {
+    padding: 0;
+    gap: 8px;
+  }
+
+  .webskeleton {
+    display: none;
+  }
+
+  .SkeletonLoader {
+    display: block;
+  }
 }
 </style>
 
