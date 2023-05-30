@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         emitFunc() {
-            this.$emit('function-emitted');
+            this.$emit('leaveCart');
         }
     }
 }

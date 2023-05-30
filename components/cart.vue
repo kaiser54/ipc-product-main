@@ -12,13 +12,13 @@
             <h3 class="h3-medium">Shopping bag</h3>
           </div>
         </header>
-        <div v-if="cart.length === 0">
-          <p>Your cart is empty.</p>
-        </div>
         <div class="cart-list">
-          <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
+          <emptyCart v-if="cart.length < 1" @leaveCart="leaveCart" />
+          <div class="cart-lista" v-if="cart.length > 1">
+            <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
+          </div>
         </div>
-        <div class="checkout-container">
+        <div class="checkout-container"  v-if="cart.length > 1">
           <div class="checkout-details">
             <div class="checkout-title">
               <p>Orders</p>
@@ -60,6 +60,9 @@ export default {
     },
     gotoCart() {
       this.$router.push('/dashboard/market/cart')
+    },
+    leaveCart() {
+      this.$router.push('/dashboard/market');
     },
   },
 };
@@ -158,9 +161,10 @@ header {
   gap: 24px;
 
   width: 100%;
-  height: calc(100vh - 100px - 193px);
+  /* height: calc(100vh - 100px - 193px); */
   overflow-y: scroll;
 }
+
 .cart-list-con {
   display: flex;
   flex-direction: column;
@@ -251,12 +255,13 @@ p.price {
 
   color: var(--grey-grey1);
 }
+
 .cart-bg {
   width: 100%;
   height: 100vh;
   background: rgba(48, 50, 55, 0.3);
 }
+
 a {
   width: 100%;
-}
-</style>
+}</style>
