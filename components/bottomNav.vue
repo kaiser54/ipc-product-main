@@ -70,13 +70,14 @@
         </div>
       </nuxt-link>
     </div>
-    <div class="checkout-bottom mobile-nav-bar" v-if="isCartPage">
-      <button class="btn primary-btn">Checkout</button>
+    <div class="checkout-bottom mobile-nav-bar" v-if="isCartPage && cart.length > 0">
+      <button class="btn primary-btn" @click="leaveCart">Checkout</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -84,7 +85,14 @@ export default {
       isNotificationPage: false,
     };
   },
-  methods: {},
+  computed: {
+    ...mapState(['cart']),
+  },
+  methods: {
+    leaveCart() {
+      this.$router.push('/dashboard/market/checkout');
+    },
+  },
   created() {
     const currentRoute = this.$route.path;
     if (currentRoute === "/dashboard/market/cart") {
