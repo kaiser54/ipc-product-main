@@ -138,6 +138,9 @@ export default {
 }
 
 .image {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 56px;
   height: 63px;
 
@@ -148,9 +151,11 @@ export default {
 }
 
 .image img {
-  width: fit-content;
+  width: auto;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  margin-inline: auto;
 }
 
 .cart-product-details {

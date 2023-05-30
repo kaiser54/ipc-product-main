@@ -13,7 +13,7 @@
           </div>
         </header>
         <div class="cart-list">
-          <emptyCart v-if="cart.length == 0" @leaveCart="triggerCart" buttonText="Go to market"/>
+          <emptyCart v-if="cart.length == 0" @leaveCart="triggerCart" buttonText="Go to market" />
           <div class="cart-lista" v-if="cart.length > 0">
             <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
           </div>
@@ -177,6 +177,11 @@ header {
   /* height: calc(100vh - 100px - 193px); */
   overflow-y: scroll;
 }
+
+.cart-lista {
+  margin-bottom: 170px;
+}
+
 
 .cart-list-con {
   display: flex;
