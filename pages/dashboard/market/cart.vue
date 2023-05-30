@@ -21,7 +21,7 @@
         <div class="checkout-details">
           <div class="checkout-title">
             <p>Orders</p>
-            <div class="item-list-tag">7 items</div>
+            <div class="item-list-tag">{{ cart.length }} items</div>
           </div>
           <div class="total-price checkout-title">
             <p class="total">Subtotal</p>

@@ -13,12 +13,12 @@
           </div>
         </header>
         <div class="cart-list">
-          <emptyCart v-if="cart.length < 1" @leaveCart="leaveCart" />
-          <div class="cart-lista" v-if="cart.length > 1">
+          <emptyCart v-if="cart.length == 0" @leaveCart="triggerCart" buttonText="Go to market"/>
+          <div class="cart-lista" v-if="cart.length > 0">
             <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
           </div>
         </div>
-        <div class="checkout-wrap" v-if="cart.length > 1">
+        <div class="checkout-wrap" v-if="cart.length > 0">
           <div class="checkout-container">
             <div class="checkout-details">
               <div class="checkout-title">

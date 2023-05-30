@@ -21,15 +21,16 @@
             <div class="snippet">Visit the market to purchase your food items, kitchen utensils, and other necessary
                 products.</div>
         </div>
-        <PrimaryBtn :buttonText="buttonText" @click="emitFunc" class="button"/>
+        <PrimaryBtn :buttonText="buttonText" @click="emitFunc" class="button" />
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            buttonText: "Go to market"
+    props: {
+        buttonText: {
+            type: String,
+            default: "Go to market"
         }
     },
     methods: {
