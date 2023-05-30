@@ -107,6 +107,6 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-top: 95px;
+    margin-top: 100px;
 }
 </style>

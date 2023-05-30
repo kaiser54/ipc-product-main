@@ -6,13 +6,11 @@
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
         <goback />
-        <h2 class="h2-medium">Shopping bag</h2>
+        <h2 class="h2-medium">Shopping cart</h2>
       </div>
     </div>
-    <div class="listed-cart" v-if="!mobile">
-      <div v-if="cart.length === 0">
-        <p>Your cart is empty.</p>
-      </div>
+    <emptyCart v-if="cart.length == 0"/>
+    <div class="listed-cart" v-if="!mobile && cart.length > 0">
       <div class="listed-cart-product">
         <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
       </div>
