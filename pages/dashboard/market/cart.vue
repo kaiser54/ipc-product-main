@@ -9,8 +9,8 @@
         <h2 class="h2-medium">Shopping cart</h2>
       </div>
     </div>
-    <emptyCart v-if="cart.length == 0" @leaveCart="leaveCart"/>
-    <div class="listed-cart" v-if="!mobile && cart.length > 0" >
+    <emptyCart v-if="cart.length == 0" @leaveCart="leaveCart" />
+    <div class="listed-cart" v-if="!mobile && cart.length > 0">
       <div class="listed-cart-product">
         <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
       </div>
@@ -25,7 +25,7 @@
           </div>
           <div class="total-price checkout-title">
             <p class="total">Subtotal</p>
-            <p class="price">₦20,000</p>
+            <p class="price">₦{{ calculateTotalPrice().toFixed(2) }}</p>
           </div>
         </div>
         <button class="btn primary-btn">Checkout</button>
@@ -70,6 +70,17 @@ export default {
       } else {
         this.mobile = false;
       }
+    },
+    calculateTotalPrice() {
+      let totalPrice = 0;
+
+      for (const product of this.cart) {
+        const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+        const quantity = productInCart ? productInCart.quantity : 0;
+        totalPrice += product.price * quantity;
+      }
+
+      return totalPrice;
     },
     leaveCart() {
       this.$router.push('/dashboard/market');

@@ -3,11 +3,11 @@
         <div class="order__pricing__group">
             <div class="mobile_ _orders">
                 <div class="mobile-order">Orders</div>
-                <div class="order-items">7 items</div>
+                <div class="order-items">{{ cart.length }} items</div>
             </div>
             <div class="mobile_ _total">
                 <div class="mobile-order">Subtotal</div>
-                <div class="total-price">#24,000</div>
+                <div class="total-price">₦ {{ calculateTotalPrice().toFixed(2) }}</div>
             </div>
         </div>
         <div class="listed-cart-product">
@@ -19,14 +19,33 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 export default {
+    // props: {
+    //     cart: {
+    //         type: String,
+    //         required: true,
+    //     }
+    // },
+    data() {
+        return {
+            totalPrice: 0,
+        }
+    },
     computed: {
         ...mapState(['cart']),
-        // cartItems() {
-        //   return this.$store.state.cart;
-        // },
     },
     methods: {
         ...mapMutations(['removeFromCart']),
+        calculateTotalPrice() {
+            let totalPrice = 0;
+
+            for (const product of this.cart) {
+                const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+                const quantity = productInCart ? productInCart.quantity : 0;
+                totalPrice += product.price * quantity;
+            }
+
+            return totalPrice;
+        },
     },
 };
 </script>

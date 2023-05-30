@@ -9,7 +9,7 @@
               <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
-            <h3 class="h3-medium">Shopping bag</h3>
+            <h3 class="h3-medium">Shopping cart</h3>
           </div>
         </header>
         <div class="cart-list">
@@ -18,20 +18,22 @@
             <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
           </div>
         </div>
-        <div class="checkout-container"  v-if="cart.length > 1">
-          <div class="checkout-details">
-            <div class="checkout-title">
-              <p>Orders</p>
-              <div class="item-list-tag">
-                7 items
+        <div class="checkout-wrap" v-if="cart.length > 1">
+          <div class="checkout-container">
+            <div class="checkout-details">
+              <div class="checkout-title">
+                <p>Orders</p>
+                <div class="item-list-tag">
+                  {{ cart.length }} items
+                </div>
+              </div>
+              <div class="total-price checkout-title">
+                <p class="total">Subtotal</p>
+                <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
               </div>
             </div>
-            <div class="total-price checkout-title">
-              <p class="total">Subtotal</p>
-              <p class="price">₦20,000</p>
-            </div>
+            <button class="btn primary-btn" @click="checkout">Checkout</button>
           </div>
-          <button class="btn primary-btn" @click="checkout">Checkout</button>
         </div>
       </div>
       <div class="cart-bg" @click="closeCart"></div>
@@ -63,6 +65,17 @@ export default {
     },
     leaveCart() {
       this.$router.push('/dashboard/market');
+    },
+    calculateTotalPrice() {
+      let totalPrice = 0;
+
+      for (const product of this.cart) {
+        const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+        const quantity = productInCart ? productInCart.quantity : 0;
+        totalPrice += product.price * quantity;
+      }
+
+      return totalPrice;
     },
   },
 };
@@ -178,6 +191,15 @@ header {
   border-bottom: 1px solid var(--grey-grey5);
 }
 
+.checkout-wrap {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 24px;
+  background: white;
+}
+
 .checkout-container {
   display: flex;
   flex-direction: column;
@@ -264,4 +286,5 @@ p.price {
 
 a {
   width: 100%;
-}</style>
+}
+</style>
