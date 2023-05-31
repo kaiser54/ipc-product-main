@@ -10,17 +10,23 @@
     </div>
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
+
+        <!-- back button for mobile view -->
         <svg @click="$router.go(-1)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
           fill="none">
           <path d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
+        <!-- ---------------------------- -->
+
+        <!-- header -->
         <p>Product details</p>
+
         <div class="component-cart">
-          <div class="badge">
-            <p>9</p>
-          </div>
           <nuxt-link to="/dashboard/market/cart">
+            <div class="badge" v-if="cart.length > 0">
+              <p>{{ cart.length }}</p>
+            </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
                 d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
@@ -30,32 +36,48 @@
             </svg>
           </nuxt-link>
         </div>
+        <!-- ----------------- -->
+
       </div>
     </div>
+
+    <!-- back button -->
     <goback style="margin-top: 28px; margin-left: 16px" />
+    <!-- ----------- -->
+
     <div class="product-detail-con">
+
+      <!-- product details page for mobile view -->
       <div class="mobile-product-details" v-if="mobile">
-        <productCarousel />
+
+        <!-- the moving product carousel -->
+        <productCarousel :images="product.image"/>
+        <!-- ---------------------------- -->
+
         <div class="product-content">
+
+          <!-- product title, brand name and like button -->
+
           <div class="product-details-title">
             <h3 class="h3-small-medium">
-              Mama'S Choice Nigerian Parboiled Rice 25kg
+              {{ product.title }}
             </h3>
             <p class="product-details-brand">
               Brand: <span>Mama’s Choice</span>
             </p>
           </div>
           <div class="product-details-price-grp">
-            <h3 class="h3-bold">₦ 75,000</h3>
+            <h3 class="h3-bold">₦ {{ product.price }}</h3>
             <tags />
           </div>
           <p class="product-details-snippet">
-            Mama's Pride Rice is not only delicious, but also incredibly simple
-            to prepare. This brand of high-quality rice boasts both indigenous
-            and international flavors.
+            {{ product.description }}
           </p>
+
+          <!-- ------------------------------- -->
         </div>
       </div>
+      <!-- -------------------------------------- -->
 
       <!-- product details page for desktop view -->
       <div class="product-details-wrapper" v-else>
@@ -155,6 +177,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
   name: 'product',
   layout: "dashboardview",
@@ -178,6 +201,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['cart']),
     isInCart() {
       const productInCart = this.$store.state.cart.find(
         (p) => p.id === this.product.id
@@ -192,7 +216,7 @@ export default {
     },
   },
   async mounted() {
-    const pathArray = this.$route.path.split('/');
+    const pathArray = this.$route.path.split('~');
     const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
     this.currentPage = lastSegment;
     console.log(this.currentPage);
@@ -430,6 +454,14 @@ export default {
   color: var(--primary-p300);
 }
 
+.counter-btn .circle {
+  background: var(--primary-p300);
+}
+
+.counter-btn .circle svg path {
+  stroke: var(--white) !important;
+}
+
 .circle {
   /* position: absolute; */
   top: 0;
@@ -477,6 +509,7 @@ p.product-details-snippet {
   align-items: center;
   padding: 0px;
   gap: 16px;
+  max-width: 300px;
   width: 100%;
 }
 

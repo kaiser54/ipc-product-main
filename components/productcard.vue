@@ -2,7 +2,7 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <nuxt-link :to="`/dashboard/market/${product.id}`">
+    <nuxt-link :to="`/dashboard/market/${product.title}~${product.id}`">
     <!-- <nuxt-link :to="{ name: 'product', params: { id: product.id, title: product.title } }"> -->
       <div class="product-img-grp">
 
@@ -130,7 +130,7 @@ export default {
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked
-    }
+    },
   },
 };
 </script>

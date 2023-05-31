@@ -1,5 +1,13 @@
 <template>
   <div class="view-page">
+    <div class="webskeleton" v-if="loading" style="margin: 20px">
+      <!-- css skeleton loading state on the website for desktop view -->
+      <webskeleton style="overflow: hidden; height: 100vh" />
+    </div>
+    <div v-if="loading" class="SkeletonLoader">
+      <!-- css skeleton loading state on the website for mobile view -->
+      <SkeletonLoader style="overflow: hidden; height: 100vh" />
+    </div>
     <div class="title-header">
       <h2 class="h2-medium header-text">Categories</h2>
     </div>
@@ -39,6 +47,7 @@ export default {
     return {
       pageTitle: "IPC | Categories",
       categories: [],
+      loading: true
     };
   },
   head() {
@@ -47,9 +56,16 @@ export default {
     };
   },
   async mounted() {
-    // Fetch categories details from the FakeStoreAPI
-    const response = await this.$axios.$get(`https://fakestoreapi.com/products/categories`);
-    this.categories = response;
+    try {
+      this.loading = true;
+      // Fetch product details from the FakeStoreAPI
+      const response = await this.$axios.$get(`https://fakestoreapi.com/products/categories`);
+      this.categories = response;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      this.loading = false;
+    }
   },
 };
 </script>
@@ -144,6 +160,26 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 198px;
+}
+
+@media (min-width: 950px) {
+  .webskeleton {
+    display: block;
+  }
+
+  .SkeletonLoader {
+    display: none;
+  }
+}
+
+@media (max-width: 950px) {
+  .webskeleton {
+    display: none;
+  }
+
+  .SkeletonLoader {
+    display: block;
+  }
 }
 
 @media (max-width: 950px) {

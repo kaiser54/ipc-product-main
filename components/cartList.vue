@@ -195,9 +195,10 @@ p.name {
 }
 
 p.price {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.5px;
   /* identical to box height, or 150% */
 
   white-space: nowrap;
@@ -237,6 +238,14 @@ p.price {
   align-items: center;
   padding: 0px;
   gap: 16px;
+}
+
+@media (max-width: 950px) {
+  p.price {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 /* .divider- {

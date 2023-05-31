@@ -93,7 +93,7 @@ export default {
 .cart-view {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  /* gap: 32px; */
 }
 
 

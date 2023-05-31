@@ -39,7 +39,7 @@ export default {
       checkMail: false,
       product: {},
       inCart: false,
-      loading: false
+      loading: true
     };
   },
   head() {

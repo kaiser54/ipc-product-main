@@ -1,8 +1,14 @@
 <template>
   <div class="carousel-container">
     <div class="carousel-wrapper" ref="carousel">
-      <div class="carousel-slide" v-for="(image, index) in images" :key="index">
-        <img :src="require(`~/assets/images/${image}`)" />
+      <div v-if="Array.isArray(images)">
+        <div class="carousel-slide" v-for="(image, index) in images" :key="index">
+          <!-- <img :src="require(`~/assets/images/${image}`)" /> -->
+          <img :src="image" alt="Product Image" />
+        </div>
+      </div>
+      <div class="carousel" v-else>
+        <img :src="images" alt="Product Image" />
       </div>
     </div>
   </div>
@@ -10,16 +16,19 @@
 
 <script>
 export default {
+  props: {
+    images: {
+      type: String,
+      required: true,
+    },
+    // images: {
+    //   type: Array,
+    //   required: true,
+    // },
+  },
   data() {
     return {
       currentIndex: 0,
-      images: [
-        "p1.png",
-        "category1.png",
-        "category2.png",
-        "category3.png",
-        "category4.png",
-      ],
     };
   },
   mounted() {
@@ -89,5 +98,22 @@ export default {
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.carousel {
+  display: flex;
+  width: 100%;
+  height: 233px;
+  background: var(--white);
+  border: 1px solid var(--grey-grey5);
+  border-radius: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carousel img {
+  width: auto;
+  height: 85%;
+  margin-inline: auto;
 }
 </style>
