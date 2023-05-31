@@ -18,13 +18,8 @@
 export default {
   props: {
     images: {
-      type: String,
       required: true,
     },
-    // images: {
-    //   type: Array,
-    //   required: true,
-    // },
   },
   data() {
     return {
