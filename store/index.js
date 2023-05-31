@@ -24,7 +24,7 @@ export const mutations = {
       if (product.quantity > 1) {
         product.quantity--;
       } else {
-        state.cart = state.cart.filter((p) => p.id !== productId);
+        // state.cart = state.cart.filter((p) => p.id !== productId);
       }
     }
   },

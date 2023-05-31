@@ -185,6 +185,7 @@ a {
   position: absolute;
   top: 0;
   right: 0;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -206,7 +207,7 @@ a {
 }
 
 .image-container {
-  width: 149px;
+  width: 139px;
   /* Set the desired width */
   height: 149px;
   /* Set the desired height */
@@ -223,6 +224,7 @@ a {
   /* Maintain the image's aspect ratio */
   object-fit: contain;
   /* Clip the image to fit within the container */
+  margin-inline: auto;
 }
 
 .productcard-details {
@@ -322,6 +324,9 @@ button p {
 }
 
 @media (max-width: 950px) {
+  .image-container {
+    height: 118px;
+  }
   .product-card {
     width: 167px;
     height: 287px;
@@ -339,7 +344,7 @@ button p {
   }
 
   .productcard-name p {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 140px;

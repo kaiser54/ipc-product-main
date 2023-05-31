@@ -8,8 +8,8 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <orderProduct :showSvg="false" />
-        <div class="user-info">
+        <orderProduct :showSvg="false" class="child"/>
+        <div class="user-info child">
           <div class="client-user-name bdr">
             <div class="client-frame">
               <span>Full name</span><span class="bold">Agboola Temitope</span>
@@ -101,6 +101,14 @@ export default {
   width: 100%;
 }
 
+.child:nth-child(1) {
+  flex: 65;
+}
+
+.child:nth-child(2) {
+  flex: 35;
+}
+
 .user-info {
   display: flex;
   flex-direction: column;
@@ -108,7 +116,7 @@ export default {
   padding: 0px;
   gap: 16px;
   padding-bottom: 60px;
-  max-width: 356px;
+  /* max-width: 356px; */
   width: 100%;
 }
 
@@ -165,6 +173,14 @@ export default {
   /* identical to box height, or 150% */
 
   letter-spacing: -0.5px;
+}
+@media (max-width: 1030px) {
+.child:nth-child(1) {
+  flex: 100;
+}
+.child:nth-child(2) {
+  display: none;
+}
 }
 </style>
 
