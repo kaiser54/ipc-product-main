@@ -2,7 +2,10 @@
   <div class="view-page history">
     <div class="title-header history-head">
       <h2 class="h2-medium header-text">History</h2>
-      <div class="filter-head">
+
+      <!-- table filters for desktop views -->
+
+      <div class="filter-head" v-if="!mobile">
         <div class="filter-tabs">
           <div v-for="(tab, index) in tabs" :key="index" class="tab tab-standard" @click="toggleTab(index)"
             :class="{ clicked: activeTabs.includes(index) }">
@@ -56,10 +59,29 @@
           </div>
         </div>
       </div>
+      <!-- -------------------------------- -->
+
+      <!-- table filters for desktop views -->
+      <button class="btn neutral-btn-small" v-if="mobile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
+            stroke="#303237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Filter history
+      </button>
+      <!-- -------------------------------- -->
     </div>
-    <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" />
+    <div class="history-content">
+      <!-- history table for desktop views -->
+      <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="!mobile"/>
+      <!-- -------------------------------- -->
+      <!-- history table for mooile views -->
+      <mobileHistoryComponent :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="mobile"/>
+      <!-- -------------------------------- -->
+    </div>
   </div>
 </template>
+
 
 <script>
 import moment from "moment";
@@ -69,6 +91,7 @@ export default {
   data() {
     return {
       pageTitle: "IPC | History",
+      mobile: false,
       tableHeaders: [
         "Product’s name",
         "Date",
@@ -205,6 +228,22 @@ export default {
       title: this.pageTitle,
     };
   },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+    // set loading to true again when component is mounted
+    // this.loading = true;
+  },
+  created() {
+    if (this.$route.path === "/dashboard") {
+      // Perform an automatic redirect to "/dashboard/market"
+      this.$router.redirect("/dashboard/market");
+    }
+  },
+  beforeDestroy() {
+    this.checkScreenSize();
+    window.removeEventListener("resize", this.checkScreenSize);
+  },
 
   computed: {
     filteredData() {
@@ -246,6 +285,13 @@ export default {
         );
       } else {
         this.activeTabs.push(index);
+      }
+    },
+    checkScreenSize() {
+      if (window.innerWidth <= 951) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
       }
     },
   },
@@ -359,6 +405,27 @@ export default {
   border: 1px solid var(--accent-a200);
 }
 
+button {
+  width: auto;
+}
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 32px;
+  gap: 32px;
+
+  width: 100%;
+  /* White */
+  background: var(--white);
+  /* Grey/Grey5 */
+  border: 1px solid var(--grey-grey5);
+  border-radius: 16px;
+
+  /* height: 50vh; */
+}
+
 @media (max-width: 1300px) {
   .history {
     max-width: 100%;
@@ -380,6 +447,27 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
+  }
+
+  .filter-dates {
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 951px) {
+  .history {
+    max-width: 100%;
+  }
+
+  .history-head {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+    justify-content: space-between;
+    position: relative;
+    z-index: 0;
   }
 
   .filter-dates {

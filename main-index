@@ -1736,3 +1736,57 @@ button p {
   }
 }
 </style>
+
+
+
+
+
+
+
+
+
+table {
+  margin: auto;
+  transform: translateZ(0px);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr th {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+
+tbody tr:first-child td {
+  padding-top: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--grey-grey5);
+}
+
+tbody tr td a {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+  color: var(--grey-grey1);
+}
+
+td {
+  padding-block: 12px;
+}
+
+tbody tr:last-child td {
+  border-style: none;
+  border: none;
+  border: 0;
+  padding-bottom: 0;
+}
+
+th,
+td {
+  min-width: 80px;
+  text-align: start;
+  border-bottom: 1px solid var(--grey-grey5);
+}

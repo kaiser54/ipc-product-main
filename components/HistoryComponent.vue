@@ -1,35 +1,26 @@
 <template>
   <div>
-    <div class="table-container history-content">
-      <table>
+    <div class="table-container">
+      <table style="width:100%">
         <thead>
           <tr>
-            <th class="sticky-header" v-for="header in tableHeaders" :key="header">
+            <th v-for="header in tableHeaders" :key="header">
               {{ header }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails">
+          <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails(item.name)">
             <td style="display: flex; align-items: center; gap: 5px">
               <div class="img">
                 <img src="@/assets/images/p1.png" alt="" />
-              </div>
-              {{ item.name }}
+              </div>{{ item.name }}
             </td>
-            <td>
-              {{ item.date }}
-            </td>
-            <td>
-              {{ item.orderId }}
-            </td>
-            <td>
-              {{ item.quantity }}
-            </td>
-            <td>
-              {{ item.price }}
-            </td>
-            <td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.orderId }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td style="text-align: -webkit-right;">
               <span v-if="item.status === 'Pending'" :class="['tag', 'pending']">{{ item.status }}</span>
               <span v-else :class="['tag', 'verified']">{{ item.status }}</span>
             </td>
@@ -64,81 +55,48 @@ export default {
   },
   methods: {
     toHistoryDetails(value) {
-      const baseURL = "/dashboard/track orders/";
+      // const baseURL = "/dashboard/track orders/";
+      // const baseURL = `/dashboard/track orders/${value}`;
       // this.$router.push(baseURL + value)
+      // this.$router.push(`/dashboard/track orders/${value}`)
+      this.$router.push(`/dashboard/track orders/lol`)
     },
   },
 };
 </script>
 
 <style scoped>
-table {
-  margin: auto;
-  transform: translateZ(0px);
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead tr th {
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-
-tbody tr:first-child td {
-  padding-top: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--grey-grey5);
-}
-
-tbody tr td a {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-  color: var(--grey-grey1);
-}
-
+table,
+th,
 td {
-  padding-block: 12px;
-}
-
-tbody tr:last-child td {
-  border-style: none;
   border: none;
-  border: 0;
-  padding-bottom: 0;
+  border-collapse: collapse;
 }
 
 th,
 td {
-  min-width: 80px;
-  text-align: start;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  /* padding-right: 40px; */
+  text-align: left;
+}
+
+th, td {
   border-bottom: 1px solid var(--grey-grey5);
 }
 
-tr:hover {
-  background-color: rgba(239, 239, 239, 0.729);
+tr {
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
-
-.history-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px 32px;
-  gap: 32px;
-
-  width: 100%;
-  /* White */
-  background: var(--white);
-  /* Grey/Grey5 */
-  border: 1px solid var(--grey-grey5);
-  border-radius: 16px;
-
-  /* height: 50vh; */
+tr:hover {
+  background-color: #efefef;
 }
+th:last-child {
+  text-align: center;
+}
+
 
 span.tag {
   width: 105px;
@@ -149,12 +107,13 @@ span.tag {
   height: auto;
 }
 
+/* 
 .sticky-header {
   position: sticky;
   top: 134px;
   background: var(--white);
   z-index: 2;
-}
+} */
 
 @media (max-width: 1300px) {
   .sticky-header {
@@ -166,5 +125,4 @@ span.tag {
   .sticky-header {
     top: 213px;
   }
-}
-</style>
+}</style>
