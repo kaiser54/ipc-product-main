@@ -8,10 +8,12 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <orderProduct :showSvg="true" class="child" />
-        <userInfo class="child"/>
+        <div class="child order-track">
+          <orderProduct :showSvg="true" />
+          <trackingBar />
+        </div>
+        <userInfo class="child" />
       </div>
-      <trackingBar />
     </div>
   </div>
 </template>
@@ -53,7 +55,7 @@ export default {
 .product-transaction {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .product-description {
@@ -71,6 +73,12 @@ export default {
 
 .child:nth-child(2) {
   flex: 35;
+}
+
+.order-track {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
 
