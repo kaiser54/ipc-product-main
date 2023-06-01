@@ -106,8 +106,6 @@ export default {
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
-    if (this.mobile) {
-    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);

@@ -21,12 +21,12 @@
       </section>
       <transition name="modal-fade">
         <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
-        <popupModal v-if="checkMail" animate="animate__zoomIn" title="Check your email address"
+        <popupModal v-if="checkMail" :animate="animate" title="Check your email address"
           snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
           buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
           @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
       </transition>
-    </div>
+    </div> 
   </div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
       checkMail: false,
       product: {},
       inCart: false,
-      loading: true
+      loading: true,
+      animate: null,
     };
   },
   head() {
@@ -48,6 +49,8 @@ export default {
     };
   },
   async mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
     try {
       this.loading = true;
       // Fetch product details from the FakeStoreAPI
@@ -59,7 +62,19 @@ export default {
       this.loading = false;
     }
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
+  },
   methods: {
+    checkScreenSize() {
+      if (window.innerWidth <= 950) {
+        this.mobile = true;
+        this.animate = "animate__slideInUp";
+      } else {
+        this.mobile = false;
+        this.animate = "animate__zoomIn";
+      }
+    },
     handleOpenMail() {
       // Your code for handling open mail event
       this.checkMail = !this.checkMail
