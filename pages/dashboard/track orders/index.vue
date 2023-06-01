@@ -40,6 +40,7 @@ a {
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
+  max-width: 784px;
   width: 100%;
 }
 </style>

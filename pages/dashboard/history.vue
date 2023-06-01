@@ -318,7 +318,7 @@ export default {
 }
 
 .history-head {
-  position: sticky;
+  /* position: sticky; */
   top: 0px;
   left: 0px;
   z-index: 9;

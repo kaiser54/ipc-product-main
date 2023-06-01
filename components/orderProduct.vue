@@ -165,11 +165,14 @@ a {
   }
 
   .order-product-details {
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    width: auto;
+    max-width: fit-content;
   }
 
   .order-product {
     gap: 8px;
+    align-items: flex-start;
   }
 
   .price-qty {
@@ -210,9 +213,13 @@ a {
     display: flex;
   }
 
-  @media (max-width: 450px) {
+  @media (max-width: 451px) {
     .order-content .title {
       max-width: 150px;
+    }
+    .order-product-details {
+      width: 100%;
+      max-width: 200px;
     }
   }
 
