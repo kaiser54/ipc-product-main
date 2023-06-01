@@ -1,4 +1,5 @@
 <template>
+  <!-- done with history page, left for the function for the dates -->
   <div class="view-page history">
     <div class="title-header history-head">
       <h2 class="h2-medium header-text">History</h2>
@@ -62,7 +63,7 @@
       <!-- -------------------------------- -->
 
       <!-- table filters for desktop views -->
-      <button class="btn neutral-btn-small" v-if="mobile">
+      <button class="btn neutral-btn-small" v-if="mobile" @click="toggleFilter">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
             stroke="#303237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -73,10 +74,16 @@
     </div>
     <div class="history-content">
       <!-- history table for desktop views -->
-      <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="!mobile"/>
+      <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="!mobile" />
       <!-- -------------------------------- -->
       <!-- history table for mooile views -->
-      <mobileHistoryComponent :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="mobile"/>
+      <mobileHistoryComponent :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders"
+        v-if="mobile" 
+      />
+      <mobileFilterComponent v-if="isFilterOpen && mobile" :animate="animate" :tabs="tabs" :activeTabs="activeTabs" title="Filter by"
+        snippet="Filter product’s status" snippet2="Filter date"
+        buttonText="Apply filter" buttonClass="primary-btn"
+        @closeModal="toggleFilter" @toggleTab="toggleTab" @closeModalBG="toggleFilter" />
       <!-- -------------------------------- -->
     </div>
   </div>
@@ -221,6 +228,8 @@ export default {
       ],
       activeTabs: [0], // set the default active tab to be "All"
       visible: true,
+      animate: null,
+      isFilterOpen: false,
     };
   },
   head() {
@@ -288,12 +297,17 @@ export default {
       }
     },
     checkScreenSize() {
-      if (window.innerWidth <= 951) {
+      if (window.innerWidth <= 950) {
         this.mobile = true;
+        this.animate = "animate__slideInUp";
       } else {
         this.mobile = false;
+        this.animate = "animate__zoomIn";
       }
     },
+    toggleFilter() {
+      this.isFilterOpen = !this.isFilterOpen
+    }
   },
 };
 </script>
@@ -469,6 +483,7 @@ button {
     position: relative;
     z-index: 0;
   }
+
   .history-content {
     padding: 16px;
   }

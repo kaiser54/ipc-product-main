@@ -64,9 +64,10 @@
     <popupModal v-if="isLogout" :animate="animate" title="Log out of IPC?"
       snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
       buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
-      @closeModal="toggleLogout" @closeModalBG="toggleLogout" />
+      @closeModal="toggleLogout" @closeModalBG="toggleLogout"
+    />
 
-      <!-- change password -->
+    <!-- change password -->
     <changePassword v-if="isChangePassword" @close="toggleChangePassword" :animate="animate"/>
     <!-- ---------------------------- -->
   </div>

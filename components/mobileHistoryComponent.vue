@@ -10,7 +10,7 @@
                     <div class="order">Order id: {{ item.orderId }}</div>
                 </div>
             </div>
-            <div class="price">{{ item.price }}</div>
+            <div class="price">#{{ item.price }}</div>
         </div>
     </div>
 </template>
@@ -127,4 +127,5 @@ gap: 4px;
 
     color: var(--grey-grey1);
 }
+
 </style>
