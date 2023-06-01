@@ -469,6 +469,9 @@ button {
     position: relative;
     z-index: 0;
   }
+  .history-content {
+    padding: 16px;
+  }
 
   .filter-dates {
     justify-content: center;
