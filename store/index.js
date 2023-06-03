@@ -1,5 +1,7 @@
 export const state = () => ({
   cart: [],
+  user: null,
+  error: null,
 });
 
 export const mutations = {
@@ -24,7 +26,7 @@ export const mutations = {
       if (product.quantity > 1) {
         product.quantity--;
       } else {
-        // state.cart = state.cart.filter((p) => p.id !== productId);
+        state.cart = state.cart.filter((p) => p.id !== productId);
       }
     }
   },
@@ -36,5 +38,48 @@ export const mutations = {
   },
   removeFromCart(state, productId) {
     state.cart = state.cart.filter((product) => product.id !== productId);
+  },
+  setUser(state, user) {
+    state.user = user;
+    localStorage.setItem("user", JSON.stringify(user)); // Save user in local storage
+  },
+  setError(state, error) {
+    state.error = error;
+  },
+};
+
+export const actions = {
+  async login({ commit }, credentials) {
+    try {
+      const response = await fetch("https://fakestoreapi.com/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+        commit("setUser", user);
+        commit("setError", null);
+        return true; // Indicate successful login
+      } else {
+        const error = await response.json();
+        commit("setUser", null);
+        commit("setError", error);
+        return false; // Indicate failed login
+      }
+    } catch (error) {
+      commit("setUser", null);
+      commit("setError", error.message);
+      return false; // Indicate failed login
+    }
+  },
+  checkUser({ commit }) {
+    const user = localStorage.getItem("user");
+    if (user) {
+      commit("setUser", JSON.parse(user));
+    }
   },
 };

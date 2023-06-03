@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AlertPrompt ref="alertPrompt" :message="alertMessage" :alertType="alertType" />
     <div class="content">
       <div class="container">
         <div class="wrapper">
@@ -8,19 +9,22 @@
           </div>
           <div class="form-group">
             <div class="form-field">
-              <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
+              <!-- <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
                 placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage" />
+                :errorMessage="emailErrorMessage" /> -->
+              <InputField id="username" label="username" v-model="username" :value="username" type="text"
+                placeholder="Enter username" :required="true" :invalid="invalidEmail" :errorMessage="emailErrorMessage" />
+
               <InputField id="password" label="Password" v-model="password" :value="passwordValue" :type="inputType"
                 placeholder="Enter your password" :required="true" :invalid="invalidPassword"
                 :errorMessage="passwordErrorMessage" />
             </div>
             <div class="submit-reset">
-              <PrimaryBtn buttonText="Log in" @click="submitLogin" />
+              <PrimaryBtn buttonText="Log in" @click="submitLogin" :buttonTextLoader="buttonTextLoader" />
               <div class="pass-link">
                 <p>
                   Forgot password?
-                  <nuxt-link :to="{ name: 'reset password' }">Reset it here</nuxt-link>
+                  <nuxt-link :to="{ name: 'reset-password' }">Reset it here</nuxt-link>
                 </p>
               </div>
             </div>
@@ -51,7 +55,11 @@ export default {
       emailErrorMessage: "",
       passwordErrorMessage: "",
       showPassword: true,
+      alertMessage: "",
+      alertType: "",
       pageTitle: "IPC | Login",
+      username: "",
+      buttonTextLoader: false
     };
   },
   head() {
@@ -65,6 +73,9 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       // Check if the input email matches the regular expression
       return emailRegex.test(this.email);
+    },
+    isPasswordValid() {
+      return this.password.length >= 4;
     },
     emailValue: {
       get() {
@@ -82,7 +93,20 @@ export default {
         this.password = newValue;
       },
     },
+    uservalue: {
+      get() {
+        return this.username;
+      },
+      set(newValue) {
+        this.username = newValue;
+      },
+    },
   },
+
+  mounted() {
+    // this.showAlertPrompt();
+  },
+
   watch: {
     email(newValue) {
       this.email = newValue.replace(/\s/g, "");
@@ -110,23 +134,46 @@ export default {
     },
   },
   methods: {
-    submitLogin() {
-      if (!this.isEmailValid) {
-        this.invalidEmail = true;
-        this.emailErrorMessage = "Invalid email address";
-        if (this.password.length < 4) {
-          this.invalidPassword = true;
-          this.passwordErrorMessage =
-            "Password must be at least 4 characters long";
+    showAlertPrompt() {
+      this.$refs.alertPrompt.showAlert('This is an example alert.', 'success');
+    },
+
+    async submitLogin() {
+      this.buttonTextLoader = true;
+      // if (this.isEmailValid && this.isPasswordValid) {
+      if (this.isPasswordValid) {
+        const credentials = {
+          username: this.username,
+          password: this.password,
+        };
+        const loginSuccessful = await this.$store.dispatch("login", credentials);
+        if (loginSuccessful) {
+          this.buttonTextLoader = false;
+          // this.confirmationMessage = "Login successful!"; //i dont have a confirmation message yet
+          this.$router.push("/dashboard"); // Redirect to the dashboard page
+        } else {
+          this.buttonTextLoader = false;
+          // Handle failed login case if needed
+          this.alertType = "error"
+          this.alertMessage = "Login failed, please try again!"
+          this.showAlertPrompt();
+
         }
       } else {
-        // Submit form or perform other actions
-        console.log("Valid login");
-        this.$router.push("/dashboard/market");
+          this.buttonTextLoader = false;
+        // if (!this.isEmailValid) {
+        //   this.invalidEmail = true;
+        //   this.emailErrorMessage = "Invalid email address";
+        // }
+        if (!this.isPasswordValid) {
+          this.buttonTextLoader = false;
+          this.invalidPassword = true;
+          this.passwordErrorMessage = "Password must be at least 4 characters long";
+        }
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>

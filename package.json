@@ -9,11 +9,14 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
+    "@nuxtjs/auth-next": "^5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/device": "^3.1.0",
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.14",
     "core-js": "^3.25.3",
+    "fs": "^0.0.1-security",
     "moment": "^2.29.4",
     "nuxt": "^2.15.8",
     "postcss-cli": "^10.1.0",

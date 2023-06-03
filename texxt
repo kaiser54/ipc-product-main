@@ -1,0 +1,48 @@
+// middleware/auth.js
+
+export default function ({ store, redirect, route }) {
+  // Check if the user is logged in
+  if (!store.state.user && !isAllowedPublicRoute(route)) {
+    redirect('/login'); // Redirect to the login page if not logged in
+  }
+}
+
+function isAllowedPublicRoute(route) {
+  const allowedPublicRoutes = ['/', '/register', '/business', '/individual'];
+  return allowedPublicRoutes.includes(route.path);
+}
+// middleware/auth.js
+
+export default function ({ store, redirect }) {
+  // Check if the user is logged in
+  if (!store.state.user) {
+    redirect('/'); // Redirect to the login page if not logged in
+  }
+}
+
+export default function ({ store, route, redirect }) {
+  const layout = route.layout || '';
+  //checks if the use is not logged in or signed in
+  if (!store.state.user && layout !== 'registration layout' && layout !== 'registerAcc' ) {
+    return redirect('/')
+  }
+}
+
+export default function ({store, route, redirect}) {
+    if (!store.state.user && route.meta.requiresAuth) {
+      redirect('/login'); // Redirect to the login page if not logged in
+    }
+  }
+
+  
+
+
+  // middleware/auth.js
+
+export default function ({ store, redirect }) {
+  // Check if the user is logged in
+  if (!store.state.user) {
+    redirect('/'); // Redirect to the login page if not logged in
+  }
+}
+
