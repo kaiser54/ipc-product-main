@@ -28,6 +28,7 @@ export default {
     // '@nuxtjs/device'
     // { src: '~/plugins/vue2-datepicker.js', mode: 'client' },
     "~/plugins/fakestoreapi.js",
+    { src: '~/plugins/store', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -7,8 +7,9 @@ export default function ({ store, redirect, route }) {
     const allowedPaths = ['/', '/register', '/business', '/individual', '/confirm', '/confirmation', '/forgot-password', '/reset-password'];
 
     // Redirect to the login page if the current route is not allowed
-    if (!allowedPaths.includes(route.path)) {
-      redirect('/');
-    }
+    // if (!allowedPaths.includes(route.path)) {
+    //   redirect('/');
+    // }
   }
+  
 }

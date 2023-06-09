@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <loading /> -->
-    <div class="content">
+    <div class="content" v-if="!isConfirm">
       <div class="container">
         <div class="wrapper">
           <div @click="goBack">
@@ -34,10 +34,14 @@
         </div>
       </div>
     </div>
+    <confirmation :maskedEmail = hiddenMail v-else class="animate__animated animate__zoomIn" />
   </div>
 </template>
 
 <script>
+import 'animate.css';
+// import { mapState } from 'vuex';
+// import { createStore } from '~/plugins/store';
 export default {
   layout: "registration layout",
   // Other component properties and methods
@@ -45,6 +49,8 @@ export default {
     return {
       email: "",
       invalidEmail: false,
+      hiddenMail: "",
+      isConfirm: false,
       emailErrorMessage: "",
       pageTitle: "IPC | Reset Password",
     };
@@ -55,6 +61,7 @@ export default {
     };
   },
   computed: {
+    // ...mapState(['maskedEmail']),
     isEmailValid() {
       // Define a regular expression for email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -89,8 +96,11 @@ export default {
   methods: {
     submitReset() {
       const maskedEmail = this.maskEmail(this.email);
-      this.$store.commit("setMaskedEmail", maskedEmail);
-      localStorage.setItem("maskedEmail", maskedEmail);
+      // Inside your submitReset() method
+      // this.$store.commit("SET_MASKED_EMAIL", maskedEmail);
+
+      // localStorage.setItem("maskedEmail", maskedEmail);
+
       if (!this.isEmailValid) {
         this.invalidEmail = true;
         this.emailErrorMessage = "Invalid email address";
@@ -101,7 +111,9 @@ export default {
         //   name: "confirmation",
         //   params: { maskedEmail },
         // });
-        this.$router.push({ name: "confirmation" });
+        this.hiddenMail = maskedEmail;
+        this.isConfirm = true;
+        // this.$router.push({ name: "confirmation" });
       }
     },
     maskEmail: (email) => {

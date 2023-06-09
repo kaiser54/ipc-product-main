@@ -25,9 +25,11 @@ export const mutations = {
     if (product) {
       if (product.quantity > 1) {
         product.quantity--;
-      } else {
-        state.cart = state.cart.filter((p) => p.id !== productId);
-      }
+      } 
+      //dont remove the product from the cart, wait for the delete button
+      // else {
+      //   state.cart = state.cart.filter((p) => p.id !== productId);
+      // }
     }
   },
   updateCartQuantity(state, { productId, quantity }) {

@@ -6,7 +6,7 @@ const createStore = () => {
       maskedEmail: ''
     },
     mutations: {
-      setMaskedEmail(state, email) {
+      SET_MASKED_EMAIL(state, email) {
         state.maskedEmail = email;
       }
     }
