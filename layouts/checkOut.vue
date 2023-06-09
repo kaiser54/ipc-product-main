@@ -16,7 +16,6 @@
 
 <script>
 export default {
-  middleware: 'auth', // Add the 'auth' middleware to protect this page
 };
 </script>
 
