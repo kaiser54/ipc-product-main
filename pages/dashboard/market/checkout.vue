@@ -19,7 +19,8 @@ export default {
   },
   computed: {
     progressPercentage() {
-      return `${(this.currentStep - 1) * 49.5}%`;
+      // return `${(this.currentStep - 1) * 49.5}`; //returns a string
+      return (this.currentStep - 1) * 49.5;
     },
   },
   methods: {

@@ -2,7 +2,7 @@
     <div class="progress__container">
         <div class="progress-bar">
             <div class="circles">
-                <div v-for="step in 3" :key="step" class="div" :class="{ active: step <= currentStep }">
+                <div v-for="step in 3" :key="step" class="div" :class="{ active: step <= currentStep, done: step <= (currentStep - 1) }">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                         <path d="M3.05078 12L9.05078 18L21.0508 6" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -10,23 +10,8 @@
                     <div class="label">{{ getStepLabel(step) }}</div>
                 </div>
             </div>
-            <div class="circles">
-                <div v-for="step in 3" :key="step" :class="{ active: step <= currentStep }">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                        <path d="M3.05078 12L9.05078 18L21.0508 6" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <div class="circles">
-                <div v-for="step in 3" :key="step" :class="{ active: step <= currentStep }">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                        <path d="M3.05078 12L9.05078 18L21.0508 6" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <div class="progress" :style="{ width: progressPercentage }"></div>
+            <div class="progress1" :style="{ width: progressPercentage + '%' }"></div>
+            <div class="progress" :style="{ width: (progressPercentage + 49 > 99 ? 99 : progressPercentage + 49.5) + '%' }"></div>
             <div class="progress2"></div>
         </div>
     </div>
@@ -92,6 +77,7 @@ export default {
     border-radius: 100px;
 }
 
+
 .circles .div.active {
     background: var(--primary-p50);
     border: 2px solid var(--primary-p75);
@@ -103,6 +89,16 @@ export default {
 
 .circles .div.active svg {
     stroke: var(--primary-p300);
+}
+
+
+.circles .div.done {
+    background: var(--primary-p300);
+    border: 2px solid var(--primary-p300);
+}
+
+.circles .div.done svg {
+    stroke: var(--white);
 }
 
 .label {
@@ -122,6 +118,16 @@ export default {
 
 .circles .active .label {
     color: var(--primary-p300);
+}
+
+.progress1 {
+    position: absolute;
+    left: 2px;
+    z-index: -1;
+    width: 99%;
+    border: 2px solid var(--primary-p300);
+    height: 0;
+    transition: width 0.3s ease-in-out;
 }
 
 .progress {
