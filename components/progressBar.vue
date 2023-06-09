@@ -112,7 +112,7 @@ export default {
     font-size: 14px;
     line-height: 21px;
     /* identical to box height, or 150% */
-
+    white-space: nowrap;
 
     /* Grey/Grey4 */
 

@@ -1,7 +1,11 @@
 <template>
   <div class="checkout-wrapper">
     <progressBar :progressPercentage = progressPercentage :currentStep = currentStep :getStepLabel="getStepLabel" />
-    <CheckoutAddress />
+    <section>
+      <CheckoutAddress v-if="currentStep === 1" @customEvent="nextStep" />
+      <orderSummary v-if="currentStep === 2" @customEvent="nextStep" />
+      <payment v-if="currentStep === 3" @customEvent="nextStep" />
+    </section>
   </div>
 </template>
 
@@ -34,11 +38,11 @@ export default {
     },
     getStepLabel(step) {
     if (step === 1) {
-      return 'Address';
+      return 'Address details';
     } else if (step === 2) {
-      return 'Order';
+      return 'Order summary';
     } else if (step === 3) {
-      return 'Payment';
+      return 'Payment method';
     }
   },
   },
@@ -50,7 +54,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 43px;
   /* max-width: 833px; */
   width: 100%;
 }
