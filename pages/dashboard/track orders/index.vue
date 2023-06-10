@@ -3,7 +3,7 @@
     <div class="title-header">
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>
-    <div class="order-container">
+    <div class="order-container"> 
       <nuxt-link to="/dashboard/track orders/product one" v-for="index in duplicateCount" :key="index">
         <orderProduct :showSvg="true" />
       </nuxt-link>

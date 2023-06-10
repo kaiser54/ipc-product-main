@@ -28,7 +28,9 @@
             <p class="price">₦{{ calculateTotalPrice().toFixed(2) }}</p>
           </div>
         </div>
-        <button class="btn primary-btn">Checkout</button>
+        <nuxt-link to="/dashboard/market/checkout">
+          <button class="btn primary-btn">Checkout</button>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -90,6 +92,7 @@ export default {
 </script>
 
 <style scoped>
+a {width: 100%;}
 .cart-view {
   display: flex;
   flex-direction: column;
