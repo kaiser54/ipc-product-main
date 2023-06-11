@@ -1,76 +1,69 @@
 <template>
-  <div>
-    <div class="payment">
-      <h3 class="h3-medium header-text">Payment</h3>
-      <div class="content-select">
-        <div
-          class="list-select"
-          :class="{ clicked: selectedItem === item.value }"
-          v-for="(item, index) in listSelect"
-          :key="index"
-          @click="selectItem(item.value)"
-        >
-          <label>
-            <input
-              type="radio"
-              :value="item.value"
-              v-model="selectedItem"
-              hidden
+  <div class="payment">
+    <h3 class="h3-medium header-text">Payment</h3>
+    <div class="content-select">
+      <div
+        class="list-select"
+        :class="{ clicked: selectedItem === item.value }"
+        v-for="(item, index) in listSelect"
+        :key="index"
+        @click="selectItem(item.value)"
+      >
+        <label>
+          <input
+            type="radio"
+            :value="item.value"
+            v-model="selectedItem"
+            hidden
+          />
+          <svg
+            :class="{ selected: selectedItem === item.value }"
+            viewBox="0 0 25 25"
+            width="25"
+            height="25"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="22"
+              height="22"
+              rx="11"
+              fill="white"
+              stroke="#BDC0CE"
+              stroke-width="2"
             />
-            <svg
-              :class="{ selected: selectedItem === item.value }"
-              viewBox="0 0 25 25"
-              width="25"
-              height="25"
-            >
-              <rect
-                x="1"
-                y="1"
-                width="22"
-                height="22"
-                rx="11"
-                fill="white"
-                stroke="#BDC0CE"
-                stroke-width="2"
+            <circle
+              v-if="selectedItem === item.value"
+              cx="11.9992"
+              cy="11.9992"
+              r="7.8"
+              fill="#0009B3"
+            />
+          </svg>
+        </label>
+        <div class="list-select-header">
+          <div class="img__title">
+            <p class="title">{{ item.title }}</p>
+            <div class="img">
+              <img
+                :src="`/${image}`"
+                alt=""
+                v-for="(image, index) in item.images"
+                :key="index"
               />
-              <circle
-                v-if="selectedItem === item.value"
-                cx="11.9992"
-                cy="11.9992"
-                r="7.8"
-                fill="#0009B3"
-              />
-            </svg>
-          </label>
-          <div class="list-select-header">
-            <div class="img__title">
-              <p class="title">{{ item.title }}</p>
-              <div class="img">
-                <img
-                  :src="`/${image}`"
-                  alt=""
-                  v-for="(image, index) in item.images"
-                  :key="index"
-                />
-              </div>
             </div>
-            <p class="snippet">{{ item.snippet }}</p>
           </div>
+          <p class="snippet">{{ item.snippet }}</p>
         </div>
       </div>
-      <userInfo />
-      <div class="delivery__time">
-        <div class="delivery">Estimated delivery time</div>
-        <div class="time">24hours</div>
-      </div>
-      <userInfo />
-      <PrimaryBtn
-        class="bottom"
-        :disabled="!selectedItem"
-        @click="goToRoute()"
-        buttonText="Make payment"
-      />
     </div>
+    <userInfo />
+    <div class="delivery__time">
+      <div class="delivery">Estimated delivery time</div>
+      <div class="time">24hours</div>
+    </div>
+    <userInfo />
+    <PrimaryBtn class="bottom" buttonText="Make payment" @click="submitForm" />
   </div>
 </template>
   
@@ -103,13 +96,8 @@ export default {
     selectItem(value) {
       this.selectedItem = value;
     },
-    goToRoute() {
-      const selectedItem = this.listSelect.find(
-        (item) => item.value === this.selectedItem
-      );
-      if (selectedItem && selectedItem.route) {
-        this.$router.push(selectedItem.route);
-      }
+    submitForm() {
+      this.$emit("lastStep");
     },
   },
 };
@@ -228,50 +216,6 @@ svg circle {
 .selected circle {
   stroke: none;
   fill: var(--primary-p300);
-}
-
-.delivery__time {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  gap: 8px;
-
-  width: 100%;
-  /* height: 56px; */
-
-  /* Accent/A50 */
-
-  background: var(--accent-a50);
-  /* Accent/A75 */
-
-  border: 1px solid var(--accent-a75);
-  border-radius: 16px;
-}
-
-.delivery {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey2 */
-
-  color: var(--grey-grey2);
-}
-
-.time {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  text-align: right;
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
 }
 .bottom {
   margin-bottom: 70px;

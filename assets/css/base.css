@@ -902,6 +902,7 @@ label.label {
   /* identical to box height, or 150% */
 
 }
+
 .tag-small {
   height: 24px;
 }
@@ -917,6 +918,7 @@ label.label {
 
   color: var(--warning-w400);
 }
+
 .pending {
   /* Warning/W50 */
 
@@ -972,4 +974,59 @@ label.label {
 
   border: 1px solid var(--positive-p75);
   border-radius: 100px;
+}
+
+
+.payment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  max-width: 491px;
+  width: 100%;
+}
+
+.delivery__time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 8px;
+
+  width: 100%;
+  /* height: 56px; */
+
+  /* Accent/A50 */
+
+  background: var(--accent-a50);
+  /* Accent/A75 */
+
+  border: 1px solid var(--accent-a75);
+  border-radius: 16px;
+}
+
+.delivery {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey2 */
+
+  color: var(--grey-grey2);
+}
+
+.time {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  text-align: right;
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
 }

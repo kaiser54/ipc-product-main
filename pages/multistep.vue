@@ -44,7 +44,7 @@
                         </div>
                     </transition>
                     <button @click="prevStep">Back</button>
-                    <button @click="submitForm">Submit</button>
+                    <button @click="lastStep">Submit</button>
                 </div>
             </div>
         </transition>
@@ -73,6 +73,11 @@ export default {
         prevStep() {
             if (this.currentStep > 1) {
                 this.currentStep--;
+            }
+        },
+        lastStep() {
+            if (this.currentStep == 3) {
+                this.currentStep = 1;
             }
         },
         submitForm() {

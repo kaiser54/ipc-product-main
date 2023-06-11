@@ -1,22 +1,24 @@
 <template>
   <div class="checkout-wrapper">
     <div class="__bg__fixed">
-      <progressBar :progressPercentage=progressPercentage :currentStep=currentStep :getStepLabel="getStepLabel" />
+      <progressBar
+        :progressPercentage="progressPercentage"
+        :currentStep="currentStep"
+        :getStepLabel="getStepLabel"
+      />
     </div>
     <div class="main">
       <div class="user-form-data">
         <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
         <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
-        <payment v-show="currentStep === 3" @customEvent="nextStep" />
+        <payment v-show="currentStep === 3" @lastStep="lastStep" />
       </div>
       <div class="__order__data">
         <div class="order-title">
           <div class="__title">Order details</div>
           <div class="__list item-list-tag">{{ cart.length }} items</div>
         </div>
-        <div class="cart-lista">
-
-        </div>
+        <div class="cart-lista"></div>
         <div class="__pricing">
           <div class="__price">
             <p class="subtotal">Subtotal</p>
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 export default {
   layout: "checkOut",
   data() {
@@ -43,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['cart']),
+    ...mapState(["cart"]),
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
@@ -60,23 +62,30 @@ export default {
         this.currentStep--;
       }
     },
+    lastStep() {
+      if (this.currentStep == 3) {
+        this.currentStep = 1;
+      }
+    },
     submitForm() {
       // Handle form submission
     },
     getStepLabel(step) {
       if (step === 1) {
-        return 'Address details';
+        return "Address details";
       } else if (step === 2) {
-        return 'Order summary';
+        return "Order summary";
       } else if (step === 3) {
-        return 'Payment method';
+        return "Payment method";
       }
     },
     calculateTotalPrice() {
       let totalPrice = 0;
 
       for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+        const productInCart = this.$store.state.cart.find(
+          (p) => p.id === product.id
+        );
         const quantity = productInCart ? productInCart.quantity : 0;
         totalPrice += product.price * quantity;
       }
@@ -84,7 +93,7 @@ export default {
       return totalPrice;
     },
     modifyCart() {
-      this.$router.push('/dashboard/market/cart')
+      this.$router.push("/dashboard/market/cart");
     },
   },
 };
@@ -99,7 +108,9 @@ export default {
 }
 
 .user-form-data {
-  max-width: 833px;
+  /* max-width: 833px; */
+  max-width: 491px;
+  width: 100%;
 }
 
 .__bg__fixed {
@@ -127,11 +138,10 @@ export default {
   padding: 16px;
   gap: 16px;
 
-
   max-width: 345px;
   width: 100%;
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* Grey/Grey5 */
 
   border: 1px solid var(--grey-grey5);
@@ -189,7 +199,6 @@ export default {
   line-height: 21px;
   /* identical to box height, or 150% */
 
-
   /* Grey/Grey2 */
 
   color: var(--grey-grey2);
@@ -213,7 +222,6 @@ export default {
   font-size: 16px;
   line-height: 24px;
   /* identical to box height, or 150% */
-
 
   /* Grey/Grey1 */
 
