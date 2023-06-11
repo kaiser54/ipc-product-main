@@ -5,9 +5,9 @@
     </div>
     <div class="main">
       <div class="user-form-data">
-        <CheckoutAddress v-if="currentStep === 1" @customEvent="nextStep" />
-        <orderSummary v-if="currentStep === 2" @customEvent="nextStep" />
-        <payment v-if="currentStep === 3" @customEvent="nextStep" />
+        <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
+        <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
+        <payment v-show="currentStep === 3" @customEvent="nextStep" />
       </div>
       <div class="__order__data">
         <div class="order-title">
@@ -27,7 +27,7 @@
             <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
           </div>
         </div>
-        <button class="btn ghost-btn">Modify cart</button>
+        <button class="btn ghost-btn" @click="modifyCart">Modify cart</button>
       </div>
     </div>
   </div>
@@ -82,6 +82,9 @@ export default {
       }
 
       return totalPrice;
+    },
+    modifyCart() {
+      this.$router.push('/dashboard/market/cart')
     },
   },
 };

@@ -52,7 +52,6 @@ export default {
     align-items: flex-start;
     padding: 0px;
     gap: 16px;
-    padding-bottom: 60px;
     /* max-width: 356px; */
     width: 100%;
 }

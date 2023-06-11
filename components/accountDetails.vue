@@ -110,7 +110,7 @@ export default {
       type: Array,
       required: true,
     },
-    invalidNumber: {
+    invalidNumber: { 
       type: Boolean,
       required: true,
     },

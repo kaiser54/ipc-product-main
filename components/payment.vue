@@ -1,232 +1,279 @@
 <template>
-    <div>
-        <div class="individual-form">
-            <h2 class="h2-medium header-text">Payment method</h2>
-            <div class="myAuth-group">
-                <div class="myAuth">
-                    <div class="form-group">
-                        <div class="form-field">
-                            <div class="personal">
-                                <InputField id="FirstName" label="First name" v-model="FirstName" :value="nameValue"
-                                    type="text" placeholder="Lanre" :required="true" :invalid="invalidName"
-                                    :errorMessage="FNErrorMessage" />
-                                <InputField id="LastName" label="Last name" v-model="lastName" :value="LastnameValue"
-                                    type="text" placeholder="Bello" :required="true" :invalid="invalidLastName"
-                                    :errorMessage="LNErrorMessage" />
-                            </div>
-                            <InputField id="PhoneNumber" label="Phone number" v-model="PhoneNumber"
-                                :value="phonenumberValue" type="tel" placeholder="091234567809" :required="true"
-                                :invalid="invalidPhoneNum" :errorMessage="PNErrorMessage" />
-                            <InputField id="CreatePassword" label="Create password" v-model="password"
-                                :value="passwordValue" :type="inputType" placeholder="Enter password (min. of 4 characters)"
-                                :required="true" :invalid="invalidPassword" :errorMessage="passwordErrorMessage" />
-                        </div>
-                        <div class="submit-reset">
-                            <PrimaryBtn buttonText="Make payment" @click="submitForm" />
-                        </div>
-                    </div>
-                </div>
+  <div>
+    <div class="payment">
+      <h3 class="h3-medium header-text">Payment</h3>
+      <div class="content-select">
+        <div
+          class="list-select"
+          :class="{ clicked: selectedItem === item.value }"
+          v-for="(item, index) in listSelect"
+          :key="index"
+          @click="selectItem(item.value)"
+        >
+          <label>
+            <input
+              type="radio"
+              :value="item.value"
+              v-model="selectedItem"
+              hidden
+            />
+            <svg
+              :class="{ selected: selectedItem === item.value }"
+              viewBox="0 0 25 25"
+              width="25"
+              height="25"
+            >
+              <rect
+                x="1"
+                y="1"
+                width="22"
+                height="22"
+                rx="11"
+                fill="white"
+                stroke="#BDC0CE"
+                stroke-width="2"
+              />
+              <circle
+                v-if="selectedItem === item.value"
+                cx="11.9992"
+                cy="11.9992"
+                r="7.8"
+                fill="#0009B3"
+              />
+            </svg>
+          </label>
+          <div class="list-select-header">
+            <div class="img__title">
+              <p class="title">{{ item.title }}</p>
+              <div class="img">
+                <img
+                  :src="`/${image}`"
+                  alt=""
+                  v-for="(image, index) in item.images"
+                  :key="index"
+                />
+              </div>
             </div>
+            <p class="snippet">{{ item.snippet }}</p>
+          </div>
         </div>
+      </div>
+      <userInfo />
+      <div class="delivery__time">
+        <div class="delivery">Estimated delivery time</div>
+        <div class="time">24hours</div>
+      </div>
+      <userInfo />
+      <PrimaryBtn
+        class="bottom"
+        :disabled="!selectedItem"
+        @click="goToRoute()"
+        buttonText="Make payment"
+      />
     </div>
+  </div>
 </template>
   
 <script>
 export default {
-    data() {
-        return {
-            FirstName: "",
-            lastName: "",
-            PhoneNumber: "",
-            password: "",
-
-            inputType: "password",
-            invalidPassword: false,
-            invalidName: false,
-            invalidLastName: false,
-            invalidPhoneNum: false,
-
-            FNErrorMessage: "",
-            LNErrorMessage: "",
-            PNErrorMessage: "",
-            passwordErrorMessage: "",
-        };
+  data() {
+    return {
+      selectedItem: "",
+      listSelect: [
+        {
+          title: "Pay with card",
+          snippet:
+            "Our secure payment gateway enables you to conveniently pay for your purchases using your credit or debit card.",
+          value: "business",
+          route: "/business",
+          images: ["visa.png", "mclogo.png", "verve.png"],
+        },
+        {
+          title: "Pay on delivery",
+          snippet:
+            "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
+          value: "individual",
+          route: "/individual",
+          images: [],
+        },
+      ],
+    };
+  },
+  methods: {
+    selectItem(value) {
+      this.selectedItem = value;
     },
-    computed: {
-        passwordValue: {
-            get() {
-                return this.password;
-            },
-            set(newValue) {
-                this.password = newValue;
-            },
-        },
-        nameValue: {
-            get() {
-                return this.FirstName;
-            },
-            set(newValue) {
-                this.FirstName = newValue;
-            },
-        },
-        LastnameValue: {
-            get() {
-                return this.lastName;
-            },
-            set(newValue) {
-                this.lastName = newValue;
-            },
-        },
-        phonenumberValue: {
-            get() {
-                return this.PhoneNumber;
-            },
-            set(newValue) {
-                this.PhoneNumber = newValue;
-            },
-        },
+    goToRoute() {
+      const selectedItem = this.listSelect.find(
+        (item) => item.value === this.selectedItem
+      );
+      if (selectedItem && selectedItem.route) {
+        this.$router.push(selectedItem.route);
+      }
     },
-    watch: {
-        FirstName(newValue) {
-            if (newValue.trim() !== "") {
-                this.invalidName = false;
-                this.FNErrorMessage = "";
-            }
-        },
-        lastName(newValue) {
-            if (newValue.trim() !== "") {
-                this.invalidLastName = false;
-                this.LNErrorMessage = "";
-            }
-        },
-        PhoneNumber(newValue) {
-            if (newValue.trim() !== "") {
-                this.invalidPhoneNum = false;
-                this.PNErrorMessage = "";
-            }
-        },
-        password(newValue) {
-            if (newValue.length < 4) {
-                this.invalidPassword = true;
-                this.passwordErrorMessage =
-                    "Password must be at least 4 characters long";
-            } else {
-                this.invalidPassword = false;
-                this.passwordErrorMessage = "";
-            }
-        },
-    },
-    methods: {
-        submitForm() {
-            this.validateForm();
-            const isFormInvalid =
-                this.invalidPassword ||
-                this.invalidName ||
-                this.invalidLastName ||
-                this.invalidPhoneNum;
-
-            if (!isFormInvalid) {
-                // Submit form or perform other actions
-                // this.$router.push("/dashboard/market");
-                // this.$emit('customEvent');
-            }
-        },
-        validateForm() {
-            this.invalidPassword = this.password.length < 4;
-            this.invalidName = this.FirstName.trim() === "";
-            this.invalidLastName = this.lastName.trim() === "";
-            this.invalidPhoneNum = this.PhoneNumber.trim() === "";
-
-            this.passwordErrorMessage = this.invalidPassword
-                ? "Please enter a password (min. of 4 characters)"
-                : "";
-            this.FNErrorMessage = this.invalidName ? "Field cannot be empty" : "";
-            this.LNErrorMessage = this.invalidLastName ? "Field cannot be empty" : "";
-            this.PNErrorMessage = this.invalidPhoneNum ? "Field cannot be empty" : "";
-        },
-    },
+  },
 };
 </script>
+
   
 <style scoped>
-p {
-    text-align: center;
+.payment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+}
+
+.content-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.list-select {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 16px;
+  max-width: 491px;
+  min-height: 127px;
+
+  /* White */
+
+  background: #ffffff;
+  /* Grey/Grey4 */
+
+  border: 1px solid var(--grey-grey4);
+  border-radius: 16px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.clicked,
+.list-select:hover {
+  background: var(--accent-a50);
+  border: 1px solid var(--accent-a75);
+}
+
+.clicked svg rect {
+  stroke: #0009b3 !important;
+}
+
+.list-select-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  max-width: 419px;
+}
+
+.img__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  width: 100%;
+}
+
+p.title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+
+.img {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 14px;
+}
+
+.img img {
+  height: 20px;
+  width: auto;
+}
+
+p.snippet {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* or 150% */
+
+  /* Grey/Grey2 */
+  color: var(--grey-grey2);
+}
+
+svg circle {
+  stroke: var(--grey-grey4);
+  stroke-width: 2px;
+  fill: none;
+}
+
+/* Checked styling */
+.selected circle {
+  stroke: none;
+  fill: var(--primary-p300);
+}
+
+.delivery__time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 8px;
+
+  width: 100%;
+  /* height: 56px; */
+
+  /* Accent/A50 */
+
+  background: var(--accent-a50);
+  /* Accent/A75 */
+
+  border: 1px solid var(--accent-a75);
+  border-radius: 16px;
+}
+
+.delivery {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey2 */
+
+  color: var(--grey-grey2);
+}
+
+.time {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  text-align: right;
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
+}
+.bottom {
+  margin-bottom: 70px;
 }
 </style>
-  
-<style scoped>
-.individual-form {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    gap: 24px;
-    margin-bottom: 60px;
-}
-
-.thirdAuth {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    gap: 24px;
-}
-
-.auth-btn-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px px;
-    gap: 16px;
-}
-
-.myAuth-group {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    gap: 24px;
-}
-
-.form-group {
-    gap: 24px;
-}
-
-.personal {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
-}
-
-.password {
-    position: relative;
-}
-
-.password span svg {
-    position: absolute;
-    right: 16px;
-    top: 14px;
-    fill: var(--grey-grey3);
-}
-
-.submit-reset {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    gap: 24px;
-}
-
-/* For webkit-based browsers */
-input.no-arrow::-webkit-outer-spin-button,
-input.no-arrow::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* For Firefox */
-input.no-arrow::-moz-number-spin-box {
-    -moz-appearance: none;
-    margin: 0;
-}
-</style>
-  

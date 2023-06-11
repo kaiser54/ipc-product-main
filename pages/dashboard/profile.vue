@@ -1,7 +1,7 @@
 <template>
   <div class="view-page">
     <div class="profile-web-mobile">
-      <div class="profile" v-if="!mobile || !userHeaderComponent">
+      <div class="profile" v-if="!mobile || !userHeaderComponent"> 
         <div class="title-header">
           <h2 class="h2-medium header-text">Profile</h2>
           <div class="account-type indivudual">Individual account</div>
