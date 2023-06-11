@@ -19,6 +19,10 @@ export default {
   methods: {
     submitForm() {
       this.$emit("customEvent");
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional: Add smooth scrolling effect
+      });
     },
   },
 };

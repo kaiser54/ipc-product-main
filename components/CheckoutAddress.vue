@@ -158,6 +158,10 @@ export default {
     // },
     submitForm() {
         this.$emit('customEvent');
+        window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional: Add smooth scrolling effect
+      });
     },
     validateForm() {
       this.invalidPassword = this.password.length < 4;

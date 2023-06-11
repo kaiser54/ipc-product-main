@@ -63,7 +63,12 @@
       <div class="time">24hours</div>
     </div>
     <userInfo />
-    <PrimaryBtn class="bottom" buttonText="Make payment" @click="submitForm" />
+    <PrimaryBtn
+      class="bottom"
+      buttonText="Make payment"
+      @click="submitForm"
+      :disabled="!selectedItem"
+    />
   </div>
 </template>
   
@@ -98,6 +103,10 @@ export default {
     },
     submitForm() {
       this.$emit("lastStep");
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional: Add smooth scrolling effect
+      });
     },
   },
 };
