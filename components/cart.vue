@@ -180,6 +180,9 @@ header {
 
 .cart-lista {
   margin-bottom: 170px;
+  display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 
