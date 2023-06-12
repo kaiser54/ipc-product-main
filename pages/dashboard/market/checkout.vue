@@ -1,47 +1,52 @@
 <template>
-  <div class="checkout-wrapper">
-    <div class="__bg__fixed">
-      <progressBar
-        :progressPercentage="progressPercentage"
-        :currentStep="currentStep"
-        :getStepLabel="getStepLabel"
-      />
-    </div>
-    <div class="main">
-      <div class="user-form-data">
-        <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
-        <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
-        <payment v-show="currentStep === 3" @lastStep="lastStep" />
+  <div class="checkout__delivery">
+    <onTheWayMsg v-if="isPaid" />
+    <div v-else class="checkout-wrapper">
+      <div class="__bg__fixed">
+        <progressBar
+          :progressPercentage="progressPercentage"
+          :currentStep="currentStep"
+          :getStepLabel="getStepLabel"
+        />
       </div>
-      <div class="__order__data">
-        <div class="order-title">
-          <div class="__title">Order details</div>
-          <div class="__list item-list-tag">{{ cart.length }} items</div>
+      <div class="main">
+        <div class="user-form-data">
+          <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
+          <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
+          <payment v-show="currentStep === 3" @lastStep="lastStep" />
         </div>
-        <div class="cart-lista"></div>
-        <div class="__pricing">
-          <div class="__price">
-            <p class="subtotal">Subtotal</p>
-            <p class="subprice">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+        <div class="__order__data">
+          <div class="order-title">
+            <div class="__title">Order details</div>
+            <div class="__list item-list-tag">{{ cart.length }} items</div>
           </div>
-          <div class="__price">
-            <p class="total">Total</p>
-            <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+          <div class="cart-lista"></div>
+          <div class="__pricing">
+            <div class="__price">
+              <p class="subtotal">Subtotal</p>
+              <p class="subprice">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+            </div>
+            <div class="__price">
+              <p class="total">Total</p>
+              <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+            </div>
           </div>
+          <button class="btn ghost-btn" @click="modifyCart">Modify cart</button>
         </div>
-        <button class="btn ghost-btn" @click="modifyCart">Modify cart</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import { startConfetti, stopConfetti } from '@/plugins/confetti'
 import { mapState, mapMutations } from "vuex";
 export default {
   layout: "checkOut",
   data() {
     return {
       currentStep: 1,
+      isPaid: false,
     };
   },
   computed: {
@@ -63,9 +68,14 @@ export default {
       }
     },
     lastStep() {
-      if (this.currentStep == 3) {
-        this.currentStep = 1;
-      }
+      // if (this.currentStep == 3) {
+      //   this.currentStep = 1;
+      // }
+      this.isPaid = true;
+      window.startConfetti();
+
+      // Stop confetti after 10 seconds
+      // setTimeout(window.stopConfetti(), 50000);
     },
     submitForm() {
       // Handle form submission
