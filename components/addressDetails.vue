@@ -2,7 +2,7 @@
   <div class="addressDetails">
     <div class="addressDetails-head">
       <h3 class="h3-medium">{{ switchedHeader }}</h3>
-      <button class="btn neutral-btn-small">
+      <button class="btn neutral-btn-small" @click="openEdit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -28,7 +28,11 @@
         <p>Edit</p>
       </button>
     </div>
-    <userAddress />
+    <userAddress :disabled="disabled"/>
+    <div class="change-btn" v-if="isEditOpen">
+      <button class="btn neutral-btn">Cancel</button>
+      <button class="btn primary-btn">Save changes</button>
+    </div>
   </div>
 </template>
 
@@ -40,6 +44,18 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      disabled: true,
+      isEditOpen: false,
+    }
+  },
+  methods: {
+    openEdit() {
+      this.disabled = false;
+      this.isEditOpen = true;
+    }
+  }
 };
 </script>
 
@@ -63,6 +79,25 @@ export default {
 h3.h3-medium {
   color: var(--grey-grey1);
 }
+.change-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  margin-left: auto;
+
+  /* max-width: 273px; */
+  /* width: 100%; */
+}
+
+.change-btn .primary-btn {
+  height: 48px;
+}
+.change-btn .btn {
+  width: auto;
+}
+
 button.btn.neutral-btn-small {
   width: auto;
 }
