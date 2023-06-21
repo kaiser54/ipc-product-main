@@ -1,9 +1,20 @@
 <template>
   <div class="accountDetails">
+    <!-- switch__tab title -->
+
     <h3 class="h3-medium">Account details</h3>
+    <!-- --------- -->
+
+    <!-- switch__tab image -->
+
     <div class="avatar">
       <img src="../assets/images/avatar1.png" alt="" />
     </div>
+
+    <!-- --------- -->
+
+    <!-- switch__tab business name if its a business account, else remove it for individual account -->
+
     <div class="userName">
       <div class="nameInput">
         <label for="BusinessName" class="label">Business name</label>
@@ -17,6 +28,11 @@
         />
       </div>
     </div>
+
+    <!-- --------- ---------------------------------------------->
+
+    <!-- switch__tab first name and last name from the backend -->
+
     <div class="userName">
       <div class="nameInput" v-for="(field, index) in userName" :key="index">
         <label :for="field.label" class="label">{{ field.label }}</label>
@@ -30,7 +46,15 @@
         />
       </div>
     </div>
+
+    <!-- --------- -------------------------------------------------------------------->
+
+    <!-- switch__tab phone number group containing the number field, button functions -->
+
     <div class="num-btn">
+
+      <!-- phone number -->
+
       <div class="phone-number">
         <div
           class="phone-num"
@@ -49,6 +73,9 @@
           />
         </div>
       </div>
+
+      <!-- ------------ -->
+
       <div
         class="new-phone-number animate__animated animate__slideInDown"
         v-if="localShowNewPhoneNumber"
@@ -60,17 +87,11 @@
           :value="numberValue"
           type="tel"
           placeholder="Add new number"
-          :required="false"
+          :required = false
           :invalid="invalidNumber"
-          errorMessage="Enter a valid phone number"
+          :errorMessage = errorMessage
         />
-        <!-- <input
-          class="inputed"
-          type="tel"
-          v-model="newPhoneNumber"
-          placeholder="Add new number"
-        /> -->
-        <!-- <button class="btn primary-btn" @click="addNumBtn">Add</button> -->
+        
         <PrimaryBtn @click="addNumBtn" buttonText="Add" />
         <!-- second button -->
         <svg
@@ -110,7 +131,7 @@ export default {
       type: Array,
       required: true,
     },
-    invalidNumber: { 
+    invalidNumber: {
       type: Boolean,
       required: true,
     },
@@ -127,6 +148,7 @@ export default {
     return {
       localShowNewPhoneNumber: this.showNewPhoneNumber,
       newPhoneNumber: "",
+      errorMessage: "Enter a valid phone number",
       localInvalidNumber: this.invalidNumber,
     };
   },
@@ -142,11 +164,13 @@ export default {
   },
   methods: {
     openAddNumber() {
-      this.localShowNewPhoneNumber = true; // Update the local data property
+      this.$emit("open-number");
+      // this.localShowNewPhoneNumber = true; // Update the local data property
     },
     closeNumber() {
-      this.localShowNewPhoneNumber = false;
-      this.localInvalidNumber = false
+      this.$emit("close-number");
+      // this.localShowNewPhoneNumber = false;
+      // this.localInvalidNumber = false;
     },
     addNumBtn() {
       this.$emit("add-number", this.newPhoneNumber);

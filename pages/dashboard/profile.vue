@@ -1,21 +1,37 @@
 <template>
   <div class="view-page">
     <div class="profile-web-mobile">
-      <div class="profile" v-if="!mobile || !userHeaderComponent"> 
+      <div class="profile" v-if="!mobile || !userHeaderComponent">
         <div class="title-header">
           <h2 class="h2-medium header-text">Profile</h2>
           <div class="account-type indivudual">Individual account</div>
         </div>
-        <switchTab v-show="!mobile" @toggleTab="activetab = true" @toggleTab2="activetab = false" :myTab="activetab"
-          text1="Account details" text2="Address book" />
+        <switchTab
+          v-show="!mobile"
+          @toggleTab="activetab = true"
+          @toggleTab2="activetab = false"
+          :myTab="activetab"
+          text1="Account details"
+          text2="Address book"
+        />
         <div class="userdetails" v-if="!mobile">
           <div class="account-details-desktop" v-if="activetab">
             <div class="acc-btn">
-              <accountDetails :BusinessName="BusinessName" :user-name="userName" :phone-numbers="phoneNumbers"
-                :invalidNumber="invalidNumber" :show-new-phone-number="showNewPhoneNumber"
-                @add-number="handleAddNumber" />
+              <accountDetails
+                :BusinessName="BusinessName"
+                :user-name="userName"
+                :phone-numbers="phoneNumbers"
+                :invalidNumber="invalidNumber"
+                :show-new-phone-number="showNewPhoneNumber"
+                @add-number="handleAddNumber"
+                @close-number="handleCloseNumber"
+                @open-number="handleOpenNumber"
+              />
             </div>
-            <emaildesktop @openMail="toggleIsVerifyMail" @openPassword="toggleChangePassword" />
+            <emaildesktop
+              @openMail="toggleIsVerifyMail"
+              @openPassword="toggleChangePassword"
+            />
           </div>
           <addressDetails v-if="!activetab" switchedHeader="Address Book" />
         </div>
@@ -24,10 +40,15 @@
       <!-- profile content for the mobile view -->
 
       <div class="mobileUserProfile" v-if="mobile">
-
         <!-- user profile and name -->
-        <userHeader @clicked="toggleuserHeaderComponent" v-if="!userHeaderComponent" />
-        <userHeaderComponent v-if="userHeaderComponent" @redirectToprofilepage="redirectToprofilepage" />
+        <userHeader
+          @clicked="toggleuserHeaderComponent"
+          v-if="!userHeaderComponent"
+        />
+        <userHeaderComponent
+          v-if="userHeaderComponent"
+          @redirectToprofilepage="redirectToprofilepage"
+        />
         <!-- ---------------------------------- -->
 
         <!-- address verify and change password -->
@@ -35,7 +56,10 @@
           <div class="user__details__head">
             <p>ACCOUNT</p>
           </div>
-          <userdetailsMobileview @openMail="toggleIsVerifyMail" @changePassword="toggleChangePassword" />
+          <userdetailsMobileview
+            @openMail="toggleIsVerifyMail"
+            @changePassword="toggleChangePassword"
+          />
         </div>
         <!-- ---------------------------------- -->
 
@@ -47,28 +71,54 @@
           <FAQmobileview />
         </div>
       </div>
-      <button class="btn mqdn" @click="toggleLogout" v-if="!userHeaderComponent">Log out</button>
+      <button
+        class="btn mqdn"
+        @click="toggleLogout"
+        v-if="!userHeaderComponent"
+      >
+        Log out
+      </button>
     </div>
     <!-- ---------------------------- -->
 
     <!-- verify email popup -->
 
-    <popupModal v-if="isVerifyMail" :animate="animate" title="Check your email address"
+    <popupModal
+      v-if="isVerifyMail"
+      :animate="animate"
+      title="Check your email address"
       snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-      buttonText="Resend code" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
-      @closeModal="toggleIsVerifyMail" @closeModalBG="toggleIsVerifyMail" />
+      buttonText="Resend code"
+      buttonText2="Got it"
+      buttonClass="neutral-btn"
+      buttonClass2="primary-btn"
+      @closeModal="toggleIsVerifyMail"
+      @closeModalBG="toggleIsVerifyMail"
+    />
+
     <!-- ---------------------------- -->
 
     <!-- logout popup -->
 
-    <popupModal v-if="isLogout" :animate="animate" title="Log out of IPC?"
+    <popupModal
+      v-if="isLogout"
+      :animate="animate"
+      title="Log out of IPC?"
       snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
-      buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
-      @closeModal="toggleLogout" @closeModalBG="toggleLogout"
+      buttonText="Cancel"
+      buttonText2="Log out"
+      buttonClass="neutral-btn"
+      buttonClass2="negative-btn"
+      @closeModal="toggleLogout"
+      @closeModalBG="toggleLogout"
     />
 
     <!-- change password -->
-    <changePassword v-if="isChangePassword" @close="toggleChangePassword" :animate="animate"/>
+    <changePassword
+      v-if="isChangePassword"
+      @close="toggleChangePassword"
+      :animate="animate"
+    />
     <!-- ---------------------------- -->
   </div>
 </template>
@@ -147,7 +197,7 @@ export default {
     },
     redirectToprofilepage() {
       this.userHeaderComponent = false;
-    }
+    },
   },
 };
 </script>
