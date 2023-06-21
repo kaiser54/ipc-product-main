@@ -192,6 +192,13 @@ export default {
         this.showNewPhoneNumber = true;
       }
     },
+    handleCloseNumber() {
+      this.invalidNumber = false
+      this.showNewPhoneNumber = false
+    },
+    handleOpenNumber() {
+      this.showNewPhoneNumber = true
+    },
     toggleuserHeaderComponent() {
       this.userHeaderComponent = true;
     },

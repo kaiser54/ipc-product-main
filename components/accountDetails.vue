@@ -76,9 +76,11 @@
 
       <!-- ------------ -->
 
+      <!-- input field where the new number is been added -->
+
       <div
         class="new-phone-number animate__animated animate__slideInDown"
-        v-if="localShowNewPhoneNumber"
+        v-if="showNewPhoneNumber"
       >
         <InputField
           class="inputed"
@@ -92,8 +94,13 @@
           :errorMessage = errorMessage
         />
         
+        <!--  click this button to save the inputed number  -->
+
         <PrimaryBtn @click="addNumBtn" buttonText="Add" />
-        <!-- second button -->
+
+        <!-- ---------------------------------------------- -->
+
+        <!-- close and clear the imput field button -->
         <svg
           @click="closeNumber"
           style="margin-top: 22px"
@@ -111,10 +118,16 @@
             stroke-linejoin="round"
           />
         </svg>
-        <!-- third button -->
+
+        <!-- ------------------------------------- -->
+
       </div>
+
+      <!-- the button that toggles the input field for the add phone number -->
+
       <add-num-btn @click="openAddNumber" />
-      <!-- first button -->
+
+      <!-- ---------------------------------------------------------------- -->
     </div>
   </div>
 </template>
@@ -146,10 +159,8 @@ export default {
   },
   data() {
     return {
-      localShowNewPhoneNumber: this.showNewPhoneNumber,
       newPhoneNumber: "",
       errorMessage: "Enter a valid phone number",
-      localInvalidNumber: this.invalidNumber,
     };
   },
   computed: {
@@ -169,11 +180,13 @@ export default {
     },
     closeNumber() {
       this.$emit("close-number");
+      this.newPhoneNumber = "";
       // this.localShowNewPhoneNumber = false;
       // this.localInvalidNumber = false;
     },
     addNumBtn() {
       this.$emit("add-number", this.newPhoneNumber);
+      this.newPhoneNumber = ''; // Clear the value to an empty string
     },
   },
 };
