@@ -8,8 +8,13 @@
 
       <div class="filter-head" v-if="!mobile">
         <div class="filter-tabs">
-          <div v-for="(tab, index) in tabs" :key="index" class="tab tab-standard" @click="toggleTab(index)"
-            :class="{ clicked: activeTabs.includes(index) }">
+          <div
+            v-for="(tab, index) in tabs"
+            :key="index"
+            class="tab tab-standard"
+            @click="toggleTab(index)"
+            :class="{ clicked: activeTabs.includes(index) }"
+          >
             {{ tab }}
           </div>
         </div>
@@ -17,46 +22,116 @@
           <div class="datepicker-toggle">
             <p>From</p>
             <!-- <span class="datepicker-toggle-button"></span> -->
-            <button class="datepicker-toggle-button">
-              <span v-if="startDate">{{ startDate }}</span>
-              <span v-else class="btn-dsp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+            <button class="">
+              <!-- <span v-if="startDate">{{ startDate }}</span> -->
+              <input
+                type="date"
+                name=""
+                id=""
+                class="input datepicker-toggle-button"
+                v-model="startDate"
+              />
+              <span class="btn-dsp" style="display: none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="21"
+                  height="20"
+                  viewBox="0 0 21 20"
+                  fill="none"
+                >
                   <path
                     d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M3 8.33203H18" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M13.834 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M7.16602 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M3 8.33203H18"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M13.834 1.66797V5.0013"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7.16602 1.66797V5.0013"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <p>YYYY-MM-DD</p>
               </span>
             </button>
-            <input type="date" class="input datepicker-input" v-model="startDate" />
+            <!-- <input type="date" class="input datepicker-input" v-model="startDate" /> -->
           </div>
           <div class="datepicker-toggle">
             <p>To</p>
             <!-- <span class="datepicker-toggle-button"></span> -->
-            <button class="datepicker-toggle-button">
-              <span v-if="endDate">{{ endDate }}</span>
-              <span v-else class="btn-dsp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+            <button class="">
+              <!-- <span v-if="endDate">{{ endDate }}</span> -->
+              <input
+              type="date"
+              name=""
+              id=""
+              class="input datepicker-toggle-button"
+              v-model="endDate"
+              />
+              <span class="btn-dsp" style="display: none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="21"
+                  height="20"
+                  viewBox="0 0 21 20"
+                  fill="none"
+                >
                   <path
                     d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M3 8.33203H18" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M13.834 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M7.16602 1.66797V5.0013" stroke="#303237" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M3 8.33203H18"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M13.834 1.66797V5.0013"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M7.16602 1.66797V5.0013"
+                    stroke="#303237"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <p>YYYY-MM-DD</p>
               </span>
             </button>
-            <input type="date" class="input datepicker-input" v-model="endDate" />
+            <!-- <input
+              type="date"
+              name=""
+              id=""
+              class="input datepicker-toggle-button"
+              v-model="endDate"
+            /> -->
           </div>
         </div>
       </div>
@@ -64,9 +139,20 @@
 
       <!-- table filters for desktop views -->
       <button class="btn neutral-btn-small" v-if="mobile" @click="toggleFilter">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
-            stroke="#303237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
+            stroke="#303237"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         Filter history
       </button>
@@ -74,16 +160,34 @@
     </div>
     <div class="history-content">
       <!-- history table for desktop views -->
-      <history-component :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="!mobile" />
+      <history-component
+        :tableData="tableData"
+        :activeTabs="activeTabs"
+        :tableHeaders="tableHeaders"
+        v-if="!mobile"
+      />
       <!-- -------------------------------- -->
       <!-- history table for mooile views -->
-      <mobileHistoryComponent :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders"
-        v-if="mobile" 
+      <mobileHistoryComponent
+        :tableData="tableData"
+        :activeTabs="activeTabs"
+        :tableHeaders="tableHeaders"
+        v-if="mobile"
       />
-      <mobileFilterComponent v-if="isFilterOpen && mobile" :animate="animate" :tabs="tabs" :activeTabs="activeTabs" title="Filter by"
-        snippet="Filter product’s status" snippet2="Filter date"
-        buttonText="Apply filter" buttonClass="primary-btn"
-        @closeModal="toggleFilter" @toggleTab="toggleTab" @closeModalBG="toggleFilter" />
+      <mobileFilterComponent
+        v-if="isFilterOpen && mobile"
+        :animate="animate"
+        :tabs="tabs"
+        :activeTabs="activeTabs"
+        title="Filter by"
+        snippet="Filter product’s status"
+        snippet2="Filter date"
+        buttonText="Apply filter"
+        buttonClass="primary-btn"
+        @closeModal="toggleFilter"
+        @toggleTab="toggleTab"
+        @closeModalBG="toggleFilter"
+      />
       <!-- -------------------------------- -->
     </div>
   </div>
@@ -306,8 +410,8 @@ export default {
       }
     },
     toggleFilter() {
-      this.isFilterOpen = !this.isFilterOpen
-    }
+      this.isFilterOpen = !this.isFilterOpen;
+    },
   },
 };
 </script>
@@ -321,7 +425,7 @@ export default {
   /* position: sticky; */
   top: 0px;
   left: 0px;
-  z-index: 9;
+  /* z-index: 9; */
   background: white;
 }
 
@@ -338,15 +442,15 @@ export default {
   left: 0;
   top: 0; */
 
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px;
-  gap: 8px;
+  padding: 16px; */
+  /* gap: 8px; */
 
-  /* max-width: 155px; */
-  min-width: 155px;
+  max-width: 160px;
+  /* min-width: 155px; */
   /* width: 100%; */
   height: 48px;
 
@@ -358,7 +462,7 @@ export default {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
 }
-
+/* 
 .datepicker-input {
   position: absolute;
   left: 0;
@@ -368,7 +472,7 @@ export default {
   opacity: 0;
   cursor: pointer;
   box-sizing: border-box;
-}
+} */
 
 .btn-dsp {
   display: flex;
