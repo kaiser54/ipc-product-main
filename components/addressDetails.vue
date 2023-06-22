@@ -28,11 +28,15 @@
         <p>Edit</p>
       </button>
     </div>
-    <userAddress :disabled="disabled"/>
+    <userAddress :disabled="disabled" />
     <div class="change-btn" v-if="isEditOpen">
       <button class="btn neutral-btn">Cancel</button>
       <button class="btn primary-btn">Save changes</button>
     </div>
+
+    <!-- Add a ref to a dummy element as the scroll target -->
+    <div ref="scrollTarget" style="height: 1px; opacity: 0;"></div>
+
   </div>
 </template>
 
@@ -48,14 +52,20 @@ export default {
     return {
       disabled: true,
       isEditOpen: false,
-    }
+    };
   },
   methods: {
     openEdit() {
       this.disabled = false;
       this.isEditOpen = true;
-    }
-  }
+      this.$nextTick(() => {
+        const scrollTarget = this.$refs.scrollTarget;
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    },
+  },
 };
 </script>
 
