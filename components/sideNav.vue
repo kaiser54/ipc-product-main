@@ -63,7 +63,7 @@
             </div>
           </div>
         </nuxt-link>
-        <nuxt-link to="/dashboard/track orders">
+        <nuxt-link to="/dashboard/track_orders">
           <div class="desktop-nav">
             <div class="nav-content">
               <svg
