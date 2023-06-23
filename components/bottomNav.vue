@@ -25,7 +25,7 @@
           </div>
         </div>
       </nuxt-link>
-      <nuxt-link to="/dashboard/track orders">
+      <nuxt-link to="/dashboard/track_orders">
         <div class="mobile-nav">
           <div class="mobile-nav-content">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
