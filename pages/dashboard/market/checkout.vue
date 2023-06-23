@@ -2,7 +2,7 @@
   <div class="checkout__delivery">
     <onTheWayMsg v-if="isPaid" />
     <div v-else class="checkout-wrapper">
-      <div class="__bg__fixed">
+      <div v-if="!mobile" class="__bg__fixed">
         <progressBar
           :progressPercentage="progressPercentage"
           :currentStep="currentStep"
@@ -10,12 +10,24 @@
         />
       </div>
       <div class="main">
+        <div v-if="mobile" class="order__pricing__group">
+          <div class="mobile_ _orders">
+            <div class="mobile-order">Orders</div>
+            <div class="order-items">{{ cart.length }} items</div>
+          </div>
+          <div class="mobile_ _total">
+            <div class="mobile-order">Subtotal</div>
+            <div class="total-price">
+              ₦ {{ calculateTotalPrice().toFixed(2) }}
+            </div>
+          </div>
+        </div>
         <div class="user-form-data">
           <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
           <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
           <payment v-show="currentStep === 3" @lastStep="lastStep" />
         </div>
-        <div class="__order__data">
+        <div class="__order__data" v-if="!mobile">
           <div class="order-title">
             <div class="__title">Order details</div>
             <div class="__list item-list-tag">{{ cart.length }} items</div>
@@ -47,7 +59,14 @@ export default {
     return {
       currentStep: 1,
       isPaid: false,
+      mobile: false,
     };
+  },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+    // set loading to true again when component is mounted
+    // this.loading = true;
   },
   computed: {
     ...mapState(["cart"]),
@@ -56,7 +75,21 @@ export default {
       return (this.currentStep - 1) * 49.5;
     },
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
+    if (this.$route.path === "/dashboard") {
+      // Perform an automatic redirect to "/dashboard/market"
+      this.$router.redirect("/dashboard/market");
+    }
+  },
   methods: {
+    checkScreenSize() {
+      if (window.innerWidth < 951) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    },
     nextStep() {
       if (this.currentStep < 3) {
         this.currentStep++;
@@ -115,6 +148,72 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+}
+
+.order__pricing__group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  gap: 8px;
+
+  width: 100%;
+  /* height: 88px; */
+
+  /* Grey/Grey6 */
+
+  background: var(--grey-grey6);
+
+  width: 100%;
+}
+
+.mobile_ {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  width: 100%;
+}
+
+.mobile-orders {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  /* Grey/Grey2 */
+
+  color: var(--grey-grey2);
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 12px;
+  gap: 10px;
+
+  height: 24px;
+
+  /* Grey/Grey5 */
+
+  background: var(--grey-grey5);
+  border-radius: 100px;
+}
+
+.total-price {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  text-align: right;
+
+  /* Grey/Grey1 */
+
+  color: var(--grey-grey1);
 }
 
 .user-form-data {
@@ -247,5 +346,17 @@ export default {
   text-align: right;
   letter-spacing: -0.5px;
   color: var(--grey-grey1);
+}
+@media (max-width: 950px) {
+  .main {
+    margin-top: auto;
+    gap: 24px;
+    flex-direction: column;
+  }
+  .user-form-data {
+    max-width: 100%;
+    max-width: 90%;
+    margin-inline: auto;
+  }
 }
 </style>
