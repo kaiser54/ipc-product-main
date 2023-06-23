@@ -3,13 +3,13 @@
     <table style="width:100%">
       <thead>
         <tr>
-          <th v-for="header in tableHeaders" :key="header">
+          <th v-for="header in tableHeaders" :key="header"> 
             {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails(item.name)">
+        <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails">
           <td style="display: flex; align-items: center; gap: 5px">
             <div class="img">
               <img src="@/assets/images/p1.png" alt="" />
@@ -52,12 +52,13 @@ export default {
     };
   },
   methods: {
-    toHistoryDetails(value) {
+    toHistoryDetails() {
       // const baseURL = "/dashboard/track orders/";
       // const baseURL = `/dashboard/track orders/${value}`;
       // this.$router.push(baseURL + value)
       // this.$router.push(`/dashboard/track orders/${value}`)
-      this.$router.push(`/dashboard/track orders/lol`)
+      this.$router.push(`/dashboard/track_orders/lol`)
+      // console.log(window.location.origin + "/")
     },
   },
 };
