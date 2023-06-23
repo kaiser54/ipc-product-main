@@ -5,44 +5,94 @@
       <div class="myAuth-group">
         <div class="myAuth">
           <div class="form-group">
-            <!-- <div class="form-field">
+            <div class="form-field">
               <div class="personal">
-                <InputField id="FirstName" label="First name" v-model="FirstName" :value="nameValue" type="text"
-                  placeholder="Lanre" :required="true" :invalid="invalidName" :errorMessage="FNErrorMessage" />
-                <InputField id="LastName" label="Last name" v-model="lastName" :value="LastnameValue" type="text"
-                  placeholder="Bello" :required="true" :invalid="invalidLastName" :errorMessage="LNErrorMessage" />
+                <InputField
+                  id="FirstName"
+                  label="First name"
+                  v-model="FirstName"
+                  :value="nameValue"
+                  type="text"
+                  placeholder="Lanre"
+                  :required="true"
+                  :invalid="invalidName"
+                  :errorMessage="FNErrorMessage"
+                />
+                <InputField
+                  id="LastName"
+                  label="Last name"
+                  v-model="lastName"
+                  :value="LastnameValue"
+                  type="text"
+                  placeholder="Bello"
+                  :required="true"
+                  :invalid="invalidLastName"
+                  :errorMessage="LNErrorMessage"
+                />
               </div>
-              <div class="phone-num">
-                <InputField id="PhoneNumber" label="Phone number" v-model="PhoneNumber" :value="phonenumberValue"
-                  type="tel" placeholder="091234567809" :required="true" :invalid="invalidPhoneNum"
-                  :errorMessage="PNErrorMessage" />
-
-                <div class="new-phone-number animate__animated animate__slideInDown" v-if="showNewPhoneNumber">
-                  <InputField class="inputed" id="number" v-model="newPhoneNumber" :value="numberValue" type="tel"
-                    placeholder="Add new number" :required="false" :invalid="invalidNumber"
-                    errorMessage="Enter a valid phone number" />
-                  <PrimaryBtn @click="addNumBtn" buttonText="Add" /> -->
-                  <!-- second button -->
-                  <!-- <svg @click="closeNumber" style="margin-top: 22px" xmlns="http://www.w3.org/2000/svg" width="20"
-                    height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M4.16602 15.8307L15.8327 4.16406M4.16602 4.16406L15.8327 15.8307L4.16602 4.16406Z"
-                      stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg> -->
-                  <!-- third button -->
-                <!-- </div>
-                <add-num-btn @click="openAddNumber" style="justify-content: flex-start;" />
-              </div> -->
-<!-- 
-              <InputField id="CreatePassword" label="Create password" v-model="password" :value="passwordValue"
-                :type="inputType" placeholder="Enter password (min. of 4 characters)" :required="true"
-                :invalid="invalidPassword" :errorMessage="passwordErrorMessage" />
-              <InputField id="CreatePassword" label="Create password" v-model="password" :value="passwordValue"
-                :type="inputType" placeholder="Enter password (min. of 4 characters)" :required="true"
-                :invalid="invalidPassword" :errorMessage="passwordErrorMessage" />
-              <InputField id="CreatePassword" label="Create password" v-model="password" :value="passwordValue"
-                :type="inputType" placeholder="Enter password (min. of 4 characters)" :required="true"
-                :invalid="invalidPassword" :errorMessage="passwordErrorMessage" />
-            </div> -->
+              <ClickAddNum
+                :phone-numbers="phoneNumbers"
+                :invalidNumber="invalidNumber"
+                :disabled="false"
+                :show-new-phone-number="showNewPhoneNumber"
+                @add-number="handleAddNumber"
+                @close-number="handleCloseNumber"
+                @open-number="handleOpenNumber"
+              />
+              <InputField
+                id="address"
+                label="Street address"
+                v-model="address"
+                :value="addressValue"
+                type="text"
+                placeholder="Enter delivery address"
+                :required="true"
+                :invalid="invalidAddress"
+                :errorMessage="addressErrorMessage"
+              />
+              <InputField
+                id="Directions"
+                label="Directions (Optional)"
+                v-model="Directions"
+                :value="DirectionsValue"
+                type="text"
+                placeholder="Directions"
+                :required="false"
+                :invalid="invalidDirections"
+                :errorMessage="DirectionsErrorMessage"
+              />
+              <div class="states __width100">
+                <label for="states">Select State</label>
+                <select
+                class="input"
+                  id="states"
+                  v-model="selectedState"
+                  @change="updateLgas"
+                >
+                  <option disabled selected value="">Please select a state</option>
+                  <option
+                    v-for="(state, stateName) in states"
+                    :key="stateName"
+                    :value="state"
+                  >
+                    {{ stateName }}
+                  </option>
+                </select>
+              </div>
+              <div class="lga __width100">
+                <label for="lgas">Select LGA</label>
+                <select
+                class="input"
+                  id="lgas"
+                  v-model="selectedLga"
+                >
+                  <option disabled selected value="">Please select a state first</option>
+                  <option v-for="lga in selectedState" :key="lga" :value="lga">
+                    {{ lga }}
+                  </option>
+                </select>
+              </div>
+            </div>
             <div class="submit-reset">
               <PrimaryBtn buttonText="Save and continue" @click="submitForm" />
             </div>
@@ -57,27 +107,53 @@
 export default {
   data() {
     return {
+      // first name and last name error messages
       FirstName: "",
       lastName: "",
-      phoneNumbers: ["08100023262"],
-      password: "",
-
-      inputType: "password",
-      invalidPassword: false,
       invalidName: false,
       invalidLastName: false,
-      invalidPhoneNum: false,
-
       FNErrorMessage: "",
       LNErrorMessage: "",
+      // -----------------
+      // address  error messages
+      address: "",
+      invalidAddress: false,
+      addressErrorMessage: "",
+      // -----------------
+      // Directions  error messages
+      Directions: "",
+      invalidDirections: false,
+      DirectionsErrorMessage: "",
+      // -----------------
+      // phone number
+      phoneNumbers: ["+1 123-456-7890", "+44 1234 567890", "0800 123 4567"], // array of phone numbers fetched from the API
+      invalidNumber: false,
       PNErrorMessage: "",
-      passwordErrorMessage: "",
-
-      showNewPhoneNumber: false,
-      invalidNumber: true,
+      showNewPhoneNumber: false, // whether to show the new phone number field
+      // -----------------
+      // for picking states and local government
+      states: {},
+      lgas: [],
+      selectedState: null,
+      selectedLga: null,
+      // -------------------------------
     };
   },
   computed: {
+    isEmailValid() {
+      // Define a regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Check if the input email matches the regular expression
+      return emailRegex.test(this.email);
+    },
+    emailValue: {
+      get() {
+        return this.email;
+      },
+      set(newValue) {
+        this.email = newValue;
+      },
+    },
     passwordValue: {
       get() {
         return this.password;
@@ -92,6 +168,14 @@ export default {
       },
       set(newValue) {
         this.FirstName = newValue;
+      },
+    },
+    businessNameValue: {
+      get() {
+        return this.businessName;
+      },
+      set(newValue) {
+        this.businessName = newValue;
       },
     },
     LastnameValue: {
@@ -110,80 +194,31 @@ export default {
         this.PhoneNumber = newValue;
       },
     },
+    addressValue: {
+      get() {
+        return this.address;
+      },
+      set(newValue) {
+        this.address = newValue;
+      },
+    },
+    DirectionsValue: {
+      get() {
+        return this.Directions;
+      },
+      set(newValue) {
+        this.Directions = newValue;
+      },
+    },
   },
-  watch: {
-    FirstName(newValue) {
-      if (newValue.trim() !== "") {
-        this.invalidName = false;
-        this.FNErrorMessage = "";
-      }
-    },
-    lastName(newValue) {
-      if (newValue.trim() !== "") {
-        this.invalidLastName = false;
-        this.LNErrorMessage = "";
-      }
-    },
-    PhoneNumber(newValue) {
-      if (newValue.trim() !== "") {
-        this.invalidPhoneNum = false;
-        this.PNErrorMessage = "";
-      }
-    },
-    password(newValue) {
-      if (newValue.length < 4) {
-        this.invalidPassword = true;
-        this.passwordErrorMessage =
-          "Password must be at least 4 characters long";
-      } else {
-        this.invalidPassword = false;
-        this.passwordErrorMessage = "";
-      }
-    },
+  mounted() {
+    fetch("/Statelist.json")
+      .then((response) => response.json())
+      .then((data) => (this.states = data))
+      .catch((error) => console.error(error));
   },
   methods: {
-    // submitForm() {
-    //   this.validateForm();
-    //   const isFormInvalid =
-    //     this.invalidPassword ||
-    //     this.invalidName ||
-    //     this.invalidLastName ||
-    //     this.invalidPhoneNum;
-
-    //   if (!isFormInvalid) {
-        // Submit form or perform other actions
-        // this.$router.push("/dashboard/market");
-      //   this.$emit('customEvent');
-      // }
-    // },
-    submitForm() {
-        this.$emit('customEvent');
-        window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Optional: Add smooth scrolling effect
-      });
-    },
-    validateForm() {
-      this.invalidPassword = this.password.length < 4;
-      this.invalidName = this.FirstName.trim() === "";
-      this.invalidLastName = this.lastName.trim() === "";
-      this.invalidPhoneNum = this.PhoneNumber.trim() === "";
-
-      this.passwordErrorMessage = this.invalidPassword
-        ? "Please enter a password (min. of 4 characters)"
-        : "";
-      this.FNErrorMessage = this.invalidName ? "Field cannot be empty" : "";
-      this.LNErrorMessage = this.invalidLastName ? "Field cannot be empty" : "";
-      this.PNErrorMessage = this.invalidPhoneNum ? "Field cannot be empty" : "";
-    },
-    openAddNumber() {
-      this.showNewPhoneNumber = true; // Update the local data property
-    },
-    closeNumber() {
-      this.showNewPhoneNumber = false;
-      this.invalidNumber = false
-    },
-    addNumBtn() {
+    handleAddNumber(newPhoneNumber) {
       const phoneNumberRegex =
         /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
       if (phoneNumberRegex.test(newPhoneNumber)) {
@@ -195,6 +230,28 @@ export default {
         this.invalidNumber = true;
         this.showNewPhoneNumber = true;
       }
+    },
+    handleCloseNumber() {
+      this.invalidNumber = false;
+      this.showNewPhoneNumber = false;
+    },
+    handleOpenNumber() {
+      this.showNewPhoneNumber = true;
+    },
+    updateLgas() {
+      if (this.selectedState) {
+        this.lgas = this.states[this.selectedState];
+      } else {
+        this.lgas = [];
+      }
+      this.selectedLga = null; // reset selected LGA
+    },
+    submitForm() {
+      this.$emit("customEvent");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Optional: Add smooth scrolling effect
+      });
     },
   },
 };
@@ -287,6 +344,38 @@ p {
   fill: var(--grey-grey3);
 }
 
+.num-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.phone-number {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.__width100 {
+  width: 100%;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: url(../static/assets-chevron-down-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 20px; /* Adjust as needed */
+
+  /* Previous CSS properties */
+  background-size: 20px;
+}
 .submit-reset {
   display: flex;
   flex-direction: column;
