@@ -40,8 +40,8 @@
           <p>{{ product.title }}</p>
         </div>
         <div class="productcard-price">
-          <p>₦ {{ product.price }}</p>
-          <p class="slashprice">₦ {{ product.price }}</p>
+          <p># {{ product.price }}</p>
+          <p class="slashprice"># {{ product.price }}</p>
         </div>
       </div>
 
@@ -200,6 +200,7 @@ a {
 
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
+  z-index: 1;
 }
 
 .circle .liked {
@@ -207,7 +208,8 @@ a {
 }
 
 .image-container {
-  width: 139px;
+  max-width: 139px;
+  width: 100%;
   /* Set the desired width */
   height: 149px;
   /* Set the desired height */
@@ -329,7 +331,7 @@ button p {
   }
   .product-card {
     width: 167px;
-    height: 287px;
+    /* height: 287px; */
     justify-content: space-between;
   }
 
@@ -368,6 +370,10 @@ button p {
   .productcard-name p {
     width: 100px;
   }
+  .productcard-price {
+    gap: 0;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 339px) {
@@ -378,5 +384,8 @@ button p {
 
   .productcard-name p {
     width: 100px;
+  }
+  .product-card {
+    height: auto;
   }
 }</style>

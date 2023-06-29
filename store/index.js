@@ -116,7 +116,7 @@ async signupIndividual({ commit }, credentials) {
 
 async signupBusiness({ commit }, credentials) {
   try {
-    const response = await fetch("http://localhost:8000/api/v1/busuiness-customers/signup", {
+    const response = await fetch("http://localhost:8000/api/v1/business-customers/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -169,7 +169,7 @@ export default {
   height: 76px;
   left: 0px;
   bottom: 0px;
-  z-index: 1;
+  z-index: 2;
 
   /* White */
 

@@ -61,7 +61,7 @@
 
 /* text styles from ipc typography system */
 :root {
-  --primary-font: "DM Sans", "Inter", Arial, Helvetica, sans-serif;
+  --primary-font: "Switzer", "DM Sans", "Inter", Arial, Helvetica, sans-serif;
   --font-Extralight: "GeneralSans-Extralight";
   --font-ExtralightItalic: "GeneralSans-ExtralightItalic";
   --font-Light: "GeneralSans-Light";
@@ -174,7 +174,7 @@ h2 {
 }
 
 h3 {
-  font-family: "DM Sans";
+  font-family: "Switzer";
   font-style: normal;
   font-size: 24px;
   line-height: 36px;

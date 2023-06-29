@@ -210,7 +210,7 @@ p.snippet {
 }
 @media (max-width: 950px) {
   .logout-modal {
-    z-index: 1;
+    z-index: 2;
   }
   .modal {
     z-index: 3;

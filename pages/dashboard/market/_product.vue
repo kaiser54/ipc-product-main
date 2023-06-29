@@ -67,7 +67,7 @@
             </p>
           </div>
           <div class="product-details-price-grp">
-            <h3 class="h3-bold">₦ {{ product.price }}</h3>
+            <h3 class="h3-bold"># {{ product.price }}</h3>
             <tags />
           </div>
           <p class="product-details-snippet">
@@ -127,7 +127,7 @@
               {{ product.description }}
             </p>
             <div class="product-details-price-grp">
-              <h3 class="h3-bold">₦ {{ product.price }}</h3>
+              <h3 class="h3-bold"># {{ product.price }}</h3>
               <tags />
             </div>
             <!-- cart button -->
