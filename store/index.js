@@ -84,4 +84,63 @@ export const actions = {
       commit("setUser", JSON.parse(user));
     }
   },
+
+async signupIndividual({ commit }, credentials) {
+  try {
+    const response = await fetch("http://localhost:8000/api/v1/individual-customers/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (response.ok) {
+      console.log(response);
+      const user = await response.json();
+      commit("setUser", user);
+      commit("setError", null);
+      return true; // Indicate successful signup
+    } else {
+      const error = await response.json();
+      commit("setUser", null);
+      commit("setSignupError", error);
+      return false; // Indicate failed signup
+    }
+  } catch (error) {
+    commit("setUser", null);
+    commit("setSignupError", error.message);
+    return false; // Indicate failed signup
+  }
+},
+
+async signupBusiness({ commit }, credentials) {
+  try {
+    const response = await fetch("http://localhost:8000/api/v1/busuiness-customers/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (response.ok) {
+      console.log(response);
+      const user = await response.json();
+      commit("setUser", user);
+      commit("setError", null);
+      return true; // Indicate successful signup
+    } else {
+      const error = await response.json();
+      commit("setUser", null);
+      commit("setSignupError", error);
+      return false; // Indicate failed signup
+    }
+  } catch (error) {
+    commit("setUser", null);
+    commit("setSignupError", error.message);
+    return false; // Indicate failed signup
+  }
+},
+
 };

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <AlertPrompt
+      ref="alertPrompt"
+      :message="alertMessage"
+      :alertType="alertType"
+    />
     <div class="individual-form">
       <h2 class="h2-medium header-text">Create an individual account</h2>
       <thirdAuth />
@@ -10,9 +15,9 @@
             <div class="form-field">
               <div class="personal">
                 <InputField
-                  id="FirstName"
+                  id="firstName"
                   label="First name"
-                  v-model="FirstName"
+                  v-model="firstName"
                   :value="nameValue"
                   type="text"
                   placeholder="Lanre"
@@ -21,14 +26,14 @@
                   :errorMessage="FNErrorMessage"
                 />
                 <InputField
-                  id="LastName"
+                  id="lastName"
                   label="Last name"
                   v-model="lastName"
-                  :value="LastnameValue"
+                  :value="lastNameValue"
                   type="text"
                   placeholder="Bello"
                   :required="true"
-                  :invalid="invalidLastName"
+                  :invalid="invalidlastName"
                   :errorMessage="LNErrorMessage"
                 />
               </div>
@@ -44,10 +49,10 @@
                 :errorMessage="emailErrorMessage"
               />
               <InputField
-                id="PhoneNumber"
+                id="phoneNumbers"
                 label="Phone number"
-                v-model="PhoneNumber"
-                :value="phonenumberValue"
+                v-model="phoneNumbers"
+                :value="phoneNumbersValue"
                 type="tel"
                 placeholder="091234567809"
                 :required="true"
@@ -93,22 +98,24 @@
 export default {
   data() {
     return {
-      FirstName: "",
+      firstName: "",
       lastName: "",
       email: "",
-      PhoneNumber: "",
+      phoneNumbers: "",
       password: "",
       inputType: "password",
       invalidEmail: false,
       invalidPassword: false,
       invalidName: false,
-      invalidLastName: false,
+      invalidlastName: false,
       invalidPhoneNum: false,
       FNErrorMessage: "",
       LNErrorMessage: "",
       emailErrorMessage: "",
       PNErrorMessage: "",
       passwordErrorMessage: "",
+      alertMessage: "",
+      alertType: "",
     };
   },
   computed: {
@@ -136,13 +143,13 @@ export default {
     },
     nameValue: {
       get() {
-        return this.FirstName;
+        return this.firstName;
       },
       set(newValue) {
-        this.FirstName = newValue;
+        this.firstName = newValue;
       },
     },
-    LastnameValue: {
+    lastNameValue: {
       get() {
         return this.lastName;
       },
@@ -150,17 +157,17 @@ export default {
         this.lastName = newValue;
       },
     },
-    phonenumberValue: {
+    phoneNumbersValue: {
       get() {
-        return this.PhoneNumber;
+        return this.phoneNumbers;
       },
       set(newValue) {
-        this.PhoneNumber = newValue;
+        this.phoneNumbers = newValue;
       },
     },
   },
   watch: {
-    FirstName(newValue) {
+    firstName(newValue) {
       if (newValue.trim() !== "") {
         this.invalidName = false;
         this.FNErrorMessage = "";
@@ -168,7 +175,7 @@ export default {
     },
     lastName(newValue) {
       if (newValue.trim() !== "") {
-        this.invalidLastName = false;
+        this.invalidlastName = false;
         this.LNErrorMessage = "";
       }
     },
@@ -178,7 +185,7 @@ export default {
         this.emailErrorMessage = "";
       }
     },
-    PhoneNumber(newValue) {
+    phoneNumbers(newValue) {
       if (newValue.trim() !== "") {
         this.invalidPhoneNum = false;
         this.PNErrorMessage = "";
@@ -196,26 +203,51 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    showAlertPrompt() {
+      this.$refs.alertPrompt.showAlert('This is an example alert.', 'success');
+    },
+    async submitForm() {
       this.validateForm();
       const isFormInvalid =
         this.invalidEmail ||
         this.invalidPassword ||
         this.invalidName ||
-        this.invalidLastName ||
+        this.invalidlastName ||
         this.invalidPhoneNum;
 
       if (!isFormInvalid) {
         // Submit form or perform other actions
-        this.$router.push("/dashboard/market");
+        const credentials = {
+          email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          password: this.password,
+          confirmPassword: this.password,
+          phoneNumbers: this.phoneNumbers,
+        };
+        const success = await this.$store.dispatch(
+          "signupIndividual",
+          credentials
+        );
+        if (success) {
+          
+        console.log(credentials)
+          // Redirect to the home page or do any other necessary actions
+          this.$router.push("/dashboard/market");
+        } else {
+          this.error = this.$store.state.error;
+          this.alertType = "error"
+          this.alertMessage = "Signup failed, please try again!"
+          this.showAlertPrompt();
+        }
       }
     },
     validateForm() {
       this.invalidEmail = this.email.trim() === "";
       this.invalidPassword = this.password.length < 4;
-      this.invalidName = this.FirstName.trim() === "";
-      this.invalidLastName = this.lastName.trim() === "";
-      this.invalidPhoneNum = this.PhoneNumber.trim() === "";
+      this.invalidName = this.firstName.trim() === "";
+      this.invalidlastName = this.lastName.trim() === "";
+      this.invalidPhoneNum = this.phoneNumbers.trim() === "";
 
       this.emailErrorMessage = this.invalidEmail
         ? "Enter a valid email address"
@@ -224,7 +256,7 @@ export default {
         ? "Please enter a password"
         : "";
       this.FNErrorMessage = this.invalidName ? "Field cannot be empty" : "";
-      this.LNErrorMessage = this.invalidLastName ? "Field cannot be empty" : "";
+      this.LNErrorMessage = this.invalidlastName ? "Field cannot be empty" : "";
       this.PNErrorMessage = this.invalidPhoneNum ? "Field cannot be empty" : "";
     },
   },

@@ -8,9 +8,9 @@
             <div class="form-field">
               <div class="personal">
                 <InputField
-                  id="FirstName"
+                  id="firstName"
                   label="First name"
-                  v-model="FirstName"
+                  v-model="firstName"
                   :value="nameValue"
                   type="text"
                   placeholder="Lanre"
@@ -53,10 +53,10 @@
                 :errorMessage="emailErrorMessage"
               />
               <InputField
-                id="PhoneNumber"
+                id="phoneNumber"
                 label="Phone number"
-                v-model="PhoneNumber"
-                :value="phonenumberValue"
+                v-model="phoneNumber"
+                :value="phoneNumberValue"
                 type="tel"
                 placeholder="091234567809"
                 :required="true"
@@ -102,11 +102,11 @@
 export default {
   data() {
     return {
-      FirstName: "",
+      firstName: "",
       lastName: "",
       businessName: "",
       email: "",
-      PhoneNumber: "",
+      phoneNumber: "",
       password: "",
 
       inputType: "password",
@@ -150,10 +150,10 @@ export default {
     },
     nameValue: {
       get() {
-        return this.FirstName;
+        return this.firstName;
       },
       set(newValue) {
-        this.FirstName = newValue;
+        this.firstName = newValue;
       },
     },
     businessNameValue: {
@@ -172,17 +172,17 @@ export default {
         this.lastName = newValue;
       },
     },
-    phonenumberValue: {
+    phoneNumberValue: {
       get() {
-        return this.PhoneNumber;
+        return this.phoneNumber;
       },
       set(newValue) {
-        this.PhoneNumber = newValue;
+        this.phoneNumber = newValue;
       },
     },
   },
   watch: {
-    FirstName(newValue) {
+    firstName(newValue) {
       if (newValue.trim() !== "") {
         this.invalidName = false;
         this.FNErrorMessage = "";
@@ -206,7 +206,7 @@ export default {
         this.emailErrorMessage = "";
       }
     },
-    PhoneNumber(newValue) {
+    phoneNumber(newValue) {
       if (newValue.trim() !== "") {
         this.invalidPhoneNum = false;
         this.PNErrorMessage = "";
@@ -224,7 +224,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.validateForm();
       const isFormInvalid =
         this.invalidBusinessName ||
@@ -234,18 +234,41 @@ export default {
         this.invalidLastName ||
         this.invalidPhoneNum;
 
-      if (!isFormInvalid) {
+        if (!isFormInvalid) {
         // Submit form or perform other actions
-        this.$router.push("/dashboard/market");
+        const credentials = {
+          email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          businessName: this.businessName,
+          password: this.password,
+          confirmPassword: this.password,
+          phoneNumbers: this.phoneNumbers,
+        };
+        const success = await this.$store.dispatch(
+          "signupBusiness",
+          credentials
+        );
+        if (success) {
+          
+        console.log(credentials)
+          // Redirect to the home page or do any other necessary actions
+          this.$router.push("/dashboard/market");
+        } else {
+          this.error = this.$store.state.error;
+          this.alertType = "error"
+          this.alertMessage = "Signup failed, please try again!"
+          this.showAlertPrompt();
+        }
       }
     },
     validateForm() {
       this.invalidEmail = this.email.trim() === "";
       this.invalidPassword = this.password.length < 4;
-      this.invalidName = this.FirstName.trim() === "";
+      this.invalidName = this.firstName.trim() === "";
       this.invalidBusinessName = this.businessName.trim() === "";
       this.invalidLastName = this.lastName.trim() === "";
-      this.invalidPhoneNum = this.PhoneNumber.trim() === "";
+      this.invalidPhoneNum = this.phoneNumber.trim() === "";
 
       this.emailErrorMessage = this.invalidEmail
         ? "Enter a valid email address"
