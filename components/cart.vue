@@ -86,7 +86,7 @@ export default {
   position: relative;
   top: 0;
   left: auto;
-  z-index: 1;
+  z-index: 2;
 }
 
 .full-cart-bg {

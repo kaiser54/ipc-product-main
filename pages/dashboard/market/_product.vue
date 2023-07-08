@@ -10,12 +10,22 @@
     </div>
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
-
         <!-- back button for mobile view -->
-        <svg @click="$router.go(-1)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          fill="none">
-          <path d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" />
+        <svg
+          @click="$router.go(-1)"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
+            stroke="#565C69"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         <!-- ---------------------------- -->
 
@@ -27,17 +37,31 @@
             <div class="badge" v-if="cart.length > 0">
               <p>{{ cart.length }}</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
               <path
                 d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
-                stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888" stroke="#565C69"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </nuxt-link>
         </div>
         <!-- ----------------- -->
-
       </div>
     </div>
 
@@ -46,16 +70,13 @@
     <!-- ----------- -->
 
     <div class="product-detail-con">
-
       <!-- product details page for mobile view -->
       <div class="mobile-product-details" v-if="mobile">
-
         <!-- the moving product carousel -->
-        <productCarousel :images="product.image"/>
+        <productCarousel :images="product.image" />
         <!-- ---------------------------- -->
 
         <div class="product-content">
-
           <!-- product title, brand name and like button -->
 
           <div class="product-details-title">
@@ -83,19 +104,27 @@
       <div class="product-details-wrapper" v-else>
         <div class="product-details-main">
           <div class="product-img-thumb">
-
             <!-- image container -->
             <div class="product-img zoom-container" ref="zoomContainer">
               <!-- <img :src="require(`~/assets/images/${product.images[productImage]}`)
                 " class="zoom-image" ref="zoomImage" /> -->
-              <img :src="product.image" alt="Product Image" class="zoom-image" ref="zoomImage" />
+              <img
+                :src="product.image"
+                alt="Product Image"
+                class="zoom-image"
+                ref="zoomImage"
+              />
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
             <!-- --------------- -->
 
             <!-- product thumbnail under the main product image -->
             <div class="product-thumb">
-              <div class="thumb" v-for="(image, index) in product.images" :key="index">
+              <div
+                class="thumb"
+                v-for="(image, index) in product.images"
+                :key="index"
+              >
                 <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
               </div>
               <!-- -------------------------------------------- -->
@@ -103,7 +132,6 @@
           </div>
           <div class="product-details-content">
             <div class="product-details-title-like">
-
               <!-- product title, brand name and like button -->
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
@@ -114,10 +142,20 @@
                 </p>
               </div>
               <div class="circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
                   <path
                     d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    stroke="#565C69"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
             </div>
@@ -143,13 +181,23 @@
             <!-- -------------------------------- -->
 
             <div v-else class="counter-btn">
-
               <!-- counter button -->
 
               <button @click="decrementQuantity" class="circle btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3.33325 8H12.6666" stroke="#0009B3" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 8H12.6666"
+                    stroke="#0009B3"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </button>
 
@@ -157,9 +205,20 @@
               <div class="counter">{{ getProductQuantity }}</div>
 
               <button @click="incrementQuantity" class="circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z" stroke="#0009B3" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+                    stroke="#0009B3"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </button>
 
@@ -177,9 +236,9 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 export default {
-  name: 'product',
+  name: "product",
   layout: "dashboardview",
   // Other component properties and methods
   data() {
@@ -201,7 +260,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['cart']),
+    ...mapState(["cart"]),
     isInCart() {
       const productInCart = this.$store.state.cart.find(
         (p) => p.id === this.product.id
@@ -216,7 +275,7 @@ export default {
     },
   },
   async mounted() {
-    const pathArray = this.$route.path.split('~');
+    const pathArray = this.$route.path.split("~");
     const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
     this.currentPage = lastSegment;
     console.log(this.currentPage);
@@ -227,13 +286,15 @@ export default {
     try {
       this.loading = true;
       // const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.currentPage}`);
+      const response = await this.$axios.$get(
+        `https://fakestoreapi.com/products/${this.currentPage}`
+      );
       this.product = response;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       this.loading = false;
-    };
+    }
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
@@ -283,13 +344,13 @@ export default {
       this.productImage = index;
     },
     addToCart() {
-      this.$store.commit('addToCart', this.product);
+      this.$store.commit("addToCart", this.product);
     },
     incrementQuantity() {
-      this.$store.commit('incrementQuantity', { productId: this.product.id });
+      this.$store.commit("incrementQuantity", { productId: this.product.id });
     },
     decrementQuantity() {
-      this.$store.commit('decrementQuantity', { productId: this.product.id });
+      this.$store.commit("decrementQuantity", { productId: this.product.id });
     },
   },
 };

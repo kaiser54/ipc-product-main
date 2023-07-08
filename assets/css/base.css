@@ -987,6 +987,12 @@ label.label {
   width: 100%;
 }
 
+@media (max-width: 950px) {
+  .payment {
+    max-width: 100%;
+  }
+}
+
 .delivery__time {
   display: flex;
   flex-direction: row;

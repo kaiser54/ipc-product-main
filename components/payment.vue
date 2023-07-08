@@ -44,7 +44,7 @@
         <div class="list-select-header">
           <div class="img__title">
             <p class="title">{{ item.title }}</p>
-            <div class="img">
+            <div class="img" v-if="item.images.length > 0">
               <img
                 :src="`/${image}`"
                 alt=""
@@ -169,7 +169,7 @@ button:disabled {
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  max-width: 419px;
+  /* max-width: 419px; */
 }
 
 .img__title {
@@ -228,5 +228,26 @@ svg circle {
 }
 .bottom {
   margin-bottom: 70px;
+}
+@media (max-width: 950px) {
+  .list-select {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+@media (max-width: 450px) {
+  .list-select-header {
+    gap: 16px;
+  }
+  .img__title {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+@media (max-width: 300px) {
+  .img {
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+  }
 }
 </style>

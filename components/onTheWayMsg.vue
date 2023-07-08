@@ -104,4 +104,24 @@ export default {};
   gap: 16px;
   width: 100%;
 }
+
+@media (max-width: 950px) {
+  .__OMW {
+    padding: 16px;
+  }
+  ._omw__msg .title {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .btn__group {
+    flex-direction: column;
+  }
+  .emoji__bg {
+    width: 80px;
+    height: 80px;
+  }
+  .emoji__bg img {
+    width: 42.35px;
+  }
+}
 </style>
