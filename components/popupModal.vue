@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logout-modal">
+    <div class="logout-modal" style="z-index: 2;">
       <div class="WH-auto animate__animated" :class="animate">
         <div class="modal">
           <div class="modal-msg">
