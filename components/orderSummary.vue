@@ -1,18 +1,24 @@
 <template>
   <div class="payment">
     <h3 class="h3-medium header-text">Order summary</h3>
-    <userInfo />
+    <userInfo :data="data" v-if="data"/>
     <div class="delivery__time">
       <div class="delivery">Estimated delivery time</div>
       <div class="time">24hours</div>
     </div>
-    <userInfo />
+    <userInfo :data="data" v-if="data"/>
     <PrimaryBtn class="bottom" buttonText="Continue to pay" @click="submitForm" />
   </div>
 </template>
     
   <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {};
   },
@@ -25,6 +31,9 @@ export default {
       });
     },
   },
+  mounted() {
+    console.log(this.data)
+  }
 };
 </script>
   

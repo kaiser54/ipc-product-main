@@ -1,6 +1,10 @@
 <template>
   <div>
-    <AlertPrompt ref="alertPrompt" :message="alertMessage" :alertType="alertType" />
+    <AlertPrompt
+      ref="alertPrompt"
+      :message="alertMessage"
+      :alertType="alertType"
+    />
     <div class="content">
       <div class="container">
         <div class="wrapper">
@@ -12,19 +16,42 @@
               <!-- <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
                 placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
                 :errorMessage="emailErrorMessage" /> -->
-              <InputField id="username" label="username" v-model="username" :value="username" type="text"
-                placeholder="Enter username" :required="true" :invalid="invalidEmail" :errorMessage="emailErrorMessage" />
+              <InputField
+                id="username"
+                label="username"
+                v-model="username"
+                :value="username"
+                type="text"
+                placeholder="Enter username"
+                :required="true"
+                :invalid="invalidEmail"
+                :errorMessage="emailErrorMessage"
+              />
 
-              <InputField id="password" label="Password" v-model="password" :value="passwordValue" :type="inputType"
-                placeholder="Enter your password" :required="true" :invalid="invalidPassword"
-                :errorMessage="passwordErrorMessage" />
+              <InputField
+                id="password"
+                label="Password"
+                v-model="password"
+                :value="passwordValue"
+                :type="inputType"
+                placeholder="Enter your password"
+                :required="true"
+                :invalid="invalidPassword"
+                :errorMessage="passwordErrorMessage"
+              />
             </div>
             <div class="submit-reset">
-              <PrimaryBtn buttonText="Log in" @click="submitLogin" :buttonTextLoader="buttonTextLoader" />
+              <PrimaryBtn
+                buttonText="Log in"
+                @click="submitLogin"
+                :buttonTextLoader="buttonTextLoader"
+              />
               <div class="pass-link">
                 <p>
                   Forgot password?
-                  <nuxt-link :to="{ name: 'reset-password' }">Reset it here</nuxt-link>
+                  <nuxt-link :to="{ name: 'reset-password' }"
+                    >Reset it here</nuxt-link
+                  >
                 </p>
               </div>
             </div>
@@ -32,7 +59,8 @@
           <div class="signup-link">
             <p>
               Are you new to IPC?<nuxt-link :to="{ name: 'register' }">
-                Create an account</nuxt-link>
+                Create an account</nuxt-link
+              >
             </p>
           </div>
         </div>
@@ -59,7 +87,7 @@ export default {
       alertType: "",
       pageTitle: "IPC | Login",
       username: "",
-      buttonTextLoader: false
+      buttonTextLoader: false,
     };
   },
   head() {
@@ -135,7 +163,7 @@ export default {
   },
   methods: {
     showAlertPrompt() {
-      this.$refs.alertPrompt.showAlert('This is an example alert.', 'success');
+      this.$refs.alertPrompt.showAlert("This is an example alert.", "success");
     },
 
     async submitLogin() {
@@ -146,7 +174,10 @@ export default {
           username: this.username,
           password: this.password,
         };
-        const loginSuccessful = await this.$store.dispatch("login", credentials);
+        const loginSuccessful = await this.$store.dispatch(
+          "login",
+          credentials
+        );
         if (loginSuccessful) {
           this.buttonTextLoader = false;
           // this.confirmationMessage = "Login successful!"; //i dont have a confirmation message yet
@@ -154,13 +185,12 @@ export default {
         } else {
           this.buttonTextLoader = false;
           // Handle failed login case if needed
-          this.alertType = "error"
-          this.alertMessage = "Login failed, please try again!"
+          this.alertType = "error";
+          this.alertMessage = "Login failed, please try again!";
           this.showAlertPrompt();
-
         }
       } else {
-          this.buttonTextLoader = false;
+        this.buttonTextLoader = false;
         // if (!this.isEmailValid) {
         //   this.invalidEmail = true;
         //   this.emailErrorMessage = "Invalid email address";
@@ -168,12 +198,13 @@ export default {
         if (!this.isPasswordValid) {
           this.buttonTextLoader = false;
           this.invalidPassword = true;
-          this.passwordErrorMessage = "Password must be at least 4 characters long";
+          this.passwordErrorMessage =
+            "Password must be at least 4 characters long";
         }
       }
     },
   },
-}
+};
 </script>
 
 <style scoped>

@@ -23,9 +23,16 @@
           </div>
         </div>
         <div class="user-form-data">
-          <CheckoutAddress v-show="currentStep === 1" @customEvent="nextStep" />
-          <orderSummary v-show="currentStep === 2" @customEvent="nextStep" />
-          <payment v-show="currentStep === 3" @lastStep="lastStep" />
+          <CheckoutAddress
+            v-show="currentStep === 1"
+            @customEvent="handleFormSubmission"
+          />
+          <orderSummary
+            v-if="currentStep === 2 && submittedData"
+            @customEvent="nextStep"
+            :data="submittedData"
+          />
+          <payment v-if="currentStep === 3 && submittedData" @lastStep="lastStep" :data="submittedData"/>
         </div>
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">
@@ -60,6 +67,7 @@ export default {
       currentStep: 1,
       isPaid: false,
       mobile: false,
+      submittedData: null,
     };
   },
   mounted() {
@@ -88,6 +96,12 @@ export default {
         this.mobile = true;
       } else {
         this.mobile = false;
+      }
+    },
+    handleFormSubmission(data) {
+      this.submittedData = data;
+      if (this.currentStep < 3) {
+        this.currentStep++;
       }
     },
     nextStep() {

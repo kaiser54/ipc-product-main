@@ -64,30 +64,32 @@
               <div class="states __width100">
                 <label for="states">Select State</label>
                 <select
-                class="input"
-                  id="states"
+                  class="input"
+                  id="state"
                   v-model="selectedState"
-                  @change="updateLgas"
+                  @change="onStateChange"
                 >
-                  <option disabled selected value="">Please select a state</option>
+                  <option value="">Select a state</option>
                   <option
-                    v-for="(state, stateName) in states"
-                    :key="stateName"
+                    v-for="(lgas, state) in statesAndLGAs"
                     :value="state"
+                    :key="state"
                   >
-                    {{ stateName }}
+                    {{ state }}
                   </option>
                 </select>
               </div>
               <div class="lga __width100">
                 <label for="lgas">Select LGA</label>
-                <select
-                class="input"
-                  id="lgas"
-                  v-model="selectedLga"
-                >
-                  <option disabled selected value="">Please select a state first</option>
-                  <option v-for="lga in selectedState" :key="lga" :value="lga">
+                <select class="input" id="lgas" v-model="selectedLGA">
+                  <option disabled selected value="">
+                    Please select a state first
+                  </option>
+                  <option
+                    v-for="lga in selectedStateLGAs"
+                    :value="lga"
+                    :key="lga"
+                  >
                     {{ lga }}
                   </option>
                 </select>
@@ -132,10 +134,9 @@ export default {
       showNewPhoneNumber: false, // whether to show the new phone number field
       // -----------------
       // for picking states and local government
-      states: {},
-      lgas: [],
-      selectedState: null,
-      selectedLga: null,
+      selectedState: "",
+      selectedLGA: "",
+      statesAndLGAs: {},
       // -------------------------------
     };
   },
@@ -210,11 +211,14 @@ export default {
         this.Directions = newValue;
       },
     },
+    selectedStateLGAs() {
+      return this.statesAndLGAs[this.selectedState] || [];
+    },
   },
   mounted() {
     fetch("/Statelist.json")
       .then((response) => response.json())
-      .then((data) => (this.states = data))
+      .then((data) => (this.statesAndLGAs = data))
       .catch((error) => console.error(error));
   },
   methods: {
@@ -238,16 +242,35 @@ export default {
     handleOpenNumber() {
       this.showNewPhoneNumber = true;
     },
-    updateLgas() {
-      if (this.selectedState) {
-        this.lgas = this.states[this.selectedState];
-      } else {
-        this.lgas = [];
-      }
-      this.selectedLga = null; // reset selected LGA
+    onStateChange() {
+      // if (this.selectedState) {
+      //   this.lgas = this.states[this.state];
+      //   const selectedOption = this.states[this.selectedState];
+      //   const stateName = Object.keys(this.states).find(
+      //     (key) => this.states[key] === selectedOption
+      //   );
+      //   this.userState = stateName;
+      //   console.log(this.selectedState);
+      //   console.log(this.selectedLga);
+      // } else {
+      //   this.lgas = [];
+      // }
+      // this.selectedLga = null; // reset selected LGA
+      console.log("Selected State:", this.selectedState);
+      console.log("Selected LGA:", this.selectedLGA);
     },
     submitForm() {
-      this.$emit("customEvent");
+      const data = {
+        firstName: this.FirstName,
+        lastName: this.lastName,
+        address: this.address,
+        directions: this.Directions,
+        phoneNumbers: this.phoneNumbers,
+        state: this.selectedState,
+        LGA: this.selectedLGA,
+      };
+      this.$emit("customEvent", data);
+      console.log(data);
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect

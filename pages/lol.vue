@@ -1,7 +1,16 @@
 <template>
   <div class="phone-form">
-    <div class="phone-number" v-for="(number, index) in phoneNumbers" :key="index">
-      <input type="tel" :value="number" @input="updatePhoneNumber(index, $event.target.value)" readonly />
+    <div
+      class="phone-number"
+      v-for="(number, index) in phoneNumbers"
+      :key="index"
+    >
+      <input
+        type="tel"
+        :value="number"
+        @input="updatePhoneNumber(index, $event.target.value)"
+        readonly
+      />
       <button class="remove-number" @click="removePhoneNumber(index)">
         Remove
       </button>
@@ -12,23 +21,43 @@
       <button class="save-number" @click="savePhoneNumber">Save</button>
     </div>
 
+
+
+
     <div>
       <label for="states">Select State</label>
-      <select id="states" v-model="selectedState" @change="updateLgas" :disabled="selectedState">
+      <select id="states" v-model="selectedState" @change="updateLgas">
         <option disabled value="">Please select a state</option>
-        <option v-for="(state, stateName) in states" :key="stateName" :value="state">
+        <option
+          v-for="(state, stateName) in states"
+          :key="stateName"
+          :value="stateName"
+        >
           {{ stateName }}
         </option>
       </select>
+      
 
       <label for="lgas">Select LGA</label>
-      <select id="lgas" v-model="selectedLga" :disabled="!selectedState || selectedLga">
+      <select id="lgas" v-model="selectedLga">
         <option disabled value="">Please select a state first</option>
         <option v-for="lga in selectedState" :key="lga" :value="lga">
           {{ lga }}
         </option>
       </select>
+
+      <button @click="submit">Log State</button>
     </div>
+
+
+
+
+
+
+
+
+
+
 
     <div>
       <DatePicker v-model="selectedDate" />
@@ -50,17 +79,6 @@
         </button>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-   
   </div>
 </template>
 
@@ -78,19 +96,21 @@ export default {
       selectedDate: null,
       currentDate: new Date(),
 
-
       steps: [
         { value: true }, // Step 1
         { value: true }, // Step 2
         { value: true }, // Step 3
         { value: true }, // Step 4
-        { value: false } // Step 5
+        { value: false }, // Step 5
       ],
     };
   },
   computed: {
     currentMonth() {
-      return this.currentDate.toLocaleString("default", { month: "long", year: "numeric" });
+      return this.currentDate.toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      });
     },
     daysInMonth() {
       const year = this.currentDate.getFullYear();
@@ -120,19 +140,37 @@ export default {
       this.newPhoneNumber = "";
       this.showNewPhoneNumber = false;
     },
+    submit() {
+      if (this.selectedState && this.selectedLga) {
+        const selectedStateName = this.selectedState;
+        console.log("Selected State:", selectedStateName);
+        console.log("Selected LGA:", this.selectedLga);
+      }
+    },
     updateLgas() {
       if (this.selectedState) {
-        this.lgas = this.states[this.selectedState];
+        // console.log(this.states[this.selectedState])
+        console.log(this.selectedState);
+        const LGA = this.states[this.selectedState];
+        this.lgas = LGA;
       } else {
         this.lgas = [];
       }
       this.selectedLga = null; // reset selected LGA
     },
     previousMonth() {
-      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() - 1, 1);
+      this.currentDate = new Date(
+        this.currentDate.getFullYear(),
+        this.currentDate.getMonth() - 1,
+        1
+      );
     },
     nextMonth() {
-      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 1);
+      this.currentDate = new Date(
+        this.currentDate.getFullYear(),
+        this.currentDate.getMonth() + 1,
+        1
+      );
     },
     selectDate(day) {
       console.log("Selected date:", day);

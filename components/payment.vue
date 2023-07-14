@@ -57,12 +57,12 @@
         </div>
       </div>
     </div>
-    <userInfo />
+    <userInfo :data="data" v-if="data"/>
     <div class="delivery__time">
       <div class="delivery">Estimated delivery time</div>
       <div class="time">24hours</div>
     </div>
-    <userInfo />
+    <userInfo :data="data" v-if="data"/>
     <PrimaryBtn
       class="bottom"
       buttonText="Make payment"
@@ -74,6 +74,12 @@
   
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       selectedItem: "",
