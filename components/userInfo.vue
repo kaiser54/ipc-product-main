@@ -5,7 +5,7 @@
         <span>Full name</span><span class="bold">{{ data.firstName }} {{ data.lastName }}</span>
       </div>
       <div class="client-frame" v-for="(phoneNumber, index) in data.phoneNumbers" :key="index">
-        <span>Phone number {{ index }}</span><span class="bold">{{ phoneNumber }}</span>
+        <span>Phone number {{ index + 1}}</span><span class="bold">{{ phoneNumber }}</span>
       </div>
       <div class="client-frame">
         <span>Street address</span><span class="bold">{{ data.directions }}</span>
@@ -16,7 +16,10 @@
       <div class="client-frame">
         <span>State</span><span class="bold">{{ data.state }}</span>
       </div>
+      <slot name="button"></slot>
     </div>
+      <slot name="delivery"></slot>
+      <slot name="email"></slot>
     <div class="client-user-name bdr" v-if="data.paymentMethod">
       <div class="client-frame">
         <span>Payment method</span><span class="bold">{{ data.paymentMethod }}</span>
@@ -82,7 +85,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 16px;
+  gap: 24px;
   /* max-width: 356px; */
   width: 100%;
 }

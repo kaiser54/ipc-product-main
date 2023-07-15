@@ -128,7 +128,7 @@ export default {
       DirectionsErrorMessage: "",
       // -----------------
       // phone number
-      phoneNumbers: ["+1 123-456-7890", "+44 1234 567890", "0800 123 4567"], // array of phone numbers fetched from the API
+      phoneNumbers: [], // array of phone numbers fetched from the API
       invalidNumber: false,
       PNErrorMessage: "",
       showNewPhoneNumber: false, // whether to show the new phone number field

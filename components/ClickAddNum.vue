@@ -3,6 +3,16 @@
     <!-- phone number -->
 
     <div class="phone-number">
+      <div class="phone-num" v-if="phoneNumbers.length === 0">
+        <label for="phoneNumber">Phone number </label>
+        <input
+          class="input"
+          id="phone-number"
+          type="tel"
+          v-model="newNumber"
+          placeholder="Enter phone number"
+        />
+      </div>
       <div
         class="phone-num"
         v-for="(number, index) in phoneNumbers"
@@ -30,6 +40,7 @@
       v-if="showNewPhoneNumber"
     >
       <InputField
+      v-if="phoneNumbers.length <= 1"
         class="inputed"
         id="number"
         v-model="newPhoneNumber"
@@ -71,7 +82,7 @@
 
     <!-- the button that toggles the input field for the add phone number -->
 
-    <add-num-btn @click="openAddNumber" />
+    <add-num-btn @click="openAddNumber" v-if="phoneNumbers.length <= 1"/>
 
     <!-- ---------------------------------------------------------------- -->
   </div>
@@ -102,6 +113,7 @@ export default {
   data() {
     return {
       newPhoneNumber: "",
+      newNumber: "",
       errorMessage: "Enter a valid phone number",
     };
   },
@@ -119,6 +131,8 @@ export default {
     openAddNumber() {
       this.$emit("open-number");
       // this.localShowNewPhoneNumber = true; // Update the local data property
+      this.phoneNumbers.push(this.newNumber); // Push the number into the array
+      console.log(this.newNumber);
     },
     closeNumber() {
       this.$emit("close-number");
@@ -128,7 +142,7 @@ export default {
     },
     addNumBtn() {
       this.$emit("add-number", this.newPhoneNumber);
-      this.newPhoneNumber = ''; // Clear the value to an empty string
+      this.newPhoneNumber = ""; // Clear the value to an empty string
     },
   },
 };
