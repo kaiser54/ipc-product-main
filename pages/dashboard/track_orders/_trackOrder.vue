@@ -12,7 +12,7 @@
           <orderProduct :showSvg="true" />
           <trackingBar />
         </div>
-        <userInfo class="child" />
+        <userInfo class="child" :data="data" v-if="data"/>
       </div>
     </div>
   </div>
@@ -20,6 +20,13 @@
 
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+      // remember to fetch the data from backend and not prop okay
+    },
+  },
   layout: "dashboardview",
   // Other component properties and methods
   data() {
@@ -32,6 +39,9 @@ export default {
       title: this.pageTitle,
     };
   },
+  mounted() {
+    console.log(this.data)
+  }
 };
 </script>
 
