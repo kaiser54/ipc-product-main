@@ -139,12 +139,12 @@ export default {
       selectedItem: "",
       listSelect: [
         {
-          title: "Pay with card",
+          title: "Pay with Card / USSD / Transfer",
           snippet:
             "Our secure payment gateway enables you to conveniently pay for your purchases using your credit or debit card.",
           value: "Online payment",
           route: "/business",
-          images: ["visa.png", "mclogo.png", "verve.png"],
+          images: ["paystack.png"],
         },
         {
           title: "Pay on delivery",

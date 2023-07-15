@@ -13,8 +13,12 @@
         </div>
       </div>
       <div class="btn__group">
-        <button class="btn secondary-btn">Go to market</button>
-        <button class="btn primary-btn">Track order</button>
+        <nuxt-link to="/dashboard/market">
+          <button class="btn secondary-btn">Go to market</button>
+        </nuxt-link>
+        <nuxt-link to="/dashboard/track_orders">
+          <button class="btn primary-btn">Track order</button>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -104,7 +108,9 @@ export default {};
   gap: 16px;
   width: 100%;
 }
-
+a {
+  width: 100%;
+}
 @media (max-width: 950px) {
   .__OMW {
     padding: 16px;
