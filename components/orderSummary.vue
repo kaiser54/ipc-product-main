@@ -18,6 +18,7 @@
             type="text"
             class="input"
             placeholder="Enter your email address"
+            v-model="email"
           />
           <div class="caution">
             <svg
@@ -78,15 +79,19 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      email: ''
+    };
   },
   methods: {
     submitForm() {
       this.$emit("customEvent");
+      this.$set(this.data, 'email', this.email); // Add the number to the object
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
+      console.log(this.data)
     },
   },
   mounted() {

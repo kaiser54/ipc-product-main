@@ -142,7 +142,7 @@ export default {
           title: "Pay with card",
           snippet:
             "Our secure payment gateway enables you to conveniently pay for your purchases using your credit or debit card.",
-          value: "business",
+          value: "Online payment",
           route: "/business",
           images: ["visa.png", "mclogo.png", "verve.png"],
         },
@@ -150,7 +150,7 @@ export default {
           title: "Pay on delivery",
           snippet:
             "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
-          value: "individual",
+          value: "Payment on delivery",
           route: "/individual",
           images: [],
         },
@@ -160,13 +160,16 @@ export default {
   methods: {
     selectItem(value) {
       this.selectedItem = value;
+      console.log(value)
     },
     submitForm() {
       this.$emit("lastStep");
+      this.$set(this.data, 'paymentMethod', this.selectedItem); // Add the number to the object
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
+      console.log(this.data)
     },
   },
 };
