@@ -9,10 +9,148 @@
         <h2 class="h2-medium">Shopping cart</h2>
       </div>
     </div>
-    <emptyCart v-if="cart.length == 0" @leaveCart="leaveCart" />
+    <EmptyStates v-if="cart.length == 0" @leaveCart="leaveCart">
+      <template v-slot:svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="357"
+          height="178"
+          viewBox="0 0 357 178"
+          fill="none"
+        >
+          <rect
+            x="28"
+            y="1.40625"
+            width="301"
+            height="175.188"
+            rx="15.5"
+            fill="white"
+          />
+          <rect
+            x="43.5"
+            y="16.9062"
+            width="44.4375"
+            height="32.0625"
+            rx="6.19761"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="94.6875"
+            y="16.9062"
+            width="79.875"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="94.6875"
+            y="31.0938"
+            width="46.1052"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="244.312"
+            y="16.9062"
+            width="69.1875"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="43.5"
+            y="72.9688"
+            width="44.4375"
+            height="32.0625"
+            rx="6.19761"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="94.6875"
+            y="72.9688"
+            width="79.875"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="94.6875"
+            y="87.1562"
+            width="46.1052"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="244.312"
+            y="72.9688"
+            width="69.1875"
+            height="8"
+            rx="4"
+            fill="#E5E7EF"
+          />
+          <rect
+            x="43.5"
+            y="129.031"
+            width="44.4375"
+            height="32.0625"
+            rx="6.19761"
+            fill="#F4F5F8"
+          />
+          <rect
+            x="94.6875"
+            y="129.031"
+            width="79.875"
+            height="8"
+            rx="4"
+            fill="#F4F5F8"
+          />
+          <rect
+            x="94.6875"
+            y="143.219"
+            width="46.1052"
+            height="8"
+            rx="4"
+            fill="#F4F5F8"
+          />
+          <rect
+            x="244.312"
+            y="129.031"
+            width="69.1875"
+            height="8"
+            rx="4"
+            fill="#F4F5F8"
+          />
+          <rect
+            x="28"
+            y="1.40625"
+            width="301"
+            height="175.188"
+            rx="15.5"
+            stroke="#F4F5F8"
+          />
+        </svg>
+      </template>
+      <template v-slot:message>
+        <div class="message">
+          <h2 class="">Your cart is empty</h2>
+          <div class="snippet">
+            Visit the market to purchase your food items, kitchen utensils, and
+            other necessary products.
+          </div>
+        </div>
+      </template>
+    </EmptyStates>
     <div class="listed-cart" v-if="!mobile && cart.length > 0">
       <div class="listed-cart-product">
-        <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
+        <cartList
+          v-for="product in cart"
+          :key="product.id"
+          :product="product"
+          :inCart="true"
+          class="cart-list-con"
+        />
       </div>
       <div class="checkout-container">
         <div class="checkout-header">
@@ -37,7 +175,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 export default {
   layout: "dashboardview",
   // Other component properties and methods
@@ -51,7 +189,8 @@ export default {
     return {
       title: this.pageTitle,
     };
-  }, mounted() {
+  },
+  mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -59,13 +198,13 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    ...mapState(['cart']),
+    ...mapState(["cart"]),
     // cartItems() {
     //   return this.$store.state.cart;
     // },
   },
   methods: {
-    ...mapMutations(['removeFromCart']),
+    ...mapMutations(["removeFromCart"]),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -77,7 +216,9 @@ export default {
       let totalPrice = 0;
 
       for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+        const productInCart = this.$store.state.cart.find(
+          (p) => p.id === product.id
+        );
         const quantity = productInCart ? productInCart.quantity : 0;
         totalPrice += product.price * quantity;
       }
@@ -85,21 +226,22 @@ export default {
       return totalPrice;
     },
     leaveCart() {
-      this.$router.push('/dashboard/market');
+      this.$router.push("/dashboard/market");
     },
   },
 };
 </script>
 
 <style scoped>
-a {width: 100%;}
+a {
+  width: 100%;
+}
 .cart-view {
   display: flex;
   flex-direction: column;
   /* gap: 32px; */
   width: 100%;
 }
-
 
 .page-head-content {
   display: flex;

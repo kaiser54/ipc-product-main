@@ -4,18 +4,167 @@
       <div class="full-cart animate__animated animate__slideInRight">
         <header>
           <div class="modal-title">
-            <svg @click="triggerCart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-              fill="none">
-              <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
+            <svg
+              @click="triggerCart"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M5 19L19 5M5 5L19 19L5 5Z"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <h3 class="h3-medium">Shopping cart</h3>
           </div>
         </header>
         <div class="cart-list">
-          <emptyCart v-if="cart.length == 0" @leaveCart="triggerCart" buttonText="Go to market" />
+          <EmptyStates v-if="cart.length == 0" @leaveCart="leaveCart">
+            <template v-slot:svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="357"
+                height="178"
+                viewBox="0 0 357 178"
+                fill="none"
+              >
+                <rect
+                  x="28"
+                  y="1.40625"
+                  width="301"
+                  height="175.188"
+                  rx="15.5"
+                  fill="white"
+                />
+                <rect
+                  x="43.5"
+                  y="16.9062"
+                  width="44.4375"
+                  height="32.0625"
+                  rx="6.19761"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="94.6875"
+                  y="16.9062"
+                  width="79.875"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="94.6875"
+                  y="31.0938"
+                  width="46.1052"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="244.312"
+                  y="16.9062"
+                  width="69.1875"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="43.5"
+                  y="72.9688"
+                  width="44.4375"
+                  height="32.0625"
+                  rx="6.19761"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="94.6875"
+                  y="72.9688"
+                  width="79.875"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="94.6875"
+                  y="87.1562"
+                  width="46.1052"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="244.312"
+                  y="72.9688"
+                  width="69.1875"
+                  height="8"
+                  rx="4"
+                  fill="#E5E7EF"
+                />
+                <rect
+                  x="43.5"
+                  y="129.031"
+                  width="44.4375"
+                  height="32.0625"
+                  rx="6.19761"
+                  fill="#F4F5F8"
+                />
+                <rect
+                  x="94.6875"
+                  y="129.031"
+                  width="79.875"
+                  height="8"
+                  rx="4"
+                  fill="#F4F5F8"
+                />
+                <rect
+                  x="94.6875"
+                  y="143.219"
+                  width="46.1052"
+                  height="8"
+                  rx="4"
+                  fill="#F4F5F8"
+                />
+                <rect
+                  x="244.312"
+                  y="129.031"
+                  width="69.1875"
+                  height="8"
+                  rx="4"
+                  fill="#F4F5F8"
+                />
+                <rect
+                  x="28"
+                  y="1.40625"
+                  width="301"
+                  height="175.188"
+                  rx="15.5"
+                  stroke="#F4F5F8"
+                />
+              </svg>
+            </template>
+            <template v-slot:message>
+              <div class="message">
+                <h2 class="">Your cart is empty</h2>
+                <div class="snippet">
+                  Visit the market to purchase your food items, kitchen
+                  utensils, and other necessary products.
+                </div>
+              </div>
+            </template>
+          </EmptyStates>
           <div class="cart-lista" v-if="cart.length > 0">
-            <cartList v-for="product in cart" :key="product.id" :product="product" :inCart="true" class="cart-list-con" />
+            <cartList
+              v-for="product in cart"
+              :key="product.id"
+              :product="product"
+              :inCart="true"
+              class="cart-list-con"
+            />
           </div>
         </div>
         <div class="checkout-wrap" v-if="cart.length > 0">
@@ -23,9 +172,7 @@
             <div class="checkout-details">
               <div class="checkout-title">
                 <p>Orders</p>
-                <div class="item-list-tag">
-                  {{ cart.length }} items
-                </div>
+                <div class="item-list-tag">{{ cart.length }} items</div>
               </div>
               <div class="total-price checkout-title">
                 <p class="total">Subtotal</p>
@@ -42,14 +189,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 import "animate.css";
 export default {
   computed: {
-    ...mapState(['cart']),
+    ...mapState(["cart"]),
   },
   methods: {
-    ...mapMutations(['removeFromCart']),
+    ...mapMutations(["removeFromCart"]),
     triggerCart() {
       this.$emit("openCart");
     },
@@ -57,20 +204,22 @@ export default {
       this.$emit("openCart");
     },
     checkout() {
-      this.triggerCart()
-      this.gotoCart()
+      this.triggerCart();
+      this.gotoCart();
     },
     gotoCart() {
-      this.$router.push('/dashboard/market/cart')
+      this.$router.push("/dashboard/market/cart");
     },
     leaveCart() {
-      this.$router.push('/dashboard/market');
+      this.$router.push("/dashboard/market");
     },
     calculateTotalPrice() {
       let totalPrice = 0;
 
       for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(p => p.id === product.id);
+        const productInCart = this.$store.state.cart.find(
+          (p) => p.id === product.id
+        );
         const quantity = productInCart ? productInCart.quantity : 0;
         totalPrice += product.price * quantity;
       }
@@ -181,10 +330,9 @@ header {
 .cart-lista {
   margin-bottom: 170px;
   display: flex;
-    flex-direction: column;
-    gap: 24px;
+  flex-direction: column;
+  gap: 24px;
 }
-
 
 .cart-list-con {
   display: flex;
@@ -236,7 +384,6 @@ header {
 
   width: 100%;
   /* height: 56px; */
-
 }
 
 .checkout-title {
@@ -257,7 +404,6 @@ header {
   line-height: 21px;
   /* identical to box height, or 150% */
 
-
   /* Grey/Grey2 */
 
   color: var(--grey-grey2);
@@ -268,7 +414,6 @@ p.total {
   font-size: 14px;
   line-height: 21px;
   /* identical to box height, or 150% */
-
 
   /* Grey/Grey2 */
 
