@@ -5,7 +5,7 @@
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile"
     />
-   
+
     <div class="dashboard-wrapper">
       <section class="section-wrapper">
         <div class="ipc-nav">
@@ -45,9 +45,9 @@
             </div>
             <div class="view-wrapper">
               <section class="view">
-                <div class="page-wrapper nuxt-page-here"> 
+                <div class="page-wrapper nuxt-page-here">
                   <div class="page-container">
-                    <nuxt/>
+                    <nuxt />
                   </div>
                 </div>
               </section>
@@ -72,6 +72,24 @@
     </transition>
   </div>
 </template>
+
+<script type="text/javascript" id="zsiqchat">
+var $zoho = $zoho || {};
+$zoho.salesiq = $zoho.salesiq || {
+  widgetcode:
+    "siqfb93ea71beccf86bc5530609d73d3720bb2f721ad7c144937caf7c4421855076",
+  values: {},
+  ready: function () {},
+};
+var d = document;
+s = d.createElement("script");
+s.type = "text/javascript";
+s.id = "zsiqscript";
+s.defer = true;
+s.src = "https://salesiq.zoho.com/widget";
+t = d.getElementsByTagName("script")[0];
+t.parentNode.insertBefore(s, t);
+</script>
 
 <script>
 export default {

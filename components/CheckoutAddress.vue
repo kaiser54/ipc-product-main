@@ -67,16 +67,23 @@
                   class="input"
                   id="state"
                   v-model="selectedState"
-                  @change="onStateChange"
+                  @change="getCities"
                 >
                   <option value="">Select a state</option>
                   <option
+                    v-for="state in states"
+                    :key="state.name"
+                    :value="state.isoCode"
+                  >
+                    {{ state.name }}
+                  </option>
+                  <!-- <option
                     v-for="(lgas, state) in statesAndLGAs"
                     :value="state"
                     :key="state"
                   >
                     {{ state }}
-                  </option>
+                  </option> -->
                 </select>
               </div>
               <div class="lga __width100">
@@ -86,12 +93,21 @@
                     Please select a state first
                   </option>
                   <option
+                    v-for="city in cities"
+                    :key="city.name"
+                    :value="city.name"
+                  >
+                    {{ city.name }}
+                  </option>
+
+
+                  <!-- <option
                     v-for="lga in selectedStateLGAs"
                     :value="lga"
                     :key="lga"
                   >
                     {{ lga }}
-                  </option>
+                  </option> -->
                 </select>
               </div>
             </div>
@@ -106,6 +122,9 @@
 </template>
 
 <script>
+// import { getStates, getCitiesByStateId } from "country-state-city";
+import { Country, State, City }  from 'country-state-city';
+
 export default {
   data() {
     return {
@@ -136,7 +155,10 @@ export default {
       // for picking states and local government
       selectedState: "",
       selectedLGA: "",
+      selectedCity: "",
       statesAndLGAs: {},
+      states: [],
+      cities: [],
       // -------------------------------
     };
   },
@@ -216,6 +238,8 @@ export default {
     },
   },
   mounted() {
+    this.states = State.getStatesOfCountry("NG"); // 'NG' is the ISO code for Nigeria
+
     fetch("/Statelist.json")
       .then((response) => response.json())
       .then((data) => (this.statesAndLGAs = data))
@@ -258,6 +282,10 @@ export default {
       // this.selectedLga = null; // reset selected LGA
       console.log("Selected State:", this.selectedState);
       console.log("Selected LGA:", this.selectedLGA);
+    },
+    getCities() {
+      this.cities = City.getCitiesOfState(NG, stateCode);
+      this.selectedCity = ""; // Reset selected city when changing the state
     },
     submitForm() {
       const data = {

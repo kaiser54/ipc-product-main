@@ -5,27 +5,54 @@
         <div class="content-box">
           <h2 class="h2-medium header-text">How would you like to join IPC?</h2>
           <div class="content-select">
-            <div class="list-select" :class="{ clicked: selectedItem === item.value }" v-for="(item, index) in listSelect"
-              :key="index" @click="selectItem(item.value)">
+            <div
+              class="list-select"
+              :class="{ clicked: selectedItem === item.value }"
+              v-for="(item, index) in listSelect"
+              :key="index"
+              @click="selectItem(item.value)"
+            >
               <div class="list-select-header">
                 <h3 class="h3-medium">{{ item.title }}</h3>
                 <label>
-                  <input type="radio" :value="item.value" v-model="selectedItem" hidden />
-                  <svg :class="{ selected: selectedItem === item.value }" viewBox="0 0 25 25" width="25" height="25">
+                  <input
+                    type="radio"
+                    :value="item.value"
+                    v-model="selectedItem"
+                    hidden
+                  />
+                  <svg
+                    :class="{ selected: selectedItem === item.value }"
+                    viewBox="0 0 25 25"
+                    width="25"
+                    height="25"
+                  >
                     <circle cx="12" cy="12" r="11" />
-                    <path v-if="selectedItem === item.value" d="M8.5,12l2.5,2.5L15.5,10" fill="none" stroke="#fff"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      v-if="selectedItem === item.value"
+                      d="M8.5,12l2.5,2.5L15.5,10"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </label>
               </div>
               <p class="snippet">{{ item.snippet }}</p>
             </div>
           </div>
-          <PrimaryBtn :disabled="!selectedItem" @click="goToRoute()" buttonText="Continue" />
+          <PrimaryBtn
+            :disabled="!selectedItem"
+            @click="goToRoute()"
+            buttonText="Continue"
+          />
           <div class="signup-link">
             <p>
               Have an existing account?<nuxt-link :to="{ name: 'index' }">
-                Log in</nuxt-link>
+                Log in</nuxt-link
+              >
             </p>
           </div>
         </div>

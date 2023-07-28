@@ -260,6 +260,11 @@ form {
     /* 150% */
 }
 
+.icon-button {
+padding: 6px !important;
+aspect-ratio: 1;
+}
+
 @media (max-width: 950px) {
     .market-product {
         padding: 0;

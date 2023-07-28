@@ -189,7 +189,7 @@
         </div>
 
         <div class="popup" v-if="showPopup" ref="popup" @click="togglePopup">
-          <nuxt-link to="https://ipc-africa.com/">
+          <nuxt-link to="/dashboard/saved-items">
             <div class="desktop-nav">
               <div class="nav-content">
                 <svg

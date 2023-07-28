@@ -1036,3 +1036,12 @@ label.label {
 
   color: var(--grey-grey1);
 }
+.auto {
+  width: auto;
+}
+.flex {
+  display: flex;
+}
+.flex__center {
+  align-items: center;
+}
