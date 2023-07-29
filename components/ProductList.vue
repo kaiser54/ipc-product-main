@@ -260,6 +260,8 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 21px; /* 150% */
+
+  max-width: 500px;
 }
 .product__price {
   color: var(--grey-grey1, #303237);
