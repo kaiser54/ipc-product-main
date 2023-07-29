@@ -1,5 +1,6 @@
 export const state = () => ({
   cart: [],
+  savedItem: [],
   user: null,
   error: null,
 });
@@ -13,6 +14,35 @@ export const mutations = {
       const newProduct = { ...product, quantity: 1 };
       state.cart.push(newProduct);
     }
+  },
+  buyProduct(state, product) {
+    const savedProductIndex = state.savedItem.findIndex((p) => p.id === product.id);
+    
+    if (savedProductIndex !== -1) {
+      const savedProduct = state.savedItem[savedProductIndex];
+      const existingProduct = state.cart.find((p) => p.id === savedProduct.id);
+
+      if (existingProduct) {
+        // If the product is already in cart, increase the quantity by the number of clicks
+        // existingProduct.quantity += savedProduct.clicks;
+        existingProduct.quantity ++;
+      } else {
+        // If the product is not in cart, add it with a quantity of 1
+        state.cart.push({ ...savedProduct, quantity: 1 });
+      }
+    }
+  },
+  addToSaved(state, product) {
+    const existingProduct = state.savedItem.find((p) => p.id === product.id);
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      const newProduct = { ...product, quantity: 1 };
+      state.savedItem.push(newProduct);
+    }
+  },
+  removeFromSaved(state, productId) {
+    state.savedItem = state.savedItem.filter((product) => product.id !== productId);
   },
   incrementQuantity(state, { productId }) {
     const product = state.cart.find((p) => p.id === productId);

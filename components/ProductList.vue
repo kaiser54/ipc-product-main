@@ -4,13 +4,13 @@
       <img :src="product.image" :alt="product.title" />
     </div>
     <div class="product__info flex">
-      <div class="product__group flex child__1">
+      <div class="product__group flex child__1" :class="className__1">
         <div class="product__name">
           {{ product.title }}
         </div>
-        <div class="product__order__id">Order Id: 1234567</div>
+        <div class="product__order__id" v-if="showID">Order Id: 1234567</div>
         <div class="flex flex__center" style="gap: 16px">
-          <div class="product__delete__btn">
+          <div class="product__delete__btn" v-if="deleteBtn">
             <DynamicButton
               @clickButton="removeFromCart(product.id)"
               class="auto"
@@ -40,13 +40,20 @@
               </template>
             </DynamicButton>
           </div>
-          <DynamicTags tagText="Order processing" size="small" type="warning" />
+          <DynamicTags
+            :tagText="tagText"
+            :size="size"
+            :type="type"
+            :v-if="showTag"
+          />
         </div>
       </div>
-      <div class="product__group flex child__2">
+      <div class="product__group flex child__2" :class="className__2">
         <div class="product__price">₦ {{ product.price }}</div>
-        <div class="product__qty">Qty: {{ getProductQuantity }}</div>
-        <div class="product__counter flex">
+        <div class="product__qty" v-if="showQty">
+          Qty: {{ getProductQuantity }}
+        </div>
+        <div class="product__counter flex" v-if="ShowCounter">
           <DynamicButton
             @clickButton="decrementQuantity"
             class="auto"
@@ -106,7 +113,8 @@
           </DynamicButton>
         </div>
         <DynamicButton
-          @clickButton="addToCart"
+          v-if="showBtn"
+          @clickButton="addToCart(product)"
           size="small"
           type="primary"
           buttonText="Buy now"
@@ -114,7 +122,7 @@
         />
       </div>
     </div>
-    <div class="svg">
+    <div class="svg" v-if="showSvg">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -142,6 +150,58 @@ export default {
       type: Object,
       required: true,
     },
+    showID: {
+      type: Boolean,
+      default: false,
+    },
+    deleteBtn: {
+      type: Boolean,
+      default: false,
+    },
+    showTag: {
+      type: Boolean,
+      default: false,
+    },
+    showQty: {
+      type: Boolean,
+      default: false,
+    },
+    ShowCounter: {
+      type: Boolean,
+      default: false,
+    },
+    showBtn: {
+      type: Boolean,
+      default: false,
+    },
+    showSvg: {
+      type: Boolean,
+      default: false,
+    },
+    tagText: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    showTag: {
+      type: Boolean,
+      default: false,
+    },
+    className__1: {
+      type: String,
+      default: "",
+    },
+    className__2: {
+      type: String,
+      default: "",
+    },
   },
   computed: {
     ...mapState(["cart"]),
@@ -159,15 +219,21 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["removeFromCart"]),
     addToCart() {
-      this.$store.commit("addToCart", this.product);
+      // this.$store.commit("addToCart", this.product);
+      this.$emit("addToCartEvent", this.product);
+    },
+    removeFromCart() {
+      // this.$store.commit("addToCart", this.product);
+      this.$emit("removeFromCartEvent", this.product.id);
     },
     incrementQuantity() {
-      this.$store.commit("incrementQuantity", { productId: this.product.id });
+      // this.$store.commit("incrementQuantity", { productId: this.product.id });
+      this.$emit("incrementQuantityEvent", this.product.id);
     },
     decrementQuantity() {
-      this.$store.commit("decrementQuantity", { productId: this.product.id });
+      // this.$store.commit("decrementQuantity", { productId: this.product.id });
+      this.$emit("decrementQuantityEvent", this.product.id);
     },
   },
 };
@@ -185,6 +251,7 @@ export default {
 }
 .child__2 {
   align-items: flex-end;
+  justify-content: space-between;
 }
 .product__name {
   color: var(--grey-grey1, #303237);
@@ -276,6 +343,7 @@ export default {
 
   background: #f4f5f8;
   border-radius: 1.49333px;
+  height: 100%;
 }
 
 .image img {
@@ -284,6 +352,9 @@ export default {
   object-fit: contain;
   object-position: center;
   margin-inline: auto;
+}
+.flex__gap {
+  gap: 32px;
 }
 </style>
   

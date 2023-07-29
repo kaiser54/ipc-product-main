@@ -3,34 +3,16 @@
 
   <div class="product-card">
     <nuxt-link :to="`/dashboard/market/${product.title}~${product.id}`">
-    <!-- <nuxt-link :to="{ name: 'product', params: { id: product.id, title: product.title } }"> -->
+      <!-- <nuxt-link :to="{ name: 'product', params: { id: product.id, title: product.title } }"> -->
       <div class="product-img-grp">
-
-        <!-- like button -->
-
-        <div class="circle">
-          <svg :class="{ liked: isLiked }" @click="toggleLike" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-            viewBox="0 0 16 16" fill="none">
-            <path
-              d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-              stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-
-        <!-- -------------------------------- -->
-
         <!-- <img :src="product.image" alt="" /> -->
 
         <!-- product image -->
         <div class="image-container">
-
           <!-- <img :src="require(`~/assets/images/${product.image}`)" /> -->
           <img :src="product.image" alt="Product Image" />
-
-
         </div>
         <!-- -------------------------------- -->
-
       </div>
 
       <!-- product details here -->
@@ -46,28 +28,72 @@
       </div>
 
       <!-- ------------------------- -->
-
     </nuxt-link>
+
+    <!-- like button -->
+
+    <div class="circle">
+      <svg
+        :class="{ liked: isLiked }"
+        @click="toggleLike"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+      >
+        <path
+          d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <!-- -------------------------------- -->
 
     <!-- add to cart button  -->
 
     <button class="btn secondary-btn-small" @click="addToCart" v-if="!isInCart">
-      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
-        <path d="M3.83325 7.99992H13.1666M8.49992 3.33325V12.6666V3.33325Z" stroke="#0009B3" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="17"
+        height="16"
+        viewBox="0 0 17 16"
+        fill="none"
+      >
+        <path
+          d="M3.83325 7.99992H13.1666M8.49992 3.33325V12.6666V3.33325Z"
+          stroke="#0009B3"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
       <p>Add to cart</p>
     </button>
 
-    <!-- -------------------------------- --> 
+    <!-- -------------------------------- -->
 
     <div v-else class="counter-btn">
-
       <!-- counter button -->
 
       <button @click="decrementQuantity" class="circle btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3.33325 8H12.6666" stroke="#0009B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M3.33325 8H12.6666"
+            stroke="#0009B3"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
 
@@ -75,9 +101,20 @@
       <div class="counter">{{ getProductQuantity }}</div>
 
       <button @click="incrementQuantity" class="circle">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z" stroke="#0009B3" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+            stroke="#0009B3"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
 
@@ -119,17 +156,18 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.commit('addToCart', this.product);
+      this.$store.commit("addToCart", this.product);
     },
     incrementQuantity() {
-      this.$store.commit('incrementQuantity', { productId: this.product.id });
+      this.$store.commit("incrementQuantity", { productId: this.product.id });
     },
     decrementQuantity() {
-      this.$store.commit('decrementQuantity', { productId: this.product.id });
+      this.$store.commit("decrementQuantity", { productId: this.product.id });
     },
     toggleLike() {
       // Method logic goes here
-      this.isLiked = !this.isLiked
+      this.isLiked = !this.isLiked;
+      this.$store.commit("addToSaved", this.product);
     },
   },
 };
@@ -141,6 +179,7 @@ a {
 }
 
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,8 +222,8 @@ a {
 
 .circle {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
 
   display: flex;
   flex-direction: row;
@@ -201,6 +240,13 @@ a {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
   z-index: 1;
+}
+
+.circle svg path {
+  stroke: #565C69;
+}
+.circle svg.liked path {
+  stroke: red;
 }
 
 .circle .liked {
@@ -388,4 +434,5 @@ button p {
   .product-card {
     height: auto;
   }
-}</style>
+}
+</style>
