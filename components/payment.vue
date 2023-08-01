@@ -111,16 +111,16 @@ export default {
   methods: {
     selectItem(value) {
       this.selectedItem = value;
-      console.log(value)
+      console.log(value);
     },
     submitForm() {
       this.$emit("lastStep");
-      this.$set(this.data, 'paymentMethod', this.selectedItem); // Add the number to the object
+      this.$set(this.data, "paymentMethod", this.selectedItem); // Add the number to the object
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
-      console.log(this.data)
+      console.log(this.data);
     },
   },
 };

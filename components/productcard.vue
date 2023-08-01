@@ -358,6 +358,8 @@ button p {
   border: 1px solid var(--primary-p75);
   width: 40px;
   height: 40px;
+  top: 0;
+  left: 0;
 }
 
 .counter {

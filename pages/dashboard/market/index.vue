@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <div class="webskeleton" v-if="loading" style="margin: 20px">
       <!-- css skeleton loading state on the website for desktop view -->
       <webskeleton style="overflow: hidden; height: 100vh" />
@@ -16,17 +16,30 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart" />
+          <productcard
+            v-for="product in product"
+            :key="product.id"
+            :product="product"
+            :inCart="inCart"
+          />
         </div>
       </section>
       <transition name="modal-fade">
         <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
-        <popupModal v-if="checkMail" :animate="animate" title="Check your email address"
+        <popupModal
+          v-if="checkMail"
+          :animate="animate"
+          title="Check your email address"
           snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-          buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
-          @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
+          buttonText="Resend link"
+          buttonText2="Got it"
+          buttonClass="neutral-btn"
+          buttonClass2="primary-btn"
+          @closeModal="handleOpenMail"
+          @closeModalBG="handleOpenMail"
+        />
       </transition>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -54,10 +67,12 @@ export default {
     try {
       this.loading = true;
       // Fetch product details from the FakeStoreAPI
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products`);
+      const response = await this.$axios.$get(
+        `https://fakestoreapi.com/products`
+      );
       this.product = response;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       this.loading = false;
     }
@@ -77,7 +92,7 @@ export default {
     },
     handleOpenMail() {
       // Your code for handling open mail event
-      this.checkMail = !this.checkMail
+      this.checkMail = !this.checkMail;
     },
   },
 };

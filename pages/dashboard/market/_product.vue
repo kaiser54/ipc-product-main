@@ -141,8 +141,9 @@
                   Brand: <span>Mama’s Choice</span>
                 </p>
               </div>
-              <div class="circle">
+              <div class="circle" @click="toggleLike">
                 <svg
+                  :class="{ liked: isLiked }"
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
@@ -151,7 +152,6 @@
                 >
                   <path
                     d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                    stroke="#565C69"
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -252,6 +252,7 @@ export default {
       currentPage: "",
       inCart: false,
       loading: false,
+      isLiked: false,
     };
   },
   head() {
@@ -351,6 +352,11 @@ export default {
     },
     decrementQuantity() {
       this.$store.commit("decrementQuantity", { productId: this.product.id });
+    },
+    toggleLike() {
+      // Method logic goes here
+      this.isLiked = !this.isLiked;
+      this.$store.commit("addToSaved", this.product);
     },
   },
 };
@@ -542,6 +548,18 @@ export default {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
 }
+
+.circle svg path {
+  stroke: #565C69;
+}
+.circle svg.liked path {
+  stroke: red;
+}
+
+.circle .liked {
+  fill: red;
+}
+
 
 p.product-details-snippet {
   font-weight: 400;
