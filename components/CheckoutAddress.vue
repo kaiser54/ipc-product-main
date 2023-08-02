@@ -100,7 +100,6 @@
                     {{ city.name }}
                   </option>
 
-
                   <!-- <option
                     v-for="lga in selectedStateLGAs"
                     :value="lga"
@@ -123,7 +122,7 @@
 
 <script>
 // import { getStates, getCitiesByStateId } from "country-state-city";
-import { Country, State, City }  from 'country-state-city';
+import { Country, State, City } from "country-state-city";
 
 export default {
   data() {
@@ -235,6 +234,22 @@ export default {
     },
     selectedStateLGAs() {
       return this.statesAndLGAs[this.selectedState] || [];
+    },
+  },
+  watch: {
+    email(newValue) {
+      this.email = newValue.replace(/\s/g, "");
+      if (
+        newValue.length <= 4 ||
+        this.isEmailValid == false ||
+        newValue.indexOf("@") === -1
+      ) {
+        this.invalidEmail = true;
+        this.emailErrorMessage = "Invalid email address";
+      } else {
+        this.invalidEmail = false;
+        this.emailErrorMessage = "";
+      }
     },
   },
   mounted() {

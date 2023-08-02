@@ -54,7 +54,7 @@ export default {
     decrementQuantity() {
       this.$store.commit("decrementQuantity", { productId: this.product.id });
     },
-  }
+  },
 };
 </script>
 
@@ -83,6 +83,14 @@ export default {
 .product__wrap {
   /* max-width: 681px; */
   width: 100%;
+}
+@media (max-width: 950px) {
+  .top-header {
+    display: none;
+  }
+  .saved__items__container {
+    max-width: 100%;
+  }
 }
 </style>
 

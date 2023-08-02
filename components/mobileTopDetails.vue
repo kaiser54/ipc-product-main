@@ -44,7 +44,7 @@
       </div>
       <div
         class="notify-cart"
-        v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'"
+        v-if="this.pageName !== 'cart' && this.pageName !== 'notifications' && this.pageName !== 'saved-items'"
       >
         <nuxt-link
           to="/dashboard/market/notifications"
@@ -114,7 +114,7 @@
     <div
       class="mobile-search search-input"
       @click="redirectToSearchPage"
-      v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'"
+      v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'  && this.pageName !== 'saved-items'"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +149,7 @@
     <!-- ----------- -->
     <div
       class="cart-page-header"
-      v-if="this.pageName === 'cart' || this.pageName === 'notifications'"
+      v-if="this.pageName === 'cart' || this.pageName === 'notifications' || this.pageName === 'saved-items'"
     >
       <svg
         @click="goBack"
@@ -267,11 +267,6 @@ export default {
     flex-direction: column;
   }
 
-  .flex {
-    width: 100%;
-    gap: 16px;
-  }
-
   .welcome-cart {
     display: flex;
     flex-direction: row;
@@ -283,9 +278,6 @@ export default {
   .welcome-cart.market-route {
     width: 100%;
   }
-  .username-welcome {
-    margin-left: 0px;
-  }
 
   .mobile-search {
     max-width: 100% !important;
@@ -296,7 +288,7 @@ export default {
     align-items: center;
     width: 100%;
   }
-}
+
 
 
 .username-welcome {
@@ -305,7 +297,7 @@ export default {
   align-items: flex-start;
   padding: 0px;
   gap: 4px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   max-width: 198px;
 }
 
@@ -315,7 +307,7 @@ export default {
   align-items: center;
   gap: 4px;
 }
-
+}
 .username-welcome .welcome p {
   font-weight: 500;
   font-size: 16px;

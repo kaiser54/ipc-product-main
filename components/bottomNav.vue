@@ -1,6 +1,10 @@
 <template>
   <div class="root-nav">
-    <div class="mobile-nav-bar" v-if="!isCartPage && !isNotificationPage">
+    <div class="mobile-nav-bar" v-if="
+        this.pageName !== 'cart' &&
+        this.pageName !== 'notifications' &&
+        this.pageName !== 'saved-items'
+      ">
       <nuxt-link to="/dashboard/market">
         <div class="mobile-nav">
           <div class="mobile-nav-content">
@@ -70,7 +74,7 @@
         </div>
       </nuxt-link>
     </div>
-    <div class="checkout-bottom mobile-nav-bar" v-if="isCartPage && cart.length > 0">
+    <div class="checkout-bottom mobile-nav-bar" v-if="this.pageName === 'cart' && cart.length > 0">
       <button class="btn primary-btn" @click="leaveCart">Checkout</button>
     </div>
   </div>
@@ -81,9 +85,16 @@ import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      isCartPage: false,
-      isNotificationPage: false,
+      pageName: "",
     };
+  },
+  created() {
+    this.getRouteName();
+  },
+  watch: {
+    $route(to, from) {
+      this.getRouteName();
+    },
   },
   computed: {
     ...mapState(['cart']),
@@ -92,60 +103,21 @@ export default {
     leaveCart() {
       this.$router.push('/dashboard/market/checkout');
     },
-  },
-  created() {
-    const currentRoute = this.$route.path;
-    if (currentRoute === "/dashboard/market/cart") {
-      this.isCartPage = true;
-    }
-    else if (currentRoute === "/dashboard/market/notifications") {
-      this.isNotificationPage = true;
-    }
-    this.$router.afterEach((to, from) => {
-      if (to.path === "/dashboard/market/cart") {
-        this.isCartPage = true;
-      } 
-      else if (to.path === "/dashboard/market/notifications") {
-        this.header = 'Notifications';
-        this.isNotificationPage = true;
-        this.isCartPage = false;
-      }
-        else {
-        this.isCartPage = false;
-        this.isNotificationPage = false;
-      }
-    });
-  },
-  mounted() {
-    const currentRoute = this.$route.path;
-    if (currentRoute === "/dashboard/market/cart") {
-      this.isCartPage = true;
-    } else if (currentRoute === "/dashboard/market/notifications") {
-      this.isNotificationPage = true;
-    }
-    if (this.isCartPage) {
-      this.$el.classList.add("cart-page");
-    }
-    if (this.isNotificationPage) {
-      this.$el.classList.add("notifications-page");
-    }
-  },
-  watch: {
-    isCartPage(newVal, oldVal) {
-      if (newVal) {
-        this.$el.classList.add("cart-page");
-        this.$el.classList.remove("notifications-page"); // remove profile-page class if isCartPage is true
-      } else {
-        this.$el.classList.remove("cart-page");
-      }
-    },
-    isNotificationPage(newVal, oldVal) {
-      if (newVal) {
-        this.$el.classList.add("notifications-page");
-        this.$el.classList.remove("cart-page"); // remove profile-page class if isCartPage is true
-      } else {
-        this.$el.classList.remove("notifications-page");
-      }
+    getRouteName() {
+      // Get the current route path
+      const currentPath = this.$route.fullPath;
+
+      // Split the path by slashes to get an array of segments
+      const pathSegments = currentPath.split("/");
+
+      // Get the last segment (the part after the last slash)
+      const lastSegment = pathSegments[pathSegments.length - 1];
+
+      // Log the last segment to the console
+      console.log(lastSegment); // This will log the last segment of the current route
+
+      // Update the pageName data property
+      this.pageName = lastSegment;
     },
   },
 };
