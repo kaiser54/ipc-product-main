@@ -87,7 +87,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top-details {
   display: flex;
   justify-content: space-between;
@@ -144,8 +144,8 @@ input {
 .search-input {
   display: flex;
   position: relative;
-  width: 100%;
-  max-width: 522px;
+  width: 60%;
+  /* max-width: 522px; */
 }
 
 .search-input svg {
