@@ -73,7 +73,7 @@
       <!-- product details page for mobile view -->
       <div class="mobile-product-details" v-if="mobile">
         <!-- the moving product carousel -->
-        <productCarousel :images="product.image" />
+        <productCarousel :images="product?.images" />
         <!-- ---------------------------- -->
 
         <div class="product-content">
@@ -81,18 +81,18 @@
 
           <div class="product-details-title">
             <h3 class="h3-small-medium">
-              {{ product.title }}
+              {{ product?.name }}
             </h3>
             <p class="product-details-brand">
-              Brand: <span>Mama’s Choice</span>
+              Brand: <span>{{ product?.brand }}</span>
             </p>
           </div>
           <div class="product-details-price-grp">
-            <h3 class="h3-bold">₦ {{ product.price }}</h3>
+            <h3 class="h3-bold">₦ {{ product?.discountPrice }}</h3>
             <tags />
           </div>
           <p class="product-details-snippet">
-            {{ product.description }}
+            {{ product?.description }}
           </p>
 
           <!-- ------------------------------- -->
@@ -108,37 +108,58 @@
             <div class="product-img zoom-container" ref="zoomContainer">
               <!-- <img :src="require(`~/assets/images/${product.images[productImage]}`)
                 " class="zoom-image" ref="zoomImage" /> -->
-              <img
-                :src="product.image"
+              <!-- <img
+                :src="product?.images[productImage]?.url"
                 alt="Product Image"
                 class="zoom-image"
                 ref="zoomImage"
-              />
+              /> -->
               <!-- <img src="~/assets/images/p1.png" alt="" /> -->
             </div>
             <!-- --------------- -->
 
             <!-- product thumbnail under the main product image -->
-            <div class="product-thumb">
-              <div
+            <!-- <div class="product-thumb"> -->
+              <!-- <div
                 class="thumb"
-                v-for="(image, index) in product.images"
+                v-for="(image, index) in product?.images"
                 :key="index"
               >
-                <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
+                <img :src="image?.url" alt="" @click="changeImage(index)" />
+              </div> -->
+              <!-- -------------------------------------------- -->
+            <!-- </div> -->
+
+            <div class="product-img-thumb">
+            <!-- image container -->
+            <div class="product-img zoom-container" ref="zoomContainer">
+              <img
+                :src="mainImage"
+                alt="Product Image"
+                class="zoom-image"
+                ref="zoomImage"
+              />
+            </div>
+            <!-- --------------- -->
+
+            <!-- product thumbnail under the main product image -->
+            <div class="product-thumb">
+              <div class="thumb" v-for="(image, index) in productImage" :key="index">
+                <img :src="image" @click="replaceProductImage(image)" />
               </div>
               <!-- -------------------------------------------- -->
             </div>
+          </div>
           </div>
           <div class="product-details-content">
             <div class="product-details-title-like">
               <!-- product title, brand name and like button -->
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
-                  {{ product.title }}
+                  {{ product?.name }}
                 </h3>
                 <p class="product-details-brand">
-                  Brand: <span>Mama’s Choice</span>
+                  Brand: <span>{{ product?.brand }}</span>
                 </p>
               </div>
               <div class="circle">
@@ -162,10 +183,10 @@
             <!-- ------------------------------- -->
 
             <p class="product-details-snippet">
-              {{ product.description }}
+              {{ product?.description }}
             </p>
             <div class="product-details-price-grp">
-              <h3 class="h3-bold">₦ {{ product.price }}</h3>
+              <h3 class="h3-bold">₦ {{ product?.discountPrice }}</h3>
               <tags />
             </div>
             <!-- cart button -->
@@ -252,12 +273,18 @@ export default {
       currentPage: "",
       inCart: false,
       loading: false,
+      mainImage: ""
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },
+  created() {
+    if (this.productImage.length > 0) {
+      this.mainImage = this.product.images[productImage]; // Set the first thumbnail as the initial product image
+    }
   },
   computed: {
     ...mapState(["cart"]),
@@ -286,10 +313,12 @@ export default {
     try {
       this.loading = true;
       // const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
-      const response = await this.$axios.$get(
-        `https://fakestoreapi.com/products/${this.currentPage}`
+      const response = await fetch(
+        `http://localhost:8000/api/v1/products/${this.currentPage}`
       );
-      this.product = response;
+      const res = await response.json()
+      console.log(res)
+      this.product = res?.data?.product;
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -351,6 +380,9 @@ export default {
     },
     decrementQuantity() {
       this.$store.commit("decrementQuantity", { productId: this.product.id });
+    },
+    replaceProductImage(image) {
+      this.mainImage = image;
     },
   },
 };

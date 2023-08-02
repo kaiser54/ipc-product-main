@@ -4,7 +4,7 @@
       <div v-if="Array.isArray(images)">
         <div class="carousel-slide" v-for="(image, index) in images" :key="index">
           <!-- <img :src="require(`~/assets/images/${image}`)" /> -->
-          <img :src="image" alt="Product Image" />
+          <img :src="image?.url" alt="Product Image" />
         </div>
       </div>
       <div class="carousel" v-else>

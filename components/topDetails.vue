@@ -30,7 +30,7 @@
           </clipPath>
         </defs>
       </svg>
-      <input class="input-search" type="search" name="search" id="search" placeholder="Search for products" />
+      <input class="input-search" type="search" name="search" id="search" placeholder="Search for products" v-model="search" @change="triggerSearch" />
     </div>
     <div class="notify-cart">
       <div class="notification" @click="triggerNotification">
@@ -69,6 +69,11 @@
 <script>
 import { mapState } from 'vuex';
 export default {
+  data() {
+    return {
+      search: "",
+    }
+  },
   computed: {
     ...mapState(['cart']),
     getCartLength() {
@@ -83,6 +88,9 @@ export default {
     triggerNotification() {
       this.$emit("openNotification");
     },
+    triggerSearch() {
+      this.$store.dispatch("fetchProducts", this.search)
+    }
   },
 };
 </script>

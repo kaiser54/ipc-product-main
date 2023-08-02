@@ -16,7 +16,7 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <productcard v-for="(product) in product" :key="product.id" :product="product" :inCart="inCart" />
+          <productcard v-for="(product) in products" :key="product._id" :product="product" :inCart="inCart" />
         </div>
       </section>
       <transition name="modal-fade">
@@ -26,18 +26,18 @@
           buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
           @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
       </transition>
-    </div> 
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   layout: "dashboardview",
   data() {
     return {
       pageTitle: "IPC | Market",
       checkMail: false,
-      product: {},
       inCart: false,
       loading: true,
       animate: null,
@@ -53,9 +53,8 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     try {
       this.loading = true;
-      // Fetch product details from the FakeStoreAPI
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products`);
-      this.product = response;
+      await this.$store.dispatch("fetchProducts")
+
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -80,6 +79,11 @@ export default {
       this.checkMail = !this.checkMail
     },
   },
+  computed: {
+    ...mapState({
+      products: 'products',
+    })
+  }
 };
 </script>
 

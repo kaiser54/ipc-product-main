@@ -1,10 +1,17 @@
 export const state = () => ({
   cart: [],
-  user: null,
+  customer: {},
   error: null,
+  products: [],
+});
+
+export const getters = () => ({
+  products: (state) => state.products,
 });
 
 export const mutations = {
+  SET_CUSTOMER: (state, customer) => (state.customer = customer),
+  ADD_PRODUCTS: (state, products) => (state.products = products),
   addToCart(state, product) {
     const existingProduct = state.cart.find((p) => p.id === product.id);
     if (existingProduct) {
@@ -25,7 +32,7 @@ export const mutations = {
     if (product) {
       if (product.quantity > 1) {
         product.quantity--;
-      } 
+      }
       //dont remove the product from the cart, wait for the delete button
       // else {
       //   state.cart = state.cart.filter((p) => p.id !== productId);
@@ -51,96 +58,57 @@ export const mutations = {
 };
 
 export const actions = {
-  async login({ commit }, credentials) {
+  async login(context, payload) {
     try {
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      if (response.ok) {
-        const user = await response.json();
-        commit("setUser", user);
-        commit("setError", null);
-        return true; // Indicate successful login
-      } else {
-        const error = await response.json();
-        commit("setUser", null);
-        commit("setError", error);
-        return false; // Indicate failed login
+      // const res = this.$axios.post("/business-customers/login", payload);
+      if (res) {
+        context.commit("SET_CUSTOMER", res?.data?.data?.customer);
       }
-    } catch (error) {
-      commit("setUser", null);
-      commit("setError", error.message);
-      return false; // Indicate failed login
+    } catch (err) {
+      console.log(err);
     }
   },
+
+  async signup(context, payload) {
+    try {
+      // const res = this.$axios.post("/business-customers/signup", payload);
+      if (res) {
+        this.dispatch(login, {
+          email: payload.email,
+          password: payload.password,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   checkUser({ commit }) {
-    const user = localStorage.getItem("user");
-    if (user) {
-      commit("setUser", JSON.parse(user));
+    const customer = localStorage.getItem("customer");
+    if (customer) {
+      commit("setUser", JSON.parse(customer));
     }
   },
 
-async signupIndividual({ commit }, credentials) {
-  try {
-    const response = await fetch("http://localhost:8000/api/v1/individual-customers/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+  async fetchProducts(context, payload) {
+    let res = null;
+    try {
+      if (payload) {
+        res = await fetch(
+          "http://localhost:8000/api/v1/products?" +
+            new URLSearchParams({
+              name: payload,
+            })
+        );
+      } else {
+        res = await fetch("http://localhost:8000/api/v1/products?");
+      }
 
-    if (response.ok) {
-      console.log(response);
-      const user = await response.json();
-      commit("setUser", user);
-      commit("setError", null);
-      return true; // Indicate successful signup
-    } else {
-      const error = await response.json();
-      commit("setUser", null);
-      commit("setSignupError", error);
-      return false; // Indicate failed signup
+      const resp = await res.json();
+
+      context.commit("ADD_PRODUCTS", resp?.data?.products);
+    } catch (err) {
+      console.log(err);
     }
-  } catch (error) {
-    commit("setUser", null);
-    commit("setSignupError", error.message);
-    return false; // Indicate failed signup
-  }
-},
-
-async signupBusiness({ commit }, credentials) {
-  try {
-    const response = await fetch("http://localhost:8000/api/v1/business-customers/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    if (response.ok) {
-      console.log(response);
-      const user = await response.json();
-      commit("setUser", user);
-      commit("setError", null);
-      return true; // Indicate successful signup
-    } else {
-      const error = await response.json();
-      commit("setUser", null);
-      commit("setSignupError", error);
-      return false; // Indicate failed signup
-    }
-  } catch (error) {
-    commit("setUser", null);
-    commit("setSignupError", error.message);
-    return false; // Indicate failed signup
-  }
-},
-
+  },
 };

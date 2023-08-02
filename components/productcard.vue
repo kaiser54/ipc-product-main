@@ -2,7 +2,7 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <nuxt-link :to="`/dashboard/market/${product.title}~${product.id}`">
+    <nuxt-link :to="`/dashboard/market/${product?.name}~${product?._id}`">
     <!-- <nuxt-link :to="{ name: 'product', params: { id: product.id, title: product.title } }"> -->
       <div class="product-img-grp">
 
@@ -25,7 +25,7 @@
         <div class="image-container">
 
           <!-- <img :src="require(`~/assets/images/${product.image}`)" /> -->
-          <img :src="product.image" alt="Product Image" />
+          <img :src="product?.images[0].url" alt="Product Image" />
 
 
         </div>
@@ -37,11 +37,11 @@
 
       <div class="productcard-details">
         <div class="productcard-name text-container">
-          <p>{{ product.title }}</p>
+          <p>{{ product?.name }}</p>
         </div>
         <div class="productcard-price">
-          <p># {{ product.price }}</p>
-          <p class="slashprice"># {{ product.price }}</p>
+          <p># {{ product?.discountPrice }}</p>
+          <p class="slashprice"># {{ product?.actualPrice }}</p>
         </div>
       </div>
 

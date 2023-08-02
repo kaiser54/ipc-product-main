@@ -12,10 +12,10 @@
             <LoginWelcome />
           </div>
           <div class="form-group">
-            <div class="form-field">
-              <!-- <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
+            <div class="form-field" v-if="email">
+              <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
                 placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage" /> -->
+                :errorMessage="emailErrorMessage" />
               <InputField
                 id="username"
                 label="username"
@@ -26,6 +26,7 @@
                 :required="true"
                 :invalid="invalidEmail"
                 :errorMessage="emailErrorMessage"
+                v-if="username"
               />
 
               <InputField
