@@ -9,8 +9,8 @@
     <div class="product-transaction">
       <div class="product-description">
         <div class="child order-track">
-          <orderProduct :showSvg="true" />
-          <trackingBar />
+          <OrderProduct :tagText="tagText" :size="size" :type="type" />
+          <TrackingBar />
         </div>
         <userInfo class="child" :data="data" v-if="data"/>
       </div>
@@ -32,12 +32,41 @@ export default {
   data() {
     return {
       pageTitle: "IPC | Track orders",
+      selectedIndex: 2,
+      listSelect: [
+        {
+          title: "Order procesing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },
+  computed: {
+    tagText() {
+      return this.listSelect[this.selectedIndex].title;
+    },
+    type() {
+      return this.listSelect[this.selectedIndex].type;
+    },
+    size() {
+      return this.listSelect[this.selectedIndex].size;
+    },
   },
   mounted() {
     console.log(this.data)

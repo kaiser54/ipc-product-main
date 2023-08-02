@@ -143,7 +143,7 @@
               </div>
               <div class="circle" @click="toggleLike">
                 <svg
-                  :class="{ liked: isLiked }"
+                  :class="{ liked: isLiked || isInSaved }"
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
@@ -267,6 +267,12 @@ export default {
         (p) => p.id === this.product.id
       );
       return productInCart !== undefined;
+    },
+    isInSaved() {
+      const productInSaved = this.$store.state.savedItem.find(
+        (p) => p.id === this.product.id
+      );
+      return productInSaved !== undefined;
     },
     getProductQuantity() {
       const productInCart = this.$store.state.cart.find(

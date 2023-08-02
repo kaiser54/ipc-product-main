@@ -388,7 +388,8 @@
         v-for="index in duplicateCount"
         :key="index"
       >
-        <orderProduct :showSvg="true" />
+        <!-- <orderProduct :showSvg="true" /> -->
+        <OrderProduct :tagText="tagText" :size="size" :type="type" />
       </nuxt-link>
     </div>
   </div>
@@ -401,12 +402,41 @@ export default {
     return {
       pageTitle: "IPC | Track orders",
       duplicateCount: 10, // Specify the number of times to duplicate the component
+      selectedIndex: 2,
+      listSelect: [
+        {
+          title: "Order procesing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
     };
   },
   head() {
     return {
       title: this.pageTitle,
     };
+  },
+  computed: {
+    tagText() {
+      return this.listSelect[this.selectedIndex].title;
+    },
+    type() {
+      return this.listSelect[this.selectedIndex].type;
+    },
+    size() {
+      return this.listSelect[this.selectedIndex].size;
+    },
   },
   methods: {
     leaveCart() {

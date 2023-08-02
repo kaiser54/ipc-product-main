@@ -1,7 +1,13 @@
 <template>
-  <section class="mobile-top-details">
-    <div class="welcome-cart">
-      <div class="username-welcome" :class="{ 'market-route': pageName === 'market' }" v-if="this.pageName === 'market'">
+  <section
+    class="mobile-top-details"
+    :class="{ 'market-head': pageName === 'market' }"
+  >
+    <div
+      class="welcome-cart"
+      :class="{ 'market-route': pageName === 'market' }"
+    >
+      <div class="username-welcome" v-if="this.pageName === 'market'">
         <div class="welcome">
           <p>Hello,</p>
           <svg
@@ -36,8 +42,15 @@
         </div>
         <p class="username mobile-truncate">Chicken Republic</p>
       </div>
-      <div class="notify-cart">
-        <nuxt-link to="/dashboard/market/notifications" :class="{ 'notify-icon': pageName === 'market' }" v-if="this.pageName === 'market'">
+      <div
+        class="notify-cart"
+        v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'"
+      >
+        <nuxt-link
+          to="/dashboard/market/notifications"
+          :class="{ 'notify-icon': pageName === 'market' }"
+          v-if="this.pageName === 'market'"
+        >
           <div class="notification">
             <div class="circle">
               <svg
@@ -98,7 +111,11 @@
       </div>
     </div>
     <!-- search bar -->
-    <div class="mobile-search search-input" @click="redirectToSearchPage">
+    <div
+      class="mobile-search search-input"
+      @click="redirectToSearchPage"
+      v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -150,7 +167,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      <p>{{ header }}</p>
+      <p style="text-transform: capitalize">{{ pageName }}</p>
       <nuxt-link to="/dashboard/search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -181,28 +198,9 @@ export default {
   },
   data() {
     return {
-      marketPage: false,
-      header: "",
       pageName: "",
     };
   },
-  // created() {
-  //   const pathSegments = this.$route.path
-  //     .split("/")
-  //     .filter((segment) => segment.trim() !== "");
-  //   const pageName = pathSegments[pathSegments.length - 1];
-  //   console.log(pageName);
-
-  //   if (pageName === "cart") {
-  //     this.isCartPage = true;
-  //     console.log(this.isCartPage);
-  //   } else if (pageName === "notification") {
-  //     this.isNotificationPage = true;
-  //   } else {
-  //     this.isCartPage = false;
-  //     this.isNotificationPage = false;
-  //   }
-  // },
   created() {
     this.getRouteName();
   },
@@ -258,14 +256,15 @@ export default {
     gap: 16px;
 
     width: 100%;
-    /* height: 153px; */
-
-    /* White */
 
     background: #ffffff;
     /* Grey/Grey5 */
 
     border-bottom: 1px solid var(--grey-grey5);
+  }
+
+  section.mobile-top-details.market-head {
+    flex-direction: column;
   }
 
   .flex {
@@ -281,7 +280,9 @@ export default {
     padding: 0px;
     /* width: 100%; */
   }
-
+  .welcome-cart.market-route {
+    width: 100%;
+  }
   .username-welcome {
     margin-left: 0px;
   }
@@ -289,63 +290,11 @@ export default {
   .mobile-search {
     max-width: 100% !important;
   }
-
-  section.profile-page {
-    height: auto !important;
+  .cart-page-header {
     display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .profile-page .username-welcome,
-  .profile-page .notification,
-  .profile-page .cart-page-header {
-    display: none !important;
-  }
-
-  .profile-page .welcome-cart {
-    width: auto !important;
-  }
-
-  section.cart-page,
-  section.notifications-page {
-    flex-direction: row;
-    justify-content: space-between;
-
-    height: 72px;
-  }
-
-  .cart-page .welcome-cart,
-  .notifications-page .welcome-cart,
-  .cart-page .mobile-search {
-    display: none;
-  }
-
-  .cart-page .cart-page-header,
-  .notifications-page .cart-page-header {
-    display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
     width: 100%;
-  }
-
-  .cart-page .cart-page-header p,
-  .notifications-page .cart-page-header p {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    /* identical to box height, or 150% */
-
-    text-align: center;
-
-    /* Grey/Grey1 */
-
-    color: var(--grey-grey1);
-  }
-
-  .notifications-page .search-page {
-    display: none;
   }
 }
 

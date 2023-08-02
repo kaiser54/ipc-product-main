@@ -15,7 +15,7 @@
           <div class="text-container">
             <p class="name">{{ product.title }}</p>
           </div>
-          <p class="price">₦ {{ product.price }}</p>
+          <p class="price"><span class="naira">₦</span> {{ product.price }}</p>
         </div>
         <!-- -------------- -->
 
@@ -48,7 +48,7 @@
             <!-- counter button -->
           </div>
           <div class="quantity">
-            <div class="circle" @click="decrementQuantity">
+            <button class="circle" @click="decrementQuantity" :disabled="getProductQuantity < 2 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -64,9 +64,9 @@
                   stroke-linejoin="round"
                 />
               </svg>
-            </div>
+            </button>
             <div class="counter">{{ getProductQuantity }}</div>
-            <div class="circle" @click="incrementQuantity">
+            <button class="circle" @click="incrementQuantity">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -82,7 +82,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-            </div>
+            </button>
           </div>
         </div>
       </div>

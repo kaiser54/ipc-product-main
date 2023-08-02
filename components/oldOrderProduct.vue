@@ -11,12 +11,12 @@
             <div class="order-id">Order Id: 1234567</div>
             <div class="order-qty">Qty: 1</div>
           </div>
-          <div class="order-price"><span class="naira">₦</span> 75,000</div>
-          <DynamicTags :tagText="tagText" :size="size" :type="type" />
+          <div class="order-price">#75,000</div>
+          <div class="tag pending tag-small">Ready for delivery</div>
         </div>
 
         <div class="price-qty">
-          <div class="order-price"><span class="naira">₦</span> 75,000</div>
+          <div class="order-price">#75,000</div>
           <div class="order-qty">Qty: 1</div>
         </div>
       </div>
@@ -34,17 +34,6 @@ export default {
     showSvg: {
       type: Boolean,
       default: true,
-    },
-    tagText: {
-      type: String,
-    },
-    size: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
     },
   },
 };
@@ -74,7 +63,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   padding: 16px;
   gap: 16px;
 
@@ -103,7 +92,7 @@ a {
   align-items: flex-start;
   padding: 0px;
   gap: 4px;
-  /* max-width: 579px; */
+  max-width: 579px;
   width: 100%;
 }
 

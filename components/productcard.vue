@@ -22,8 +22,8 @@
           <p>{{ product.title }}</p>
         </div>
         <div class="productcard-price">
-          <p># {{ product.price }}</p>
-          <p class="slashprice"># {{ product.price }}</p>
+          <p><span class="naira">₦</span> {{ product.price }}</p>
+          <p class="slashprice"><span class="naira">₦</span> {{ product.price }}</p>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
 
     <div class="circle">
       <svg
-        :class="{ liked: isLiked }"
+        :class="{ liked: isLiked || isInSaved }"
         @click="toggleLike"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -146,6 +146,12 @@ export default {
         (p) => p.id === this.product.id
       );
       return productInCart !== undefined;
+    },
+    isInSaved() {
+      const productInSaved = this.$store.state.savedItem.find(
+        (p) => p.id === this.product.id
+      );
+      return productInSaved !== undefined;
     },
     getProductQuantity() {
       const productInCart = this.$store.state.cart.find(
@@ -279,6 +285,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 0px;
   gap: 4px;
 
