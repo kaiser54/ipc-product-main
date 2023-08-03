@@ -158,31 +158,44 @@
         </svg>
         <p>Saved items</p>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
-        <path
-          d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
-          stroke="#BDC0CE"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <div class="verified__svg">
+        <div class="badge" v-if="savedItem.length > 0">
+          <p>{{ getCartLength }}</p>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+        >
+          <path
+            d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
+            stroke="#BDC0CE"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
     </nuxt-link>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       isVerified: false,
     };
+  },
+  computed: {
+    ...mapState(["savedItem"]),
+    getCartLength() {
+      const cartLength = this.$store.state.savedItem.length;
+      return cartLength;
+    },
   },
 };
 </script>
@@ -211,6 +224,7 @@ export default {
   gap: 6px;
 
   width: 100%;
+  position: relative;
 }
 
 /* .user__details__head__address {
@@ -240,5 +254,9 @@ export default {
   align-items: center;
   padding: 0px;
   gap: 8px;
+}
+.badge {
+  position: inherit;
+  margin-left: auto;
 }
 </style>
