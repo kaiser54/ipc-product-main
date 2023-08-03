@@ -222,9 +222,9 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </div>
           <div class="badge" v-if="cart.length > 0">
             <p>{{ getCartLength }}</p>
+          </div>
           </div>
         </div>
       </div>
