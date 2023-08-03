@@ -44,7 +44,11 @@
       </div>
       <div
         class="notify-cart"
-        v-if="this.pageName !== 'cart' && this.pageName !== 'notifications' && this.pageName !== 'saved-items'"
+        v-if="
+          this.pageName !== 'cart' &&
+          this.pageName !== 'notifications' &&
+          this.pageName !== 'saved-items'
+        "
       >
         <nuxt-link
           to="/dashboard/market/notifications"
@@ -114,7 +118,11 @@
     <div
       class="mobile-search search-input"
       @click="redirectToSearchPage"
-      v-if="this.pageName !== 'cart' && this.pageName !== 'notifications'  && this.pageName !== 'saved-items'"
+      v-if="
+        this.pageName !== 'cart' &&
+        this.pageName !== 'notifications' &&
+        this.pageName !== 'saved-items'
+      "
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +157,11 @@
     <!-- ----------- -->
     <div
       class="cart-page-header"
-      v-if="this.pageName === 'cart' || this.pageName === 'notifications' || this.pageName === 'saved-items'"
+      v-if="
+        this.pageName === 'cart' ||
+        this.pageName === 'notifications' ||
+        this.pageName === 'saved-items'
+      "
     >
       <svg
         @click="goBack"
@@ -168,7 +180,7 @@
         />
       </svg>
       <p style="text-transform: capitalize">{{ pageName }}</p>
-      <nuxt-link to="/dashboard/search">
+      <nuxt-link to="/dashboard/search" v-if="this.pageName !== 'saved-items'">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -185,6 +197,37 @@
           />
         </svg>
       </nuxt-link>
+      <div class="notify-cart" v-if="this.pageName === 'saved-items'">
+        <div class="cart" @click="triggerCart">
+          <div class="nocircle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="badge" v-if="cart.length > 0">
+            <p>{{ getCartLength }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -193,9 +236,9 @@
 import { mapState } from "vuex";
 
 export default {
-  computed: {
-    ...mapState(["cart"]),
-  },
+  // computed: {
+  //   ...mapState(["cart"]),
+  // },
   data() {
     return {
       pageName: "",
@@ -289,24 +332,22 @@ export default {
     width: 100%;
   }
 
+  .username-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    /* margin-left: 20px; */
+    max-width: 198px;
+  }
 
-
-.username-welcome {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 4px;
-  /* margin-left: 20px; */
-  max-width: 198px;
-}
-
-.username-welcome .welcome {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-}
+  .username-welcome .welcome {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
 }
 .username-welcome .welcome p {
   font-weight: 500;
@@ -390,6 +431,13 @@ input {
   background: var(--grey-grey6);
 }
 
+
+@media (max-width: 950px) {
+  .nocircle .badge {
+  left: 13px;
+  top: -1px;
+}
+}
 @media (max-width: 335px) {
   .mobile-truncate {
     white-space: nowrap;

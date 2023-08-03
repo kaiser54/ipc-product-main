@@ -34,6 +34,7 @@ export default {
   margin-inline: auto;
 
   max-width: 404px;
+  width: 100%;
   /* Empty states bg */
 
   background: linear-gradient(180deg, #e6e6f7 -36.88%, #ffffff 56.41%);

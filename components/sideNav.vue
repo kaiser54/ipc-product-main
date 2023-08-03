@@ -208,6 +208,10 @@
                   />
                 </svg>
                 <p>Saved items</p>
+
+                <div class="badge" v-if="savedItem.length > 0">
+                  <p>{{ getCartLength }}</p>
+                </div>
               </div>
             </div>
           </nuxt-link>
@@ -373,11 +377,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     showPopup: {
       type: Boolean,
       required: true,
+    },
+  },
+  computed: {
+    ...mapState(["savedItem"]),
+    getCartLength() {
+      const cartLength = this.$store.state.savedItem.length;
+      return cartLength;
     },
   },
   methods: {
@@ -436,6 +448,7 @@ export default {
 .nav-content {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 16px;
 }
 
@@ -522,6 +535,10 @@ export default {
   max-width: 149px;
 }
 
+.badge {
+  position: inherit;
+  margin-left: auto;
+}
 .profile-details .name {
   font-weight: 500;
   font-size: 16px;

@@ -157,6 +157,10 @@ p.email {
 
   color: var(--grey-grey1);
 }
+.badge {
+  top: -6px;
+  left: 11px;
+}
 p.verification {
   font-weight: 400;
   font-size: 12px;
