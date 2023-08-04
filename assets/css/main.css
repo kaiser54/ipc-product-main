@@ -22,8 +22,13 @@ body {
 *::before,
 *::after {
     box-sizing: border-box;
-    transition: all .4s;
+    transition: all .4s ease;
 }
+
+/* Add smooth transition to all components or tags */
+* {
+    transition: all 0.4s ease !important;
+  }
 
 label {
     margin-bottom: 8px !important;

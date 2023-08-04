@@ -48,7 +48,11 @@
             <!-- counter button -->
           </div>
           <div class="quantity">
-            <button class="circle" @click="decrementQuantity" :disabled="getProductQuantity < 2 ">
+            <button
+              class="circle"
+              @click="decrementQuantity"
+              :disabled="getProductQuantity < 2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -257,9 +261,16 @@ p.price {
 }
 
 .circle {
+  display: flex;
   width: 32px;
   height: 32px;
-  padding: 0;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  border-radius: 100px;
+  border: 1px solid var(--grey-grey4, #bdc0ce);
 }
 
 .quantity {
@@ -267,7 +278,8 @@ p.price {
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 16px;
+  justify-content: space-between;
+  width: 129px;
 }
 
 @media (max-width: 950px) {
@@ -275,6 +287,19 @@ p.price {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
+  }
+
+  .circle {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 100px;
+    border: 1px solid var(--grey-grey-4, #bdc0ce);
   }
 }
 
