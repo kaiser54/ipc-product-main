@@ -1,12 +1,24 @@
 <template>
   <div class="view-page">
-    <div class="profile-web-mobile">
-      <div class="profile" v-if="!mobile || !userHeaderComponent">
+    <div
+      :class="{ 'profile-web-mobile': userHeaderComponent || CheckAddress }"
+      v-if="!userHeaderComponent && !CheckAddress"
+    >
+      <!-- DESKTOP VIEW COMPONENTS  -->
+      <div
+        class="profile"
+        v-if="!mobile || !userHeaderComponent || !CheckAddress"
+      >
         <div class="title-header">
           <h2 class="h2-medium header-text">Profile</h2>
-          <div class="account-type indivudual">Individual account</div>
+          <DynamicTags tagText="Individual account" size="small" type="info" />
+          <DynamicTags
+            tagText="Business account"
+            size="small"
+            type="positive"
+          />
         </div>
-        <switchTab
+        <ProfileSwitchTab
           v-show="!mobile"
           @toggleTab="activetab = true"
           @toggleTab2="activetab = false"
@@ -14,10 +26,11 @@
           text1="Account details"
           text2="Address book"
         />
+
         <div class="userdetails" v-if="!mobile">
           <div class="account-details-desktop" v-if="activetab">
             <div class="acc-btn">
-              <accountDetails
+              <ProfileUserDetails
                 :BusinessName="BusinessName"
                 :user-name="userName"
                 :phone-numbers="phoneNumbers"
@@ -28,58 +41,59 @@
                 @open-number="handleOpenNumber"
               />
             </div>
-            <emaildesktop
+            <ProfileEmailDesktop
               @openMail="toggleIsVerifyMail"
               @openPassword="toggleChangePassword"
             />
           </div>
-          <addressDetails v-if="!activetab" switchedHeader="Address Book" />
+          <ProfileAddressDetails
+            v-if="!activetab"
+            switchedHeader="Address Book"
+          />
         </div>
       </div>
+      <!-- ^^^^^^^^^^^^^^^^^^^^^ -->
 
-      <!-- profile content for the mobile view -->
+      <!-- MOBILE VIEW COMPONENTS -->
 
       <div class="mobileUserProfile" v-if="mobile">
         <!-- user profile and name -->
-        <userHeader
+        <ProfileUserSection
           @clicked="toggleuserHeaderComponent"
-          v-if="!userHeaderComponent"
+          v-if="!userHeaderComponent || !CheckAddress"
         />
-        <userHeaderComponent
-          v-if="userHeaderComponent"
-          @redirectToprofilepage="redirectToprofilepage"
-        />
-        <!-- ---------------------------------- -->
+        <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
-        <!-- address verify and change password -->
-        <div class="user__details" v-if="!userHeaderComponent">
+        <!-- verify address and change password -->
+        <div class="user__details" v-if="!userHeaderComponent || !CheckAddress">
           <div class="user__details__head">
             <p>ACCOUNT</p>
           </div>
-          <userdetailsMobileview
+          <ProfileAccountSectionMobile
             @openMail="toggleIsVerifyMail"
+            @openAddress="CheckAddress = !CheckAddress"
             @changePassword="toggleChangePassword"
           />
         </div>
-        <!-- ---------------------------------- -->
+        <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
         <!-- FAQ customer privacy -->
-        <div class="user__details" v-if="!userHeaderComponent">
+        <div class="user__details" v-if="!userHeaderComponent || !CheckAddress">
           <div class="user__details__head">
             <p>ABOUT IPC</p>
           </div>
-          <FAQmobileview />
+          <ProfileFAQSectionMobile />
         </div>
+        <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+        <button
+          class="btn mqdn"
+          @click="toggleLogout"
+          v-if="!userHeaderComponent || !CheckAddress"
+        >
+          Log out
+        </button>
       </div>
-      <button
-        class="btn mqdn"
-        @click="toggleLogout"
-        v-if="!userHeaderComponent"
-      >
-        Log out
-      </button>
     </div>
-    <!-- ---------------------------- -->
 
     <!-- verify email popup -->
 
@@ -114,12 +128,174 @@
     />
 
     <!-- change password -->
-    <changePassword
+    <ProfileChangePassword
       v-if="isChangePassword"
       @close="toggleChangePassword"
       :animate="animate"
     />
     <!-- ---------------------------- -->
+
+    <ProfileInnerModalComponent
+      v-if="userHeaderComponent && !closeHeaderComp"
+      @redirectToprofilepage="redirectToprofilepage"
+    >
+      <template v-slot:components>
+        <div class="profile-wrapper">
+          <ProfileAccountAvatar />
+          <div class="flex">
+            <div class="acc-btn">
+              <ProfileUserDetails
+                :BusinessName="BusinessName"
+                :user-name="userName"
+                :phone-numbers="phoneNumbers"
+                :invalidNumber="invalidNumber"
+                :show-new-phone-number="showNewPhoneNumber"
+                @add-number="handleAddNumber"
+                @open-number="toggleAddNumberFunc"
+              />
+            </div>
+          </div>
+        </div>
+      </template>
+    </ProfileInnerModalComponent>
+
+    <!-- add new number for mobile view -->
+
+    <ProfileEditDetails
+      header="Phone number"
+      buttonText="Add number"
+      title="Enter phone number"
+      v-if="addNumberFunc"
+      @closeDetails="toggleAddNumberFunc"
+      @detailsButton="handleAddNumber"
+    >
+      <template v-slot:details>
+        <InputComponent
+          id="phone-number"
+          label="Phone number"
+          name="number"
+          inputType="number"
+          v-model="newPhoneNumber"
+          :isInvalid="invalidNumber"
+          errMsg="Please enter a valid Phone number"
+        />
+      </template>
+    </ProfileEditDetails>
+
+    <!-- check address -->
+
+    <ProfileInnerModalComponent
+      v-if="CheckAddress && !closeHeaderComp"
+      @redirectToprofilepage="redirectToprofilepage"
+    >
+      <template v-slot:components>
+        <div class="profile-wrapper">
+          <div class="textfield">
+            <InputComponent
+              id="streetAddress"
+              label="Street Address"
+              name="address"
+              inputType="text"
+              v-model="address"
+              :isInvalid="validAddress"
+              :errMsg="errAddress"
+            />
+            <InputComponent
+              id="state"
+              label="State"
+              name="state"
+              inputType="text"
+              v-model="state"
+              :isInvalid="validState"
+              :errMsg="errState"
+            />
+            <InputComponent
+              id="LGA"
+              label="LGA (Local Govt. Area)"
+              name="LGA"
+              inputType="text"
+              v-model="LGA"
+              :isInvalid="validLGA"
+              :errMsg="errLGA"
+            />
+          </div>
+          <DynamicButton
+            @clickButton="editAddress"
+            style="width: 100%"
+            class=""
+            buttonText="Change"
+            size="standard"
+            type="neutral"
+            icon="icon-left"
+          >
+            <template v-slot:svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="21"
+                viewBox="0 0 20 21"
+                fill="none"
+              >
+                <path
+                  d="M2.5 18H17.5"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M3.74935 11.7495L12.0827 3.41621C12.773 2.72585 13.8923 2.72585 14.5827 3.41621C15.273 4.10656 15.273 5.22585 14.5827 5.91621L6.24935 14.2495L2.91602 15.0829L3.74935 11.7495Z"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </template>
+          </DynamicButton>
+        </div>
+      </template>
+    </ProfileInnerModalComponent>
+
+    <!-- change Address -->
+
+    <ProfileEditDetails
+      header="Edit address details"
+      buttonText="Save changes"
+      v-if="openEditAddress"
+      @closeDetails="editAddress"
+      @detailsButton="editAddress"
+    >
+      <template v-slot:details>
+        <InputComponent
+          id="streetAddress"
+          label="Street Address"
+          name="address"
+          inputType="text"
+          v-model="address"
+          :isInvalid="validAddress"
+          :errMsg="errAddress"
+        />
+        <InputComponent
+          id="state"
+          label="State"
+          name="state"
+          inputType="text"
+          v-model="state"
+          :isInvalid="validState"
+          :errMsg="errState"
+        />
+        <InputComponent
+          id="LGA"
+          label="LGA (Local Govt. Area)"
+          name="LGA"
+          inputType="text"
+          v-model="LGA"
+          :isInvalid="validLGA"
+          :errMsg="errLGA"
+        />
+      </template>
+    </ProfileEditDetails>
   </div>
 </template>
 
@@ -145,7 +321,22 @@ export default {
       // newPhoneNumber: "", // phone number entered in the new phone number field
       showNewPhoneNumber: false, // whether to show the new phone number field
       BusinessName: "Chicken Republic",
+      addNumberFunc: false,
       animate: null,
+      CheckAddress: false,
+      address: "3A, Oba Akintunde Street, Lekki phase 1",
+      validAddress: null,
+      errAddress: "Please enter a valid address",
+      state: "Lagos",
+      validState: null,
+      errState: "",
+      LGA: "Eti Osa",
+      validLGA: null,
+      errLGA: "",
+      closeHeaderComp: false,
+      newPhoneNumber: "",
+      invalidNumber: false,
+      openEditAddress: false,
     };
   },
   head() {
@@ -185,6 +376,7 @@ export default {
       if (phoneNumberRegex.test(newPhoneNumber)) {
         this.phoneNumbers.push(newPhoneNumber);
         this.showNewPhoneNumber = false; // Hide the new-phone-number div
+        this.addNumberFunc = false;
         this.invalidNumber = false; // Reset the invalidNumber flag
         newPhoneNumber = null;
       } else {
@@ -193,23 +385,35 @@ export default {
       }
     },
     handleCloseNumber() {
-      this.invalidNumber = false
-      this.showNewPhoneNumber = false
+      this.invalidNumber = false;
+      this.showNewPhoneNumber = false;
     },
     handleOpenNumber() {
-      this.showNewPhoneNumber = true
+      this.showNewPhoneNumber = true;
     },
     toggleuserHeaderComponent() {
       this.userHeaderComponent = true;
     },
     redirectToprofilepage() {
       this.userHeaderComponent = false;
+      this.CheckAddress = false;
+    },
+    toggleAddNumberFunc() {
+      this.addNumberFunc = !this.addNumberFunc;
+      this.closeHeaderComp = !this.closeHeaderComp;
+    },
+    editAddress() {
+      this.openEditAddress = !this.openEditAddress;
+      this.closeHeaderComp = !this.closeHeaderComp;
     },
   },
 };
 </script>
 
 <style scoped>
+.profile-web-mobile {
+  position: fixed;
+}
 .profile {
   display: flex;
   flex-direction: column;
@@ -294,6 +498,24 @@ export default {
   /* Negative/N300 */
 
   color: var(--negative-n300);
+}
+
+.profile-wrapper {
+  position: absolute;
+  z-index: -1;
+  height: 156vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: rgb(255, 255, 255);
+  padding: 5%;
+}
+
+.textfield {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media (min-width: 950px) {

@@ -2,7 +2,7 @@
     <div class="user-header" @click="$emit('clicked')">
       <div class="username-avatar">
         <div class="avatar">
-          <img src="../assets/images/avatar1.png" alt="" />
+          <img src="~/assets/images/avatar1.png" alt="" />
         </div>
         <div class="userTitle">
           <div class="user__name">

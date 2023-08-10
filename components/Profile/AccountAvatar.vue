@@ -2,22 +2,23 @@
   <div class="user_name_mail">
     <div class="user_name_mail_header">
       <div class="user_name_mail_header_img avatar">
-        <img src="../assets/images/avatar1.png" alt="" />
+        <img src="~/assets/images/avatar1.png" alt="" />
       </div>
       <div class="name-mail">
         <h3 class=".h3-small-regular">Chicken Republic</h3>
         <p>adminchickenrepublic@gmail.com</p>
       </div>
-      <div class="account-type business">Business account</div>
+      <DynamicTags tagText="Individual account" size="small" type="info" />
+      <DynamicTags tagText="Business account" size="small" type="positive" />
     </div>
   </div>
 </template>
-
-<script>
-export default {}; 
+  
+  <script>
+export default {};
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .user_name_mail {
   display: flex;
   flex-direction: column;
@@ -64,3 +65,4 @@ export default {};
   color: var(--grey-grey3);
 }
 </style>
+  

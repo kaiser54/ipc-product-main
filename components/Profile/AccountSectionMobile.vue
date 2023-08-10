@@ -1,6 +1,6 @@
 <template>
   <div class="user__details__head__group">
-    <div class="user__details__head__address udhs">
+    <div class="user__details__head__address udhs" @click="$emit('openAddress')">
       <div class="udh__svg__group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -181,8 +181,8 @@
     </nuxt-link>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import { mapState } from "vuex";
 export default {
   data() {
@@ -199,8 +199,8 @@ export default {
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .user__details__head__group {
   display: flex;
   flex-direction: column;
@@ -228,7 +228,7 @@ export default {
 }
 
 /* .user__details__head__address {
-} */
+  } */
 
 .udh__svg__group {
   display: flex;
@@ -260,3 +260,4 @@ export default {
   margin-left: auto;
 }
 </style>
+  

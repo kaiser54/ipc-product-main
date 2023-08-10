@@ -33,32 +33,32 @@
         </div>
 
         <div class="form-field">
-          <inputComponent
+          <InputComponent
             id="oldPassword"
             label="Enter your old password"
             name="password"
             required
             v-model="oldPassword"
-            :invalidPassword="validOldPassword"
-            :passwordErrorMessage="errOldPassword"
+            :isInvalid="validOldPassword"
+            :errMsg="errOldPassword"
           />
-          <inputComponent
+          <InputComponent
             id="newPassword"
             label="Enter your new password"
             name="password"
             required
             v-model="newPassword"
-            :invalidPassword="validNewPassword"
-            :passwordErrorMessage="errNewPassword"
+            :isInvalid="validNewPassword"
+            :errMsg="errNewPassword"
           />
-          <inputComponent
+          <InputComponent
             id="confirmPassword"
             label="Enter your new password again"
             name="password"
             required
             v-model="confirmPassword"
-            :invalidPassword="ValidConfirmPassword"
-            :passwordErrorMessage="errConfirmPassword"
+            :isInvalid="ValidConfirmPassword"
+            :errMsg="errConfirmPassword"
           />
         </div>
         <button class="btn primary-btn" @click="handleChangePassword">
@@ -69,8 +69,8 @@
     <div class="passBG" @click="$emit('close')"></div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import "animate.css";
 export default {
   props: {
@@ -150,8 +150,8 @@ export default {
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .animate__animated.animate__slideInUp {
   --animate-duration: 0.5s;
 }
@@ -181,7 +181,7 @@ header,
   width: 432px;
   height: auto;
   /* left: calc(50% - 432px / 2 + 36.01px);
-  top: 192.25px; */
+    top: 192.25px; */
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -218,11 +218,11 @@ header,
   color: var(--grey-grey1);
 }
 .circle {
-padding: 6px;
-gap: 10px;
+  padding: 6px;
+  gap: 10px;
 
-width: 32px;
-height: 32px;
+  width: 32px;
+  height: 32px;
 }
 .frame-content {
   display: flex;
@@ -385,3 +385,4 @@ form {
   }
 }
 </style>
+  

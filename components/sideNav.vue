@@ -474,7 +474,7 @@ export default {
   background: var(--white);
 
   filter: drop-shadow(0px 1px 12px rgba(0, 6, 125, 0.2));
-  border-radius: 16px;
+  border-radius: 21px;
   z-index: 12;
 }
 
@@ -592,5 +592,11 @@ export default {
 
 .nuxt-link-exact-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
+}
+.nuxt-link-exact-active .desktop-nav .nav-content .badge {
+  background: #fff !important;
+}
+.nuxt-link-exact-active .desktop-nav .nav-content .badge p {
+  color: #ff3b2d !important;
 }
 </style>

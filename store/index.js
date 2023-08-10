@@ -16,8 +16,10 @@ export const mutations = {
     }
   },
   buyProduct(state, product) {
-    const savedProductIndex = state.savedItem.findIndex((p) => p.id === product.id);
-    
+    const savedProductIndex = state.savedItem.findIndex(
+      (p) => p.id === product.id
+    );
+
     if (savedProductIndex !== -1) {
       const savedProduct = state.savedItem[savedProductIndex];
       const existingProduct = state.cart.find((p) => p.id === savedProduct.id);
@@ -25,7 +27,7 @@ export const mutations = {
       if (existingProduct) {
         // If the product is already in cart, increase the quantity by the number of clicks
         // existingProduct.quantity += savedProduct.clicks;
-        existingProduct.quantity ++;
+        existingProduct.quantity++;
       } else {
         // If the product is not in cart, add it with a quantity of 1
         state.cart.push({ ...savedProduct, quantity: 1 });
@@ -42,7 +44,9 @@ export const mutations = {
     }
   },
   removeFromSaved(state, productId) {
-    state.savedItem = state.savedItem.filter((product) => product.id !== productId);
+    state.savedItem = state.savedItem.filter(
+      (product) => product.id !== productId
+    );
   },
   incrementQuantity(state, { productId }) {
     const product = state.cart.find((p) => p.id === productId);
@@ -55,7 +59,7 @@ export const mutations = {
     if (product) {
       if (product.quantity > 1) {
         product.quantity--;
-      } 
+      }
       //dont remove the product from the cart, wait for the delete button
       else {
         state.cart = state.cart.filter((p) => p.id !== productId);
@@ -115,62 +119,73 @@ export const actions = {
     }
   },
 
-async signupIndividual({ commit }, credentials) {
-  try {
-    const response = await fetch("http://localhost:8000/api/v1/individual-customers/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+  async signupIndividual({ commit }, credentials) {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/individual-customers/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        }
+      );
 
-    if (response.ok) {
-      console.log(response);
-      const user = await response.json();
-      commit("setUser", user);
-      commit("setError", null);
-      return true; // Indicate successful signup
-    } else {
-      const error = await response.json();
+      if (response.ok) {
+        console.log(response);
+        const user = await response.json();
+        commit("setUser", user);
+        commit("setError", null);
+        return true; // Indicate successful signup
+      } else {
+        const error = await response.json();
+        commit("setUser", null);
+        commit("setSignupError", error);
+        return false; // Indicate failed signup
+      }
+    } catch (error) {
       commit("setUser", null);
-      commit("setSignupError", error);
+      commit("setSignupError", error.message);
       return false; // Indicate failed signup
     }
-  } catch (error) {
-    commit("setUser", null);
-    commit("setSignupError", error.message);
-    return false; // Indicate failed signup
-  }
-},
+  },
 
-async signupBusiness({ commit }, credentials) {
-  try {
-    const response = await fetch("http://localhost:8000/api/v1/business-customers/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+  async signupBusiness({ commit }, credentials) {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/business-customers/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        }
+      );
 
-    if (response.ok) {
-      console.log(response);
-      const user = await response.json();
-      commit("setUser", user);
-      commit("setError", null);
-      return true; // Indicate successful signup
-    } else {
-      const error = await response.json();
+      if (response.ok) {
+        console.log(response);
+        const user = await response.json();
+        commit("setUser", user);
+        commit("setError", null);
+        return true; // Indicate successful signup
+      } else {
+        const error = await response.json();
+        commit("setUser", null);
+        commit("setSignupError", error);
+        return false; // Indicate failed signup
+      }
+    } catch (error) {
       commit("setUser", null);
-      commit("setSignupError", error);
+      commit("setSignupError", error.message);
       return false; // Indicate failed signup
     }
-  } catch (error) {
-    commit("setUser", null);
-    commit("setSignupError", error.message);
-    return false; // Indicate failed signup
-  }
-},
-
+  },
 };
+
+// export const getters = {
+//   isProductInSavedItems: (state) => (product) => {
+//     return state.savedItem.some((item) => item.id === product.id);
+//   },
+// };

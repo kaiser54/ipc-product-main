@@ -1,9 +1,9 @@
 <template>
-  <div class="table-container" style="width:100%">
-    <table style="width:100%">
+  <div class="table-container" style="width: 100%">
+    <table style="width: 100%">
       <thead>
         <tr>
-          <th v-for="header in tableHeaders" :key="header"> 
+          <th v-for="header in tableHeaders" :key="header">
             {{ header }}
           </th>
         </tr>
@@ -13,14 +13,19 @@
           <td style="display: flex; align-items: center; gap: 5px">
             <div class="img">
               <img src="@/assets/images/p1.png" alt="" />
-            </div>{{ item.name }}
+            </div>
+            {{ item.name }}
           </td>
           <td>{{ item.date }}</td>
           <td>{{ item.orderId }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.price }}</td>
-          <td style="text-align: -webkit-right;">
-            <span v-if="item.status === 'Pending'" :class="['tag', 'pending']">{{ item.status }}</span>
+          <td style="text-align: -webkit-right">
+            <span
+              v-if="item.status === 'Pending'"
+              :class="['tag', 'pending']"
+              >{{ item.status }}</span
+            >
             <span v-else :class="['tag', 'verified']">{{ item.status }}</span>
           </td>
         </tr>
@@ -28,8 +33,8 @@
     </table>
   </div>
 </template>
-
-<script>
+  
+  <script>
 export default {
   props: {
     activeTabs: {
@@ -57,14 +62,14 @@ export default {
       // const baseURL = `/dashboard/track orders/${value}`;
       // this.$router.push(baseURL + value)
       // this.$router.push(`/dashboard/track orders/${value}`)
-      this.$router.push(`/dashboard/track_orders/lol`)
+      this.$router.push(`/dashboard/track_orders/lol`);
       // console.log(window.location.origin + "/")
     },
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 table,
 th,
 td {
@@ -102,7 +107,6 @@ th:last-child {
   text-align: center;
 }
 
-
 span.tag {
   width: 105px;
 }
@@ -113,12 +117,12 @@ span.tag {
 }
 
 /* 
-.sticky-header {
-  position: sticky;
-  top: 134px;
-  background: var(--white);
-  z-index: 2;
-} */
+  .sticky-header {
+    position: sticky;
+    top: 134px;
+    background: var(--white);
+    z-index: 2;
+  } */
 
 @media (max-width: 1300px) {
   .sticky-header {
@@ -130,4 +134,6 @@ span.tag {
   .sticky-header {
     top: 213px;
   }
-}</style>
+}
+</style>
+  

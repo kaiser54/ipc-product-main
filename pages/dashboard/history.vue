@@ -1,181 +1,69 @@
 <template>
-  <!-- done with history page, left for the function for the dates -->
   <div class="view-page history">
     <div class="title-header history-head">
       <h2 class="h2-medium header-text">History</h2>
-
-      <!-- table filters for desktop views -->
-
-      <div class="filter-head" v-if="!mobile">
-        <div class="filter-tabs">
-          <div
-            v-for="(tab, index) in tabs"
-            :key="index"
-            class="tab tab-standard"
-            @click="toggleTab(index)"
-            :class="{ clicked: activeTabs.includes(index) }"
+      <DynamicButton
+        v-if="mobile"
+        @clickButton="toggleFilter"
+        class="d__btn"
+        style="width: auto;"
+        buttonText="Filter history"
+        icon="icon-left"
+        size="small"
+        type="neutral"
+      >
+        <template v-slot:svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
           >
-            {{ tab }}
-          </div>
-        </div>
-        <div class="filter-dates">
-          <div class="datepicker-toggle">
-            <p>From</p>
-            <!-- <span class="datepicker-toggle-button"></span> -->
-            <button class="">
-              <!-- <span v-if="startDate">{{ startDate }}</span> -->
-              <input
-                type="date"
-                name=""
-                id=""
-                class="input datepicker-toggle-button"
-                v-model="startDate"
-              />
-              <span class="btn-dsp" style="display: none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
-                  <path
-                    d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3 8.33203H18"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M13.834 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7.16602 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <p>YYYY-MM-DD</p>
-              </span>
-            </button>
-            <!-- <input type="date" class="input datepicker-input" v-model="startDate" /> -->
-          </div>
-          <div class="datepicker-toggle">
-            <p>To</p>
-            <!-- <span class="datepicker-toggle-button"></span> -->
-            <button class="">
-              <!-- <span v-if="endDate">{{ endDate }}</span> -->
-              <input
-              type="date"
-              name=""
-              id=""
-              class="input datepicker-toggle-button"
-              v-model="endDate"
-              />
-              <span class="btn-dsp" style="display: none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
-                  <path
-                    d="M3 4.9987C3 4.07822 3.74619 3.33203 4.66667 3.33203H16.3333C17.2538 3.33203 18 4.07822 18 4.9987V16.6654C18 17.5859 17.2538 18.332 16.3333 18.332H4.66667C3.74619 18.332 3 17.5859 3 16.6654V4.9987Z"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3 8.33203H18"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M13.834 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7.16602 1.66797V5.0013"
-                    stroke="#303237"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <p>YYYY-MM-DD</p>
-              </span>
-            </button>
-            <!-- <input
-              type="date"
-              name=""
-              id=""
-              class="input datepicker-toggle-button"
-              v-model="endDate"
-            /> -->
-          </div>
-        </div>
-      </div>
-      <!-- -------------------------------- -->
+            <path
+              d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
+              stroke="#303237"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </template>
+      </DynamicButton>
 
       <!-- table filters for desktop views -->
-      <button class="btn neutral-btn-small" v-if="mobile" @click="toggleFilter">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-        >
-          <path
-            d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
-            stroke="#303237"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        Filter history
-      </button>
-      <!-- -------------------------------- -->
+
+      <HistoryHeader
+        @clickTab="filterTableDataByStatus"
+        v-if="!mobile"
+        @filterProducts="filterProductsByDate"
+      />
+
+      <!-- ================================ -->
+
     </div>
     <div class="history-content">
+
       <!-- history table for desktop views -->
-      <history-component
-        :tableData="tableData"
+
+      <HistoryTable
+        :tableData="tableDataClone"
         :activeTabs="activeTabs"
         :tableHeaders="tableHeaders"
         v-if="!mobile"
       />
-      <!-- -------------------------------- -->
+
+      <!-- ================================ -->
+
       <!-- history table for mooile views -->
-      <mobileHistoryComponent
-        :tableData="tableData"
-        :activeTabs="activeTabs"
+
+      <HistoryMobileTable
+        :tableData="tableDataClone"
         :tableHeaders="tableHeaders"
         v-if="mobile"
       />
-      <mobileFilterComponent
-        v-if="isFilterOpen && mobile"
+      <HistoryMobileFilter
+        v-show="isFilterOpen && mobile"
         :animate="animate"
         :tabs="tabs"
         :activeTabs="activeTabs"
@@ -185,7 +73,8 @@
         buttonText="Apply filter"
         buttonClass="primary-btn"
         @closeModal="toggleFilter"
-        @toggleTab="toggleTab"
+        @clickTab="filterTableDataByStatus"
+        @filterProducts="filterProductsByDate"
         @closeModalBG="toggleFilter"
       />
       <!-- -------------------------------- -->
@@ -215,7 +104,7 @@ export default {
         {
           id: 1,
           name: "Mama’s pride rice",
-          date: "2022-05-01",
+          date: "2023-08-10",
           orderId: "12345",
           quantity: 2,
           price: 10.99,
@@ -223,93 +112,264 @@ export default {
         },
         {
           id: 2,
-          name: "Mama’s pride rice",
-          date: "2022-05-02",
-          orderId: "67890",
+          name: "Fresh Apples",
+          date: "2023-08-09",
+          orderId: "54321",
+          quantity: 5,
+          price: 4.75,
+          status: "Cancelled",
+        },
+        {
+          id: 3,
+          name: "Crisp Potato Chips",
+          date: "2023-08-08",
+          orderId: "98765",
+          quantity: 3,
+          price: 2.99,
+          status: "Pending",
+        },
+        {
+          id: 4,
+          name: "Premium Coffee Blend",
+          date: "2023-08-07",
+          orderId: "45678",
+          quantity: 1,
+          price: 8.49,
+          status: "Completed",
+        },
+        {
+          id: 5,
+          name: "Soft Bath Towel",
+          date: "2023-08-06",
+          orderId: "23456",
+          quantity: 2,
+          price: 15.75,
+          status: "Pending",
+        },
+        {
+          id: 6,
+          name: "Classic Leather Belt",
+          date: "2023-08-05",
+          orderId: "65432",
+          quantity: 1,
+          price: 22.99,
+          status: "Cancelled",
+        },
+        {
+          id: 7,
+          name: "Garden Flower Seeds",
+          date: "2023-08-04",
+          orderId: "87654",
+          quantity: 4,
+          price: 1.99,
+          status: "Completed",
+        },
+        {
+          id: 8,
+          name: "Stainless Steel Water Bottle",
+          date: "2023-08-03",
+          orderId: "34567",
+          quantity: 1,
+          price: 12.25,
+          status: "Cancelled",
+        },
+        {
+          id: 9,
+          name: "Aromatic Vanilla Candle",
+          date: "2023-08-02",
+          orderId: "76543",
+          quantity: 2,
+          price: 6.99,
+          status: "Pending",
+        },
+        {
+          id: 10,
+          name: "Digital Alarm Clock",
+          date: "2023-08-01",
+          orderId: "56789",
+          quantity: 1,
+          price: 9.75,
+          status: "Completed",
+        },
+        {
+          id: 11,
+          name: "Men's Casual T-Shirt",
+          date: "2023-07-31",
+          orderId: "98765",
+          quantity: 3,
+          price: 18.49,
+          status: "Completed",
+        },
+        {
+          id: 12,
+          name: "Scented Bath Bombs Set",
+          date: "2023-07-30",
+          orderId: "45678",
+          quantity: 1,
+          price: 14.99,
+          status: "Cancelled",
+        },
+        {
+          id: 13,
+          name: "Wireless Bluetooth Earphones",
+          date: "2023-07-29",
+          orderId: "23456",
+          quantity: 2,
+          price: 32.75,
+          status: "Pending",
+        },
+        {
+          id: 14,
+          name: "Healthy Snack Variety Pack",
+          date: "2023-07-28",
+          orderId: "65432",
+          quantity: 1,
+          price: 11.99,
+          status: "Completed",
+        },
+        {
+          id: 15,
+          name: "Set of Glass Food Containers",
+          date: "2023-07-27",
+          orderId: "87654",
+          quantity: 2,
+          price: 19.25,
+          status: "Cancelled",
+        },
+        {
+          id: 16,
+          name: "Professional Sketching Pencils",
+          date: "2023-07-26",
+          orderId: "34567",
+          quantity: 1,
+          price: 8.99,
+          status: "Pending",
+        },
+        {
+          id: 17,
+          name: "Fruit Infuser Water Pitcher",
+          date: "2023-07-25",
+          orderId: "76543",
+          quantity: 1,
+          price: 16.49,
+          status: "Completed",
+        },
+        {
+          id: 18,
+          name: "Yoga Mat with Carry Strap",
+          date: "2023-07-24",
+          orderId: "56789",
+          quantity: 1,
+          price: 24.75,
+          status: "Cancelled",
+        },
+        {
+          id: 19,
+          name: "Reusable Grocery Bags",
+          date: "2023-07-23",
+          orderId: "98765",
+          quantity: 4,
+          price: 6.99,
+          status: "Completed",
+        },
+        {
+          id: 20,
+          name: "Decorative Throw Pillow",
+          date: "2023-07-22",
+          orderId: "45678",
+          quantity: 2,
+          price: 13.49,
+          status: "Cancelled",
+        },
+        {
+          id: 21,
+          name: "Fresh Strawberries",
+          date: "2023-07-21",
+          orderId: "23456",
+          quantity: 3,
+          price: 3.99,
+          status: "Pending",
+        },
+        {
+          id: 22,
+          name: "Sleek Wristwatch",
+          date: "2023-07-20",
+          orderId: "65432",
+          quantity: 1,
+          price: 45.99,
+          status: "Completed",
+        },
+        {
+          id: 23,
+          name: "Artificial Indoor Plant",
+          date: "2023-07-19",
+          orderId: "87654",
+          quantity: 2,
+          price: 29.25,
+          status: "Cancelled",
+        },
+        {
+          id: 24,
+          name: "Gourmet Chocolate Box",
+          date: "2023-07-18",
+          orderId: "34567",
           quantity: 1,
           price: 19.99,
           status: "Pending",
         },
         {
-          id: 3,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
+          id: 25,
+          name: "Leather Crossbody Bag",
+          date: "2023-07-17",
+          orderId: "76543",
+          quantity: 1,
+          price: 37.49,
           status: "Completed",
         },
         {
-          id: 4,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
+          id: 26,
+          name: "Rustic Wall Clock",
+          date: "2023-07-16",
+          orderId: "56789",
+          quantity: 1,
+          price: 28.75,
+          status: "Cancelled",
+        },
+        {
+          id: 27,
+          name: "Fitness Resistance Bands Set",
+          date: "2023-07-15",
+          orderId: "98765",
           quantity: 3,
-          price: 7.99,
+          price: 9.99,
+          status: "Pending",
+        },
+        {
+          id: 28,
+          name: "Aromatherapy Essential Oils Set",
+          date: "2023-07-14",
+          orderId: "45678",
+          quantity: 1,
+          price: 22.99,
           status: "Completed",
         },
         {
-          id: 5,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
+          id: 29,
+          name: "Wireless Computer Mouse",
+          date: "2023-07-13",
+          orderId: "23456",
+          quantity: 2,
+          price: 12.75,
+          status: "Cancelled",
         },
         {
-          id: 6,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
-        },
-        {
-          id: 7,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
-        },
-        {
-          id: 8,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
-        },
-        {
-          id: 9,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
-        },
-        {
-          id: 10,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
-        },
-        {
-          id: 11,
-          name: "Mama’s pride rice",
-          date: "2022-05-03",
-          orderId: "24680",
-          quantity: 3,
-          price: 7.99,
-          status: "Completed",
+          id: 30,
+          name: "Cozy Knit Blanket",
+          date: "2023-07-12",
+          orderId: "65432",
+          quantity: 1,
+          price: 34.99,
+          status: "Pending",
         },
       ],
       data: [
@@ -319,9 +379,6 @@ export default {
         { id: 4, name: "Item 4", date: "05-05-2023" },
         { id: 5, name: "Item 5", date: "10-05-2023" },
       ],
-      startDate: "",
-      endDate: "",
-      tabs: ["All", "Completed", "Pending", "Cancelled"],
       tableHead: [
         "Product’s name",
         "Date",
@@ -330,10 +387,12 @@ export default {
         "Price",
         "Status",
       ],
-      activeTabs: [0], // set the default active tab to be "All"
+      status: "All",
+      activeTabs: [0],
       visible: true,
       animate: null,
       isFilterOpen: false,
+      tableDataClone: [],
     };
   },
   head() {
@@ -343,6 +402,7 @@ export default {
   },
   mounted() {
     this.checkScreenSize();
+    this.tableDataClone = this.tableData;
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
@@ -388,18 +448,7 @@ export default {
         return itemDate.isBetween(start, end, null, "[]");
       });
     },
-    toggleTab(index) {
-      if (this.activeTabs.length === 1 && this.activeTabs.includes(index)) {
-        // do nothing if the clicked tab is the last active tab
-        return;
-      } else if (this.activeTabs.includes(index)) {
-        this.activeTabs = this.activeTabs.filter(
-          (tabIndex) => tabIndex !== index
-        );
-      } else {
-        this.activeTabs.push(index);
-      }
-    },
+
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -411,6 +460,37 @@ export default {
     },
     toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen;
+    },
+    filterTableDataByStatus(status) {
+      this.status = status.status;
+      if (status.status == "All") {
+        return (this.tableDataClone = this.tableData);
+      } else
+        this.tableDataClone = this.tableData.filter(
+          (item) => item.status === this.status
+        );
+      console.log(this.tableDataClone);
+      console.log(status);
+      console.log(this.tableData);
+      console.log(this.status);
+    },
+    filterProductsByDate(dateData) {
+      this.tableDataClone = this.tableData.filter((product) => {
+        if (!dateData.startDate) {
+          return true; // No start date input, no filter applied
+        }
+
+        if (!dateData.endDate) {
+          return product.date >= dateData.startDate; // Filter based on start date only
+        }
+
+        return (
+          product.date >= dateData.startDate && product.date <= dateData.endDate
+        );
+      });
+      // console.log(dateData)
+      // console.log(dateData.startDate)
+      // console.log(dateData.endDate)
     },
   },
 };
@@ -429,104 +509,6 @@ export default {
   background: white;
 }
 
-.datepicker-toggle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 18px;
-  position: relative;
-}
-
-.datepicker-toggle-button {
-  /* position: absolute;
-  left: 0;
-  top: 0; */
-
-  /* display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 16px; */
-  /* gap: 8px; */
-
-  max-width: 160px;
-  /* min-width: 155px; */
-  /* width: 100%; */
-  height: 48px;
-
-  /* White */
-
-  background: var(--white);
-  /* Grey/Grey4 */
-
-  border: 1px solid var(--grey-grey4);
-  border-radius: 100px;
-}
-/* 
-.datepicker-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 155px;
-  height: 40px;
-  opacity: 0;
-  cursor: pointer;
-  box-sizing: border-box;
-} */
-
-.btn-dsp {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-dsp p {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-
-.filter-head {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.filter-tabs {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-.filter-dates {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 16px;
-  position: relative;
-}
-
-.tab.clicked {
-  /* Accent/A75 */
-  background: var(--accent-a75);
-  /* Accent/A200 */
-
-  border: 1px solid var(--accent-a200);
-}
-
-button {
-  width: auto;
-}
-
 .history-content {
   display: flex;
   flex-direction: column;
@@ -543,34 +525,9 @@ button {
 
   /* height: 50vh; */
 }
-
 @media (max-width: 1300px) {
   .history {
     max-width: 100%;
-  }
-
-  .filter-dates {
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 1040px) {
-  .history {
-    max-width: 100%;
-  }
-
-  .filter-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
-  }
-
-  .filter-dates {
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: row;
   }
 }
 
@@ -590,12 +547,6 @@ button {
 
   .history-content {
     padding: 16px;
-  }
-
-  .filter-dates {
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: row;
   }
 }
 </style>

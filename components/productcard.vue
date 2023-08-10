@@ -23,7 +23,9 @@
         </div>
         <div class="productcard-price">
           <p><span class="naira">₦</span> {{ product.price }}</p>
-          <p class="slashprice"><span class="naira">₦</span> {{ product.price }}</p>
+          <p class="slashprice">
+            <span class="naira">₦</span> {{ product.price }}
+          </p>
         </div>
       </div>
 
@@ -171,9 +173,14 @@ export default {
       this.$store.commit("decrementQuantity", { productId: this.product.id });
     },
     toggleLike() {
-      // Method logic goes here
-      this.isLiked = !this.isLiked;
+      // If the product is not in saved items, add it
       this.$store.commit("addToSaved", this.product);
+      this.isLiked == true;
+      if (this.isLiked == true) {
+        this.$store.commit("removeFromSaved", this.product);
+        this.isLiked == false;
+        console.log('clicked')
+      }
     },
   },
 };
@@ -249,7 +256,7 @@ a {
 }
 
 .circle svg path {
-  stroke: #565C69;
+  stroke: #565c69;
 }
 .circle svg.liked path {
   stroke: red;

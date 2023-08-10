@@ -24,6 +24,8 @@
                 />
               </svg>
             </div>
+
+            <!-- Status tab -->
             <div class="snippet-tab">
               <p class="snippet">{{ snippet }}</p>
               <div class="filter-tabs">
@@ -32,54 +34,43 @@
                   :key="index"
                   class="tab tab-small"
                   @click="toggleTab(index)"
-                  :class="{ clicked: activeTabs.includes(index) }"
+                  :class="{ clicked: activeTab === index }"
                 >
                   {{ tab }}
                 </div>
               </div>
             </div>
+
+            <!-- ============================= -->
+
+            <!-- date filter -->
+
             <div class="snippet-tab">
               <p class="snippet">{{ snippet2 }}</p>
 
               <div class="filter-dates">
                 <div class="datepicker-toggle">
                   <p>From</p>
-                  <!-- <span class="datepicker-toggle-button"></span> -->
-                  <button class="">
-                    <!-- <span v-if="startDate">{{ startDate }}</span> -->
-                    <input
-                      type="date"
-                      name=""
-                      id=""
-                      class="input datepicker-toggle-button"
-                      v-model="startDate"
-                    />
-                  </button>
-                  <!-- <input type="date" class="input datepicker-input" v-model="startDate" /> -->
+                  <input
+                    type="date"
+                    @input="filterProducts"
+                    class="input datepicker-toggle-button"
+                    v-model="startDate"
+                  />
                 </div>
                 <div class="datepicker-toggle">
                   <p>To</p>
-                  <!-- <span class="datepicker-toggle-button"></span> -->
-                  <button class="">
-                    <!-- <span v-if="endDate">{{ endDate }}</span> -->
-                    <input
-                      type="date"
-                      name=""
-                      id=""
-                      class="input datepicker-toggle-button"
-                      v-model="endDate"
-                    />
-                  </button>
-                  <!-- <input
-                type="date"
-                name=""
-                id=""
-                class="input datepicker-toggle-button"
-                v-model="endDate"
-              /> -->
+                  <input
+                    type="date"
+                    @input="filterProducts"
+                    class="input datepicker-toggle-button"
+                    v-model="endDate"
+                  />
                 </div>
               </div>
             </div>
+
+            <!-- ============================================ -->
           </div>
           <div class="button-grp">
             <button @click="closeModal" class="btn" :class="buttonClass">
@@ -92,8 +83,8 @@
     </div>
   </div>
 </template>
-    
-  <script>
+      
+    <script>
 import "animate.css";
 export default {
   props: {
@@ -121,14 +112,14 @@ export default {
       type: String,
       required: true,
     },
-    tabs: {
-      type: Array,
-      required: true,
-    },
-    activeTabs: {
-      type: Array,
-      required: true,
-    },
+  },
+  data() {
+    return {
+      tabs: ["All", "Completed", "Pending", "Cancelled"],
+      startDate: "",
+      endDate: "",
+      activeTab: 0,
+    };
   },
   mounted() {
     // Add a global click event listener
@@ -150,13 +141,29 @@ export default {
       this.$emit("closeModal");
     },
     toggleTab(index) {
-      this.$emit("toggleTab", index);
+      this.$emit("clickTab", { status: this.tabs[index] });
+      this.activeTab = index;
+    },
+    filterProducts() {
+      const dateData = {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      };
+      this.$emit("filterProducts", dateData);
+    },
+    watch: {
+      startDate() {
+        this.filterProducts();
+      },
+      endDate() {
+        this.filterProducts();
+      },
     },
   },
 };
 </script>
-    
-  <style scoped>
+      
+    <style scoped>
 .logout-modal {
   position: fixed;
   top: 0;
@@ -401,4 +408,4 @@ input[type="date"] {
   }
 }
 </style>
-    
+      

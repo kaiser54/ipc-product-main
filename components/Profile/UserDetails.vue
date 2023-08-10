@@ -8,7 +8,7 @@
     <!-- switch__tab image -->
 
     <div class="avatar">
-      <img src="../assets/images/avatar1.png" alt="" />
+      <img src="~/assets/images/avatar1.png" alt="" />
     </div>
 
     <!-- --------- -->
@@ -52,7 +52,6 @@
     <!-- switch__tab phone number group containing the number field, button functions -->
 
     <div class="num-btn">
-
       <!-- phone number -->
 
       <div class="phone-number">
@@ -89,11 +88,11 @@
           :value="numberValue"
           type="tel"
           placeholder="Add new number"
-          :required = false
+          :required="false"
           :invalid="invalidNumber"
-          :errorMessage = errorMessage
+          :errorMessage="errorMessage"
         />
-        
+
         <!--  click this button to save the inputed number  -->
 
         <PrimaryBtn @click="addNumBtn" buttonText="Add" />
@@ -120,19 +119,18 @@
         </svg>
 
         <!-- ------------------------------------- -->
-
       </div>
 
       <!-- the button that toggles the input field for the add phone number -->
 
-      <add-num-btn @click="openAddNumber" />
+      <addNumBtn @click="openAddNumber" />
 
       <!-- ---------------------------------------------------------------- -->
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import "animate.css";
 export default {
   props: {
@@ -186,13 +184,13 @@ export default {
     },
     addNumBtn() {
       this.$emit("add-number", this.newPhoneNumber);
-      this.newPhoneNumber = ''; // Clear the value to an empty string
+      this.newPhoneNumber = ""; // Clear the value to an empty string
     },
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .accountDetails {
   display: flex;
   flex-direction: column;
@@ -289,3 +287,4 @@ export default {
   }
 }
 </style>
+  

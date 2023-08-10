@@ -4,7 +4,7 @@
     <div class="password">
       <input
         class="input"
-        :class="{ 'input-error': invalidPassword }"
+        :class="{ 'input-error': isInvalid }"
         :type="inputType"
         :id="id"
         :value="value"
@@ -12,7 +12,7 @@
         name="password"
         required
       />
-      <span @click="togglePassword">
+      <span @click="togglePassword" v-if="inputType == 'password'">
         <svg
           v-if="showPassword"
           xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
         </svg>
       </span>
     </div>
-    <div v-show="invalidPassword" class="error">
+    <div v-show="isInvalid" class="error">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -74,7 +74,7 @@
           </clipPath>
         </defs>
       </svg>
-      <p>{{ passwordErrorMessage }}</p>
+      <p>{{ errMsg }}</p>
     </div>
   </div>
 </template>
@@ -92,38 +92,29 @@ export default {
     },
     required: {
       type: Boolean,
-      required: true,
     },
-    passwordErrorMessage: {
+    errMsg: {
       type: String,
       required: true,
     },
     value: {
       type: String,
-      required: true
+      required: true,
     },
-    invalidPassword: {
-      type: Boolean,
-      required: true
+    isInvalid: {
+      required: true,
+    },
+    inputType: {
+      type: String,
+      default: 'password',
     },
   },
   data() {
     return {
-      inputType: "password",
       showPassword: false,
-    //   invalidPassword: false,
+      //   isInvalid: false,
     };
   },
-  //   methods: {
-  //     togglePassword() {
-  //       this.showPassword = !this.showPassword;
-  //       if (this.showPassword === false) {
-  //         this.inputType = "text";
-  //       } else {
-  //         this.inputType = "password";
-  //       }
-  //     },
-  //   },
   methods: {
     togglePassword() {
       this.showPassword = !this.showPassword;
@@ -135,7 +126,7 @@ export default {
   },
   watch: {
     password() {
-      this.invalidPassword = !this.validatePassword();
+      this.isInvalid = !this.validatePassword();
     },
   },
 };
