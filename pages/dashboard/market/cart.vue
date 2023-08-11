@@ -142,23 +142,7 @@
         </div>
       </template>
     </EmptyStates>
-    <div class="category-list">
-        <div class="categories">
-        <CategoryCards
-
-      Header = "Recommended for you"/>
-      </div>
-      <div class="categories">
-        <CategoryCards
-        Header = "Check these out"
-      />
-      </div>
-      <div class="categories">
-        <CategoryCards
-      Header = "You might also like this"
-      />
-      </div>
-      </div>
+ 
     <div class="listed-cart" v-if="!mobile && cart.length > 0">
       <div class="listed-cart-product">
         <cartList
@@ -188,7 +172,23 @@
         </nuxt-link>
       </div>
     </div>
-    
+    <div class="category-list">
+        <div class="categories">
+        <CategoryCards
+
+      Header = "Recommended for you"/>
+      </div>
+      <div class="categories">
+        <CategoryCards
+        Header = "Check these out"
+      />
+      </div>
+      <div class="categories">
+        <CategoryCards
+      Header = "You might also like this"
+      />
+      </div>
+      </div>
   </div>
 </template>
 
