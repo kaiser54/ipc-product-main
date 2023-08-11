@@ -232,6 +232,108 @@
       </div>
       <!-- ---------------------------------- -->
     </div>
+
+
+
+
+    <div class="bottom-nav"  v-if="mobile">
+          <div class="addBtn">
+            <button class=" btn primary-btn" @click="addToCart" >
+              Add to cart
+            </button>
+          </div>
+            <div class="operation">
+              <!-- counter button -->
+
+              <button @click="decrementQuantity" class="circle">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 8H12.6666"
+                    stroke="#0009B3"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+               <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+              <div class="counter">{{ getProductQuantity }}</div>
+
+              <button @click="incrementQuantity" class="circle">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+                    stroke="#0009B3"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+            </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="categories-ctn">
+      <CategoryCards Header="You might also like this">
+        <template v-slot:svg>
+          <svg
+            @click="toggleColor"
+            :class="{ Red: isRed }"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z"
+              :stroke="isRed ? '#FF0000' : '#565C69'"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <rect
+              x="0.5"
+              y="0.5"
+              width="31"
+              height="31"
+              rx="15.5"
+              :stroke="isRed ? '#FF0000' : '#565C69'"
+            />
+          </svg>
+        </template>
+      </CategoryCards>
+      <!-- <div class="product-buttom-nav">
+        <ProductDetailb />
+      </div> -->
+    </div>
   </div>
 </template>
 
@@ -391,7 +493,9 @@ export default {
   gap: 16px;
   align-items: flex-start;
 }
-
+.test{
+  border: 1px solid red;
+}
 .product-content {
   display: flex;
   flex-direction: column;
@@ -406,7 +510,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 124px;
+  gap: 50px;
 }
 
 .product-details-main {
@@ -556,7 +660,7 @@ export default {
 }
 
 .circle svg path {
-  stroke: #565C69;
+  stroke: #565c69;
 }
 .circle svg.liked path {
   stroke: red;
@@ -565,7 +669,6 @@ export default {
 .circle .liked {
   fill: red;
 }
-
 
 p.product-details-snippet {
   font-weight: 400;
@@ -617,6 +720,31 @@ p.product-details-snippet {
 
   color: var(--grey-grey1);
 }
+.categories-ctn {
+  padding: 0px 0px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+.product-buttom-nav {
+ display: none;
+}
+
+
+.nuxt-link-active .desktop-nav {
+  background: var(--primary-p300);
+}
+
+.nuxt-link-active .desktop-nav p {
+  color: #fff;
+}
+
+.nuxt-link-active .desktop-nav svg {
+  stroke: #fff;
+}
+
+.nuxt-link-active .desktop-nav .nav-content svg path {
+  stroke: #fff !important;
+}
 
 @media (min-width: 950px) {
   .webskeleton {
@@ -634,6 +762,12 @@ p.product-details-snippet {
     gap: 8px;
   }
 
+  .categories-ctn {
+  padding: 0px 0px;
+  margin-bottom: 100px;
+  /* border: 1px solid red; */
+  width: 100%;
+}
   .webskeleton {
     display: none;
   }
@@ -641,23 +775,117 @@ p.product-details-snippet {
   .SkeletonLoader {
     display: block;
   }
+  .product-buttom-nav{
+    position: fixed;
+    display: block;
+    bottom: 0;
+    width: 100%;
+  }
+  .categories-ctn {
+  padding: 0px 0px;
+  margin-bottom: 100px;
+  width: 100%;
 }
-</style>
+.operation{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px;
+  width: 45%;
+  /* border: 1px solid blue; */
 
-<style>
-.nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+}
+.circle {
+  /* position: absolute; */
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  gap: 10px;
+
+  width: 40px;
+  height: 40px;
+
+  /* Grey/Grey4 */
+
+  border: 1px solid var(--grey-grey4);
+  /* border: 1px solid red; */
+  border-radius: 100px;
+}
+.addBtn{
+  /* border: 1px solid red; */
+  width: 50%;
+}
+.bottom-nav{
+  position: fixed;
+  padding: 10px 20px;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px;
+  /* border: 1px solid red; */
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(48, 50, 55, 0.2);
+}
+.operation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 50%;
+
 }
 
-.nuxt-link-active .desktop-nav p {
-  color: #fff;
+}
+@media screen and (max-width:768px) {
+  .product-buttom-nav{
+    position: fixed;
+    display: block;
+    bottom: 0;
+    width: 100%;
+  }
+  .categories-ctn {
+  padding: 0px 0px;
+  margin-bottom: 100px;
+  width: 100%;
+}
+.operation{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  gap: 20px;
+  width: 30%;
+  /* border: 1px solid blue; */
+
+}
+}
+@media screen and (max-width:600px) {
+  .product-buttom-nav{
+    position: fixed;
+    display: block;
+    bottom: 0;
+    width: 100%;
+  }
+  .categories-ctn {
+  padding: 0px 0px;
+  margin-bottom: 100px;
+  width: 100%;
+}
+.operation{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  gap: 20px;
+  width: 40%;
+
+}
 }
 
-.nuxt-link-active .desktop-nav svg {
-  stroke: #fff;
-}
-
-.nuxt-link-active .desktop-nav .nav-content svg path {
-  stroke: #fff !important;
-}
 </style>

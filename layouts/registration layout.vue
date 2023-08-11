@@ -2,12 +2,19 @@
   <div>
     <div class="container zindex">
       <div class="branding">
-        <nuxt-link :to="{ name: 'login' }">
+        <nuxt-link :to="{ name: 'login' }" class="tag-flex">
           <img
             src="../assets/images/ipc-logo.png"
             alt="IPC Logo branding Independence purchasing company"
           />
+          <NewTag title="BETA" bgColor="#20AF0B" textColor="#FFFFFF"
+            padding="2px 8px"
+            borderRadius="10px"
+            fonts="10px"
+         />
         </nuxt-link>
+        
+           
       </div>
     </div>
     <nuxt />
@@ -39,8 +46,12 @@ export default {};
 .zindex {
   z-index: 99;
 }
-.branding {
+.tag-flex{
   display: flex;
+  align-items: center;
+}
+.branding {
+
   width: 90%;
   padding: 24px 0;
 }

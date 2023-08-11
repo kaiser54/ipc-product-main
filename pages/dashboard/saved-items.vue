@@ -24,6 +24,23 @@
         @incrementQuantityEvent="incrementQuantity"
         @decrementQuantityEvent="decrementQuantity"
       />
+      <div class="category-list">
+        <div class="categories">
+        <CategoryCards
+
+      Header = "Recommended for you"/>
+      </div>
+      <div class="categories">
+        <CategoryCards
+        Header = "Check these out"
+      />
+      </div>
+      <div class="categories">
+        <CategoryCards
+      Header = "You might also like this"
+      />
+      </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,10 +92,9 @@ export default {
 }
 .saved__items__container {
   display: flex;
-  max-width: 681px;
+  /* max-width: 681px; */
   flex-direction: column;
   align-items: flex-start;
-  gap: 64px;
 }
 .product__wrap {
   /* max-width: 681px; */
@@ -103,4 +119,15 @@ export default {
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
 }
+.categories{
+  width: 100%;
+}
+.category-list{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  }
 </style>
