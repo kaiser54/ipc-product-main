@@ -28,13 +28,13 @@
             </div>
             <div class="submit-reset">
               <PrimaryBtn buttonText="Continue" @click="submitReset" />
-              <nuxt-link :to="{ name: 'index' }" class="btn ghost-btn">Back to log in</nuxt-link>
+              <nuxt-link to="/auth/login" class="btn ghost-btn">Back to log in</nuxt-link>
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
-    <confirmation :maskedEmail = hiddenMail v-else class="animate__animated animate__zoomIn" />
+    <AuthConfirmation :maskedEmail = hiddenMail v-else class="animate__animated animate__zoomIn" />
   </div>
 </template>
 

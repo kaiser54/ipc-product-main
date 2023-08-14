@@ -87,7 +87,7 @@
               <div class="pass-link">
                 <p>
                   Have an account already?
-                  <nuxt-link :to="{ name: 'index' }">Log in</nuxt-link>
+                  <nuxt-link to="/auth/login">Log in</nuxt-link>
                 </p>
               </div>
             </div>

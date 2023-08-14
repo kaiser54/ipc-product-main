@@ -13,14 +13,15 @@
               @click="selectItem(item.value)"
             >
               <div class="list-select-header">
-                <div class="title-flex"> <h3 class="h3-medium">{{ item.title }}</h3>
-                <NewTag 
-                title="COMING SOON" bgColor="#E9F7E7" textColor="#20AF0B"
-                  border="1px solid #A4DE9B"
-                  padding="4px 15px"
-                  borderRadius="15px"
-                  fonts="12px"
-                v-if="index === indexOfCardWithComponent"/>
+                <div class="title-flex">
+                  <h3 class="h3-medium">{{ item.title }}</h3>
+                  <DynamicTags
+                    class="auto"
+                    tagText="COMING SOON"
+                    size="small"
+                    type="positive"
+                    v-if="index === indexOfCardWithComponent"
+                  />
                 </div>
                 <label>
                   <input
@@ -58,7 +59,7 @@
           />
           <div class="signup-link">
             <p>
-              Have an existing account?<nuxt-link :to="{ name: 'index' }">
+              Have an existing account?<nuxt-link to="/auth/login">
                 Log in</nuxt-link
               >
             </p>
@@ -79,21 +80,21 @@ export default {
       invalidEmail: false,
       pageTitle: "IPC | Register",
       selectedItem: "",
-      indexOfCardWithComponent : 1,
+      indexOfCardWithComponent: 1,
       listSelect: [
         {
           title: "As a Business",
           snippet:
             "Sign up and join IPC today as a business and enjoy great benefits.",
           value: "business",
-          route: "/business",
+          route: "/auth/register/sign-up/business",
         },
         {
           title: "As an Individual",
           snippet:
             "Purchase your food & kitchen items today at IPC with discounted prices.",
           value: "individual",
-          route: "/individual",
+          route: "/auth/register/sign-up/individual",
         },
       ],
     };
@@ -228,7 +229,7 @@ button:disabled {
 
   color: var(--primary-p300);
 }
-.title-flex{
+.title-flex {
   display: flex;
   justify-content: center;
   align-items: center;

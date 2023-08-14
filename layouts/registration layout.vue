@@ -7,11 +7,20 @@
             src="../assets/images/ipc-logo.png"
             alt="IPC Logo branding Independence purchasing company"
           />
-          <NewTag title="BETA" bgColor="#20AF0B" textColor="#FFFFFF"
-            padding="2px 8px"
-            borderRadius="10px"
-            fonts="10px"
-         />
+          <DynamicTags
+              class="auto"
+              tagText="BETA"
+              size="small"
+              type="positive"
+              style="
+                background: #20af0b;
+                color: white;
+                height: 22px;
+                font-size: 10px;
+                width: 40.22px;
+                cursor: auto;
+              "
+            />
         </nuxt-link>
         
            
