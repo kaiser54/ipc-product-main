@@ -13,7 +13,15 @@
               @click="selectItem(item.value)"
             >
               <div class="list-select-header">
-                <h3 class="h3-medium">{{ item.title }}</h3>
+                <div class="title-flex"> <h3 class="h3-medium">{{ item.title }}</h3>
+                <NewTag 
+                title="COMING SOON" bgColor="#E9F7E7" textColor="#20AF0B"
+                  border="1px solid #A4DE9B"
+                  padding="4px 15px"
+                  borderRadius="15px"
+                  fonts="12px"
+                v-if="index === indexOfCardWithComponent"/>
+                </div>
                 <label>
                   <input
                     type="radio"
@@ -71,6 +79,7 @@ export default {
       invalidEmail: false,
       pageTitle: "IPC | Register",
       selectedItem: "",
+      indexOfCardWithComponent : 1,
       listSelect: [
         {
           title: "As a Business",
@@ -219,7 +228,12 @@ button:disabled {
 
   color: var(--primary-p300);
 }
-
+.title-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 @media (max-width: 750px) {
   .content-box {
     padding: 0;

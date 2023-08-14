@@ -248,7 +248,7 @@ section.view {
   flex-direction: column;
   gap: 24px;
   margin: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
   justify-content: center;
 }
 
