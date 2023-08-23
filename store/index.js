@@ -3,9 +3,18 @@ export const state = () => ({
   savedItem: [],
   user: null,
   error: null,
+  modalVisible: false,
+  welcomeFlow: 'new-user'
 });
 
 export const mutations = {
+  setModalVisible(state, value) {
+    state.modalVisible = true
+    console.log('Modal is displayed.')
+  },
+  hideModal(state) {
+    state.modalVisible = false
+  },
   addToCart(state, product) {
     const existingProduct = state.cart.find((p) => p.id === product.id);
     if (existingProduct) {
@@ -36,6 +45,7 @@ export const mutations = {
     const existingProduct = state.savedItem.find((p) => p.id === product.id);
     if (existingProduct) {
       existingProduct.quantity++;
+      console.log(existingProduct.quantity++)
     } else {
       const newProduct = { ...product, quantity: 1 };
       state.savedItem.push(newProduct);
@@ -78,9 +88,18 @@ export const mutations = {
   setError(state, error) {
     state.error = error;
   },
+  setWelcomeFlow (state, val) {
+    // console.log(val)
+    console.log(localStorage.getItem('welcomeFlow'))
+    state.welcomeFlow = val
+    localStorage.setItem('welcomeFlow', val)
+  }
 };
 
 export const actions = {
+  setModalVisible({ commit }, value) {
+    commit('setModalVisible', value);
+  },
   async login({ commit }, credentials) {
     try {
       const response = await fetch("https://fakestoreapi.com/auth/login", {

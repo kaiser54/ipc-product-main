@@ -16,35 +16,26 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <productcard
-            v-for="product in product"
-            :key="product.id"
-            :product="product"
-            :inCart="inCart"
-          />
+          <productcard v-for="product in product" :key="product.id" :product="product" :inCart="inCart" />
         </div>
       </section>
       <transition name="modal-fade">
         <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
-        <popupModal
-          v-if="checkMail"
-          :animate="animate"
-          title="Check your email address"
+        <popupModal v-if="checkMail" :animate="animate" title="Check your email address"
           snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-          buttonText="Resend link"
-          buttonText2="Got it"
-          buttonClass="neutral-btn"
-          buttonClass2="primary-btn"
-          @closeModal="handleOpenMail"
-          @closeModalBG="handleOpenMail"
-        />
+          buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
+          @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
       </transition>
+      <WelcomeModal v-if="showModal" @cancelModal="removemodal()" @removeModal="removemodal()" />
     </div>
   </div>
 </template>
 
 <script>
+import welcomeModal from '~/components/WelcomeModal.vue';
 export default {
+  components: { welcomeModal },
+  middleware: 'welcome-flow',
   layout: "dashboardview",
   data() {
     return {
@@ -54,6 +45,7 @@ export default {
       inCart: false,
       loading: true,
       animate: null,
+      showModal : false
     };
   },
   head() {
@@ -62,25 +54,51 @@ export default {
     };
   },
   async mounted() {
+    // set welcome modal to show on condition that a user is new or not
+    this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
-    try {
-      this.loading = true;
-      // Fetch product details from the FakeStoreAPI
-      const response = await this.$axios.$get(
-        `https://fakestoreapi.com/products`
-      );
-      this.product = response;
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      this.loading = false;
-    }
+    this.welcomeUser()
+    this.loadProducts()
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
   },
+  computed: {
+    modalVisible() {
+      return this.$store.state.modalVisible;
+    },
+  },
   methods: {
+    welcomeUser() {
+      const welcome = localStorage.getItem('welcomeFlow')
+      if (!welcome) {
+        localStorage.setItem('welcomeFlow', 'incomplete')
+      }
+    },
+    clear () {
+      localStorage.removeItem('welcomeFlow')
+    },
+    async loadProducts() {
+      try {
+        this.loading = true;
+        // Fetch product details from the FakeStoreAPI
+        const response = await this.$axios.$get(
+          `https://fakestoreapi.com/products`
+        );
+        this.product = response;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    removemodal() {
+      this.showModal = false
+      localStorage.setItem('welcomeFlow', 'complete');
+    },
+
+
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;

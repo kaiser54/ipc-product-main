@@ -1,5 +1,7 @@
 <template>
+  
   <div :class="{ 'user-details-component': mobile }">
+    <ModalCard  @removeModal="removedModal()" v-if="modalVisible" @unmountModal="removedModal()" class="modal" />
     <div class="webskeleton" v-if="loading" style="margin: 20px">
       <!-- css skeleton loading state on the website for desktop view -->
       <webskeleton style="overflow: hidden; height: 100vh" />
@@ -76,7 +78,7 @@
         <productCarousel :images="product.image" />
         <!-- ---------------------------- -->
 
-        <div class="product-content">
+        <div class="product-content product">
           <!-- product title, brand name and like button -->
 
           <div class="product-details-title">
@@ -91,9 +93,12 @@
             <h3 class="h3-bold">₦ {{ product.price }}</h3>
             <tags />
           </div>
-          <p class="product-details-snippet">
-            {{ product.description }}
+          <!-- <p class="product-details-snippet description" :class="{ 'expanded': product.expanded }"> -->
+          <p class="product-details-snippet description">
+            {{ formattedDescription }}
+            <button class="read" @click="() => toggleDescription()"> Read {{ expanded ? 'Less' : 'More' }}</button>
           </p>
+
 
           <!-- ------------------------------- -->
         </div>
@@ -301,7 +306,10 @@
 
 
     <div class="categories-ctn">
-      <CategoryCards Header="You might also like this">
+      <CategoryCards Header="You might also like this"
+      
+      >
+        
         <template v-slot:svg>
           <svg
             @click="toggleColor"
@@ -330,16 +338,16 @@
           </svg>
         </template>
       </CategoryCards>
-      <!-- <div class="product-buttom-nav">
-        <ProductDetailb />
-      </div> -->
+   
     </div>
   </div>
 </template>
 
 <script>
+import DashboardModal from "~/components/DashboardModal.vue";
 import { mapState, mapMutations } from "vuex";
 export default {
+  components:{DashboardModal},
   name: "product",
   layout: "dashboardview",
   // Other component properties and methods
@@ -355,6 +363,9 @@ export default {
       inCart: false,
       loading: false,
       isLiked: false,
+      expanded: false,
+      product:{},
+      modalVisible: false
     };
   },
   head() {
@@ -363,6 +374,9 @@ export default {
     };
   },
   computed: {
+    formattedDescription () {
+      return this.expanded ? this.product.description : this.truncateDescription(this.product.description)
+    },
     ...mapState(["cart"]),
     isInCart() {
       const productInCart = this.$store.state.cart.find(
@@ -399,6 +413,7 @@ export default {
         `https://fakestoreapi.com/products/${this.currentPage}`
       );
       this.product = response;
+      
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -440,8 +455,41 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
     clearInterval(this.zoomInterval);
   },
-
+  created() {
+    this.$root.modalVisible = true;
+  },
   methods: {
+    setShowModal() {
+            this.modalVisible = true
+            console.log('work')
+
+
+        },
+        removedModal() {
+            this.modalVisible = false
+            console.log("remove")
+            localStorage.setItem('modalShown', 'true')
+        },
+    toggleDescription() {
+      this.expanded = !this.expanded;
+    },
+    navigateToProductPage(card) {
+            const randomProductId = this.generateRandomId(); // Call the function to generate a random ID
+            // Navigate to the product page with the random ID
+            this.$router.push(`/dashboard/market/${product.title}~${randomProductId}`);
+            console.log("i am working")
+            },
+            generateRandomId() {
+            // Generate a random ID within a specific range (adjust the range as needed)
+            return Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+            },
+    truncateDescription(description) {
+      const maxLength = 70; // Set your desired max length
+      if (description.length <= maxLength || this.product.expanded) {
+        return description;
+      }
+      return description.substr(0, maxLength) + '...';
+    },
     checkScreenSize() {
       if (window.innerWidth <= 951) {
         this.mobile = true;
@@ -666,7 +714,7 @@ export default {
   stroke: red;
 }
 
-.circle .liked {
+.circle .liked  {
   fill: red;
 }
 
@@ -757,6 +805,27 @@ p.product-details-snippet {
 }
 
 @media (max-width: 950px) {
+.read{
+  cursor: pointer;
+    font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  /* or 150% */
+
+  /* Grey/Grey3 */
+
+  color: var(--grey-grey3);
+
+}
+.description {
+  max-height: 150px; /* Set your desired max height */
+  overflow: hidden;
+  position: relative;
+}
+ .expanded {
+  max-height: none ;
+  color:red
+}
   .product-top-wrap {
     padding: 0;
     gap: 8px;

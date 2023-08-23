@@ -62,8 +62,7 @@ export default {
     },
   },
   router: {
-    middleware: ["auth", "redirect"],
-    // middleware: ["redirect"],
+    middleware: ["auth", "redirect","welcome-flow"],
     extendRoutes(routes, resolve) {
       routes.push({
         // name: 'product',

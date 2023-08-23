@@ -1,10 +1,6 @@
 <template>
   <div>
-    <AlertPrompt
-      ref="alertPrompt"
-      :message="alertMessage"
-      :alertType="alertType"
-    />
+    <AlertPrompt ref="alertPrompt" :message="alertMessage" :alertType="alertType" />
     <div class="content">
       <div class="container">
         <div class="wrapper">
@@ -16,42 +12,19 @@
               <!-- <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
                 placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
                 :errorMessage="emailErrorMessage" /> -->
-              <InputField
-                id="username"
-                label="username"
-                v-model="username"
-                :value="username"
-                type="text"
-                placeholder="Enter username"
-                :required="true"
-                :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage"
-              />
+              <InputField id="username" label="username" v-model="username" :value="username" type="text"
+                placeholder="Enter username" :required="true" :invalid="invalidEmail" :errorMessage="emailErrorMessage" />
 
-              <InputField
-                id="password"
-                label="Password"
-                v-model="password"
-                :value="passwordValue"
-                :type="inputType"
-                placeholder="Enter your password"
-                :required="true"
-                :invalid="invalidPassword"
-                :errorMessage="passwordErrorMessage"
-              />
+              <InputField id="password" label="Password" v-model="password" :value="passwordValue" :type="inputType"
+                placeholder="Enter your password" :required="true" :invalid="invalidPassword"
+                :errorMessage="passwordErrorMessage" />
             </div>
             <div class="submit-reset">
-              <PrimaryBtn
-                buttonText="Log in"
-                @click="submitLogin"
-                :buttonTextLoader="buttonTextLoader"
-              />
+              <PrimaryBtn buttonText="Log in" @click="submitLogin" :buttonTextLoader="buttonTextLoader" />
               <div class="pass-link">
                 <p>
                   Forgot password?
-                  <nuxt-link :to="{ name: 'reset-password' }"
-                    >Reset it here</nuxt-link
-                  >
+                  <nuxt-link :to="{ name: 'reset-password' }">Reset it here</nuxt-link>
                 </p>
               </div>
             </div>
@@ -59,8 +32,7 @@
           <div class="signup-link">
             <p>
               Are you new to IPC?<nuxt-link :to="{ name: 'register' }">
-                Create an account</nuxt-link
-              >
+                Create an account</nuxt-link>
             </p>
           </div>
         </div>

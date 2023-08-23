@@ -15,12 +15,13 @@
             
         </div>
         <div class="Category-page">
-        <CategoryCard v-for="card in Cards" :key="card"
+        <CategoryCard v-for="(card, index) in Cards" :key="index"
             :nickname="card.nickname"
             :name = "card.name"
             :price = "card.price"
             :slash = "card.slash"
             :image= "card.image"
+            @click="navigateToProductPage(card)"
         >
        
         </CategoryCard>
@@ -40,6 +41,15 @@
             nextPage(){
                 this.$router.push('/dashboard/market')
             },
+            navigateToProductPage(card) {
+            const randomProductId = this.generateRandomId(); // Call the function to generate a random ID
+            // Navigate to the product page with the random ID
+            this.$router.push(`/product/${randomProductId}`);
+            },
+            generateRandomId() {
+            // Generate a random ID within a specific range (adjust the range as needed)
+            return Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+            }
           
         },
         data(){
@@ -93,7 +103,7 @@
 .categories{
     width: 97%;
     background-color: #F4F5F8;
-    padding: 10px 15px;
+    padding: 16px;
     border-radius: 8px;
 }
 .Category-page{

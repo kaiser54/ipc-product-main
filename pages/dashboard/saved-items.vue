@@ -129,5 +129,6 @@ export default {
   flex-direction: column;
   gap: 30px;
   width: 100%;
+  margin-top: 50px;
   }
 </style>

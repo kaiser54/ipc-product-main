@@ -14,7 +14,7 @@
         </div>
         <!-- -------------------------------- -->
       </div>
-
+ 
       <!-- product details here -->
 
       <div class="productcard-details">
