@@ -2,41 +2,11 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <nuxt-link :to="`/dashboard/market/${product.title}~${product.id}`">
-      <!-- <nuxt-link :to="{ name: 'product', params: { id: product.id, title: product.title } }"> -->
-      <div class="product-img-grp">
-        <!-- <img :src="product.image" alt="" /> -->
-
-        <!-- product image -->
-        <div class="image-container">
-          <!-- <img :src="require(`~/assets/images/${product.image}`)" /> -->
-          <img :src="product.image" alt="Product Image" />
-        </div>
-        <!-- -------------------------------- -->
-      </div>
-
-      <!-- product details here -->
-
-      <div class="productcard-details">
-        <div class="productcard-name text-container">
-          <p>{{ product.title }}</p>
-        </div>
-        <div class="productcard-price">
-          <p><span class="naira">₦</span> {{ product.price }}</p>
-          <p class="slashprice">
-            <span class="naira">₦</span> {{ product.price }}
-          </p>
-        </div>
-      </div>
-
-      <!-- ------------------------- -->
-    </nuxt-link>
-
     <!-- like button -->
 
     <div class="circle">
       <svg
-        :class="{ liked: isLiked || isInSaved }"
+        class="liked"
         @click="toggleLike"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -55,9 +25,38 @@
 
     <!-- -------------------------------- -->
 
+    <nuxt-link
+      :to="`/dashboard/market/${product.name}~${product._id}`"
+      class="card_wrap"
+    >
+      <div class="product-img-grp">
+        <!-- product image -->
+        <div class="image-container">
+          <img v-if="product.images && product.images.length > 0" :src="product.images[0].url" :alt="product.name" />
+        </div>
+        <!-- -------------------------------- -->
+      </div>
+
+      <!-- product details here -->
+
+      <div class="productcard-details">
+        <div class="productcard-name text-container">
+          <p>{{ product.name }}</p>
+        </div>
+        <div class="productcard-price">
+          <p><span class="naira">₦</span> {{ product.discountPrice }}</p>
+          <p class="slashprice">
+            <span class="naira">₦</span> {{ product.actualPrice }}
+          </p>
+        </div>
+      </div>
+
+      <!-- ------------------------- -->
+    </nuxt-link>
+
     <!-- add to cart button  -->
 
-    <button class="btn secondary-btn-small" @click="addToCart" v-if="!isInCart">
+    <button class="btn secondary-btn-small" @click="addToCart" v-if="!inCart">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="17"
@@ -143,54 +142,27 @@ export default {
     },
   },
   computed: {
-    isInCart() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart !== undefined;
-    },
-    isInSaved() {
-      const productInSaved = this.$store.state.savedItem.find(
-        (p) => p.id === this.product.id
-      );
-      return productInSaved !== undefined;
-    },
-    getProductQuantity() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart ? productInCart.quantity : 0;
-    },
+    getProductQuantity() {},
   },
   methods: {
-    addToCart() {
-      this.$store.commit("addToCart", this.product);
-    },
-    incrementQuantity() {
-      this.$store.commit("incrementQuantity", { productId: this.product.id });
-    },
-    decrementQuantity() {
-      this.$store.commit("decrementQuantity", { productId: this.product.id });
-    },
-    toggleLike() {
-      // If the product is not in saved items, add it
-      this.$store.commit("addToSaved", this.product);
-      this.isLiked == true;
-      if (this.isLiked == true) {
-        this.$store.commit("removeFromSaved", this.product);
-        this.isLiked == false;
-        console.log('clicked')
-      }
-    },
+    addToCart() {},
+    incrementQuantity() {},
+    decrementQuantity() {},
+    toggleLike() {},
   },
 };
 </script>
-
 <style scoped>
 a {
   width: 100%;
 }
-
+.card_wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  gap: 8px;
+}
 .product-card {
   position: relative;
   display: flex;
@@ -218,13 +190,13 @@ a {
 
 .product-img-grp {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 
   max-width: 206px;
   width: 100%;
   height: 100%;
-  max-height: 161px;
+  /* max-height: 161px; */
   position: relative;
 
   /* White */
@@ -296,8 +268,9 @@ a {
   padding: 0px;
   gap: 4px;
 
-  max-width: 206px;
-  height: 76px;
+  width: 100%;
+  /* max-width: 206px; */
+  /* height: 76px; */
 }
 
 .productcard-name p {

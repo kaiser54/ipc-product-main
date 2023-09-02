@@ -126,6 +126,7 @@ export default {
 <style scoped>
 .root-nav {
   width: 100%;
+  display: none !important;
 }
 
 .mobile-nav-bar {
@@ -185,6 +186,17 @@ export default {
 .checkout-bottom {
   padding: 16px;
   height: auto;
+}
+
+@media (max-width: 950px) {
+    .market-product {
+        padding: 0;
+        gap: 8px;
+    }
+    .root-nav {
+  width: 100%;
+  display: block;
+}
 }
 
 @media (max-width: 374px) {

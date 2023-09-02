@@ -65,7 +65,6 @@
       <HistoryMobileFilter
         v-show="isFilterOpen && mobile"
         :animate="animate"
-        :tabs="tabs"
         :activeTabs="activeTabs"
         title="Filter by"
         snippet="Filter product’s status"
@@ -390,7 +389,7 @@ export default {
       status: "All",
       activeTabs: [0],
       visible: true,
-      animate: null,
+      animate: "animate__slideInUp",
       isFilterOpen: false,
       tableDataClone: [],
     };

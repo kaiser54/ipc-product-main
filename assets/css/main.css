@@ -281,13 +281,19 @@ form {
 .naira {
     font-family: 'Roboto', sans-serif;
 }
-
+.mobile {
+    display: none !important;
+}
 @media (max-width: 950px) {
     .market-product {
         padding: 0;
         gap: 8px;
     }
+    .mobile {
+        display: block !important;
+    }
 }
+
 
 
 .text-container {

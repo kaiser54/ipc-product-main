@@ -28,6 +28,7 @@ export default {
     // '@nuxtjs/device'
     // { src: '~/plugins/vue2-datepicker.js', mode: 'client' },
     "~/plugins/fakestoreapi.js",
+    "~/plugins/auth-persistence.js",
     { src: '~/plugins/store', ssr: false },
     { src: '~/plugins/confetti.js', mode: 'client' },
   ],
@@ -36,7 +37,10 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/composition-api/module',
+    ['@pinia/nuxt', { disableVuex: false }],
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -47,7 +51,12 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    baseURL: "http://localhost:8000/api/v1",
+  },
+  vuex: {
+    modules: {
+      auth: '@/store/auth.js',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

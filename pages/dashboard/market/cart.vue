@@ -1,7 +1,7 @@
 <template>
   <div class="cart-view">
     <div class="mobile-cart" v-if="mobile">
-      <mobileCart />
+      <CartMobile />
     </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
@@ -142,10 +142,10 @@
         </div>
       </template>
     </EmptyStates>
- 
+
     <div class="listed-cart" v-if="!mobile && cart.length > 0">
       <div class="listed-cart-product">
-        <cartList
+        <CartList
           v-for="product in cart"
           :key="product.id"
           :product="product"
@@ -160,11 +160,11 @@
         <div class="checkout-details">
           <div class="checkout-title">
             <p>Orders</p>
-            <div class="item-list-tag">{{ cart.length }} items</div>
+            <div class="item-list-tag">99 items</div>
           </div>
           <div class="total-price checkout-title">
             <p class="total">Subtotal</p>
-            <p class="price">₦{{ calculateTotalPrice().toFixed(2) }}</p>
+            <p class="price">₦ 1000</p>
           </div>
         </div>
         <nuxt-link to="/dashboard/market/checkout">
@@ -173,32 +173,27 @@
       </div>
     </div>
     <div class="category-list">
-        <div class="categories">
-        <CategoryCards
-
-      Header = "Recommended for you"/>
+      <div class="categories">
+        <CategoryCards Header="Recommended for you" />
       </div>
       <div class="categories">
-        <CategoryCards
-        Header = "Check these out"
-      />
+        <CategoryCards Header="Check these out" />
       </div>
       <div class="categories">
-        <CategoryCards
-      Header = "You might also like this"
-      />
+        <CategoryCards Header="You might also like this" />
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   layout: "dashboardview",
   // Other component properties and methods
   data() {
     return {
+      user: null,
       pageTitle: "IPC | cart",
       mobile: false,
     };
@@ -208,7 +203,8 @@ export default {
       title: this.pageTitle,
     };
   },
-  mounted() {
+  async mounted() {
+    await this.fetchCartItemsByUserID();
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -216,32 +212,16 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    ...mapState(["cart"]),
-    // cartItems() {
-    //   return this.$store.state.cart;
-    // },
+    ...mapState("cart", ["cart", "loading", "totalPrice", "error"]),
   },
   methods: {
-    ...mapMutations(["removeFromCart"]),
+    ...mapActions("cart", ["fetchCartItemsByUserID"]),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
       } else {
         this.mobile = false;
       }
-    },
-    calculateTotalPrice() {
-      let totalPrice = 0;
-
-      for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(
-          (p) => p.id === product.id
-        );
-        const quantity = productInCart ? productInCart.quantity : 0;
-        totalPrice += product.price * quantity;
-      }
-
-      return totalPrice;
     },
     leaveCart() {
       this.$router.push("/dashboard/market");
@@ -417,7 +397,7 @@ p.price {
 
   color: var(--grey-grey1);
 }
-.category-list{
+.category-list {
   display: flex;
   flex-direction: column;
   gap: 30px;

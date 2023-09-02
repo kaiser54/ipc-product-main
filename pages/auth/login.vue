@@ -1,8 +1,9 @@
 <template>
   <div>
     <AlertPrompt
+      v-if="error"
       ref="alertPrompt"
-      :message="alertMessage"
+      :message="error_msg"
       :alertType="alertType"
     />
     <div class="content">
@@ -13,18 +14,16 @@
           </div>
           <div class="form-group">
             <div class="form-field">
-              <!-- <InputField id="email" label="Email address" v-model="email" :value="emailValue" type="email"
-                placeholder="Enter your email address" :required="true" :invalid="invalidEmail"
-                :errorMessage="emailErrorMessage" /> -->
               <InputField
-                id="username"
-                label="username"
-                v-model="username"
-                :value="username"
-                type="text"
-                placeholder="Enter username"
+                id="email"
+                label="Email address"
+                v-model="email"
+                :value="emailValue"
+                type="email"
+                placeholder="Enter your email address"
                 :required="true"
-                :invalid="invalidEmail"
+                :error="error"
+                :invalid="error || invalidEmail"
                 :errorMessage="emailErrorMessage"
               />
 
@@ -36,7 +35,8 @@
                 :type="inputType"
                 placeholder="Enter your password"
                 :required="true"
-                :invalid="invalidPassword"
+                :error="error"
+                :invalid="error || invalidPassword"
                 :errorMessage="passwordErrorMessage"
               />
             </div>
@@ -44,7 +44,7 @@
               <PrimaryBtn
                 buttonText="Log in"
                 @click="submitLogin"
-                :buttonTextLoader="buttonTextLoader"
+                :buttonTextLoader="loading"
               />
               <div class="pass-link">
                 <p>
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   layout: "registration layout",
   // Other component properties and methods
@@ -77,17 +78,17 @@ export default {
     return {
       email: "",
       password: "",
-      inputType: "password",
       invalidEmail: false,
       invalidPassword: false,
       emailErrorMessage: "",
       passwordErrorMessage: "",
+
+      inputType: "password",
       showPassword: true,
-      alertMessage: "",
-      alertType: "",
+
+      alertType: "error",
+
       pageTitle: "IPC | Login",
-      username: "",
-      buttonTextLoader: false,
     };
   },
   head() {
@@ -96,6 +97,8 @@ export default {
     };
   },
   computed: {
+    ...mapState("auth", ["loading", "error", "error_msg"]),
+    ...mapGetters("auth", ["isLoggedIn"]),
     isEmailValid() {
       // Define a regular expression for email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -119,14 +122,6 @@ export default {
       },
       set(newValue) {
         this.password = newValue;
-      },
-    },
-    uservalue: {
-      get() {
-        return this.username;
-      },
-      set(newValue) {
-        this.username = newValue;
       },
     },
   },
@@ -162,45 +157,18 @@ export default {
     },
   },
   methods: {
-    showAlertPrompt() {
-      this.$refs.alertPrompt.showAlert("This is an example alert.", "success");
-    },
-
+    ...mapActions("auth", ["login"]),
     async submitLogin() {
-      this.buttonTextLoader = true;
-      // if (this.isEmailValid && this.isPasswordValid) {
-      if (this.isPasswordValid) {
-        const credentials = {
-          username: this.username,
-          password: this.password,
-        };
-        const loginSuccessful = await this.$store.dispatch(
-          "login",
-          credentials
-        );
-        if (loginSuccessful) {
-          this.buttonTextLoader = false;
-          // this.confirmationMessage = "Login successful!"; //i dont have a confirmation message yet
-          this.$router.push("/dashboard"); // Redirect to the dashboard page
-        } else {
-          this.buttonTextLoader = false;
-          // Handle failed login case if needed
-          this.alertType = "error";
-          this.alertMessage = "Login failed, please try again!";
-          this.showAlertPrompt();
-        }
-      } else {
-        this.buttonTextLoader = false;
-        // if (!this.isEmailValid) {
-        //   this.invalidEmail = true;
-        //   this.emailErrorMessage = "Invalid email address";
-        // }
-        if (!this.isPasswordValid) {
-          this.buttonTextLoader = false;
-          this.invalidPassword = true;
-          this.passwordErrorMessage =
-            "Password must be at least 4 characters long";
-        }
+      const credentials = {
+        email: this.email,
+        password: this.password,
+      };
+      await this.login(credentials);
+
+      if (this.isLoggedIn) {
+        this.$router.push("/dashboard/market");
+      } else if (this.error) {
+        this.$refs.alertPrompt.showAlert();
       }
     },
   },

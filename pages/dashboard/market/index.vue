@@ -1,23 +1,15 @@
 <template>
   <div style="width: 100%">
-    <div class="webskeleton" v-if="loading" style="margin: 20px">
-      <!-- css skeleton loading state on the website for desktop view -->
-      <webskeleton style="overflow: hidden; height: 100vh" />
-    </div>
-    <div v-if="loading" class="SkeletonLoader">
-      <!-- css skeleton loading state on the website for mobile view -->
-      <SkeletonLoader style="overflow: hidden; height: 100vh" />
-    </div>
+    <LoaderComponent v-if="loading" />
     <div class="nuxt-page" v-else>
       <promptAlert @openMail="handleOpenMail" />
       <div class="page-title">
-        <!-- <Breadcrumb :route="$route" /> -->
         <h2 class="h2-medium header-text">Market</h2>
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
           <productcard
-            v-for="product in product"
+            v-for="product in filteredProducts"
             :key="product.id"
             :product="product"
             :inCart="inCart"
@@ -25,7 +17,6 @@
         </div>
       </section>
       <transition name="modal-fade">
-        <!-- enter the PopModal an add router push to the button and remove the nuxt link -->
         <popupModal
           v-if="checkMail"
           :animate="animate"
@@ -44,56 +35,46 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
+
 export default {
   layout: "dashboardview",
-  data() {
-    return {
-      pageTitle: "IPC | Market",
-      checkMail: false,
-      product: {},
-      inCart: false,
-      loading: true,
-      animate: null,
-    };
-  },
   head() {
     return {
       title: this.pageTitle,
     };
   },
+  data() {
+    return {
+      pageTitle: "IPC | Market",
+      checkMail: false,
+      inCart: false,
+      animate: null,
+    };
+  },
   async mounted() {
+    await this.fetchAllProducts(); // Fetch all products when the component is mounted
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
-    try {
-      this.loading = true;
-      // Fetch product details from the FakeStoreAPI
-      const response = await this.$axios.$get(
-        `https://fakestoreapi.com/products`
-      );
-      this.product = response;
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      this.loading = false;
-    }
+  },
+  computed: {
+    ...mapState("product", ["loading", "error"]),
+    ...mapGetters("product", ["getProductsBySearch"]),
+    filteredProducts() {
+      return this.getProductsBySearch; // Use the searchQuery here
+    },
+  },
+  methods: {
+    ...mapActions("product", ["fetchAllProducts"]),
+    checkScreenSize() {
+      this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
+    },
+    handleOpenMail() {
+      this.checkMail = !this.checkMail;
+    },
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
-  },
-  methods: {
-    checkScreenSize() {
-      if (window.innerWidth <= 950) {
-        this.mobile = true;
-        this.animate = "animate__slideInUp";
-      } else {
-        this.mobile = false;
-        this.animate = "animate__zoomIn";
-      }
-    },
-    handleOpenMail() {
-      // Your code for handling open mail event
-      this.checkMail = !this.checkMail;
-    },
   },
 };
 </script>

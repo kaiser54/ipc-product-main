@@ -151,13 +151,13 @@ export default {
       };
       this.$emit("filterProducts", dateData);
     },
-    watch: {
-      startDate() {
-        this.filterProducts();
-      },
-      endDate() {
-        this.filterProducts();
-      },
+  },
+  watch: {
+    startDate() {
+      this.filterProducts();
+    },
+    endDate() {
+      this.filterProducts();
     },
   },
 };

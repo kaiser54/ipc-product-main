@@ -2,28 +2,26 @@
   <div>
     <div class="container zindex">
       <div class="branding">
-        <nuxt-link :to="{ name: 'login' }" class="tag-flex">
+        <nuxt-link to="/auth/login" class="tag-flex">
           <img
             src="../assets/images/ipc-logo.png"
             alt="IPC Logo branding Independence purchasing company"
           />
           <DynamicTags
-              class="auto"
-              tagText="BETA"
-              size="small"
-              type="positive"
-              style="
-                background: #20af0b;
-                color: white;
-                height: 22px;
-                font-size: 10px;
-                width: 40.22px;
-                cursor: auto;
-              "
-            />
+            class="auto"
+            tagText="BETA"
+            size="small"
+            type="positive"
+            style="
+              background: #20af0b;
+              color: white;
+              height: 22px;
+              font-size: 10px;
+              width: 40.22px;
+              cursor: auto;
+            "
+          />
         </nuxt-link>
-        
-           
       </div>
     </div>
     <nuxt />
@@ -39,10 +37,6 @@ export default {};
   display: none;
 }
 
-
-
-
-
 .container {
   width: 100%;
   display: flex;
@@ -55,27 +49,28 @@ export default {};
 .zindex {
   z-index: 99;
 }
-.tag-flex{
+.tag-flex {
   display: flex;
   align-items: center;
 }
 .branding {
-
   width: 90%;
   padding: 24px 0;
 }
 .branding img {
-  width: 90%;
+  width: 100%;
+  max-width: 182.751px;
+  /* height: 56px; */
 }
 .content {
-    width: 90%;
-    margin-top: 16px;
-    margin-inline: auto;
+  width: 90%;
+  margin-top: 16px;
+  margin-inline: auto;
 }
 @media (max-width: 750px) {
-    .content {
-      margin-top: 40px;
-    }
+  .content {
+    margin-top: 40px;
+  }
 }
 .wrapper {
   display: flex;

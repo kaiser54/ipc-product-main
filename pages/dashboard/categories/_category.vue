@@ -1,51 +1,67 @@
 <template>
   <div class="view-page">
-    <div class="webskeleton" v-if="loading" style="margin: 20px">
-      <!-- css skeleton loading state on the website for desktop view -->
-      <webskeleton style="overflow: hidden; height: 100vh" />
-    </div>
-    <div v-if="loading" class="SkeletonLoader">
-      <!-- css skeleton loading state on the website for mobile view -->
-      <SkeletonLoader style="overflow: hidden; height: 100vh" />
-    </div>
     <div class="title-header">
       <goback />
       <!-- <Breadcrumb :route="$route" /> -->
-      <h2 class="h2-medium header-text">{{ this.currentPage }}</h2>
+      <h2 class="h2-medium header-text">{{ this.searchQuery }}</h2>
     </div>
-    <section class="market-product">
-      <productcard v-for="(product) in categories" :key="product.id" :product="product" :inCart="inCart" />
-      <!-- <productcard /> -->
+    <LoaderComponent v-if="loading" />
+    <section class="market-product" v-if="filteredProducts.length > 0">
+      <productcard
+        v-for="product in filteredProducts"
+        :key="product.id"
+        :product="product"
+        :inCart="inCart"
+      />
+
     </section>
+    <div v-if="filteredProducts.length === 0">
+      Products not available for this category yet. Showing all products instead
+      <br />
+      <section class="market-product">
+        <productcard
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          :inCart="inCart"
+        />
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   layout: "dashboardview",
   data() {
     return {
-      currentPage: "",
+      searchQuery: decodeURIComponent(
+        this.$route.path.split("/")[this.$route.path.split("/").length - 1]
+      ),
       categories: [],
       inCart: false,
-      loading: true
     };
   },
   async mounted() {
-    const pathArray = this.$route.path.split('/');
-    const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
-    this.currentPage = lastSegment;
-
-    try {
-      this.loading = true;
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products/category/${this.currentPage}`);
-      this.categories = response;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    } finally {
-      this.loading = false;
-    }
+    await this.fetchAllProducts(); // Fetch all products when the component is mounted
+    // const pathArray = this.$route.path.split('/');
+    // const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
+    // this.currentPage = lastSegment;
+    this.updateQuery(this.searchQuery);
   },
+  computed: {
+    ...mapState("product", ["loading", "error", "products"]),
+    ...mapGetters("product", ["getProductsBySearch"]),
+    filteredProducts() {
+      return this.getProductsBySearch; // Use the searchQuery here
+    },
+  },
+  methods: {
+    ...mapActions("product", ["fetchAllProducts"]),
+    ...mapActions("product", ["updateQuery"]),
+  },
+  watch: {},
 };
 </script>
 
@@ -61,7 +77,6 @@ export default {
 }
 
 @media (max-width: 950px) {
-
   .webskeleton {
     display: none;
   }

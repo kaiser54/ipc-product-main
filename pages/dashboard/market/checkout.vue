@@ -3,7 +3,7 @@
     <onTheWayMsg v-if="isPaid" />
     <div v-else class="checkout-wrapper">
       <div v-if="!mobile" class="__bg__fixed">
-        <progressBar
+        <CheckoutProgressBar
           :progressPercentage="progressPercentage"
           :currentStep="currentStep"
           :getStepLabel="getStepLabel"
@@ -27,12 +27,12 @@
             v-show="currentStep === 1"
             @customEvent="handleFormSubmission"
           />
-          <orderSummary
+          <CheckoutOrderSummary
             v-if="currentStep === 2 && submittedData"
             @customEvent="nextStep"
             :data="submittedData"
           />
-          <payment v-if="currentStep === 3 && submittedData" @lastStep="lastStep" :data="submittedData"/>
+          <CheckoutPayment v-if="currentStep === 3 && submittedData" @lastStep="lastStep" :data="submittedData"/>
         </div>
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">

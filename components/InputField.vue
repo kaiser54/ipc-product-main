@@ -42,7 +42,7 @@
         </svg>
       </span>
     </div>
-    <div v-if="invalid" class="error">
+    <div v-if="invalid && !error" class="error">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -118,6 +118,9 @@ export default {
     errorMessage: {
       type: String,
       default: "",
+    },
+    error: {
+      default: false,
     },
   },
   data() {

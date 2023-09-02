@@ -158,7 +158,7 @@
             </template>
           </EmptyStates>
           <div class="cart-lista" v-if="cart.length > 0">
-            <cartList
+            <CartList
               v-for="product in cart"
               :key="product.id"
               :product="product"
@@ -172,11 +172,11 @@
             <div class="checkout-details">
               <div class="checkout-title">
                 <p>Orders</p>
-                <div class="item-list-tag">{{ cart.length }} items</div>
+                <div class="item-list-tag">77 items</div>
               </div>
               <div class="total-price checkout-title">
                 <p class="total">Subtotal</p>
-                <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+                <p class="price">₦ 7777</p>
               </div>
             </div>
             <button class="btn primary-btn" @click="checkout">Checkout</button>

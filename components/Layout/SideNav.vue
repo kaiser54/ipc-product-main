@@ -2,7 +2,7 @@
   <section class="dashboard-nav-bar">
     <section class="dashboard-menu">
       <img
-        src="../assets/images/ipc-logo.png"
+        src="@/assets/images/ipc-logo.png"
         alt="IPC Logo branding Independence purchasing company"
       />
       <section class="menu">
@@ -365,7 +365,7 @@
     <section class="dashboard-profile">
       <div class="profile-content">
         <div class="profile-image">
-          <img src="../assets/images/avatar.png" alt="" />
+          <img src="@/assets/images/avatar.png" alt="" />
         </div>
         <div class="profile-details">
           <p class="name">Chicken republic</p>

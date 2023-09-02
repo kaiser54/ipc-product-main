@@ -3,11 +3,11 @@
         <div class="order__pricing__group">
             <div class="mobile_ _orders">
                 <div class="mobile-order">Orders</div>
-                <div class="order-items">{{ cart.length }} items</div>
+                <div class="order-items">77 items</div>
             </div>
             <div class="mobile_ _total">
                 <div class="mobile-order">Subtotal</div>
-                <div class="total-price">₦ {{ calculateTotalPrice().toFixed(2) }}</div>
+                <div class="total-price">₦ 777</div>
             </div>
         </div>
         <div class="listed-cart-product">
@@ -31,21 +31,8 @@ export default {
         }
     },
     computed: {
-        ...mapState(['cart']),
     },
     methods: {
-        ...mapMutations(['removeFromCart']),
-        calculateTotalPrice() {
-            let totalPrice = 0;
-
-            for (const product of this.cart) {
-                const productInCart = this.$store.state.cart.find(p => p.id === product.id);
-                const quantity = productInCart ? productInCart.quantity : 0;
-                totalPrice += product.price * quantity;
-            }
-
-            return totalPrice;
-        },
     },
 };
 </script>

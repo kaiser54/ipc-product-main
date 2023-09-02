@@ -1,32 +1,22 @@
 <template>
   <div class="view-page">
-    <div class="webskeleton" v-if="loading" style="margin: 20px">
-      <!-- css skeleton loading state on the website for desktop view -->
-      <webskeleton style="overflow: hidden; height: 100vh" />
-    </div>
-    <div v-if="loading" class="SkeletonLoader">
-      <!-- css skeleton loading state on the website for mobile view -->
-      <SkeletonLoader style="overflow: hidden; height: 100vh" />
-    </div>
     <div class="title-header">
       <h2 class="h2-medium header-text">Categories</h2>
     </div>
+    <LoaderComponent v-if="loading" />
     <div class="page-content">
       <div class="categories-content">
         <div style="width: 100%; max-width: 387px;" v-for="(category, index) in categories" :key="index">
-          <nuxt-link class="category" :to="`/dashboard/categories/${category}`">
+          <nuxt-link class="category" :to="`/dashboard/categories/${category.name}`">
+            <img :src="`/category${index + 1}.png`" alt="" />
             <!-- <img :src="`/${category.image}`" alt="" /> -->
             <!-- use this method if your pulling the images from the static folder -->
             <!-- <img :src="require(`~/assets/images/${category.image}`)" alt="" /> -->
             <!-- use this method if your pulling the images from the /assets/images or any folder thats not the static folder -->
             <div class="category-header">
 
-              <!-- remove this when the backend sends the api -->
-              <p class="title">{{ category }}</p>
-              <!-- ------------------------------------------ -->
-
-              <p class="title">{{ category.title }}</p>
-              <p class="snippet truncate">{{ category.snippet }}</p>
+              <p class="title">{{ category.name }}</p>
+              <p class="snippet truncate">{{ category.desc }}</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
               <path d="M13.3333 10.666L18.6667 15.9993L13.3333 21.3327" stroke="#565C69" stroke-width="2"
@@ -40,14 +30,15 @@
 </template>
 
 <script>
+import { fetchData } from "@/plugins/api";
+
 export default {
   layout: "dashboardview",
-  // Other component properties and methods
   data() {
     return {
       pageTitle: "IPC | Categories",
       categories: [],
-      loading: true
+      loading: true,
     };
   },
   head() {
@@ -58,9 +49,9 @@ export default {
   async mounted() {
     try {
       this.loading = true;
-      // Fetch product details from the FakeStoreAPI
-      const response = await this.$axios.$get(`https://fakestoreapi.com/products/categories`);
-      this.categories = response;
+      const response = await fetchData("/categories/");
+      this.categories = response.data.categories;
+      console.log(response)
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {

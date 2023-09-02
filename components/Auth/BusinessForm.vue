@@ -1,5 +1,11 @@
 <template>
   <div>
+    <AlertPrompt
+      v-if="error"
+      ref="alertPrompt"
+      :message="error_msg"
+      :alertType="alertType"
+    />
     <div class="individual-form">
       <h2 class="h2-medium header-text">Create a business account</h2>
       <div class="myAuth-group">
@@ -83,7 +89,11 @@
               </p>
             </div>
             <div class="submit-reset">
-              <PrimaryBtn buttonText="Create account" @click="submitForm" />
+              <PrimaryBtn
+                buttonText="Create account"
+                @click="submitForm"
+                :buttonTextLoader="loading"
+              />
               <div class="pass-link">
                 <p>
                   Have an account already?
@@ -99,6 +109,7 @@
 </template>
 
 <script>
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -123,9 +134,13 @@ export default {
       PNErrorMessage: "",
       passwordErrorMessage: "",
       businessErrorMessage: "",
+
+      alertType: "error",
     };
   },
   computed: {
+    ...mapState("auth", ["loading", "error", "error_msg"]),
+    ...mapGetters("auth", ["isLoggedIn"]),
     isEmailValid() {
       // Define a regular expression for email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -224,6 +239,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions("auth", ["register"]),
     async submitForm() {
       this.validateForm();
       const isFormInvalid =
@@ -234,7 +250,7 @@ export default {
         this.invalidLastName ||
         this.invalidPhoneNum;
 
-        if (!isFormInvalid) {
+      if (!isFormInvalid) {
         // Submit form or perform other actions
         const credentials = {
           email: this.email,
@@ -245,20 +261,15 @@ export default {
           confirmPassword: this.password,
           phoneNumbers: this.phoneNumbers,
         };
-        const success = await this.$store.dispatch(
-          "signupBusiness",
-          credentials
-        );
-        if (success) {
-          
-        console.log(credentials)
-          // Redirect to the home page or do any other necessary actions
+
+        console.log(credentials);
+
+        await this.register(credentials);
+
+        if (this.isLoggedIn) {
           this.$router.push("/dashboard/market");
-        } else {
-          this.error = this.$store.state.error;
-          this.alertType = "error"
-          this.alertMessage = "Signup failed, please try again!"
-          this.showAlertPrompt();
+        } else if (this.error) {
+          this.$refs.alertPrompt.showAlert();
         }
       }
     },

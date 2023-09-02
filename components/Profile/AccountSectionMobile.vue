@@ -159,8 +159,8 @@
         <p>Saved items</p>
       </div>
       <div class="verified__svg">
-        <div class="badge" v-if="savedItem.length > 0">
-          <p>{{ getCartLength }}</p>
+        <div class="badge">
+          <p>9</p>
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -191,11 +191,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(["savedItem"]),
-    getCartLength() {
-      const cartLength = this.$store.state.savedItem.length;
-      return cartLength;
-    },
   },
 };
 </script>

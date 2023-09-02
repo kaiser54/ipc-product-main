@@ -1,343 +1,345 @@
 <template>
-  <div :class="{ 'user-details-component': mobile }">
-    <div class="webskeleton" v-if="loading" style="margin: 20px">
-      <!-- css skeleton loading state on the website for desktop view -->
-      <webskeleton style="overflow: hidden; height: 100vh" />
-    </div>
-    <div v-if="loading" class="SkeletonLoader">
-      <!-- css skeleton loading state on the website for mobile view -->
-      <SkeletonLoader style="overflow: hidden; height: 100vh" />
-    </div>
-    <div class="component-header" v-if="mobile">
-      <div class="component-header-main">
-        <!-- back button for mobile view -->
-        <svg
-          @click="$router.go(-1)"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        <!-- ---------------------------- -->
+  <div>
+    <LoaderComponent v-if="loading" />
+    <div :class="{ 'user-details-component': mobile }" v-if="productDetails">
+      <div class="component-header" v-if="mobile">
+        <div class="component-header-main">
+          <!-- back button for mobile view -->
+          <svg
+            @click="$router.go(-1)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
+              stroke="#565C69"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <!-- ---------------------------- -->
 
-        <!-- header -->
-        <p>Product details</p>
+          <!-- header -->
+          <p>Product details</p>
 
-        <div class="component-cart">
-          <nuxt-link to="/dashboard/market/cart">
-            <div class="badge" v-if="cart.length > 0">
-              <p>{{ cart.length }}</p>
+          <div class="component-cart">
+            <nuxt-link to="/dashboard/market/cart">
+              <div class="badge">
+                <!-- <p>{{ cart.length }}</p> -->
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </nuxt-link>
+          </div>
+          <!-- ----------------- -->
+        </div>
+      </div>
+
+      <!-- back button -->
+      <goback style="margin-top: 28px; margin-left: 16px" />
+      <!-- ----------- -->
+
+      <div class="product-detail-con">
+        <!-- product details page for mobile view -->
+        <div class="mobile-product-details" v-if="mobile">
+          <!-- the moving product carousel -->
+          <div
+            class=""
+            v-if="
+              productDetails?.images && Array.isArray(productDetails.images)
+            "
+          >
+            <productCarousel :images="productDetails?.images" />
+          </div>
+          <!-- ---------------------------- -->
+
+          <div class="product-content">
+            <!-- product title, brand name and like button -->
+
+            <div class="product-details-title">
+              <h3 class="h3-small-medium">
+                {{ productDetails?.name }}
+              </h3>
+              <p class="product-details-brand">
+                Brand: <span>{{ productDetails?.brand }}</span>
+              </p>
             </div>
+            <div class="product-details-price-grp">
+              <h3 class="h3-bold">
+                <span class="naira">₦</span> {{ productDetails?.discountPrice }}
+              </h3>
+              <tags />
+            </div>
+            <p class="product-details-snippet">
+              {{ productDetails?.description }}
+            </p>
+
+            <!-- ------------------------------- -->
+          </div>
+        </div>
+        <!-- -------------------------------------- -->
+
+        <!-- product details page for desktop view -->
+        <div class="product-details-wrapper" v-else>
+          <div class="product-details-main">
+            <div class="product-img-thumb">
+              <!-- image container -->
+              <div
+                class="product-img zoom-container"
+                ref="zoomContainer"
+                v-if="
+                  productDetails?.images && Array.isArray(productDetails.images)
+                "
+              >
+                <img
+                  v-for="(image, index) in productDetails.images"
+                  :key="index"
+                  :src="image"
+                  alt="Product Image"
+                  class="zoom-image"
+                  ref="zoomImage"
+                />
+              </div>
+
+              <!-- --------------- -->
+
+              <!-- product thumbnail under the main product image -->
+              <div class="product-thumb">
+                <div
+                  class="thumb"
+                  v-for="(image, index) in fakeProduct.images"
+                  :key="index"
+                >
+                  <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
+                </div>
+                <!-- -------------------------------------------- -->
+              </div>
+            </div>
+            <div class="product-details-content">
+              <div class="product-details-title-like">
+                <!-- product title, brand name and like button -->
+                <div class="product-details-title">
+                  <h3 class="h3-small-medium">
+                    {{ productDetails?.name }}
+                  </h3>
+                  <p class="product-details-brand">
+                    Brand: <span>{{ productDetails?.brand }}</span>
+                  </p>
+                </div>
+                <div class="circle" @click="toggleLike">
+                  <svg
+                    :class="{ liked: isLiked || isInSaved }"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <!-- ------------------------------- -->
+
+              <p class="product-details-snippet">
+                {{ productDetails.description }}
+              </p>
+              <div class="product-details-price-grp">
+                <h3 class="h3-bold">
+                  <span class="naira"><span class="naira">₦</span></span>
+                  {{ productDetails.discountPrice }}
+                </h3>
+                <tags />
+              </div>
+              <!-- cart button -->
+
+              <!-- add to cart button  -->
+
+              <!-- <button class="btn primary-btn">Add to cart</button> -->
+
+              <button
+                class="btn primary-btn"
+                @click="addToCart"
+                v-if="!isInCart"
+              >
+                Add to cart
+              </button>
+
+              <!-- -------------------------------- -->
+
+              <div v-else class="counter-btn">
+                <!-- counter button -->
+
+                <button @click="decrementQuantity" class="circle btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M3.33325 8H12.6666"
+                      stroke="#0009B3"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+
+                <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+                <div class="counter">{{ getProductQuantity }}</div>
+
+                <button @click="incrementQuantity" class="circle">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+                      stroke="#0009B3"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+
+                <!-- -------------------------------- -->
+              </div>
+              <!-- --------- -->
+              <guarantee />
+            </div>
+          </div>
+          <relatedProduuct />
+        </div>
+        <!-- ---------------------------------- -->
+      </div>
+
+      <div class="bottom-nav" v-if="mobile">
+        <div class="addBtn">
+          <button class="btn primary-btn" @click="addToCart">
+            Add to cart
+          </button>
+        </div>
+        <div class="operation">
+          <!-- counter button -->
+
+          <button @click="decrementQuantity" class="circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
               fill="none"
             >
               <path
-                d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
-                stroke="#565C69"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
-                stroke="#565C69"
+                d="M3.33325 8H12.6666"
+                stroke="#0009B3"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
             </svg>
-          </nuxt-link>
-        </div>
-        <!-- ----------------- -->
-      </div>
-    </div>
+          </button>
 
-    <!-- back button -->
-    <goback style="margin-top: 28px; margin-left: 16px" />
-    <!-- ----------- -->
+          <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+          <div class="counter">{{ getProductQuantity }}</div>
 
-    <div class="product-detail-con">
-      <!-- product details page for mobile view -->
-      <div class="mobile-product-details" v-if="mobile">
-        <!-- the moving product carousel -->
-        <productCarousel :images="product.image" />
-        <!-- ---------------------------- -->
-
-        <div class="product-content">
-          <!-- product title, brand name and like button -->
-
-          <div class="product-details-title">
-            <h3 class="h3-small-medium">
-              {{ product.title }}
-            </h3>
-            <p class="product-details-brand">
-              Brand: <span>Mama’s Choice</span>
-            </p>
-          </div>
-          <div class="product-details-price-grp">
-            <h3 class="h3-bold"><span class="naira">₦</span> {{ product.price }}</h3>
-            <tags />
-          </div>
-          <p class="product-details-snippet">
-            {{ product.description }}
-          </p>
-
-          <!-- ------------------------------- -->
-        </div>
-      </div>
-      <!-- -------------------------------------- -->
-
-      <!-- product details page for desktop view -->
-      <div class="product-details-wrapper" v-else>
-        <div class="product-details-main">
-          <div class="product-img-thumb">
-            <!-- image container -->
-            <div class="product-img zoom-container" ref="zoomContainer">
-              <!-- <img :src="require(`~/assets/images/${product.images[productImage]}`)
-                " class="zoom-image" ref="zoomImage" /> -->
-              <img
-                :src="product.image"
-                alt="Product Image"
-                class="zoom-image"
-                ref="zoomImage"
+          <button @click="incrementQuantity" class="circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+                stroke="#0009B3"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
-              <!-- <img src="~/assets/images/p1.png" alt="" /> -->
-            </div>
-            <!-- --------------- -->
-
-            <!-- product thumbnail under the main product image -->
-            <div class="product-thumb">
-              <div
-                class="thumb"
-                v-for="(image, index) in product.images"
-                :key="index"
-              >
-                <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
-              </div>
-              <!-- -------------------------------------------- -->
-            </div>
-          </div>
-          <div class="product-details-content">
-            <div class="product-details-title-like">
-              <!-- product title, brand name and like button -->
-              <div class="product-details-title">
-                <h3 class="h3-small-medium">
-                  {{ product.title }}
-                </h3>
-                <p class="product-details-brand">
-                  Brand: <span>Mama’s Choice</span>
-                </p>
-              </div>
-              <div class="circle" @click="toggleLike">
-                <svg
-                  :class="{ liked: isLiked || isInSaved }"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-            <!-- ------------------------------- -->
-
-            <p class="product-details-snippet">
-              {{ product.description }}
-            </p>
-            <div class="product-details-price-grp">
-              <h3 class="h3-bold"><span class="naira"><span class="naira">₦</span></span> {{ product.price }}</h3>
-              <tags />
-            </div>
-            <!-- cart button -->
-
-            <!-- add to cart button  -->
-
-            <!-- <button class="btn primary-btn">Add to cart</button> -->
-
-            <button class="btn primary-btn" @click="addToCart" v-if="!isInCart">
-              Add to cart
-            </button>
-
-            <!-- -------------------------------- -->
-
-            <div v-else class="counter-btn">
-              <!-- counter button -->
-
-              <button @click="decrementQuantity" class="circle btn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M3.33325 8H12.6666"
-                    stroke="#0009B3"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-
-              <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-              <div class="counter">{{ getProductQuantity }}</div>
-
-              <button @click="incrementQuantity" class="circle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-                    stroke="#0009B3"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-
-              <!-- -------------------------------- -->
-            </div>
-            <!-- --------- -->
-            <guarantee />
-          </div>
+            </svg>
+          </button>
         </div>
-        <relatedProduuct />
       </div>
-      <!-- ---------------------------------- -->
-    </div>
 
-
-
-
-    <div class="bottom-nav"  v-if="mobile">
-          <div class="addBtn">
-            <button class=" btn primary-btn" @click="addToCart" >
-              Add to cart
-            </button>
-          </div>
-            <div class="operation">
-              <!-- counter button -->
-
-              <button @click="decrementQuantity" class="circle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M3.33325 8H12.6666"
-                    stroke="#0009B3"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-
-               <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-              <div class="counter">{{ getProductQuantity }}</div>
-
-              <button @click="incrementQuantity" class="circle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-                    stroke="#0009B3"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-
-            </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="categories-ctn">
-      <CategoryCards Header="You might also like this">
-        <template v-slot:svg>
-          <svg
-            @click="toggleColor"
-            :class="{ Red: isRed }"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z"
-              :stroke="isRed ? '#FF0000' : '#565C69'"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <rect
-              x="0.5"
-              y="0.5"
-              width="31"
-              height="31"
-              rx="15.5"
-              :stroke="isRed ? '#FF0000' : '#565C69'"
-            />
-          </svg>
-        </template>
-      </CategoryCards>
-      <!-- <div class="product-buttom-nav">
+      <div class="categories-ctn">
+        <CategoryCards Header="You might also like this">
+          <template v-slot:svg>
+            <svg
+              @click="toggleColor"
+              :class="{ Red: isRed }"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z"
+                :stroke="isRed ? '#FF0000' : '#565C69'"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <rect
+                x="0.5"
+                y="0.5"
+                width="31"
+                height="31"
+                rx="15.5"
+                :stroke="isRed ? '#FF0000' : '#565C69'"
+              />
+            </svg>
+          </template>
+        </CategoryCards>
+        <!-- <div class="product-buttom-nav">
         <ProductDetailb />
       </div> -->
+      </div>
     </div>
   </div>
 </template>
 
+
 <script>
+import { mapGetters } from "vuex";
 import { mapState, mapMutations } from "vuex";
 export default {
   name: "product",
@@ -349,11 +351,12 @@ export default {
       mobile: false,
       productId: null,
       productTitle: null,
-      product: {},
+      fakeProduct: {},
+      productDetails: {},
       productImage: 0,
       currentPage: "",
       inCart: false,
-      loading: false,
+      loading: true,
       isLiked: false,
     };
   },
@@ -363,47 +366,27 @@ export default {
     };
   },
   computed: {
-    ...mapState(["cart"]),
-    isInCart() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart !== undefined;
+    ...mapGetters("product", ["getProductById"]),
+    product() {
+      return this.getProductById(this.currentPage);
     },
-    isInSaved() {
-      const productInSaved = this.$store.state.savedItem.find(
-        (p) => p.id === this.product.id
-      );
-      return productInSaved !== undefined;
-    },
-    getProductQuantity() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart ? productInCart.quantity : 0;
+    isInCart() {},
+    isInSaved() {},
+    getProductQuantity() {},
+  },
+  watch: {
+    product(newProduct) {
+      this.productDetails = newProduct;
+      this.loading = false;
+      console.log("Product details:", newProduct);
     },
   },
   async mounted() {
+    this.$store.dispatch("product/fetchAllProducts");
     const pathArray = this.$route.path.split("~");
     const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
     this.currentPage = lastSegment;
     console.log(this.currentPage);
-    // this.productId = this.$route.params.id;
-    // this.productTitle = this.$route.params.title;
-    // console.log(this.productId);
-
-    try {
-      this.loading = true;
-      // const response = await this.$axios.$get(`https://fakestoreapi.com/products/${this.productId}`);
-      const response = await this.$axios.$get(
-        `https://fakestoreapi.com/products/${this.currentPage}`
-      );
-      this.product = response;
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      this.loading = false;
-    }
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
 
@@ -452,15 +435,9 @@ export default {
     changeImage(index) {
       this.productImage = index;
     },
-    addToCart() {
-      this.$store.commit("addToCart", this.product);
-    },
-    incrementQuantity() {
-      this.$store.commit("incrementQuantity", { productId: this.product.id });
-    },
-    decrementQuantity() {
-      this.$store.commit("decrementQuantity", { productId: this.product.id });
-    },
+    addToCart() {},
+    incrementQuantity() {},
+    decrementQuantity() {},
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked;
@@ -493,7 +470,7 @@ export default {
   gap: 16px;
   align-items: flex-start;
 }
-.test{
+.test {
   border: 1px solid red;
 }
 .product-content {
@@ -726,9 +703,8 @@ p.product-details-snippet {
   width: 100%;
 }
 .product-buttom-nav {
- display: none;
+  display: none;
 }
-
 
 .nuxt-link-active .desktop-nav {
   background: var(--primary-p300);
@@ -763,11 +739,11 @@ p.product-details-snippet {
   }
 
   .categories-ctn {
-  padding: 0px 0px;
-  margin-bottom: 100px;
-  /* border: 1px solid red; */
-  width: 100%;
-}
+    padding: 0px 0px;
+    margin-bottom: 100px;
+    /* border: 1px solid red; */
+    width: 100%;
+  }
   .webskeleton {
     display: none;
   }
@@ -775,117 +751,111 @@ p.product-details-snippet {
   .SkeletonLoader {
     display: block;
   }
-  .product-buttom-nav{
+  .product-buttom-nav {
     position: fixed;
     display: block;
     bottom: 0;
     width: 100%;
   }
   .categories-ctn {
-  padding: 0px 0px;
-  margin-bottom: 100px;
-  width: 100%;
-}
-.operation{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 30px;
-  width: 45%;
-  /* border: 1px solid blue; */
+    padding: 0px 0px;
+    margin-bottom: 100px;
+    width: 100%;
+  }
+  .operation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    width: 45%;
+    /* border: 1px solid blue; */
+  }
+  .circle {
+    /* position: absolute; */
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    gap: 10px;
 
-}
-.circle {
-  /* position: absolute; */
-  top: 0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 6px;
-  gap: 10px;
+    width: 40px;
+    height: 40px;
 
-  width: 40px;
-  height: 40px;
+    /* Grey/Grey4 */
 
-  /* Grey/Grey4 */
-
-  border: 1px solid var(--grey-grey4);
-  /* border: 1px solid red; */
-  border-radius: 100px;
+    border: 1px solid var(--grey-grey4);
+    /* border: 1px solid red; */
+    border-radius: 100px;
+  }
+  .addBtn {
+    /* border: 1px solid red; */
+    width: 50%;
+  }
+  .bottom-nav {
+    position: fixed;
+    padding: 10px 20px;
+    bottom: 0;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    /* border: 1px solid red; */
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(48, 50, 55, 0.2);
+  }
+  .operation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    width: 50%;
+  }
 }
-.addBtn{
-  /* border: 1px solid red; */
-  width: 50%;
-}
-.bottom-nav{
-  position: fixed;
-  padding: 10px 20px;
-  bottom: 0;
-  width: 100%;
-  z-index: 99;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
-  align-items: center;
-  gap: 30px;
-  /* border: 1px solid red; */
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(48, 50, 55, 0.2);
-}
-.operation{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  width: 50%;
-
-}
-
-}
-@media screen and (max-width:768px) {
-  .product-buttom-nav{
+@media screen and (max-width: 768px) {
+  .product-buttom-nav {
     position: fixed;
     display: block;
     bottom: 0;
     width: 100%;
   }
   .categories-ctn {
-  padding: 0px 0px;
-  margin-bottom: 100px;
-  width: 100%;
+    padding: 0px 0px;
+    margin-bottom: 100px;
+    width: 100%;
+  }
+  .operation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 30%;
+    /* border: 1px solid blue; */
+  }
 }
-.operation{
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  gap: 20px;
-  width: 30%;
-  /* border: 1px solid blue; */
-
-}
-}
-@media screen and (max-width:600px) {
-  .product-buttom-nav{
+@media screen and (max-width: 600px) {
+  .product-buttom-nav {
     position: fixed;
     display: block;
     bottom: 0;
     width: 100%;
   }
   .categories-ctn {
-  padding: 0px 0px;
-  margin-bottom: 100px;
-  width: 100%;
+    padding: 0px 0px;
+    margin-bottom: 100px;
+    width: 100%;
+  }
+  .operation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 40%;
+  }
 }
-.operation{
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  gap: 20px;
-  width: 40%;
-
-}
-}
-
 </style>

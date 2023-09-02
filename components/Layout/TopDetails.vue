@@ -30,7 +30,7 @@
           </clipPath>
         </defs>
       </svg>
-      <input class="input-search" type="search" name="search" id="search" placeholder="Search for products" />
+      <input class="input-search" type="search" name="search" id="search" placeholder="Search for products" v-model="searchQuery" />
     </div>
     <div class="notify-cart">
       <div class="notification" @click="triggerNotification">
@@ -58,8 +58,8 @@
               stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
-        <div class="badge" v-if="cart.length > 0">
-          <p>{{ getCartLength }}</p>
+        <div class="badge">
+          <p>9</p>
         </div>
       </div>
     </div>
@@ -67,21 +67,31 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      searchQuery: "",
+      cart: null,
+    };
+  },
   computed: {
-    ...mapState(['cart']),
     getCartLength() {
-      const cartLength = this.$store.state.cart.length;
-      return cartLength
+      
     }
   },
   methods: {
+    ...mapActions("product", ["updateQuery"]),
     triggerCart() {
       this.$emit("openCart");
     },
     triggerNotification() {
       this.$emit("openNotification");
+    },
+  },
+  watch: {
+    searchQuery(newSearchQuery) {
+      this.updateQuery(newSearchQuery); // Dispatch the action with the updated query
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <cart @openCart="toggleCart" v-if="isCart && !mobile" />
-    <notificationDesktop
+    <LayoutNotificationDesktop
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile"
     />
@@ -12,7 +12,7 @@
           <div class="fixed" v-if="!mobile">
             <div class="solv">
               <!-- side navigation bar -->
-              <sideNav
+              <LayoutSideNav
                 :show-popup="showPopup"
                 @update:showPopup="updateShowPopup"
                 @update:logout="updatelogout"
@@ -21,8 +21,8 @@
             <div class="backdrop" v-if="showPopup" @click="closePopup"></div>
           </div>
           <!-- bottom navigation bar -->
-          <div class="mobile-bottom-nav" v-else>
-            <bottomNav />
+          <div class="mobile-bottom-nav">
+            <LayoutBottomNav v-if="mobile" class="mobile"/>
           </div>
         </div>
         <div class="top-fixed" @click="closePopup">
@@ -30,14 +30,14 @@
             <div class="ipc-top-fixed">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <topDetails
+                <LayoutTopDetails
                   @openCart="toggleCart"
                   @openNotification="toggleNotification"
                 />
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <mobileTopDetails
+                <LayoutMobileTopDetails
                   @redirectToSearchPage="redirectToSearchPageFunc"
                   @openCart="toggleCart"
                 />
@@ -76,7 +76,6 @@
 
 <script>
 export default {
-  // middleware: 'auth', // Add the 'auth' middleware to protect this page
   data() {
     return {
       showPopup: false,
@@ -91,15 +90,8 @@ export default {
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
-    // set loading to true again when component is mounted
-    // this.loading = true;
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkScreenSize);
-    if (this.$route.path === "/dashboard") {
-      // Perform an automatic redirect to "/dashboard/market"
-      this.$router.redirect("/dashboard/market");
-    }
+    // Initialize other data or perform actions when the component is mounted
+    // For example: this.loading = true;
   },
   methods: {
     toggleCart() {
@@ -114,29 +106,21 @@ export default {
       if (this.mobile) {
         this.$router.push("/dashboard/market/notifications");
       }
-      console.log("cart clicked");
+      console.log("notification clicked");
     },
     updateShowPopup(value) {
       this.showPopup = value;
     },
     updatelogout(value) {
-      if (this.showPopup === true) {
-        this.showPopup = false;
-      }
+      this.showPopup = value ? false : this.showPopup;
       this.logout = value;
     },
     closePopup() {
-      if (this.showPopup === true) {
-        this.showPopup = false;
-      }
+      this.showPopup = false;
       this.logout = false;
     },
     checkScreenSize() {
-      if (window.innerWidth <= 951) {
-        this.mobile = true;
-      } else {
-        this.mobile = false;
-      }
+      this.mobile = window.innerWidth < 952;
     },
     redirectToSearchPageFunc() {
       if (this.mobile) {
@@ -144,10 +128,10 @@ export default {
       }
     },
     logoutUser() {
-      this.logout = !this.logout; // set logout to true
+      this.logout = true;
     },
     logoutUserBG() {
-      this.logout = false; // set logout to true
+      this.logout = false;
     },
     handleOpenMail() {
       this.checkMail = !this.checkMail;
@@ -155,6 +139,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 section {

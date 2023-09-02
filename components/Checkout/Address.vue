@@ -434,7 +434,7 @@ select {
   -moz-appearance: none;
   appearance: none;
 
-  background-image: url(../static/assets-chevron-down-arrow.png);
+  background-image: url(@/static/assets-chevron-down-arrow.png);
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 20px; /* Adjust as needed */

@@ -22,7 +22,7 @@
           class="value input"
           name="BusinessName"
           type="text"
-          :value="BusinessName"
+          :value="user?.businessName"
           style="margin-top: 0px; color: black"
           readonly
         />
@@ -34,13 +34,24 @@
     <!-- switch__tab first name and last name from the backend -->
 
     <div class="userName">
-      <div class="nameInput" v-for="(field, index) in userName" :key="index">
-        <label :for="field.label" class="label">{{ field.label }}</label>
+      <div class="nameInput">
+        <label for="firstName" class="label">First name</label>
         <input
           class="value input"
-          :name="field.label"
+          name="firstName"
           type="text"
-          :value="field.value"
+          :value="user?.firstName"
+          style="margin-top: 0px; color: black"
+          readonly
+        />
+      </div>
+      <div class="nameInput">
+        <label for="lastName" class="label">Last name</label>
+        <input
+          class="value input"
+          name="lastName"
+          type="text"
+          :value="user?.lastName"
           style="margin-top: 0px; color: black"
           readonly
         />
@@ -57,7 +68,7 @@
       <div class="phone-number">
         <div
           class="phone-num"
-          v-for="(number, index) in phoneNumbers"
+          v-for="(number, index) in user?.phoneNumbers"
           :key="index"
         >
           <label :for="'phone-number-' + (index + 1)"
@@ -134,12 +145,8 @@
 import "animate.css";
 export default {
   props: {
-    userName: {
-      type: Array,
-      required: true,
-    },
-    phoneNumbers: {
-      type: Array,
+    user: {
+      type: Object,
       required: true,
     },
     invalidNumber: {
@@ -148,10 +155,6 @@ export default {
     },
     showNewPhoneNumber: {
       type: Boolean,
-      required: true,
-    },
-    BusinessName: {
-      type: String,
       required: true,
     },
   },
