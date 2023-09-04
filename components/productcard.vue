@@ -32,7 +32,11 @@
       <div class="product-img-grp">
         <!-- product image -->
         <div class="image-container">
-          <img v-if="product.images && product.images.length > 0" :src="product.images[0].url" :alt="product.name" />
+          <img
+            v-if="product.images && product.images.length > 0"
+            :src="product.images[0].url"
+            :alt="product.name"
+          />
         </div>
         <!-- -------------------------------- -->
       </div>
@@ -56,8 +60,8 @@
 
     <!-- add to cart button  -->
 
-    <button class="btn secondary-btn-small" @click="addToCart" v-if="!inCart">
-      <svg
+    <button class="btn secondary-btn-small" @click="addProductToCart">
+      <svg v-if="!loader"
         xmlns="http://www.w3.org/2000/svg"
         width="17"
         height="16"
@@ -72,14 +76,13 @@
           stroke-linejoin="round"
         />
       </svg>
-      <p>Add to cart</p>
+      <p v-if="!loader">Add to cart</p>
+      <span class="loader" v-if="loader"></span>
     </button>
 
     <!-- -------------------------------- -->
 
-    <div v-else class="counter-btn">
-      <!-- counter button -->
-
+    <!-- <div class="counter-btn">
       <button @click="decrementQuantity" class="circle btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +101,6 @@
         </svg>
       </button>
 
-      <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
       <div class="counter">{{ getProductQuantity }}</div>
 
       <button @click="incrementQuantity" class="circle">
@@ -118,13 +120,15 @@
           />
         </svg>
       </button>
+    </div> -->
 
-      <!-- -------------------------------- -->
-    </div>
+    <!-- -------------------------------- -->
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -140,12 +144,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    loader: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     getProductQuantity() {},
   },
   methods: {
-    addToCart() {},
+    ...mapActions("cart", ["addToCart"]),
+    addProductToCart() {
+      this.addToCart(this.product)
+    },
     incrementQuantity() {},
     decrementQuantity() {},
     toggleLike() {},

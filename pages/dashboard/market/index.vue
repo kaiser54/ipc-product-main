@@ -8,11 +8,12 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <productcard
+          <ProductCard
             v-for="product in filteredProducts"
             :key="product.id"
             :product="product"
             :inCart="inCart"
+            :loader="cartLoading"
           />
         </div>
       </section>
@@ -53,11 +54,13 @@ export default {
     };
   },
   async mounted() {
-    await this.fetchAllProducts(); // Fetch all products when the component is mounted
+    await this.fetchCartItemsByUserID();
+    await this.fetchAllProducts();
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
   computed: {
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapState("product", ["loading", "error"]),
     ...mapGetters("product", ["getProductsBySearch"]),
     filteredProducts() {
@@ -66,8 +69,10 @@ export default {
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
+    ...mapActions("cart", ["fetchCartItemsByUserID"]),
     checkScreenSize() {
-      this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
+      this.animate =
+        window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
     handleOpenMail() {
       this.checkMail = !this.checkMail;

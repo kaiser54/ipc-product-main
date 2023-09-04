@@ -1,21 +1,20 @@
 <template>
   <div class="div">
-    <!-- <div v-for="(product, index) in products" :key="index" class="cart-list-con"> -->
     <div class="cart-wrap">
       <div class="cart-product">
         <div class="image">
-          <!-- <img :src="product.image" alt="" /> -->
-          <!-- <img :src="require(`~/assets/images/${product.image}`)" /> -->
-          <img :src="product.image" :alt="product.title" />
+          <img :src="items?.product?.images[0]?.url" :alt="items?.product?.name" />
         </div>
       </div>
       <div class="cart-product-details">
         <!-- product title and price -->
         <div class="name-price">
           <div class="text-container">
-            <p class="name">{{ product.title }}</p>
+            <p class="name">{{ items?.product?.name }}</p>
           </div>
-          <p class="price"><span class="naira">₦</span> {{ product.price }}</p>
+          <p class="price">
+            <span class="naira">₦</span> {{ items?.product?.discountPrice }}
+          </p>
         </div>
         <!-- -------------- -->
 
@@ -41,18 +40,10 @@
             </div>
             <!-- -------------- -->
 
-            <!-- <div class="stock-tag" :class="{ 'in-stock': product.inStock }">
-                {{ product.inStock ? "In stock" : "Out of stock" }}
-              </div> -->
-
             <!-- counter button -->
           </div>
           <div class="quantity">
-            <button
-              class="circle"
-              @click="decrementQuantity"
-              :disabled="getProductQuantity < 2"
-            >
+            <button class="circle" @click="decreaseQuantity">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -69,8 +60,8 @@
                 />
               </svg>
             </button>
-            <div class="counter">{{ getProductQuantity }}</div>
-            <button class="circle" @click="incrementQuantity">
+            <div class="counter">{{ items?.quantity }}</div>
+            <button class="circle" @click="IncreaseQuantity">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -97,10 +88,9 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 export default {
   props: {
-    product: {
+    items: {
       type: Object,
       required: true,
     },
@@ -109,31 +99,13 @@ export default {
       default: false,
     },
   },
-  computed: {
-    ...mapState(["cart"]),
-    isInCart() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart !== undefined;
-    },
-    getProductQuantity() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart ? productInCart.quantity : 0;
-    },
-  },
+  computed: {},
   methods: {
-    ...mapMutations(["removeFromCart"]),
-    addToCart() {
-      this.$store.commit("addToCart", this.product);
+    IncreaseQuantity() {
+      this.$emit("counterPlus", this.items.product);
     },
-    incrementQuantity() {
-      this.$store.commit("incrementQuantity", { productId: this.product.id });
-    },
-    decrementQuantity() {
-      this.$store.commit("decrementQuantity", { productId: this.product.id });
+    decreaseQuantity() {
+      this.$emit("counterMinus", this.items.product);
     },
   },
 };

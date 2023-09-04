@@ -1,7 +1,7 @@
 <template>
-  <div class="cart-view">
+  <div class="cart-view" v-if="cart">
     <div class="mobile-cart" v-if="mobile">
-      <CartMobile />
+      <CartMobile/>
     </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
@@ -9,7 +9,7 @@
         <h2 class="h2-medium">Shopping cart</h2>
       </div>
     </div>
-    <EmptyStates v-if="cart.length == 0" @leaveCart="leaveCart">
+    <EmptyStates @leaveCart="leaveCart" v-if="cart.length < 0">
       <template v-slot:svg>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -143,14 +143,16 @@
       </template>
     </EmptyStates>
 
-    <div class="listed-cart" v-if="!mobile && cart.length > 0">
+    <div class="listed-cart" v-if="!mobile">
       <div class="listed-cart-product">
         <CartList
-          v-for="product in cart"
-          :key="product.id"
-          :product="product"
-          :inCart="true"
           class="cart-list-con"
+          v-for="(items, index) in cartItems"
+          :key="index"
+          :items ="items"
+          :inCart="true"
+          @counterPlus="counterPlus"
+          @counterMinus="counterMinus"
         />
       </div>
       <div class="checkout-container">
@@ -187,7 +189,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   layout: "dashboardview",
   // Other component properties and methods
@@ -204,7 +206,7 @@ export default {
     };
   },
   async mounted() {
-    await this.fetchCartItemsByUserID();
+    await this.fetchCartItemsByUserID(); 
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -212,10 +214,19 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    ...mapState("cart", ["cart", "loading", "totalPrice", "error"]),
+    cartItems () {
+      return this.$store.state.cart.cart
+    },
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
   },
   methods: {
-    ...mapActions("cart", ["fetchCartItemsByUserID"]),
+    counterPlus(e) {
+      this.addToCart(e)
+    },
+    counterMinus(e) {
+      this.reduceQuantity(e)
+    },
+    ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
