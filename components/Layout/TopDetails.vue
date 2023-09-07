@@ -15,7 +15,7 @@
           </defs>
         </svg>
       </div>
-      <p class="username">Chicken Republic</p>
+      <p class="username">{{ user.firstName }} {{ user.lastName }}</p>
     </div>
     <div class="search-input">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -69,6 +69,12 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       searchQuery: "",
@@ -76,9 +82,6 @@ export default {
     };
   },
   computed: {
-    getCartLength() {
-      
-    }
   },
   methods: {
     ...mapActions("product", ["updateQuery"]),

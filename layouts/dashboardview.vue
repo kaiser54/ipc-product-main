@@ -3,16 +3,17 @@
     <cart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
-      v-if="isNotification && !mobile"
+      v-if="isNotification && !mobile && !user"
     />
 
-    <div class="dashboard-wrapper">
+    <div class="dashboard-wrapper" v-if="user">
       <section class="section-wrapper">
         <div class="ipc-nav">
           <div class="fixed" v-if="!mobile">
             <div class="solv">
               <!-- side navigation bar -->
               <LayoutSideNav
+                :user="user"
                 :show-popup="showPopup"
                 @update:showPopup="updateShowPopup"
                 @update:logout="updatelogout"
@@ -22,7 +23,7 @@
           </div>
           <!-- bottom navigation bar -->
           <div class="mobile-bottom-nav">
-            <LayoutBottomNav v-if="mobile" class="mobile"/>
+            <LayoutBottomNav v-if="mobile" class="mobile" />
           </div>
         </div>
         <div class="top-fixed" @click="closePopup">
@@ -31,6 +32,7 @@
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
+                :user="user"
                   @openCart="toggleCart"
                   @openNotification="toggleNotification"
                 />
@@ -78,6 +80,7 @@
 export default {
   data() {
     return {
+      user: null,
       showPopup: false,
       mobile: false,
       loading: true,
@@ -92,6 +95,27 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     // Initialize other data or perform actions when the component is mounted
     // For example: this.loading = true;
+
+    if (process.client) {
+      // Check if localStorage is available
+      if (typeof localStorage !== "undefined") {
+        // Check if user data is saved in localStorage
+        const userData = localStorage.getItem("user");
+
+        if (userData) {
+          // User data is available, log it
+          this.user = JSON.parse(userData);
+          console.log("User data in localStorage:", JSON.parse(userData));
+        } else {
+          // User data is not found in localStorage
+          console.log("User data not found in localStorage.");
+        }
+      } else {
+        // Local Storage is not available in this environment
+        // You can handle this situation accordingly
+        console.log("LocalStorage is not available in this environment.");
+      }
+    }
   },
   methods: {
     toggleCart() {

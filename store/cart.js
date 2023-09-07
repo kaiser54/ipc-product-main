@@ -6,6 +6,7 @@ import axios from "axios";
 export default {
   state: () => ({
     cart: [],
+    favorites: [],
     totalPrice: [],
     error: null,
     error_msg: null,
@@ -14,6 +15,9 @@ export default {
 
   mutations: {
     ADD_TO_CART(state, cartItem) {
+      state.cart.push(...cartItem);
+    },
+    ADD_TO_FAV(state, cartItem) {
       state.cart.push(...cartItem);
     },
     SET_TOTAL_PRICE(state, totalPrice) {
@@ -30,6 +34,9 @@ export default {
     },
     REMOVE_FROM_CART(state, productId) {
       state.cart = state.cart.filter((item) => item._id !== productId);
+    },
+    REMOVE_FROM_FAV(state, productId) {
+      state.favourites = state.favourites.filter((item) => item._id !== productId);
     },
     CLEAR_CART(state) {
       state.cart = [];

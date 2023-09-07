@@ -368,8 +368,8 @@
           <img src="@/assets/images/avatar.png" alt="" />
         </div>
         <div class="profile-details">
-          <p class="name">Chicken republic</p>
-          <p class="email truncate">adminchickenrepublic@gmail.com</p>
+          <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
+          <p class="email truncate">{{ user.email }}</p>
         </div>
       </div>
     </section>
@@ -377,20 +377,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   props: {
     showPopup: {
       type: Boolean,
       required: true,
     },
+    user: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
-    ...mapState(["savedItem"]),
-    getCartLength() {
-      const cartLength = this.$store.state.savedItem.length;
-      return cartLength;
-    },
   },
   methods: {
     togglePopup() {
