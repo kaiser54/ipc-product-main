@@ -15,6 +15,10 @@ export default {
   mutations: {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
+      // console.log(state.cart)
+    },
+    UPDATE_CARTITEM_QUANTITY({cart}, {index, quantity}) {
+      cart[index].quantity = quantity
     },
     SET_TOTAL_PRICE(state, totalPrice) {
       state.totalPrice = totalPrice;
@@ -53,7 +57,7 @@ export default {
 
         const response = await axios.get(`${DEV_URL}/cart/${customerId}`);
 
-        console.log(response);
+        // console.log(response);
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
         }
@@ -72,7 +76,7 @@ export default {
       }
     },
 
-    async addToCart({ commit }, product) {
+    async addToCart({ commit, state }, product) {
       try {
         commit("SET_LOADING", true);
 
@@ -87,7 +91,7 @@ export default {
           customerId: customerId,
         };
 
-        console.log(data);
+        // console.log(data);
 
         const headers = {
           "Content-Type": "application/json",
@@ -96,11 +100,20 @@ export default {
         const response = await axios.post(`${DEV_URL}/cart`, data, {
           headers: headers,
         });
-        console.log(response);
+        const {cartItem} = response.data.data
+        console.log(cartItem)
+        const {cart} = state
+        const findItem = cart.find(c=>c.productId === cartItem.productId) || {}
+        const indexOfCartItem = cart.findIndex(c=>c.productId === cartItem.productId)
+        if (Object.keys(findItem).length) {
+          commit("UPDATE_CARTITEM_QUANTITY", {index: indexOfCartItem, quantity: cartItem.quantity})
+        } else {
+          // const newCart = [...state.cart, cartItem]
+          commit("ADD_TO_CART", cartItem);
+        }
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
         }
-
         // commit("ADD_TO_CART", response.data.data.cartItem);
         // commit("SET_TOTAL_PRICE", response.data.data.totalPrice);
         commit("SET_LOADING", false);

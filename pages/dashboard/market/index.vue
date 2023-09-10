@@ -8,7 +8,7 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <ProductCard
+          <productcard
             v-for="product in filteredProducts"
             :key="product.id"
             :product="product"
