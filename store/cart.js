@@ -6,7 +6,6 @@ import axios from "axios";
 export default {
   state: () => ({
     cart: [],
-    favorites: [],
     totalPrice: [],
     error: null,
     error_msg: null,
@@ -16,9 +15,11 @@ export default {
   mutations: {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
+      // state.cart.push(cartItem);
+      console.log("mutant cart", state.cart);
     },
-    ADD_TO_FAV(state, data) {
-      state.favorites.push(...data);
+    UPDATE_CARTITEM_QUANTITY({ cart }, { index, quantity }) {
+      cart[index].quantity = quantity;
     },
     SET_TOTAL_PRICE(state, totalPrice) {
       state.totalPrice = totalPrice;
@@ -35,16 +36,8 @@ export default {
     REMOVE_FROM_CART(state, productId) {
       state.cart = state.cart.filter((item) => item._id !== productId);
     },
-    REMOVE_FROM_FAV(state, productId) {
-      state.favourites = state.favourites.filter(
-        (item) => item._id !== productId
-      );
-    },
     CLEAR_CART(state) {
       state.cart = [];
-    },
-    CLEAR_FAV(state) {
-      state.favorites = []; // Clear the favorites array
     },
   },
 
@@ -65,7 +58,7 @@ export default {
 
         const response = await axios.get(`${DEV_URL}/cart/${customerId}`);
 
-        console.log(response);
+        // console.log(response);
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
         }
@@ -84,56 +77,7 @@ export default {
       }
     },
 
-    async fetchFavouriteByUserID({ commit }) {
-      try {
-        commit("SET_LOADING", true);
-
-        const user = process.client
-          ? JSON.parse(localStorage.getItem("user")) || null
-          : null;
-
-        const customerId = user?._id;
-
-        const headers = {
-          "Content-Type": "application/json",
-        };
-
-        // Include the customerId in the query parameters, not in headers
-        const params = { customerId };
-
-        const response = await axios.get(`${DEV_URL}/favourites/`, {
-          headers,
-          params,
-        });
-
-        console.log(response);
-
-        // Check for a successful response (status 200)
-        if (response.status === 200) {
-          const fav = response?.data?.data?.favourites;
-          console.log("fav:", fav);
-
-          // Commit an action to clear the favorites in your Vuex store
-          commit("CLEAR_FAV");
-
-          // Commit the fav data to your Vuex store
-          commit("ADD_TO_FAV", fav);
-          commit("SET_ERROR", null);
-        } else {
-          // Handle non-200 status codes as an error
-          throw new Error("Failed to fetch favorites.");
-        }
-
-        // Set loading to false regardless of success or failure
-        commit("SET_LOADING", false);
-      } catch (error) {
-        // Handle errors and set loading to false
-        commit("SET_ERROR", error.message);
-        commit("SET_LOADING", false);
-      }
-    },
-
-    async addToCart({ commit }, product) {
+    async addToCart({ commit, state }, product) {
       try {
         commit("SET_LOADING", true);
 
@@ -145,10 +89,11 @@ export default {
 
         const data = {
           product: product,
+          productId: product._id,
           customerId: customerId,
         };
 
-        console.log(data);
+        console.log("data sending to backend", data);
 
         const headers = {
           "Content-Type": "application/json",
@@ -157,13 +102,44 @@ export default {
         const response = await axios.post(`${DEV_URL}/cart`, data, {
           headers: headers,
         });
-        console.log(response);
+
+        const { cartItem } = response.data.data;
+
+        console.log(" response data: ", cartItem);
+
+        const { cart } = state;
+
+        //checking if the product exits
+        // const findItem = cart.find(c=>c.productId === cartItem.productId) || {}
+
+        // Find the index of the existing cart item if it exists.
+        // const indexOfCartItem = cart.findIndex(c=>c.productId === cartItem.productId)
+        const indexOfCartItem = state.cart.findIndex(
+          (c) => c.productId === cartItem.productId
+        );
+
+        // if (Object.keys(findItem).length) {
+        //   commit("UPDATE_CARTITEM_QUANTITY", {index: indexOfCartItem, quantity: cartItem.quantity})
+        // }
+        if (indexOfCartItem !== -1) {
+          commit("UPDATE_CARTITEM_QUANTITY", {
+            index: indexOfCartItem,
+            quantity: cartItem.quantity,
+          });
+        } else {
+          // const newCart = [...state.cart, cartItem]
+          const cart = [];
+          cart.push(cartItem);
+          commit("ADD_TO_CART", cart);
+        }
+
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
         }
 
         // commit("ADD_TO_CART", response.data.data.cartItem);
         // commit("SET_TOTAL_PRICE", response.data.data.totalPrice);
+
         commit("SET_LOADING", false);
         commit("SET_ERROR", null);
       } catch (error) {
