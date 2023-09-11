@@ -6,7 +6,7 @@
         <h2 class="h2-medium header-text">Saved items</h2>
       </div>
     </div>
-    <EmptyStates v-if="savedItem.length == 0" @leaveCart="leaveCart">
+    <EmptyStates v-if="favorites.length == 0" @leaveCart="leaveCart">
       <template v-slot:svg>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -116,9 +116,9 @@
     <div class="saved__items__container" v-else>
       <ProductList
         class="product__wrap"
-        v-for="product in savedItem"
+        v-for="product in favorites"
         :key="product.id"
-        :product="product"
+        :product="product.product"
         :deleteBtn="true"
         :showTag="true"
         :showBtn="true"
@@ -133,54 +133,31 @@
       />
       <div class="category-list">
         <div class="categories">
-        <CategoryCards
-
-      Header = "Recommended for you"/>
-      </div>
-      <div class="categories">
-        <CategoryCards
-        Header = "Check these out"
-      />
-      </div>
-      <div class="categories">
-        <CategoryCards
-      Header = "You might also like this"
-      />
-      </div>
+          <CategoryCards Header="Recommended for you" />
+        </div>
+        <div class="categories">
+          <CategoryCards Header="Check these out" />
+        </div>
+        <div class="categories">
+          <CategoryCards Header="You might also like this" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import ProductList from "~/components/ProductList.vue";
+import { mapState, mapActions } from "vuex";
 export default {
   layout: "dashboardview",
-  components: { ProductList },
+  mounted() {
+    // this.fetchFavouriteByUserID();
+  },
   computed: {
-    ...mapState(["savedItem"]),
-    isSaved() {
-      const productIsSaved = this.$store.state.savedItem.find(
-        (p) => p.id === this.product.id
-      );
-      return productIsSaved !== undefined;
-    },
+    ...mapState("cart", ["favorites", "cartLoading", "error"]),
   },
   methods: {
-    ...mapMutations(["removeFromSaved"]),
-    addToCart(product) {
-      this.$store.commit("buyProduct", product);
-    },
-    incrementQuantity() {
-      this.$store.commit("incrementQuantity", { productId: this.product.id });
-    },
-    decrementQuantity() {
-      this.$store.commit("decrementQuantity", { productId: this.product.id });
-    },
-    leaveCart() {
-      this.$router.push("/dashboard/market");
-    },
+    // ...mapActions("cart", ["fetchFavouriteByUserID"]),
   },
 };
 </script>
@@ -204,10 +181,11 @@ export default {
   display: flex;
   /* max-width: 681px; */
   flex-direction: column;
+  gap: 32px;
   align-items: flex-start;
 }
 .product__wrap {
-  /* max-width: 681px; */
+  max-width: 681px;
   width: 100%;
 }
 @media (max-width: 950px) {
@@ -237,15 +215,15 @@ export default {
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
 }
-.categories{
+.categories {
   width: 100%;
 }
-.category-list{
+.category-list {
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
   gap: 30px;
   width: 100%;
-  }
+}
 </style>

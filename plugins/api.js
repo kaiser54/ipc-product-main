@@ -5,7 +5,7 @@ export const DEV_URL = "http://localhost:8000/api/v1"; // Base API URL
 
 export async function fetchData(endpoint, requestOptions) {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}`, requestOptions);
+    const response = await fetch(`${DEV_URL}${endpoint}`, requestOptions);
     const data = await response.json();
     return data;
   } catch (error) {

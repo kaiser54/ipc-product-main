@@ -56,6 +56,7 @@ export default {
   async mounted() {
     await this.fetchCartItemsByUserID();
     await this.fetchAllProducts();
+    // await this.fetchFavouriteByUserID();
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -69,7 +70,7 @@ export default {
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
-    ...mapActions("cart", ["fetchCartItemsByUserID"]),
+    ...mapActions("cart", ["fetchCartItemsByUserID", "fetchFavouriteByUserID"]),
     checkScreenSize() {
       this.animate =
         window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";

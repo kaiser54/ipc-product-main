@@ -1,17 +1,21 @@
 <template>
   <div class="product__list">
-    <div class="flex" style="gap: 16px">
+    <div class="flex" style="gap: 16px;align-items: center;">
       <div class="image">
-        <img :src="product.image" :alt="product.title" />
+        <img
+          v-if="product.images && product.images.length > 0"
+          :src="product.images[0].url"
+          :alt="product.name"
+        />
       </div>
       <div class="product__info flex">
         <div class="product__group flex child__1" :class="className__1">
           <div class="product__name">
-            {{ product.title }}
+            {{ product.name }}
           </div>
           <!-- only show this div in mobile view -->
           <div class="flex mobile" v-if="mobile">
-            <div class="product__price">₦ {{ product.price }}</div>
+            <div class="product__price">₦ {{ product.discountPrice }}</div>
             <DynamicTags
               :tagText="tagText"
               :size="size"
@@ -65,10 +69,10 @@
           :class="className__2"
           v-if="!mobile"
         >
-          <div class="product__price">₦ {{ product.price }}</div>
-          <div class="product__qty" v-if="showQty">
+          <div class="product__price">₦ {{ product.discountPrice }}</div>
+          <!-- <div class="product__qty" v-if="showQty">
             Qty: {{ getProductQuantity }}
-          </div>
+          </div> -->
           <div class="product__counter flex" v-if="ShowCounter">
             <DynamicButton
               @clickButton="decrementQuantity"
@@ -156,7 +160,11 @@
         </svg>
       </div>
     </div>
-    <div class="flex" style="justify-content: space-between; width: 100%;" v-if="mobile">
+    <div
+      class="flex"
+      style="justify-content: space-between; width: 100%"
+      v-if="mobile"
+    >
       <DynamicButton
         @clickButton="removeFromCart(product.id)"
         class="auto"
@@ -194,6 +202,7 @@
         class="auto"
       />
     </div>
+    <div class="line"></div>
   </div>
 </template>
   
@@ -265,18 +274,8 @@ export default {
   },
   computed: {
     ...mapState(["cart"]),
-    isInCart() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart !== undefined;
-    },
-    getProductQuantity() {
-      const productInCart = this.$store.state.cart.find(
-        (p) => p.id === this.product.id
-      );
-      return productInCart ? productInCart.quantity : 0;
-    },
+    isInCart() {},
+    getProductQuantity() {},
   },
   mounted() {
     this.checkScreenSize();
@@ -450,6 +449,12 @@ export default {
   .flex__gap {
     gap: 16px;
   }
+}
+
+.line {
+  margin-top: 32px;
+  background: #E5E7EF;
+  height: 1px;
 }
 </style>
   

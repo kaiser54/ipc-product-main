@@ -17,8 +17,8 @@ export default {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
     },
-    ADD_TO_FAV(state, cartItem) {
-      state.cart.push(...cartItem);
+    ADD_TO_FAV(state, data) {
+      state.favorites.push(...data);
     },
     SET_TOTAL_PRICE(state, totalPrice) {
       state.totalPrice = totalPrice;
@@ -36,10 +36,15 @@ export default {
       state.cart = state.cart.filter((item) => item._id !== productId);
     },
     REMOVE_FROM_FAV(state, productId) {
-      state.favourites = state.favourites.filter((item) => item._id !== productId);
+      state.favourites = state.favourites.filter(
+        (item) => item._id !== productId
+      );
     },
     CLEAR_CART(state) {
       state.cart = [];
+    },
+    CLEAR_FAV(state) {
+      state.favorites = []; // Clear the favorites array
     },
   },
 
@@ -65,8 +70,8 @@ export default {
           throw new Error("Failed to add the product to the cart.");
         }
 
-        const cart = response?.data?.data?.cartItems
-        
+        const cart = response?.data?.data?.cartItems;
+
         console.log("cart :", cart);
 
         // Handle the response data as needed
@@ -74,6 +79,55 @@ export default {
         commit("SET_LOADING", false);
         commit("SET_ERROR", null);
       } catch (error) {
+        commit("SET_ERROR", error.message);
+        commit("SET_LOADING", false);
+      }
+    },
+
+    async fetchFavouriteByUserID({ commit }) {
+      try {
+        commit("SET_LOADING", true);
+
+        const user = process.client
+          ? JSON.parse(localStorage.getItem("user")) || null
+          : null;
+
+        const customerId = user?._id;
+
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        // Include the customerId in the query parameters, not in headers
+        const params = { customerId };
+
+        const response = await axios.get(`${DEV_URL}/favourites/`, {
+          headers,
+          params,
+        });
+
+        console.log(response);
+
+        // Check for a successful response (status 200)
+        if (response.status === 200) {
+          const fav = response?.data?.data?.favourites;
+          console.log("fav:", fav);
+
+          // Commit an action to clear the favorites in your Vuex store
+          commit("CLEAR_FAV");
+
+          // Commit the fav data to your Vuex store
+          commit("ADD_TO_FAV", fav);
+          commit("SET_ERROR", null);
+        } else {
+          // Handle non-200 status codes as an error
+          throw new Error("Failed to fetch favorites.");
+        }
+
+        // Set loading to false regardless of success or failure
+        commit("SET_LOADING", false);
+      } catch (error) {
+        // Handle errors and set loading to false
         commit("SET_ERROR", error.message);
         commit("SET_LOADING", false);
       }
@@ -126,9 +180,13 @@ export default {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.delete(`${DEV_URL}/cart/${product._id}`, data, {
-          headers: headers,
-        });
+        const response = await axios.delete(
+          `${DEV_URL}/cart/${product._id}`,
+          data,
+          {
+            headers: headers,
+          }
+        );
         console.log(response);
 
         if (response.status !== 200) {

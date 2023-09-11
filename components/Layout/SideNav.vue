@@ -209,9 +209,9 @@
                 </svg>
                 <p>Saved items</p>
 
-                <div class="badge" v-if="savedItem.length > 0">
+                <!-- <div class="badge" v-if="savedItem.length > 0">
                   <p>{{ getCartLength }}</p>
-                </div>
+                </div> -->
               </div>
             </div>
           </nuxt-link>

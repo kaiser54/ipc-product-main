@@ -4,10 +4,10 @@
   <div class="product-card">
     <!-- like button -->
 
-    <div class="circle">
+    <!-- <div class="circle">
       <svg
-        class="liked"
-        @click="toggleLike"
+        :class="{ liked: isLiked || liked }"
+        @click="toggleFav"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -21,7 +21,7 @@
           stroke-linejoin="round"
         />
       </svg>
-    </div>
+    </div> -->
 
     <!-- -------------------------------- -->
 
@@ -61,7 +61,8 @@
     <!-- add to cart button  -->
 
     <button class="btn secondary-btn-small" @click="addProductToCart">
-      <svg v-if="!loader"
+      <svg
+        v-if="!loader"
         xmlns="http://www.w3.org/2000/svg"
         width="17"
         height="16"
@@ -127,12 +128,16 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { DEV_URL } from "@/plugins/api";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {
-      isLiked: false,
+      productId: this.product ? this.product._id : "",
+      // productId: this.product && this.product._id ? this.product._id : "",
+      favoriteId: null,
+      liked: this.isLiked ? this.isLiked : null,
     };
   },
   props: {
@@ -150,19 +155,101 @@ export default {
     },
   },
   computed: {
-    getProductQuantity() {},
+    ...mapState("cart", ["favorites"]),
+    isLiked: {
+      get() {
+        const productIdToCheck = this.productId;
+        return this.favorites.some((favorite) => {
+          const favoriteProductId = favorite.productId;
+          console.log("Favorite Product ID:", favoriteProductId);
+          console.log("Target Product ID:", productIdToCheck);
+          this.favoriteId = favoriteProductId ? favoriteProductId : null;
+          return favoriteProductId === productIdToCheck;
+        });
+      },
+      set(newValue) {
+        // You can set the computed value here, but this is optional
+        this.liked = newValue;
+      },
+    },
   },
   methods: {
     ...mapActions("cart", ["addToCart"]),
     addProductToCart() {
-      this.addToCart(this.product)
+      this.addToCart(this.product);
     },
     incrementQuantity() {},
     decrementQuantity() {},
     toggleLike() {},
+
+    async toggleFav() {
+      if (process.client) {
+        const userData = JSON.parse(localStorage.getItem("user"));
+        const customerId = userData._id;
+
+        try {
+          const isCurrentlyLiked = this.isLiked;
+
+          // Define the URL for the favorites endpoint
+          const favoritesUrl = `${DEV_URL}/favourites`;
+
+          // Define the payload with product and customer information
+          const payload = {
+            product: this.product,
+            customerId,
+          };
+
+          if (isCurrentlyLiked) {
+            // If the product is already liked, send a DELETE request to remove it from favorites
+            const res = await fetch(favoritesUrl + "/" + this.favoriteId, {
+              method: "DELETE",
+              redirect: "follow",
+            });
+
+            console.log(this.favoriteId);
+            console.log(JSON.stringify(payload));
+
+            if (res.ok) {
+              console.log("Product removed from favorites successfully.");
+              // Remove the favorite ID from your component's data
+              this.favoriteId = null;
+            } else {
+              console.error("Failed to remove product from favorites.");
+            }
+          } else {
+            // If the product is not liked, send a POST request to add it to favorites
+            const res = await fetch(favoritesUrl, {
+              method: "POST",
+              body: JSON.stringify(payload),
+              headers: { "Content-Type": "application/json" },
+            });
+
+            console.log(this.favoriteId);
+            console.log(JSON.stringify(payload));
+
+            if (res.ok) {
+              const responseData = await res.json();
+              console.log("Product added to favorites successfully.");
+              console.log("Product added to favorites .", responseData);
+              this.liked = true;
+              // Store the favorite ID in your component's data
+              this.favoriteId = responseData.favoriteId;
+            } else {
+              console.error("Failed to add product to favorites.");
+            }
+          }
+        } catch (error) {
+          // Handle network or other errors that might occur during the fetch.
+          console.error("An error occurred:", error);
+        }
+      }
+    },
   },
 };
 </script>
+
+
+
 <style scoped>
 a {
   width: 100%;
