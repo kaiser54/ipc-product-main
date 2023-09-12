@@ -8,12 +8,11 @@
       </div>
       <section class="market-product">
         <div class="product-top-wrap">
-          <ProductCard
+          <productcard
             v-for="product in filteredProducts"
             :key="product.id"
             :product="product"
             :inCart="inCart"
-            :loader="cartLoading"
           />
         </div>
       </section>
@@ -31,13 +30,13 @@
           @closeModalBG="handleOpenMail"
         />
       </transition>
+      <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-
 export default {
   layout: "dashboardview",
   head() {
@@ -51,16 +50,17 @@ export default {
       checkMail: false,
       inCart: false,
       animate: null,
+      showModal: false
     };
   },
   async mounted() {
-    await this.fetchCartItemsByUserID();
-    await this.fetchAllProducts();
+    // set welcome modal to show on condition that a user is new or not
+    this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
+    await this.fetchAllProducts(); // Fetch all products when the component is mounted
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapState("product", ["loading", "error"]),
     ...mapGetters("product", ["getProductsBySearch"]),
     filteredProducts() {
@@ -69,18 +69,31 @@ export default {
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
-    ...mapActions("cart", ["fetchCartItemsByUserID"]),
     checkScreenSize() {
-      this.animate =
-        window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
+      this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
     handleOpenMail() {
       this.checkMail = !this.checkMail;
     },
+    welcomeUser() {
+      const welcome = localStorage.getItem('welcomeFlow')
+      if (!welcome) {
+        localStorage.setItem('welcomeFlow', 'incomplete')
+      }
+    },
+    clear() {
+      localStorage.removeItem('welcomeFlow')
+    },
+    removeModal() {
+      this.showModal = false
+      localStorage.setItem('welcomeFlow', 'complete');
+    },
+
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
   },
+
 };
 </script>
 
