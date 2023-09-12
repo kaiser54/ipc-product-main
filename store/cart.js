@@ -2,6 +2,7 @@
 
 import { DEV_URL } from "@/plugins/api";
 import axios from "axios";
+import product from "./product";
 
 export default {
   state: () => ({
@@ -18,8 +19,14 @@ export default {
       // state.cart.push(cartItem);
       console.log("mutant cart", state.cart);
     },
-    UPDATE_CARTITEM_QUANTITY({ cart }, { index, quantity }) {
+    UPDATE_CARTITEM({ cart }, { index, product }) {
+      cart[index] = product;
+      //replace the whole product not the quantity alone
+    },
+    UPDATE_CARTITEM_QUANTITY({ cart }, { index, quantity, totalPrice }) {
       cart[index].quantity = quantity;
+      cart[index].totalPrice = totalPrice;
+      //replace the whole product not the quantity alone
     },
     SET_TOTAL_PRICE(state, totalPrice) {
       state.totalPrice = totalPrice;
@@ -65,6 +72,8 @@ export default {
 
         const cart = response?.data?.data?.cartItems;
 
+        commit("CLEAR_CART");
+
         console.log("cart :", cart);
 
         // Handle the response data as needed
@@ -105,28 +114,39 @@ export default {
 
         const { cartItem } = response.data.data;
 
-        console.log(" response data: ", cartItem);
+        console.log(" response data: ", response);
+
+        console.log(" response cartItem: ", cartItem);
 
         const { cart } = state;
 
         //checking if the product exits
+
         // const findItem = cart.find(c=>c.productId === cartItem.productId) || {}
 
         // Find the index of the existing cart item if it exists.
+
         // const indexOfCartItem = cart.findIndex(c=>c.productId === cartItem.productId)
-        const indexOfCartItem = state.cart.findIndex(
+
+        const indexOfCartItem = cart.findIndex(
           (c) => c.productId === cartItem.productId
         );
+
+
+        console.log(" response indexOfCartItem: ", indexOfCartItem);
 
         // if (Object.keys(findItem).length) {
         //   commit("UPDATE_CARTITEM_QUANTITY", {index: indexOfCartItem, quantity: cartItem.quantity})
         // }
+
         if (indexOfCartItem !== -1) {
           commit("UPDATE_CARTITEM_QUANTITY", {
             index: indexOfCartItem,
             quantity: cartItem.quantity,
+            totalPrice: cartItem.totalPrice,
           });
-        } else {
+        } 
+        else {
           // const newCart = [...state.cart, cartItem]
           const cart = [];
           cart.push(cartItem);
@@ -148,9 +168,15 @@ export default {
       }
     },
 
-    async reduceQuantity({ commit }, product) {
+    async reduceQuantity({ commit, state }, product) {
       try {
         commit("SET_LOADING", true);
+
+        const user = process.client
+          ? JSON.parse(localStorage.getItem("user")) || null
+          : null;
+
+        const customerId = user?._id;
 
         const headers = {
           "Content-Type": "application/json",
@@ -158,11 +184,53 @@ export default {
 
         const response = await axios.delete(
           `${DEV_URL}/cart/${product._id}`,
-          data,
           {
             headers: headers,
+            // params: product._id,
           }
         );
+
+        console.log("reduce cart :", response)
+
+        if (response.status == 204) {
+          const indexOfCartItem = state.cart.findIndex(
+            (c) => c.productId === product._id
+          );
+
+          console.log(" response data: ", response);
+          console.log(" indexOfCartItem : ", indexOfCartItem);
+          console.log(" quantity : ", state.cart[indexOfCartItem].quantity - 1);
+
+          if (indexOfCartItem !== -1) {
+            commit("UPDATE_CARTITEM_QUANTITY", {
+              index: indexOfCartItem,
+              quantity: state.cart[indexOfCartItem].quantity - 1,
+            });
+          } else {
+            // commit("SET_LOADING", false);
+            // commit("SET_ERROR", "product not found");
+          }
+        }
+      } catch (error) {
+        commit("SET_ERROR", error.message);
+        commit("SET_LOADING", false);
+      }
+    },
+
+    async SS({ commit }, product) {
+      try {
+        commit("SET_LOADING", true);
+        console.log("hjgj");
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.delete(`${DEV_URL}/cart/`, data, {
+          headers: headers,
+          params: product._id,
+        });
+
+        console.log(product._id);
         console.log(response);
 
         if (response.status !== 200) {
@@ -212,9 +280,10 @@ export default {
 
   getters: {
     cartItems: (state) => state.cart,
+    TotalCart: (state) => state.cart.length,
     cartTotalQuantity: (state) =>
       state.cart.reduce((total, item) => total + item.quantity, 0),
     cartTotalPrice: (state) =>
-      state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
+      state.cart.reduce((acc, item) => acc + item.totalPrice, 0),
   },
 };

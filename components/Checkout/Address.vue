@@ -7,22 +7,21 @@
           <div class="form-group">
             <div class="form-field">
               <div class="personal">
-                <InputField
+                <InputOne
                   id="FirstName"
                   label="First name"
                   v-model="FirstName"
-                  :value="nameValue"
                   type="text"
                   placeholder="Lanre"
                   :required="true"
                   :invalid="invalidName"
                   :errorMessage="FNErrorMessage"
                 />
-                <InputField
+
+                <InputOne
                   id="LastName"
                   label="Last name"
                   v-model="lastName"
-                  :value="LastnameValue"
                   type="text"
                   placeholder="Bello"
                   :required="true"
@@ -39,22 +38,20 @@
                 @close-number="handleCloseNumber"
                 @open-number="handleOpenNumber"
               />
-              <InputField
+              <InputOne
                 id="address"
                 label="Street address"
                 v-model="address"
-                :value="addressValue"
                 type="text"
                 placeholder="Enter delivery address"
                 :required="true"
                 :invalid="invalidAddress"
                 :errorMessage="addressErrorMessage"
               />
-              <InputField
+              <InputOne
                 id="Directions"
                 label="Directions (Optional)"
                 v-model="Directions"
-                :value="DirectionsValue"
                 type="text"
                 placeholder="Directions"
                 :required="false"
@@ -63,50 +60,22 @@
               />
               <div class="states __width100">
                 <label for="states">Select State</label>
-                <select
-                  class="input"
-                  id="state"
-                  v-model="selectedState"
-                  @change="getCities"
-                >
-                  <option value="">Select a state</option>
-                  <option
-                    v-for="state in states"
-                    :key="state.name"
-                    :value="state.isoCode"
-                  >
-                    {{ state.name }}
-                  </option>
-                  <!-- <option
-                    v-for="(lgas, state) in statesAndLGAs"
-                    :value="state"
-                    :key="state"
-                  >
-                    {{ state }}
-                  </option> -->
+                <select class="input" id="state">
+                  <option>Lagos</option>
                 </select>
               </div>
+
               <div class="lga __width100">
                 <label for="lgas">Select LGA</label>
                 <select class="input" id="lgas" v-model="selectedLGA">
-                  <option disabled selected value="">
-                    Please select a state first
-                  </option>
+                  <option value="" selected>Please select a LGA</option>
                   <option
-                    v-for="city in cities"
-                    :key="city.name"
-                    :value="city.name"
+                    v-for="(city, index) in cities"
+                    :key="index"
+                    :value="city"
                   >
-                    {{ city.name }}
+                    {{ city }}
                   </option>
-
-                  <!-- <option
-                    v-for="lga in selectedStateLGAs"
-                    :value="lga"
-                    :key="lga"
-                  >
-                    {{ lga }}
-                  </option> -->
                 </select>
               </div>
             </div>
@@ -121,12 +90,13 @@
 </template>
 
 <script>
-// import { getStates, getCitiesByStateId } from "country-state-city";
-import { Country, State, City } from "country-state-city";
+import { State, Country, City } from "country-state-city";
+import axios from "axios";
 
 export default {
   data() {
     return {
+      customerId: "",
       // first name and last name error messages
       FirstName: "",
       lastName: "",
@@ -152,7 +122,7 @@ export default {
       showNewPhoneNumber: false, // whether to show the new phone number field
       // -----------------
       // for picking states and local government
-      selectedState: "",
+      selectedState: "Lagos",
       selectedLGA: "",
       selectedCity: "",
       statesAndLGAs: {},
@@ -168,99 +138,43 @@ export default {
       // Check if the input email matches the regular expression
       return emailRegex.test(this.email);
     },
-    emailValue: {
-      get() {
-        return this.email;
-      },
-      set(newValue) {
-        this.email = newValue;
-      },
-    },
-    passwordValue: {
-      get() {
-        return this.password;
-      },
-      set(newValue) {
-        this.password = newValue;
-      },
-    },
-    nameValue: {
-      get() {
-        return this.FirstName;
-      },
-      set(newValue) {
-        this.FirstName = newValue;
-      },
-    },
-    businessNameValue: {
-      get() {
-        return this.businessName;
-      },
-      set(newValue) {
-        this.businessName = newValue;
-      },
-    },
-    LastnameValue: {
-      get() {
-        return this.lastName;
-      },
-      set(newValue) {
-        this.lastName = newValue;
-      },
-    },
-    phonenumberValue: {
-      get() {
-        return this.PhoneNumber;
-      },
-      set(newValue) {
-        this.PhoneNumber = newValue;
-      },
-    },
-    addressValue: {
-      get() {
-        return this.address;
-      },
-      set(newValue) {
-        this.address = newValue;
-      },
-    },
-    DirectionsValue: {
-      get() {
-        return this.Directions;
-      },
-      set(newValue) {
-        this.Directions = newValue;
-      },
-    },
     selectedStateLGAs() {
       return this.statesAndLGAs[this.selectedState] || [];
     },
   },
-  watch: {
-    email(newValue) {
-      this.email = newValue.replace(/\s/g, "");
-      if (
-        newValue.length <= 4 ||
-        this.isEmailValid == false ||
-        newValue.indexOf("@") === -1
-      ) {
-        this.invalidEmail = true;
-        this.emailErrorMessage = "Invalid email address";
-      } else {
-        this.invalidEmail = false;
-        this.emailErrorMessage = "";
-      }
-    },
-  },
-  mounted() {
-    this.states = State.getStatesOfCountry("NG"); // 'NG' is the ISO code for Nigeria
-
-    fetch("/Statelist.json")
-      .then((response) => response.json())
-      .then((data) => (this.statesAndLGAs = data))
-      .catch((error) => console.error(error));
+  watch: {},
+  async mounted() {
+    this.loadUser();
+    try {
+      const response = await axios.get("/Statelist.json");
+      console.log("response: ", response);
+      const { Lagos } = response.data;
+      this.cities = Lagos;
+      console.log(this.cities);
+    } catch (err) {
+      console.log(err);
+    }
   },
   methods: {
+    // get all states in Nigeria
+    async loadUser() {
+      try {
+        let user = null;
+        if (process.client) {
+          user = JSON.parse(localStorage.getItem("user")) || null;
+        }
+        console.log(user.firstName);
+
+        if (user) {
+          this.FirstName = user.firstName;
+          this.lastName = user.lastName;
+          this.phoneNumbers = user.phoneNumbers;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     handleAddNumber(newPhoneNumber) {
       const phoneNumberRegex =
         /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
@@ -304,6 +218,7 @@ export default {
     },
     submitForm() {
       const data = {
+        customerId: this.customerId,
         firstName: this.FirstName,
         lastName: this.lastName,
         address: this.address,

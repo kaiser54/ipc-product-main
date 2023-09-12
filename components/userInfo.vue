@@ -30,13 +30,15 @@
     </div>
     <div class="client-user-name bdr">
       <div class="client-frame">
-        <span>Subtotal</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span>
+        <!-- <span>Subtotal</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
+        <span>Subtotal</span><span class="bold">₦ 2222</span>
       </div>
       <div class="client-frame">
         <span>Delivery fee</span><span class="bold">#0</span>
       </div>
       <div class="client-frame total">
-        <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span>
+        <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
+        <span>Total</span><span class="bold">₦ 222</span>
       </div>
     </div>
   </div>

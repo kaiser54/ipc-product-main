@@ -13,12 +13,12 @@
         <div v-if="mobile" class="order__pricing__group">
           <div class="mobile_ _orders">
             <div class="mobile-order">Orders</div>
-            <div class="order-items">{{ cart.length }} items</div>
+            <div class="order-items">22 items</div>
           </div>
           <div class="mobile_ _total">
             <div class="mobile-order">Subtotal</div>
             <div class="total-price">
-              ₦ {{ calculateTotalPrice().toFixed(2) }}
+              ₦ 344332
             </div>
           </div>
         </div>
@@ -37,17 +37,17 @@
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">
             <div class="__title">Order details</div>
-            <div class="__list item-list-tag">{{ cart.length }} items</div>
+            <div class="__list item-list-tag">22 items</div>
           </div>
           <div class="cart-lista"></div>
           <div class="__pricing">
             <div class="__price">
               <p class="subtotal">Subtotal</p>
-              <p class="subprice">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+              <p class="subprice">₦ 344332</p>
             </div>
             <div class="__price">
               <p class="total">Total</p>
-              <p class="price">₦ {{ calculateTotalPrice().toFixed(2) }}</p>
+              <p class="price">₦ 344332</p>
             </div>
           </div>
           <button class="btn ghost-btn" @click="modifyCart">Modify cart</button>
@@ -77,7 +77,6 @@ export default {
     // this.loading = true;
   },
   computed: {
-    ...mapState(["cart"]),
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
@@ -135,19 +134,6 @@ export default {
       } else if (step === 3) {
         return "Payment method";
       }
-    },
-    calculateTotalPrice() {
-      let totalPrice = 0;
-
-      for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(
-          (p) => p.id === product.id
-        );
-        const quantity = productInCart ? productInCart.quantity : 0;
-        totalPrice += product.price * quantity;
-      }
-
-      return totalPrice;
     },
     modifyCart() {
       this.$router.push("/dashboard/market/cart");

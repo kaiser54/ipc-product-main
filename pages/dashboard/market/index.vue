@@ -13,7 +13,6 @@
             :key="product.id"
             :product="product"
             :inCart="inCart"
-            :loader="cartLoading"
           />
         </div>
       </section>

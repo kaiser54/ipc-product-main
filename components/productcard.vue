@@ -48,9 +48,9 @@
           <p>{{ product.name }}</p>
         </div>
         <div class="productcard-price">
-          <p><span class="naira">₦</span> {{ product.discountPrice }}</p>
+          <p><span class="naira">₦</span> {{ formatPriceWithCommas(product.discountPrice) }}</p>
           <p class="slashprice">
-            <span class="naira">₦</span> {{ product.actualPrice }}
+            <span class="naira">₦</span> {{ formatPriceWithCommas(product.actualPrice) }}
           </p>
         </div>
       </div>
@@ -62,7 +62,7 @@
 
     <button class="btn secondary-btn-small" @click="addProductToCart">
       <svg
-        v-if="!loader"
+        v-if="!cartLoading"
         xmlns="http://www.w3.org/2000/svg"
         width="17"
         height="16"
@@ -77,8 +77,8 @@
           stroke-linejoin="round"
         />
       </svg>
-      <p v-if="!loader">Add to cart</p>
-      <span class="loader" v-if="loader"></span>
+      <p v-if="!cartLoading">Add to cart</p>
+      <span class="loader" v-if="cartLoading"></span>
     </button>
 
     <!-- -------------------------------- -->
@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import { formatPriceWithCommas } from '~/static/formatPrice';
 import { DEV_URL } from "@/plugins/api";
 import { mapActions, mapState } from "vuex";
 
@@ -149,13 +150,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    loader: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
-    ...mapState("cart", ["favorites"]),
+    ...mapState("cart", ["favorites", "cartLoading"]),
     isLiked: {
       get() {
         const productIdToCheck = this.productId;
@@ -174,6 +171,7 @@ export default {
     },
   },
   methods: {
+    formatPriceWithCommas,
     ...mapActions("cart", ["addToCart"]),
     addProductToCart() {
       this.addToCart(this.product);

@@ -1,7 +1,9 @@
 <template>
   <div class="cart-view" v-if="cart">
     <div class="mobile-cart" v-if="mobile">
+
       <CartMobile/>
+      
     </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
@@ -9,6 +11,7 @@
         <h2 class="h2-medium">Shopping cart</h2>
       </div>
     </div>
+
     <EmptyStates @leaveCart="leaveCart" v-if="cart.length < 0">
       <template v-slot:svg>
         <svg
@@ -215,7 +218,7 @@ export default {
   },
   computed: {
     cartItems () {
-      return this.$store.state.cart.cart
+      return this.cart
     },
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
   },
@@ -224,6 +227,7 @@ export default {
       this.addToCart(e)
     },
     counterMinus(e) {
+      console.log(e)
       this.reduceQuantity(e)
     },
     ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),

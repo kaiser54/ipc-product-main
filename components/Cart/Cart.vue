@@ -159,11 +159,13 @@
           </EmptyStates>
           <div class="cart-lista" v-if="cart.length > 0">
             <CartList
-              v-for="product in cart"
-              :key="product.id"
-              :product="product"
-              :inCart="true"
               class="cart-list-con"
+              v-for="(items, index) in cartItems"
+              :key="index"
+              :items="items"
+              :inCart="true"
+              @counterPlus="counterPlus"
+              @counterMinus="counterMinus"
             />
           </div>
         </div>
@@ -172,11 +174,11 @@
             <div class="checkout-details">
               <div class="checkout-title">
                 <p>Orders</p>
-                <div class="item-list-tag">77 items</div>
+                <div class="item-list-tag">{{ formatPriceWithCommas(TotalCart) }} items</div>
               </div>
               <div class="total-price checkout-title">
                 <p class="total">Subtotal</p>
-                <p class="price">₦ 7777</p>
+                <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
               </div>
             </div>
             <button class="btn primary-btn" @click="checkout">Checkout</button>
@@ -189,14 +191,30 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { formatPriceWithCommas } from '~/static/formatPrice';
+import { mapState, mapGetters, mapActions } from "vuex";
 import "animate.css";
 export default {
+  async mounted() {
+    await this.fetchCartItemsByUserID();
+  },
   computed: {
-    ...mapState(["cart"]),
+    cartItems () {
+      return this.cart
+    },
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
   },
   methods: {
-    ...mapMutations(["removeFromCart"]),
+    formatPriceWithCommas,
+    counterPlus(e) {
+      this.addToCart(e)
+    },
+    counterMinus(e) {
+      console.log(e)
+      this.reduceQuantity(e)
+    },
+    ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),
     triggerCart() {
       this.$emit("openCart");
     },

@@ -3,7 +3,10 @@
     <div class="cart-wrap">
       <div class="cart-product">
         <div class="image">
-          <img :src="items?.product?.images[0]?.url" :alt="items?.product?.name" />
+          <img
+            :src="items?.product?.images[0]?.url"
+            :alt="items?.product?.name"
+          />
         </div>
       </div>
       <div class="cart-product-details">
@@ -13,7 +16,7 @@
             <p class="name">{{ items?.product?.name }}</p>
           </div>
           <p class="price">
-            <span class="naira">₦</span> {{ items?.product?.discountPrice }}
+            <span class="naira">₦</span> {{ formatPriceWithCommas(items?.product?.discountPrice) }}
           </p>
         </div>
         <!-- -------------- -->
@@ -88,6 +91,7 @@
 </template>
 
 <script>
+import { formatPriceWithCommas } from '~/static/formatPrice';
 export default {
   props: {
     items: {
@@ -101,11 +105,14 @@ export default {
   },
   computed: {},
   methods: {
+    formatPriceWithCommas,
     IncreaseQuantity() {
       this.$emit("counterPlus", this.items.product);
     },
     decreaseQuantity() {
-      this.$emit("counterMinus", this.items.product);
+      if (this.items.quantity > 1) {
+        this.$emit("counterMinus", this.items.product);
+      }
     },
   },
 };
