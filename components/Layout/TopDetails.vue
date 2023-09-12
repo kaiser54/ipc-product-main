@@ -59,7 +59,7 @@
           </svg>
         </div>
         <div class="badge">
-          <p>9</p>
+          <p>{{ TotalCart }}</p>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     user: {
@@ -82,6 +82,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("cart", ["TotalCart"]),
   },
   methods: {
     ...mapActions("product", ["updateQuery"]),

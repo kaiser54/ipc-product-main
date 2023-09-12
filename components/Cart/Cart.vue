@@ -174,11 +174,15 @@
             <div class="checkout-details">
               <div class="checkout-title">
                 <p>Orders</p>
-                <div class="item-list-tag">{{ formatPriceWithCommas(TotalCart) }} items</div>
+                <div class="item-list-tag">
+                  {{ formatPriceWithCommas(TotalCart) }} items
+                </div>
               </div>
               <div class="total-price checkout-title">
                 <p class="total">Subtotal</p>
-                <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
+                <p class="price">
+                  ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
+                </p>
               </div>
             </div>
             <button class="btn primary-btn" @click="checkout">Checkout</button>
@@ -191,7 +195,7 @@
 </template>
 
 <script>
-import { formatPriceWithCommas } from '~/static/formatPrice';
+import { formatPriceWithCommas } from "~/static/formatPrice";
 import { mapState, mapGetters, mapActions } from "vuex";
 import "animate.css";
 export default {
@@ -199,8 +203,8 @@ export default {
     await this.fetchCartItemsByUserID();
   },
   computed: {
-    cartItems () {
-      return this.cart
+    cartItems() {
+      return this.cart;
     },
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
@@ -208,13 +212,17 @@ export default {
   methods: {
     formatPriceWithCommas,
     counterPlus(e) {
-      this.addToCart(e)
+      this.addToCart(e);
     },
     counterMinus(e) {
-      console.log(e)
-      this.reduceQuantity(e)
+      console.log(e);
+      this.reduceQuantity(e);
     },
-    ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),
+    ...mapActions("cart", [
+      "fetchCartItemsByUserID",
+      "addToCart",
+      "reduceQuantity",
+    ]),
     triggerCart() {
       this.$emit("openCart");
     },

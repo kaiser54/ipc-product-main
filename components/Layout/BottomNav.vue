@@ -74,14 +74,14 @@
         </div>
       </nuxt-link>
     </div>
-    <div class="checkout-bottom mobile-nav-bar" v-if="this.pageName === 'cart' && cart.length > 0">
+    <div class="checkout-bottom mobile-nav-bar" v-if="this.pageName === 'cart' ">
       <button class="btn primary-btn" @click="leaveCart">Checkout</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -97,7 +97,10 @@ export default {
     },
   },
   computed: {
-    ...mapState(['cart']),
+    cartItems () {
+      return this.cart
+    },
+    ...mapState("cart", ["cart"]),
   },
   methods: {
     leaveCart() {
@@ -142,7 +145,7 @@ export default {
   height: 76px;
   left: 0px;
   bottom: 0px;
-  z-index: 2;
+  z-index: 999999999;
 
   /* White */
 

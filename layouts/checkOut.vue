@@ -29,8 +29,8 @@
         <p>Checkout</p>
         <div class="component-cart">
           <nuxt-link to="/dashboard/market/cart">
-            <div class="badge" v-if="cart.length > 0">
-              <p>{{ getCartLength }}</p>
+            <div class="badge" v-if="TotalCart !== 0">
+              <p>{{ TotalCart }}</p>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,19 +65,19 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
+  async mounted() {
+    await this.fetchCartItemsByUserID();
+  },
   computed: {
-    ...mapState(["cart"]),
-    getCartLength() {
-      const cartLength = this.$store.state.cart.length;
-      return cartLength;
-    },
+    ...mapGetters("cart", ["TotalCart"]),
   },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
+    ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),
   },
 };
 </script>

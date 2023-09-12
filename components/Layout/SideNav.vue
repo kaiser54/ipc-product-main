@@ -364,9 +364,7 @@
     </section>
     <section class="dashboard-profile">
       <div class="profile-content">
-        <div class="profile-image">
-          <img src="@/assets/images/avatar.png" alt="" />
-        </div>
+        <RandomAvatar :name="`${user?.firstName} ${user?.lastName}`" />
         <div class="profile-details">
           <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
           <p class="email truncate">{{ user.email }}</p>

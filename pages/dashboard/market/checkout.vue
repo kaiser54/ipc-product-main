@@ -13,12 +13,12 @@
         <div v-if="mobile" class="order__pricing__group">
           <div class="mobile_ _orders">
             <div class="mobile-order">Orders</div>
-            <div class="order-items">22 items</div>
+            <div class="order-items">{{ TotalCart }} items</div>
           </div>
           <div class="mobile_ _total">
             <div class="mobile-order">Subtotal</div>
             <div class="total-price">
-              ₦ 344332
+              ₦ {{ cartTotalPrice }}
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
 <script>
 // import { startConfetti, stopConfetti } from '@/plugins/confetti'
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   layout: "checkOut",
   data() {
@@ -80,7 +80,11 @@ export default {
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
+      
     },
+    
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);

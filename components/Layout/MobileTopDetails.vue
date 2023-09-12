@@ -108,8 +108,8 @@
               />
             </svg>
           </div>
-          <div class="badge" v-if="cart.length > 0">
-            <p>{{ getCartLength }}</p>
+          <div class="badge" v-if="TotalCart > 0">
+            <p>{{ TotalCart }}</p>
           </div>
         </div>
       </div>
@@ -222,8 +222,8 @@
                 stroke-linejoin="round"
               />
             </svg>
-          <div class="badge" v-if="cart.length > 0">
-            <p>{{ getCartLength }}</p>
+          <div class="badge" v-if="TotalCart > 0">
+            <p>{{ TotalCart }}</p>
           </div>
           </div>
         </div>
@@ -233,12 +233,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  // computed: {
-  //   ...mapState(["cart"]),
-  // },
   data() {
     return {
       pageName: "",
@@ -253,11 +250,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["cart"]),
-    getCartLength() {
-      const cartLength = this.$store.state.cart.length;
-      return cartLength;
-    },
+    ...mapGetters("cart", ["TotalCart"]),
   },
   methods: {
     goBack() {
