@@ -6,23 +6,39 @@
       </div>
       <div class="order-product-details">
         <div class="order-content">
-          <div class="title">Mama'S Choice Nigerian Parboiled Rice 25kg</div>
+          <div class="title" :class="{ truncate: checkout }">
+            Mama'S Choice Nigerian Parboiled Rice 25kg
+          </div>
           <div class="order-id-price">
-            <div class="order-id">Order Id: 1234567</div>
+            <div class="order-id" v-if="!checkout">Order Id: 1234567</div>
             <div class="order-qty">Qty: 1</div>
           </div>
-          <div class="order-price"><span class="naira">₦</span> 75,000</div>
+          <div class="order-price" :class="{ 'pricing': checkout }">
+            <span class="naira">₦</span> 75,000
+          </div>
           <DynamicTags :tagText="tagText" :size="size" :type="type" />
         </div>
 
         <div class="price-qty">
-          <div class="order-price"><span class="naira">₦</span> 75,000</div>
+          <div class="order-price" :class="{ 'pricing': checkout }"><span class="naira">₦</span> 75,000</div>
           <div class="order-qty">Qty: 1</div>
         </div>
       </div>
-      <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
-        <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" />
+      <svg
+        v-if="showSvg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="33"
+        viewBox="0 0 32 33"
+        fill="none"
+      >
+        <path
+          d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
+          stroke="#565C69"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </div>
   </div>
@@ -45,6 +61,10 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    checkout: {
+      type: Boolean,
+      default: false,
     },
   },
 };
@@ -243,4 +263,18 @@ a {
       max-width: 150px;
     }
   }
-}</style>
+}
+.truncate {
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  overflow: hidden; /* Hide the overflowed text */
+  text-overflow: ellipsis; /* Show an ellipsis (...) when text overflows */
+  max-width: 100px; /* Optionally, set a maximum width for the container */
+}
+.price-qty .pricing {
+  /* Body Small/Body Small Medium */
+  font-size: 14px !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: 21px !important; /* 150% */
+}
+</style>

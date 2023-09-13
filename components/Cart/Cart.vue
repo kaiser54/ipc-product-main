@@ -239,19 +239,6 @@ export default {
     leaveCart() {
       this.$router.push("/dashboard/market");
     },
-    calculateTotalPrice() {
-      let totalPrice = 0;
-
-      for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(
-          (p) => p.id === product.id
-        );
-        const quantity = productInCart ? productInCart.quantity : 0;
-        totalPrice += product.price * quantity;
-      }
-
-      return totalPrice;
-    },
   },
 };
 </script>

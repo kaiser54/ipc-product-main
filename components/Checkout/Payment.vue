@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <userInfo :data="data" v-if="data">
+    <userInfo :data="data" v-if="data" :checkout="true">
       <template v-slot:button>
         <button class="btn ghost-btn">Change delivery address</button>
       </template>
@@ -93,7 +93,7 @@ export default {
           title: "Pay with Card / USSD / Transfer",
           snippet:
             "Our secure payment gateway enables you to conveniently pay for your purchases using your credit or debit card.",
-          value: "Online payment",
+          value: "CARD",
           route: "/business",
           images: ["paystack.png"],
         },
@@ -101,7 +101,7 @@ export default {
           title: "Pay on delivery",
           snippet:
             "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
-          value: "Payment on delivery",
+          value: "CASH",
           route: "/individual",
           images: [],
         },
@@ -120,7 +120,7 @@ export default {
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
-      console.log(this.data);
+      console.log("FINAL DATA: ",this.data);
     },
   },
 };

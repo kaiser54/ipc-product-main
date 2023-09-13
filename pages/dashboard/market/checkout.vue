@@ -1,6 +1,6 @@
 <template>
   <div class="checkout__delivery">
-    <onTheWayMsg v-if="isPaid" />
+    <CheckoutOnTheWayMsg v-if="isPaid" />
     <div v-else class="checkout-wrapper">
       <div v-if="!mobile" class="__bg__fixed">
         <CheckoutProgressBar
@@ -18,7 +18,7 @@
           <div class="mobile_ _total">
             <div class="mobile-order">Subtotal</div>
             <div class="total-price">
-              ₦ {{ cartTotalPrice }}
+              ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
             </div>
           </div>
         </div>
@@ -30,24 +30,41 @@
           <CheckoutOrderSummary
             v-if="currentStep === 2 && submittedData"
             @customEvent="nextStep"
+            @step1="step1"
             :data="submittedData"
           />
-          <CheckoutPayment v-if="currentStep === 3 && submittedData" @lastStep="lastStep" :data="submittedData"/>
+          <CheckoutPayment
+            v-if="currentStep === 3 && submittedData"
+            @lastStep="lastStep"
+            :data="submittedData"
+          />
         </div>
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">
             <div class="__title">Order details</div>
-            <div class="__list item-list-tag">22 items</div>
+            <div class="__list item-list-tag">{{ TotalCart }} items</div>
           </div>
-          <div class="cart-lista"></div>
+          <div class="cart-lista">
+            <OrderProduct
+              tagText="Instock"
+              size="small"
+              type="positive"
+              v-for="index in 10"
+              :key="index"
+              :checkout="true"
+              :showSvg="false"
+            />
+          </div>
           <div class="__pricing">
             <div class="__price">
               <p class="subtotal">Subtotal</p>
-              <p class="subprice">₦ 344332</p>
+              <p class="subprice">
+                ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
+              </p>
             </div>
             <div class="__price">
               <p class="total">Total</p>
-              <p class="price">₦ 344332</p>
+              <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
             </div>
           </div>
           <button class="btn ghost-btn" @click="modifyCart">Modify cart</button>
@@ -58,6 +75,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import { DEV_URL } from "@/plugins/api";
+import { formatPriceWithCommas } from "~/static/formatPrice";
 // import { startConfetti, stopConfetti } from '@/plugins/confetti'
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
@@ -70,7 +90,8 @@ export default {
       submittedData: null,
     };
   },
-  mounted() {
+  async mounted() {
+    await this.fetchCartItemsByUserID();
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
@@ -80,9 +101,7 @@ export default {
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
-      
     },
-    
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
   },
@@ -94,6 +113,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions("cart", ["fetchCartItemsByUserID"]),
+    formatPriceWithCommas,
     checkScreenSize() {
       if (window.innerWidth < 951) {
         this.mobile = true;
@@ -117,15 +138,37 @@ export default {
         this.currentStep--;
       }
     },
-    lastStep() {
-      // if (this.currentStep == 3) {
-      //   this.currentStep = 1;
-      // }
-      this.isPaid = true;
-      window.startConfetti();
+    async lastStep() {
+      console.log("submit data:", this.submittedData);
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
 
-      // Stop confetti after 10 seconds
-      // setTimeout(window.stopConfetti(), 50000);
+        const response = await axios.post(
+          `${DEV_URL}/orders/`,
+          this.submittedData,
+          {
+            headers: headers,
+          }
+        );
+
+        console.log("data sent to backend:", this.submittedData);
+        console.log(response);
+
+        if (response.data.status === "success") {
+          this.isPaid = true;
+          window.startConfetti();
+        } else {
+          throw new Error("Failed to order.");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    step1() {
+      this.currentStep = 1;
+      console.log("clicked");
     },
     submitForm() {
       // Handle form submission
@@ -351,6 +394,15 @@ export default {
   letter-spacing: -0.5px;
   color: var(--grey-grey1);
 }
+.cart-lista {
+  max-height: 190px;
+  overflow: scroll;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 @media (max-width: 950px) {
   .main {
     margin-top: auto;

@@ -38,10 +38,7 @@ export default {
       type: String,
       required: true,
     },
-    value: {
-      type: String,
-      required: true,
-    },
+    value: {},
     type: {
       type: String,
       required: true,

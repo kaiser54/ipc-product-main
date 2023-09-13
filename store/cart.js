@@ -8,6 +8,8 @@ export default {
   state: () => ({
     cart: [],
     totalPrice: [],
+    // checkoutData: [],
+    checkoutResponse: [],
     error: null,
     error_msg: null,
     cartLoading: false,
@@ -132,7 +134,6 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-
         console.log(" response indexOfCartItem: ", indexOfCartItem);
 
         // if (Object.keys(findItem).length) {
@@ -145,8 +146,7 @@ export default {
             quantity: cartItem.quantity,
             totalPrice: cartItem.totalPrice,
           });
-        } 
-        else {
+        } else {
           // const newCart = [...state.cart, cartItem]
           const cart = [];
           cart.push(cartItem);
@@ -182,15 +182,12 @@ export default {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.delete(
-          `${DEV_URL}/cart/${product._id}`,
-          {
-            headers: headers,
-            // params: product._id,
-          }
-        );
+        const response = await axios.delete(`${DEV_URL}/cart/${product._id}`, {
+          headers: headers,
+          // params: product._id,
+        });
 
-        console.log("reduce cart :", response)
+        console.log("reduce cart :", response);
 
         if (response.status == 204) {
           const indexOfCartItem = state.cart.findIndex(
@@ -217,20 +214,24 @@ export default {
       }
     },
 
-    async SS({ commit }, product) {
+    async chechout({ commit }, product) {
       try {
         commit("SET_LOADING", true);
-        console.log("hjgj");
+
+        const user = process.client
+          ? JSON.parse(localStorage.getItem("user")) || null
+          : null;
+
         const headers = {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.delete(`${DEV_URL}/cart/`, data, {
+        const response = await axios.post(`${DEV_URL}/orders/`, {
           headers: headers,
-          params: product._id,
+          body: state.checkout,
         });
 
-        console.log(product._id);
+        console.log(state.checkout);
         console.log(response);
 
         if (response.status !== 200) {

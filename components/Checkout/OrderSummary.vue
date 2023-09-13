@@ -1,9 +1,9 @@
 <template>
   <div class="payment">
     <h3 class="h3-medium header-text">Order summary</h3>
-    <userInfo :data="data" v-if="data">
+    <userInfo :data="data" v-if="data" :checkout="true">
       <template v-slot:button>
-        <button class="btn ghost-btn">Change delivery address</button>
+        <button class="btn ghost-btn" @click="step1">Change delivery address</button>
       </template>
       <template v-slot:delivery>
         <div class="delivery__time">
@@ -84,6 +84,9 @@ export default {
     };
   },
   methods: {
+    step1() {
+      this.$emit("step1")
+    },
     submitForm() {
       this.$emit("customEvent");
       this.$set(this.data, 'email', this.email); // Add the number to the object

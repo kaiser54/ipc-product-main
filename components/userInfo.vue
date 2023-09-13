@@ -2,13 +2,32 @@
   <div class="user-info">
     <div class="client-user-name bdr" v-if="data">
       <div class="client-frame">
-        <span>Full name</span><span class="bold">{{ data.firstName }} {{ data.lastName }}</span>
+        <span>Full name</span
+        ><span class="bold">{{ data.firstName }} {{ data.lastName }}</span>
       </div>
-      <div class="client-frame" v-for="(phoneNumber, index) in data.phoneNumbers" :key="index">
-        <span>Phone number {{ index + 1}}</span><span class="bold">{{ phoneNumber }}</span>
+      <div class="client-frame" v-if="!checkout">
+        <div
+          class="client-frame"
+          v-for="(phoneNumber, index) in data.phoneNumbers"
+          :key="index"
+        >
+          <span>Phone number {{ index + 1 }}</span
+          ><span class="bold">{{ phoneNumber }}</span>
+        </div>
       </div>
+      
+      <div class="client-frame" v-if="checkout">
+        <div
+          class="client-frame"
+        >
+          <span>Phone number</span
+          ><span class="bold">{{ data.phoneNumbers }}</span>
+        </div>
+      </div>
+      
       <div class="client-frame">
-        <span>Street address</span><span class="bold">{{ data.directions }}</span>
+        <span>Street address</span
+        ><span class="bold">{{ data.directions }}</span>
       </div>
       <div class="client-frame">
         <span>Local govt. area</span><span class="bold">{{ data.LGA }}</span>
@@ -18,11 +37,12 @@
       </div>
       <slot name="button"></slot>
     </div>
-      <slot name="delivery"></slot>
-      <slot name="email"></slot>
+    <slot name="delivery"></slot>
+    <slot name="email"></slot>
     <div class="client-user-name bdr" v-if="data.paymentMethod">
       <div class="client-frame">
-        <span>Payment method</span><span class="bold">{{ data.paymentMethod }}</span>
+        <span>Payment method</span
+        ><span class="bold">{{ data.paymentMethod }}</span>
       </div>
       <div class="client-frame" v-if="data.paymentDate">
         <span>Placed on</span><span class="bold">{{ data.paymentDate }}</span>
@@ -52,6 +72,10 @@ export default {
       type: Object,
       required: true,
     },
+    checkout: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapState(["cart"]),
@@ -61,7 +85,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.data)
+    console.log(this.data);
   },
   methods: {
     calculateTotalPrice() {
@@ -77,7 +101,7 @@ export default {
 
       return totalPrice;
     },
-  }
+  },
 };
 </script>
 

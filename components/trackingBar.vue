@@ -17,7 +17,8 @@
                 </div>
                 <div class="tag-date">
                     <div class="tagged">
-                        <div class="tag pending">{{ tag }}</div>
+                        <div class="tag positive">{{ tag }}</div>
+                        
                     </div>
                     <p class="date">{{ track.date }}</p>
                 </div>

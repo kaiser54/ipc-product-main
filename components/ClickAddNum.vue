@@ -39,12 +39,11 @@
       class="new-phone-number animate__animated animate__slideInDown"
       v-if="showNewPhoneNumber"
     >
-      <InputField
+      <InputOne
       v-if="phoneNumbers.length <= 1"
         class="inputed"
         id="number"
         v-model="newPhoneNumber"
-        :value="numberValue"
         type="tel"
         placeholder="Add new number"
         :required="false"
@@ -116,16 +115,6 @@ export default {
       newNumber: "",
       errorMessage: "Enter a valid phone number",
     };
-  },
-  computed: {
-    numberValue: {
-      get() {
-        return this.newPhoneNumber;
-      },
-      set(newValue) {
-        this.newPhoneNumber = newValue;
-      },
-    },
   },
   methods: {
     openAddNumber() {

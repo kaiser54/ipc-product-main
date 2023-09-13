@@ -29,7 +29,7 @@
                   :errorMessage="LNErrorMessage"
                 />
               </div>
-              <ClickAddNum
+              <!-- <ClickAddNum
                 :phone-numbers="phoneNumbers"
                 :invalidNumber="invalidNumber"
                 :disabled="false"
@@ -37,6 +37,16 @@
                 @add-number="handleAddNumber"
                 @close-number="handleCloseNumber"
                 @open-number="handleOpenNumber"
+              /> -->
+              <InputOne
+                id="phoneNumber"
+                label="Phone number"
+                v-model="phoneNumbers"
+                type="text"
+                placeholder="080123456789"
+                :required="true"
+                :invalid="invalidNumber"
+                :errorMessage="PNErrorMessage"
               />
               <InputOne
                 id="address"
@@ -90,6 +100,7 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
 import { State, Country, City } from "country-state-city";
 import axios from "axios";
 
@@ -116,7 +127,7 @@ export default {
       DirectionsErrorMessage: "",
       // -----------------
       // phone number
-      phoneNumbers: [], // array of phone numbers fetched from the API
+      phoneNumbers: "", // array of phone numbers fetched from the API
       invalidNumber: false,
       PNErrorMessage: "",
       showNewPhoneNumber: false, // whether to show the new phone number field
@@ -132,6 +143,8 @@ export default {
     };
   },
   computed: {
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
     isEmailValid() {
       // Define a regular expression for email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -166,6 +179,7 @@ export default {
         console.log(user.firstName);
 
         if (user) {
+          this.customerId = user._id;
           this.FirstName = user.firstName;
           this.lastName = user.lastName;
           this.phoneNumbers = user.phoneNumbers;
@@ -195,38 +209,32 @@ export default {
     handleOpenNumber() {
       this.showNewPhoneNumber = true;
     },
-    onStateChange() {
-      // if (this.selectedState) {
-      //   this.lgas = this.states[this.state];
-      //   const selectedOption = this.states[this.selectedState];
-      //   const stateName = Object.keys(this.states).find(
-      //     (key) => this.states[key] === selectedOption
-      //   );
-      //   this.userState = stateName;
-      //   console.log(this.selectedState);
-      //   console.log(this.selectedLga);
-      // } else {
-      //   this.lgas = [];
-      // }
-      // this.selectedLga = null; // reset selected LGA
-      console.log("Selected State:", this.selectedState);
-      console.log("Selected LGA:", this.selectedLGA);
-    },
+
     getCities() {
       this.cities = City.getCitiesOfState(NG, stateCode);
       this.selectedCity = ""; // Reset selected city when changing the state
     },
     submitForm() {
+      const address = {
+        streetAddress: this.address,
+        directions: this.Directions,
+        state: this.selectedState,
+        lga: this.selectedLGA,
+        // customerId: this.customerId,
+      };
       const data = {
         customerId: this.customerId,
         firstName: this.FirstName,
         lastName: this.lastName,
-        address: this.address,
+        address: address,
         directions: this.Directions,
         phoneNumbers: this.phoneNumbers,
         state: this.selectedState,
         LGA: this.selectedLGA,
+        products: this.cart,
+        totalPrice: this.cartTotalPrice,
       };
+      console.log(data);
       this.$emit("customEvent", data);
       console.log(data);
       window.scrollTo({
