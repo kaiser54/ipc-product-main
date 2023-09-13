@@ -1,5 +1,5 @@
 <template>
-  <div class="random-avatar" :style="avatarStyle">
+  <div class="random-avatar" :class="buttonClasses" :style="avatarStyle">
     {{ initials }}
   </div>
 </template>
@@ -11,6 +11,10 @@ export default {
       type: String,
       required: true,
     },
+    size: {
+      type: String,
+      default: "small",
+    },
   },
   computed: {
     initials() {
@@ -20,11 +24,18 @@ export default {
       );
     },
     avatarStyle() {
-      const fontColor = this.generateRandomColor();
+      const fontColor = [179, 143, 0];
       const backgroundColor = `rgba(${fontColor.join(",")}, 0.3)`;
       return {
         color: `rgb(${fontColor.join(",")})`,
         backgroundColor,
+      };
+    },
+    buttonClasses() {
+      return {
+        // Button size
+        small: this.size === "small",
+        big: this.size === "big",
       };
     },
   },
@@ -45,14 +56,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 150% */
   letter-spacing: -0.5px;
   border-radius: 50%;
+  /* color: rgb(179, 143, 0); */
+}
+
+.random-avatar.big {
+  font-size: 34px !important;
 }
 </style>
   

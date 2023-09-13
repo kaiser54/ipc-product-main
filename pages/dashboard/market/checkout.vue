@@ -45,7 +45,7 @@
             <div class="__list item-list-tag">{{ TotalCart }} items</div>
           </div>
           <div class="cart-lista">
-            <OrderProduct
+            <OrderProduct2
               tagText="Instock"
               size="small"
               type="positive"

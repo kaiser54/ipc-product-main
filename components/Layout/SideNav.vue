@@ -364,7 +364,9 @@
     </section>
     <section class="dashboard-profile">
       <div class="profile-content">
-        <RandomAvatar :name="`${user?.firstName} ${user?.lastName}`" />
+        <div class="avatar">
+          <RandomAvatar :name="`${user?.firstName} ${user?.lastName}`" />
+        </div>
         <div class="profile-details">
           <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
           <p class="email truncate">{{ user.email }}</p>
@@ -563,6 +565,15 @@ export default {
   text-overflow: ellipsis;
   max-width: 149px;
   /* or any other value you want to set */
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+
+  background: var(--white);
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .modal-fade-enter-active,

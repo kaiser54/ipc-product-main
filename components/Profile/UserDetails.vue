@@ -8,7 +8,9 @@
     <!-- switch__tab image -->
 
     <div class="avatar">
-      <img src="~/assets/images/avatar1.png" alt="" />
+      <RandomAvatar size="big"
+      :name="`${user?.firstName} ${user?.lastName}`"
+    />
     </div>
 
     <!-- --------- -->
