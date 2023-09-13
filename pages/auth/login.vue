@@ -49,7 +49,7 @@
               <div class="pass-link">
                 <p>
                   Forgot password?
-                  <nuxt-link :to="{ name: 'reset-password' }"
+                  <nuxt-link :to="{ name: 'reset' }"
                     >Reset it here</nuxt-link
                   >
                 </p>

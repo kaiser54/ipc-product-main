@@ -184,7 +184,7 @@ export default {
 
         const response = await axios.delete(`${DEV_URL}/cart/${product._id}`, {
           headers: headers,
-          // params: product._id,
+          // params: {productId: product._id,}
         });
 
         console.log("reduce cart :", response);
@@ -202,6 +202,9 @@ export default {
             commit("UPDATE_CARTITEM_QUANTITY", {
               index: indexOfCartItem,
               quantity: state.cart[indexOfCartItem].quantity - 1,
+              totalPrice:
+                state.cart[indexOfCartItem].totalPrice -
+                state.cart[indexOfCartItem].product.discountPrice,
             });
           } else {
             // commit("SET_LOADING", false);
@@ -259,11 +262,16 @@ export default {
         };
 
         // Send a DELETE request to remove the product from the cart on the server
-        const response = await axios.delete(`${DEV_URL}/cart/${productId}`, {
-          headers: headers,
-          data: data,
-        });
+        const response = await axios.delete(
+          `${DEV_URL}/delete-item/${productId}`,
+          {
+            headers: headers,
+            data: data,
+          }
+        );
 
+        console.log(response);
+        
         if (response.status !== 204) {
           throw new Error("Failed to remove the product from the cart.");
         }

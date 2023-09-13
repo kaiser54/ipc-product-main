@@ -165,11 +165,11 @@
         <div class="checkout-details">
           <div class="checkout-title">
             <p>Orders</p>
-            <div class="item-list-tag">99 items</div>
+            <div class="item-list-tag">{{ TotalCart }} items</div>
           </div>
           <div class="total-price checkout-title">
             <p class="total">Subtotal</p>
-            <p class="price">₦ 1000</p>
+            <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
           </div>
         </div>
         <nuxt-link to="/dashboard/market/checkout">
@@ -192,6 +192,7 @@
 </template>
 
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   layout: "dashboardview",
@@ -221,8 +222,10 @@ export default {
       return this.cart
     },
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalPrice"]),
   },
   methods: {
+    formatPriceWithCommas,
     counterPlus(e) {
       this.addToCart(e)
     },

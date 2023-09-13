@@ -48,9 +48,13 @@
           <p>{{ product.name }}</p>
         </div>
         <div class="productcard-price">
-          <p><span class="naira">₦</span> {{ formatPriceWithCommas(product.discountPrice) }}</p>
+          <p>
+            <span class="naira">₦</span>
+            {{ formatPriceWithCommas(product.discountPrice) }}
+          </p>
           <p class="slashprice">
-            <span class="naira">₦</span> {{ formatPriceWithCommas(product.actualPrice) }}
+            <span class="naira">₦</span>
+            {{ formatPriceWithCommas(product.actualPrice) }}
           </p>
         </div>
       </div>
@@ -60,9 +64,13 @@
 
     <!-- add to cart button  -->
 
-    <button class="btn secondary-btn-small" @click="addProductToCart">
+    <button
+      class="btn secondary-btn-small"
+      @click="addProductToCart"
+      v-if="!isInCart"
+    >
       <svg
-        v-if="!cartLoading"
+        v-if="!loader"
         xmlns="http://www.w3.org/2000/svg"
         width="17"
         height="16"
@@ -77,13 +85,13 @@
           stroke-linejoin="round"
         />
       </svg>
-      <p v-if="!cartLoading">Add to cart</p>
-      <span class="loader" v-if="cartLoading"></span>
+      <p v-if="!loader">Add to cart</p>
+      <span class="loader" v-if="loader"></span>
     </button>
 
     <!-- -------------------------------- -->
 
-    <!-- <div class="counter-btn">
+    <div class="counter-btn" v-if="isInCart">
       <button @click="decrementQuantity" class="circle btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,9 +110,10 @@
         </svg>
       </button>
 
-      <div class="counter">{{ getProductQuantity }}</div>
+      <div class="counter"  v-if="!loader">{{ getProductQuantity }}</div>
+      <span class="loader" v-if="loader"></span>
 
-      <button @click="incrementQuantity" class="circle">
+      <button @click="addProductToCart" class="circle">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -121,20 +130,22 @@
           />
         </svg>
       </button>
-    </div> -->
+    </div>
 
     <!-- -------------------------------- -->
   </div>
 </template>
 
 <script>
-import { formatPriceWithCommas } from '~/static/formatPrice';
+import { formatPriceWithCommas } from "~/static/formatPrice";
 import { DEV_URL } from "@/plugins/api";
 import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {
+      quantity: 0,
+      loader: false,
       productId: this.product ? this.product._id : "",
       // productId: this.product && this.product._id ? this.product._id : "",
       favoriteId: null,
@@ -152,7 +163,7 @@ export default {
     },
   },
   computed: {
-    ...mapState("cart", ["favorites", "cartLoading"]),
+    ...mapState("cart", ["favorites", "cartLoading", "cart"]),
     isLiked: {
       get() {
         const productIdToCheck = this.productId;
@@ -169,15 +180,40 @@ export default {
         this.liked = newValue;
       },
     },
+    isInCart() {
+      return this.cart.some((c) => c.product._id === this.product._id);
+    },
+    getProductQuantity() {
+      if (this.isInCart) {
+        const cartItem = this.cart.find(
+          (c) => c.productId === this.product._id
+        );
+
+        if (cartItem) {
+          return cartItem.quantity;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    },
   },
   methods: {
     formatPriceWithCommas,
-    ...mapActions("cart", ["addToCart"]),
+    ...mapActions("cart", ["addToCart", "reduceQuantity"]),
     addProductToCart() {
-      this.addToCart(this.product);
+      this.loader = true; // Show the loader when adding to cart
+      this.addToCart(this.product).then(() => {
+        this.loader = false; // Hide the loader after adding to cart
+      });
     },
-    incrementQuantity() {},
-    decrementQuantity() {},
+    decrementQuantity() {
+      this.loader = true; // Show the loader when adding to cart
+      this.reduceQuantity(this.product).then(() => {
+        this.loader = false; // Hide the loader after adding to cart
+      });
+    },
     toggleLike() {},
 
     async toggleFav() {

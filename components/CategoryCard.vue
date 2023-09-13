@@ -2,8 +2,9 @@
     <div class="category-card">
         <div class="category-card-icon">
             <svg @click="toggleColor" :class="{Red : isRed}" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z" :stroke="isRed ? '#FF0000' : '#565C69'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path :class="{ red: isRed }" d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z" :stroke="isRed ? '#FF0000' : '#565C69'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" :stroke="isRed? '#FF0000' : '#565C69'"/>
+<!-- <circle :class="{ red: isRed }" cx="16" cy="16" r="12.5" stroke="#FF0000" stroke-width="2"/> -->
 </svg>
         </div>
         <div class="category-card-visual">
@@ -59,9 +60,16 @@
                 isRed: false
             }
         },
+        mounted(){
+            const storedIsRed = localStorage.getItem("isRed" + this.name)
+            if(storedIsRed === "true"){
+                this.isRed = true
+            }
+        },
         methods:{
             toggleColor(){
                 this.isRed = !this.isRed
+                localStorage.setItem("isRed" + this.name, this.isRed)
             }
         }
     }
@@ -72,7 +80,6 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-;
 }
 .category-card{
     padding: 20px;
@@ -165,9 +172,14 @@
 .red{
     cursor: pointer;
     stroke: red;
+    fill: none;
+}
+.category-card-icon svg.red path{
+    stroke: red;
+}
+.category-card-icon .red{
     fill: red;
 }
-
 @media screen and (max-width: 768px) {
 .nickname{
     display: block;
@@ -194,22 +206,3 @@
 }
 }
 </style>
-width: 100vw;
-/* max-width: 100%; */
-border-radius: 8px;
-display: flex;
-flex-wrap: nowrap;
-/* justify-content: center; */
-align-items: flex-start;
-/* flex-direction: column; */
-border: 1px solid blue;
-gap: 10px;
-padding: 10px;
-background-color: white;
-/* overflow: scroll; */
-flex: 0 0 auto; /* Allow shrinking but not growing */
-/* width: calc(100vw / 4); Divide screen width by 4 for each card */
-min-width: 225px; /* Set a minimum width for cards */
-padding: 20px;
-background-color: white;
-margin-right: 10px; /* Margin between cards */
