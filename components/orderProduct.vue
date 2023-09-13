@@ -2,26 +2,29 @@
   <div class="order-wrapper">
     <div class="order-product">
       <div class="image">
-        <img src="~/assets/images/p1.png" alt="" />
+        <img
+            :src="items?.product?.images[0]?.url"
+            :alt="items?.product?.name"
+          />
       </div>
       <div class="order-product-details">
         <div class="order-content">
           <div class="title" :class="{ truncate: checkout }">
-            Mama'S Choice Nigerian Parboiled Rice 25kg
+            {{ items?.product?.name }}
           </div>
           <div class="order-id-price">
-            <div class="order-id" v-if="!checkout">Order Id: 1234567</div>
-            <div class="order-qty">Qty: 1</div>
+            <div class="order-id" v-if="!checkout">Order Id: {{ data._id }}</div>
+            <div class="order-qty">Qty: {{ data.quantity }}</div>
           </div>
           <div class="order-price" :class="{ 'pricing': checkout }">
-            <span class="naira">₦</span> 75,000
+            <span class="naira">₦</span> {{ formatPriceWithCommas(items?.product?.discountPrice) }}
           </div>
           <DynamicTags :tagText="tagText" :size="size" :type="type" />
         </div>
 
         <div class="price-qty">
-          <div class="order-price" :class="{ 'pricing': checkout }"><span class="naira">₦</span> 75,000</div>
-          <div class="order-qty">Qty: 1</div>
+          <div class="order-price" :class="{ 'pricing': checkout }"><span class="naira">₦</span>  {{ formatPriceWithCommas(items?.product?.discountPrice) }}</div>
+          <div class="order-qty">Qty: {{ data.quantity }}</div>
         </div>
       </div>
       <svg
@@ -45,6 +48,7 @@
 </template>
 
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     showSvg: {
@@ -66,7 +70,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    data: {
+      type: Object,
+      required: true,
+    },
   },
+  computed: {
+    items() {
+      return this.data
+    }
+  },
+  methods: {
+    formatPriceWithCommas,
+  }
 };
 </script>
 

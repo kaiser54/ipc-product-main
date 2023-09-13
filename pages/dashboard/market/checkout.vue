@@ -49,8 +49,9 @@
               tagText="Instock"
               size="small"
               type="positive"
-              v-for="index in 10"
+              v-for="(cartItem, index) in cart"
               :key="index"
+              :data="cartItem"
               :checkout="true"
               :showSvg="false"
             />
