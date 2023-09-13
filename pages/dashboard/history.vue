@@ -6,7 +6,7 @@
         v-if="mobile"
         @clickButton="toggleFilter"
         class="d__btn"
-        style="width: auto;"
+        style="width: auto"
         buttonText="Filter history"
         icon="icon-left"
         size="small"
@@ -40,14 +40,12 @@
       />
 
       <!-- ================================ -->
-
     </div>
     <div class="history-content">
-
       <!-- history table for desktop views -->
 
       <HistoryTable
-        :tableData="tableDataClone"
+        :tableData="tableData"
         :activeTabs="activeTabs"
         :tableHeaders="tableHeaders"
         v-if="!mobile"
@@ -81,7 +79,6 @@
   </div>
 </template>
 
-
 <script>
 import moment from "moment";
 export default {
@@ -91,286 +88,8 @@ export default {
     return {
       pageTitle: "IPC | History",
       mobile: false,
-      tableHeaders: [
-        "Product’s name",
-        "Date",
-        "Order ID",
-        "Quantity",
-        "Price",
-        "Status",
-      ],
-      tableData: [
-        {
-          id: 1,
-          name: "Mama’s pride rice",
-          date: "2023-08-10",
-          orderId: "12345",
-          quantity: 2,
-          price: 10.99,
-          status: "Completed",
-        },
-        {
-          id: 2,
-          name: "Fresh Apples",
-          date: "2023-08-09",
-          orderId: "54321",
-          quantity: 5,
-          price: 4.75,
-          status: "Cancelled",
-        },
-        {
-          id: 3,
-          name: "Crisp Potato Chips",
-          date: "2023-08-08",
-          orderId: "98765",
-          quantity: 3,
-          price: 2.99,
-          status: "Pending",
-        },
-        {
-          id: 4,
-          name: "Premium Coffee Blend",
-          date: "2023-08-07",
-          orderId: "45678",
-          quantity: 1,
-          price: 8.49,
-          status: "Completed",
-        },
-        {
-          id: 5,
-          name: "Soft Bath Towel",
-          date: "2023-08-06",
-          orderId: "23456",
-          quantity: 2,
-          price: 15.75,
-          status: "Pending",
-        },
-        {
-          id: 6,
-          name: "Classic Leather Belt",
-          date: "2023-08-05",
-          orderId: "65432",
-          quantity: 1,
-          price: 22.99,
-          status: "Cancelled",
-        },
-        {
-          id: 7,
-          name: "Garden Flower Seeds",
-          date: "2023-08-04",
-          orderId: "87654",
-          quantity: 4,
-          price: 1.99,
-          status: "Completed",
-        },
-        {
-          id: 8,
-          name: "Stainless Steel Water Bottle",
-          date: "2023-08-03",
-          orderId: "34567",
-          quantity: 1,
-          price: 12.25,
-          status: "Cancelled",
-        },
-        {
-          id: 9,
-          name: "Aromatic Vanilla Candle",
-          date: "2023-08-02",
-          orderId: "76543",
-          quantity: 2,
-          price: 6.99,
-          status: "Pending",
-        },
-        {
-          id: 10,
-          name: "Digital Alarm Clock",
-          date: "2023-08-01",
-          orderId: "56789",
-          quantity: 1,
-          price: 9.75,
-          status: "Completed",
-        },
-        {
-          id: 11,
-          name: "Men's Casual T-Shirt",
-          date: "2023-07-31",
-          orderId: "98765",
-          quantity: 3,
-          price: 18.49,
-          status: "Completed",
-        },
-        {
-          id: 12,
-          name: "Scented Bath Bombs Set",
-          date: "2023-07-30",
-          orderId: "45678",
-          quantity: 1,
-          price: 14.99,
-          status: "Cancelled",
-        },
-        {
-          id: 13,
-          name: "Wireless Bluetooth Earphones",
-          date: "2023-07-29",
-          orderId: "23456",
-          quantity: 2,
-          price: 32.75,
-          status: "Pending",
-        },
-        {
-          id: 14,
-          name: "Healthy Snack Variety Pack",
-          date: "2023-07-28",
-          orderId: "65432",
-          quantity: 1,
-          price: 11.99,
-          status: "Completed",
-        },
-        {
-          id: 15,
-          name: "Set of Glass Food Containers",
-          date: "2023-07-27",
-          orderId: "87654",
-          quantity: 2,
-          price: 19.25,
-          status: "Cancelled",
-        },
-        {
-          id: 16,
-          name: "Professional Sketching Pencils",
-          date: "2023-07-26",
-          orderId: "34567",
-          quantity: 1,
-          price: 8.99,
-          status: "Pending",
-        },
-        {
-          id: 17,
-          name: "Fruit Infuser Water Pitcher",
-          date: "2023-07-25",
-          orderId: "76543",
-          quantity: 1,
-          price: 16.49,
-          status: "Completed",
-        },
-        {
-          id: 18,
-          name: "Yoga Mat with Carry Strap",
-          date: "2023-07-24",
-          orderId: "56789",
-          quantity: 1,
-          price: 24.75,
-          status: "Cancelled",
-        },
-        {
-          id: 19,
-          name: "Reusable Grocery Bags",
-          date: "2023-07-23",
-          orderId: "98765",
-          quantity: 4,
-          price: 6.99,
-          status: "Completed",
-        },
-        {
-          id: 20,
-          name: "Decorative Throw Pillow",
-          date: "2023-07-22",
-          orderId: "45678",
-          quantity: 2,
-          price: 13.49,
-          status: "Cancelled",
-        },
-        {
-          id: 21,
-          name: "Fresh Strawberries",
-          date: "2023-07-21",
-          orderId: "23456",
-          quantity: 3,
-          price: 3.99,
-          status: "Pending",
-        },
-        {
-          id: 22,
-          name: "Sleek Wristwatch",
-          date: "2023-07-20",
-          orderId: "65432",
-          quantity: 1,
-          price: 45.99,
-          status: "Completed",
-        },
-        {
-          id: 23,
-          name: "Artificial Indoor Plant",
-          date: "2023-07-19",
-          orderId: "87654",
-          quantity: 2,
-          price: 29.25,
-          status: "Cancelled",
-        },
-        {
-          id: 24,
-          name: "Gourmet Chocolate Box",
-          date: "2023-07-18",
-          orderId: "34567",
-          quantity: 1,
-          price: 19.99,
-          status: "Pending",
-        },
-        {
-          id: 25,
-          name: "Leather Crossbody Bag",
-          date: "2023-07-17",
-          orderId: "76543",
-          quantity: 1,
-          price: 37.49,
-          status: "Completed",
-        },
-        {
-          id: 26,
-          name: "Rustic Wall Clock",
-          date: "2023-07-16",
-          orderId: "56789",
-          quantity: 1,
-          price: 28.75,
-          status: "Cancelled",
-        },
-        {
-          id: 27,
-          name: "Fitness Resistance Bands Set",
-          date: "2023-07-15",
-          orderId: "98765",
-          quantity: 3,
-          price: 9.99,
-          status: "Pending",
-        },
-        {
-          id: 28,
-          name: "Aromatherapy Essential Oils Set",
-          date: "2023-07-14",
-          orderId: "45678",
-          quantity: 1,
-          price: 22.99,
-          status: "Completed",
-        },
-        {
-          id: 29,
-          name: "Wireless Computer Mouse",
-          date: "2023-07-13",
-          orderId: "23456",
-          quantity: 2,
-          price: 12.75,
-          status: "Cancelled",
-        },
-        {
-          id: 30,
-          name: "Cozy Knit Blanket",
-          date: "2023-07-12",
-          orderId: "65432",
-          quantity: 1,
-          price: 34.99,
-          status: "Pending",
-        },
-      ],
+      tableHeaders: ["Product’s name", "Date", "Order ID", "Quantity", "Price", "Status"],
+      tableData: [],
       data: [
         { id: 1, name: "Item 1", date: "01-01-2022" },
         { id: 2, name: "Item 2", date: "15-02-2022" },
@@ -378,20 +97,14 @@ export default {
         { id: 4, name: "Item 4", date: "05-05-2023" },
         { id: 5, name: "Item 5", date: "10-05-2023" },
       ],
-      tableHead: [
-        "Product’s name",
-        "Date",
-        "Order ID",
-        "Quantity",
-        "Price",
-        "Status",
-      ],
+      tableHead: ["Product’s name", "Date", "Order ID", "Quantity", "Price", "Status"],
       status: "All",
       activeTabs: [0],
       visible: true,
       animate: "animate__slideInUp",
       isFilterOpen: false,
       tableDataClone: [],
+      tableDatas: null,
     };
   },
   head() {
@@ -411,6 +124,8 @@ export default {
       // Perform an automatic redirect to "/dashboard/market"
       this.$router.redirect("/dashboard/market");
     }
+
+    this.asyncData();
   },
   beforeDestroy() {
     this.checkScreenSize();
@@ -447,7 +162,20 @@ export default {
         return itemDate.isBetween(start, end, null, "[]");
       });
     },
-
+    async asyncData() {
+      try {
+        const response = await this.$axios.get(
+          "http://localhost:8000/api/v1/orders/customer/64fb30c33e9f6ec87eee0691"
+        );
+        this.tableDatas = response?.data?.data?.orders;
+        this.tableData = this.tableDatas;
+        console.log("All orders", this.tableDatas);
+        return { responseData: response.data };
+      } catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -483,9 +211,7 @@ export default {
           return product.date >= dateData.startDate; // Filter based on start date only
         }
 
-        return (
-          product.date >= dateData.startDate && product.date <= dateData.endDate
-        );
+        return product.date >= dateData.startDate && product.date <= dateData.endDate;
       });
       // console.log(dateData)
       // console.log(dateData.startDate)

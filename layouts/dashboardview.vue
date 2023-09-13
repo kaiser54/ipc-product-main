@@ -32,7 +32,7 @@
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
-                :user="user"
+                  :user="user"
                   @openCart="toggleCart"
                   @openNotification="toggleNotification"
                 />
@@ -75,7 +75,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -106,6 +105,7 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
+          console.log("_id:", this.user._id);
         } else {
           // User data is not found in localStorage
           console.log("User data not found in localStorage.");
@@ -163,7 +163,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 section {
