@@ -40,7 +40,7 @@
             </defs>
           </svg>
         </div>
-        <p class="username mobile-truncate">Chicken Republic</p>
+        <p class="username mobile-truncate">{{ user?.businessName }}</p>
       </div>
       <div
         class="notify-cart"
@@ -222,9 +222,9 @@
                 stroke-linejoin="round"
               />
             </svg>
-          <div class="badge" v-if="TotalCart > 0">
-            <p>{{ TotalCart }}</p>
-          </div>
+            <div class="badge" v-if="TotalCart > 0">
+              <p>{{ TotalCart }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -236,6 +236,12 @@
 import { mapState, mapGetters } from "vuex";
 
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       pageName: "",
@@ -424,12 +430,11 @@ input {
   background: var(--grey-grey6);
 }
 
-
 @media (max-width: 950px) {
   .nocircle .badge {
-  left: 13px;
-  top: -1px;
-}
+    left: 13px;
+    top: -1px;
+  }
 }
 @media (max-width: 335px) {
   .mobile-truncate {

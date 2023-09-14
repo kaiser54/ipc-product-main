@@ -129,7 +129,7 @@ export default {
 <style scoped>
 .root-nav {
   width: 100%;
-  display: none !important;
+  /* display: none !important; */
 }
 
 .mobile-nav-bar {
@@ -145,7 +145,7 @@ export default {
   height: 76px;
   left: 0px;
   bottom: 0px;
-  z-index: 999999999;
+  z-index: 2;
 
   /* White */
 

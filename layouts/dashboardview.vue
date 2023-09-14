@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cart @openCart="toggleCart" v-if="isCart && !mobile" />
+    <CartCart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile && !user"
@@ -41,7 +41,7 @@
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
                 <LayoutMobileTopDetails
                   @redirectToSearchPage="redirectToSearchPageFunc"
-                  @openCart="toggleCart"
+                  @openCart="toggleCart" :user="user"
                 />
               </section>
             </div>

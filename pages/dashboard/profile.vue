@@ -156,7 +156,7 @@
       >
         <template v-slot:components>
           <div class="profile-wrapper">
-            <ProfileAccountAvatar :user="user"/>
+            <ProfileAccountAvatar :user="user" />
             <div class="flex">
               <div class="acc-btn">
                 <ProfileUserDetails
@@ -183,7 +183,7 @@
         title="Enter phone number"
         v-if="addNumberFunc"
         @closeDetails="toggleAddNumberFunc"
-        @detailsButton="handleAddNumber"
+        @detailsButton="handleAddNumber(newPhoneNumber)"
       >
         <template v-slot:details>
           <InputComponent
@@ -444,6 +444,9 @@ export default {
           this.addNumberFunc = false;
           this.invalidNumber = false; // Reset the invalidNumber flag
           newPhoneNumber = null;
+
+          this.addNumberFunc = false;
+          this.closeHeaderComp = false;
         } else {
           this.invalidNumber = true;
           this.showNewPhoneNumber = true;

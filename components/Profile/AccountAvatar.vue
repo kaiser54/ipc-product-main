@@ -2,7 +2,10 @@
   <div class="user_name_mail">
     <div class="user_name_mail_header">
       <div class="user_name_mail_header_img avatar">
-        <img src="~/assets/images/avatar1.png" alt="" />
+        <RandomAvatar
+          size="big"
+          :name="`${user?.firstName} ${user?.lastName}`"
+        />
       </div>
       <div class="name-mail">
         <h3 class=".h3-small-regular">{{ user.businessName }}</h3>

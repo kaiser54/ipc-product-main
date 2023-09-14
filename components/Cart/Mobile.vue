@@ -25,9 +25,9 @@
         @counterMinus="counterMinus"
       />
     </div>
-    <div class="checkout-bottom mobile-nav-bar">
+    <!-- <div class="checkout-bottom mobile-nav-bar">
       <button class="btn primary-btn" @click="leaveCart">Checkout</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
