@@ -14,13 +14,13 @@
           <div class="title-header">
             <h2 class="h2-medium header-text">Profile</h2>
             <DynamicTags
-            v-if="user?.type === 'INDIVIDUAL'"
+              v-if="user?.type === 'INDIVIDUAL'"
               tagText="Individual account"
               size="small"
               type="info"
             />
             <DynamicTags
-            v-if="user?.type === 'BUSINESS'"
+              v-if="user?.type === 'BUSINESS'"
               tagText="Business account"
               size="small"
               type="positive"
@@ -55,6 +55,8 @@
             <ProfileAddressDetails
               v-if="!activetab"
               switchedHeader="Address Book"
+              :user="user"
+              @saveEdit="saveEdit"
             />
           </div>
         </div>
@@ -67,6 +69,7 @@
           <ProfileUserSection
             @clicked="toggleuserHeaderComponent"
             v-if="!userHeaderComponent || !CheckAddress"
+            :user="user"
           />
           <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
@@ -153,7 +156,7 @@
       >
         <template v-slot:components>
           <div class="profile-wrapper">
-            <ProfileAccountAvatar />
+            <ProfileAccountAvatar :user="user"/>
             <div class="flex">
               <div class="acc-btn">
                 <ProfileUserDetails
@@ -164,6 +167,7 @@
                   :show-new-phone-number="showNewPhoneNumber"
                   @add-number="handleAddNumber"
                   @open-number="toggleAddNumberFunc"
+                  :user="user"
                 />
               </div>
             </div>
@@ -276,7 +280,7 @@
         buttonText="Save changes"
         v-if="openEditAddress"
         @closeDetails="editAddress"
-        @detailsButton="editAddress"
+        @detailsButton="saveAddress"
       >
         <template v-slot:details>
           <InputComponent
@@ -313,6 +317,8 @@
 </template>
 
 <script>
+import { DEV_URL } from "@/plugins/api";
+import axios from "axios";
 export default {
   layout: "dashboardview",
   // Other component properties and methods
@@ -330,7 +336,7 @@ export default {
         { label: "First Name", value: "Lanre" },
         { label: "Last Name", value: "Bello" },
       ],
-      phoneNumbers: ["08100023262"],
+      phoneNumbers: [],
       invalidNumber: false,
       // newPhoneNumber: "", // phone number entered in the new phone number field
       showNewPhoneNumber: false, // whether to show the new phone number field
@@ -338,13 +344,13 @@ export default {
       addNumberFunc: false,
       animate: null,
       CheckAddress: false,
-      address: "3A, Oba Akintunde Street, Lekki phase 1",
+      address: "",
       validAddress: null,
       errAddress: "Please enter a valid address",
-      state: "Lagos",
+      state: "",
       validState: null,
       errState: "",
-      LGA: "Eti Osa",
+      LGA: "",
       validLGA: null,
       errLGA: "",
       closeHeaderComp: false,
@@ -373,6 +379,9 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
+          this.address = this.user?.address?.streetAddress;
+          this.state = this.user?.address?.state;
+          this.LGA = this.user?.address?.lga;
         } else {
           // User data is not found in localStorage
           console.log("User data not found in localStorage.");
@@ -406,18 +415,41 @@ export default {
     toggleChangePassword() {
       this.isChangePassword = !this.isChangePassword;
     },
-    handleAddNumber(newPhoneNumber) {
-      const phoneNumberRegex =
-        /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
-      if (phoneNumberRegex.test(newPhoneNumber)) {
-        this.phoneNumbers.push(newPhoneNumber);
-        this.showNewPhoneNumber = false; // Hide the new-phone-number div
-        this.addNumberFunc = false;
-        this.invalidNumber = false; // Reset the invalidNumber flag
-        newPhoneNumber = null;
-      } else {
-        this.invalidNumber = true;
-        this.showNewPhoneNumber = true;
+    async handleAddNumber(newPhoneNumber) {
+      const number = [];
+      this.user.phoneNumbers.forEach((num) => number.push(newPhoneNumber));
+      number.push(newPhoneNumber);
+      console.log("number", number);
+      console.log("data", this.phoneNumbers);
+      try {
+        const phoneNumberRegex =
+          /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        if (phoneNumberRegex.test(newPhoneNumber)) {
+          const response = await axios.patch(
+            `${DEV_URL}/business-customers/${this.user._id}`,
+            { phoneNumbers: number },
+            {
+              headers,
+            }
+          );
+          this.user = response.data.data.customer;
+          console.log("backend :", response);
+          console.log("user :", this.user);
+          this.phoneNumbers.push(newPhoneNumber);
+          this.showNewPhoneNumber = false; // Hide the new-phone-number div
+          this.addNumberFunc = false;
+          this.invalidNumber = false; // Reset the invalidNumber flag
+          newPhoneNumber = null;
+        } else {
+          this.invalidNumber = true;
+          this.showNewPhoneNumber = true;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     handleCloseNumber() {
@@ -441,6 +473,56 @@ export default {
     editAddress() {
       this.openEditAddress = !this.openEditAddress;
       this.closeHeaderComp = !this.closeHeaderComp;
+    },
+    async saveEdit(address) {
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.patch(
+          `${DEV_URL}/business-customers/${this.user._id}`,
+          { address: address },
+          {
+            headers,
+          }
+        );
+        this.user = response.data.data.customer;
+        console.log("e :", address);
+        console.log("backend :", response);
+        console.log("user :", this.user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async saveAddress() {
+      const address = {
+        streetAddress: this.address,
+        state: this.state,
+        lga: this.LGA,
+      };
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.patch(
+          `${DEV_URL}/business-customers/${this.user._id}`,
+          { address: address },
+          {
+            headers,
+          }
+        );
+        this.user = response.data.data.customer;
+        console.log("e :", address);
+        console.log("backend :", response);
+        console.log("user :", this.user);
+
+        this.openEditAddress = !this.openEditAddress;
+        this.closeHeaderComp = !this.closeHeaderComp;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

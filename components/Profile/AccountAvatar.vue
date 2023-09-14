@@ -5,17 +5,33 @@
         <img src="~/assets/images/avatar1.png" alt="" />
       </div>
       <div class="name-mail">
-        <h3 class=".h3-small-regular">Chicken Republic</h3>
-        <p>adminchickenrepublic@gmail.com</p>
+        <h3 class=".h3-small-regular">{{ user.businessName }}</h3>
+        <p>{{ user?.email }}</p>
       </div>
-      <DynamicTags tagText="Individual account" size="small" type="info" />
-      <DynamicTags tagText="Business account" size="small" type="positive" />
+      <DynamicTags
+        tagText="Individual account"
+        size="small"
+        type="info"
+        v-if="user?.type === 'INDIVIDUAL'"
+      />
+      <DynamicTags
+        tagText="Business account"
+        size="small"
+        type="positive"
+        v-if="user?.type === 'BUSINESS'"
+      />
     </div>
   </div>
 </template>
   
   <script>
-export default {};
+export default {
+  props: {
+    user: {
+      type: Object,
+    },
+  },
+};
 </script>
   
   <style scoped>

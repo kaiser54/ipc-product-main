@@ -28,24 +28,31 @@
         <p>Edit</p>
       </button>
     </div>
-    <userAddress :disabled="disabled" />
-    <div class="change-btn" v-if="isEditOpen">
-      <button class="btn neutral-btn">Cancel</button>
-      <button class="btn primary-btn">Save changes</button>
-    </div>
+    <userAddress
+      :disabled="disabled"
+      :data="user"
+      v-if="user"
+      :isEditOpen="isEditOpen"
+      @closeEdit="closeEdit"
+      @saveEdit="saveEdit"
+    />
 
     <!-- Add a ref to a dummy element as the scroll target -->
-    <div ref="scrollTarget" style="height: 1px; opacity: 0;"></div>
-
+    <div ref="scrollTarget" style="height: 1px; opacity: 0"></div>
   </div>
 </template>
 
 <script>
+import { DEV_URL } from "@/plugins/api";
+import axios from "axios";
 export default {
   props: {
     switchedHeader: {
       type: String,
       default: false,
+    },
+    user: {
+      required: true,
     },
   },
   data() {
@@ -61,9 +68,24 @@ export default {
       this.$nextTick(() => {
         const scrollTarget = this.$refs.scrollTarget;
         if (scrollTarget) {
-          scrollTarget.scrollIntoView({ behavior: 'smooth' });
+          scrollTarget.scrollIntoView({ behavior: "smooth" });
         }
       });
+    },
+    closeEdit() {
+      this.disabled = true;
+      this.isEditOpen = false;
+      this.$nextTick(() => {
+        const scrollTarget = this.$refs.scrollTarget;
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    },
+    saveEdit(address) {
+      this.$emit("saveEdit", address);
+      this.disabled = true;
+      this.isEditOpen = false;
     },
   },
 };

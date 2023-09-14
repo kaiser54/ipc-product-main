@@ -1,44 +1,48 @@
 <template>
-    <div class="user-header" @click="$emit('clicked')">
-      <div class="username-avatar">
-        <div class="avatar">
-          <img src="~/assets/images/avatar1.png" alt="" />
+  <div class="user-header" @click="$emit('clicked')">
+    <div class="username-avatar">
+      <div class="avatar">
+        <RandomAvatar :name="`${user?.firstName} ${user?.lastName}`" />
+      </div>
+      <div class="userTitle">
+        <div class="user__name">
+          <p>{{ user?.firstName }} {{ user?.lastName }}</p>
         </div>
-        <div class="userTitle">
-          <div class="user__name">
-            <p>Lanre Bello</p>
-          </div>
-          <div class="user__mail">
-            <p>lanrebelloipc@gmail.com</p>
-          </div>
+        <div class="user__mail">
+          <p>{{ user?.email }}</p>
         </div>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
-        <path
-          d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
-          stroke="#BDC0CE"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
     </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
+        stroke="#BDC0CE"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .user-header {
   display: flex;
   flex-direction: row;
@@ -108,5 +112,4 @@
 
   color: var(--grey-grey3);
 }
-
 </style>
