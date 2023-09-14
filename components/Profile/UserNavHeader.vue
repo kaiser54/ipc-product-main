@@ -4,8 +4,8 @@
     <p>{{ modalName }}</p>
     <div class="component-cart">
       <nuxt-link to="/dashboard/market/cart">
-        <div class="badge" v-if="cart.length > 0">
-          <p>{{ getCartLength }}</p>
+        <div class="badge" v-if="TotalCart != 0">
+          <p>{{ TotalCart }}</p>
         </div>
         <IconsCart />
       </nuxt-link>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   props: {
     modalName: {
@@ -23,11 +23,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["cart"]),
-    getCartLength() {
-      const cartLength = this.$store.state.cart.length;
-      return cartLength;
-    },
+    ...mapGetters("cart", ["TotalCart"]),
   },
 };
 </script>

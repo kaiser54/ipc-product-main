@@ -29,15 +29,14 @@
         ref="search"
         type=""
         name=""
-        v-model="searchTerm"
+        v-model="searchQuery"
         id="input"
         placeholder="Search for products"
         autofocus
-        @input="updateSearchTerm"
       />
 
       <svg
-      @click="cancelSearch"
+        @click="cancelSearch"
         class="cancel-svg"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -60,14 +59,15 @@
 
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
-      searchTerm: '',
-    }
+      searchQuery: "",
+    };
   },
   mounted() {
-    if (this.$route.path === '/dashboard/search') {
+    if (this.$route.path === "/dashboard/search") {
       this.$nextTick(() => {
         const searchInput = this.$refs.search;
         if (searchInput) {
@@ -77,17 +77,20 @@ export default {
     }
   },
   methods: {
-    updateSearchTerm() {
-      this.$emit('search-term-updated', this.searchTerm);
-    },
+    ...mapActions("product", ["updateQuery"]),
     cancelSearch() {
-      this.searchTerm = ""
+      this.searchTerm = "";
     },
     redirectTobackPage() {
       this.$router.go(-1);
-    }
+    },
   },
-}
+  watch: {
+    searchQuery(newSearchQuery) {
+      this.updateQuery(newSearchQuery);
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -135,7 +135,7 @@
         />
       </svg>
     </div>
-    <nuxt-link
+    <!-- <nuxt-link
       to="/dashboard/saved-items"
       class="user__details__head__address udhs"
       @click="$emit('changePassword')"
@@ -178,7 +178,7 @@
           />
         </svg>
       </div>
-    </nuxt-link>
+    </nuxt-link> -->
   </div>
 </template>
   
