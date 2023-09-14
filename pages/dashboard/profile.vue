@@ -397,9 +397,29 @@ export default {
         this.animate = "animate__zoomIn";
       }
     },
-    toggleIsVerifyMail() {
-      this.isVerifyMail = !this.isVerifyMail;
+    async toggleIsVerifyMail(){
+   
+      this.isVerifyMail = !this.isVerifyMail
+      try {
+      const userEmail = localStorage.getItem('userEmail');
+      if (!userEmail) {
+        throw new Error('User email not found in localStorage.');
+      }
+      const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/send-verification-email', {
+        email: userEmail,
+      });
+      console.log('Email sent successfully:', response.data);
+      console.log(userEmail)
+
+      return { userEmail };
+    } catch (error) {
+      console.error('Error sending email:', error);
+      return { userEmail: null };
+    }
     },
+      
+  
+  
     toggleLogout() {
       this.isLogout = !this.isLogout;
     },

@@ -76,9 +76,10 @@ export default {
     };
   },
   async created() {
+    const userId = localStorage.getItem('userId')
     try {
       const response = await this.$axios.get(
-        "/orders/customer/64fb30c33e9f6ec87eee0691"
+        `/orders/customer/${userId}`
       );
       this.order = response?.data?.data?.orders;
       console.log(this.order);

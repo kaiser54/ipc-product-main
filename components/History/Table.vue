@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container" style="width: 100%">
+  <div v-if="tableData.length" class="table-container" style="width: 100%">
     <table style="width: 100%">
       <thead>
         <tr>
@@ -34,6 +34,18 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div v-else class="table-container" style="width: 100%">
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th v-for="header in tableHeaders" :key="header">
+            {{ header }}
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <!-- <p>No data</p> -->
   </div>
 </template>
   

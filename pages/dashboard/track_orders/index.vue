@@ -297,18 +297,6 @@ export default {
     trackOrder() {
       this.$router.push(`/dashboard/track_orders/${id}`);
     },
-    async asyncData() {
-      try {
-        const response = await this.$axios.get(
-          "/orders/customer/64fb30c33e9f6ec87eee0691"
-        );
-        console.log(response.data);
-        return { responseData: response.data };
-      } catch (error) {
-        console.error("Error fetching data", error);
-        return { responseData: null };
-      }
-    },
   },
 };
 </script>

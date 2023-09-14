@@ -72,9 +72,26 @@ export default {
     checkScreenSize() {
       this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
-    handleOpenMail() {
+    async handleOpenMail() {
       this.checkMail = !this.checkMail;
-    },
+      try {
+      const userEmail = localStorage.getItem('userEmail');
+      if (!userEmail) {
+        throw new Error('User email not found in localStorage.');
+      }
+      const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/send-verification-email', {
+        email: userEmail,
+      });
+      console.log('Email sent successfully:', response.data);
+      console.log(userEmail)
+
+      return { userEmail };
+    } catch (error) {
+      console.error('Error sending email:', error);
+      return { userEmail: null };
+    }
+  },
+
     welcomeUser() {
       const welcome = localStorage.getItem('welcomeFlow')
       if (!welcome) {
@@ -89,10 +106,12 @@ export default {
       localStorage.setItem('welcomeFlow', 'complete');
     },
 
-  },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
   },
+  
+  }
+
 
 };
 </script>

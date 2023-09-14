@@ -39,7 +39,7 @@
 export default {
   data() {
     return {
-      tabs: ["All", "Completed", "Pending", "Cancelled"],
+      tabs: ["All", "Completed","Pending", "Cancelled"],
       startDate: "",
       endDate: "",
       activeTab: 0,
@@ -47,7 +47,8 @@ export default {
   },
   methods: {
     toggleTab(index) {
-      this.$emit("clickTab", { status: this.tabs[index] });
+      console.log('header', this.tabs[index])
+      this.$emit("clickTab", this.tabs[index]);
       this.activeTab = index;
     },
     filterProducts() {

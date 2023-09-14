@@ -112,7 +112,6 @@ export default {
             } else {
                 // Submit form or perform other actions
                 console.log("Valid login");
-                
                 this.resetTokenSent()
             }
         },
@@ -129,7 +128,19 @@ export default {
             } catch(error){
                 console.error('Wrong Token:', error)
             }
-      }
+      },
+    //     async verifiedTokenSent() {
+    //         try {
+    //             const response = await this.$axios.post('/business-customers/verify-email', {
+    //                 token: this.$route.params.token
+    //             }
+    //             )
+    //             console.log('Token Sent', response.data)
+    //             this.$router.push("/auth/login");
+    //         } catch(error){
+    //             console.error('Wrong Token:', error)
+    //         }
+    //   }
     },
 };
 </script>

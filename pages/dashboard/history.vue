@@ -105,6 +105,8 @@ export default {
       isFilterOpen: false,
       tableDataClone: [],
       tableDatas: null,
+      filteredStatus:null,
+      // filteredData: []
     };
   },
   head() {
@@ -114,10 +116,13 @@ export default {
   },
   mounted() {
     this.checkScreenSize();
-    this.tableDataClone = this.tableData;
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
+    this.tableData.forEach((data) => {
+    console.log('data Status:', data.status);
+  });
+
   },
   created() {
     if (this.$route.path === "/dashboard") {
@@ -125,7 +130,7 @@ export default {
       this.$router.redirect("/dashboard/market");
     }
 
-    this.asyncData();
+    this.getOrders();
   },
   beforeDestroy() {
     this.checkScreenSize();
@@ -151,7 +156,10 @@ export default {
 
       return filteredData;
     },
-  },
+
+
+},
+
   methods: {
     handleFilter() {
       this.filteredData = this.data.filter((item) => {
@@ -162,20 +170,49 @@ export default {
         return itemDate.isBetween(start, end, null, "[]");
       });
     },
-    async asyncData() {
+    async getOrders() {
+      const userId = localStorage.getItem('userId')
       try {
         const response = await this.$axios.get(
-          "http://localhost:8000/api/v1/orders/customer/64fb30c33e9f6ec87eee0691"
+          `http://localhost:8000/api/v1/orders/customer/${userId}`
         );
         this.tableDatas = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
-        console.log("All orders", this.tableDatas);
+        this.tableDataClone = this.tableData;
+
+  this.tableDatas.forEach((order) => {
+    this.filteredStatus = order.status
+    console.log('Order Status:',this.filteredStatus);
+  });
+
         return { responseData: response.data };
       } catch (error) {
         console.error("Error fetching data", error);
         return { responseData: null };
       }
     },
+
+
+    filterTableDataByStatus(status) {
+  this.status = status;
+  if (status === "All") {
+    this.tableData = this.tableDataClone;
+  } else if (status === "Completed") {
+    this.tableData = this.tableDataClone.filter((item) => item.status === "DELIVERED")
+  } else if (status === "Pending") {
+    this.tableData = this.tableDataClone.filter(
+      (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
+    );
+  } else if (status === "Cancelled") {
+    this.tableData = this.tableDataClone.filter((item) => item.status === "CANCELLED");
+  } else {
+    console.error("Invalid status selected");
+    this.tableData = []; 
+  }
+},
+
+
+
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -188,19 +225,7 @@ export default {
     toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen;
     },
-    filterTableDataByStatus(status) {
-      this.status = status.status;
-      if (status.status == "All") {
-        return (this.tableDataClone = this.tableData);
-      } else
-        this.tableDataClone = this.tableData.filter(
-          (item) => item.status === this.status
-        );
-      console.log(this.tableDataClone);
-      console.log(status);
-      console.log(this.tableData);
-      console.log(this.status);
-    },
+ 
     filterProductsByDate(dateData) {
       this.tableDataClone = this.tableData.filter((product) => {
         if (!dateData.startDate) {

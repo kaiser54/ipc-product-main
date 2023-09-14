@@ -106,6 +106,10 @@ export default {
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
           console.log("_id:", this.user._id);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+
+
         } else {
           // User data is not found in localStorage
           console.log("User data not found in localStorage.");
@@ -118,6 +122,9 @@ export default {
     }
   },
   methods: {
+    saveUserIdToLocalStorage(userId){
+      localStorage.setItem('userId', this.user._id)
+    },
     toggleCart() {
       this.isCart = !this.isCart;
       if (this.mobile) {
