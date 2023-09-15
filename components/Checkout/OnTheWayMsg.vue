@@ -8,7 +8,7 @@
         <div class="title">Your order is on its way!</div>
         <div class="snippet">
           We have sent your order invoice to
-          <span class="bold">danielayomidesolomon@gmail.com</span> Kindly check
+          <span class="bold">{{ data.email }}</span> Kindly check
           to see your order’s full details.
         </div>
       </div>
@@ -25,7 +25,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    }
+  }
+};
 </script>
 
 <style scoped>

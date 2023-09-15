@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CartCart @openCart="toggleCart" v-if="isCart && !mobile" />
+    <Cart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile && !user"

@@ -1,6 +1,6 @@
 <template>
   <div class="checkout__delivery">
-    <CheckoutOnTheWayMsg v-if="isPaid" />
+    <CheckoutOnTheWayMsg v-if="isPaid" :data="submittedData"/>
     <div v-else class="checkout-wrapper">
       <div v-if="!mobile" class="__bg__fixed">
         <CheckoutProgressBar
@@ -76,6 +76,7 @@
 </template>
 
 <script>
+// import paystack from "vue-paystack";
 import axios from "axios";
 import { DEV_URL } from "@/plugins/api";
 import { formatPriceWithCommas } from "~/static/formatPrice";
@@ -89,15 +90,28 @@ export default {
       isPaid: false,
       mobile: false,
       submittedData: null,
+      ref: "",
     };
   },
   async mounted() {
+    // payStack
+    // this.verifyPayment();
+    if (process.client) {
+      const popup = document.createElement("script");
+      popup.setAttribute("src", "https://js.paystack.co/v2/inline.js");
+      popup.async = true;
+      document.head.appendChild(popup);
+    }
+
+    // ^^^^^^^^^^^^^^^^^^
+
     await this.fetchCartItemsByUserID();
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
   },
+
   computed: {
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
@@ -106,6 +120,7 @@ export default {
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
   },
+
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
     if (this.$route.path === "/dashboard") {
@@ -113,7 +128,11 @@ export default {
       this.$router.redirect("/dashboard/market");
     }
   },
+
   methods: {
+    nairaToKobo(amount) {
+      return Math.ceil(amount * 100);
+    },
     ...mapActions("cart", ["fetchCartItemsByUserID"]),
     formatPriceWithCommas,
     checkScreenSize() {
@@ -140,6 +159,91 @@ export default {
       }
     },
     async lastStep() {
+      try {
+        // Prepare data
+        const data = {
+          email: this.submittedData?.email,
+          amount: this.nairaToKobo(this.submittedData?.totalPrice),
+          firstName: this.submittedData?.firstName,
+          lastName: this.submittedData?.lastName,
+          phoneNumber: this.submittedData?.phoneNumbers,
+        };
+
+        console.log("Submit data:", data);
+
+        // Send POST request to initialize payment
+        const response = await axios.post(
+          `${DEV_URL}/paystack/initialize/`,
+          data
+        );
+
+        this.ref = response.data.data.data.reference;
+
+        console.log("Payment initialization response:", response.data);
+        console.log(
+          "Payment reference response:",
+          response.data.data.data.reference
+        );
+
+        // Initialize PaystackPop and resume transaction
+        const paystack = new window.PaystackPop();
+        const accessCode = response.data.data.data.access_code;
+        paystack.resumeTransaction(accessCode);
+        // verify payment
+        this.verifyPayment();
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    },
+
+    async verifyPayment() {
+      console.log("Verifying payment");
+      console.log("this.ref:", this.ref);
+
+      try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+          reference: this.ref,
+        });
+
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        const response = await fetch(
+          `${DEV_URL}/paystack/verify/`,
+          requestOptions
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("Verification result:", result);
+
+          if (result.status === "success") {
+            console.log("Payment verification successful!");
+            this.submitForm()
+            return; // Exit the retry loop
+          }
+        }
+
+        // Payment is not successful, so retry the verification after a delay (1 second)
+        setTimeout(this.verifyPayment, 1000);
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle any errors that occur during the verification process
+      }
+    },
+
+    step1() {
+      this.currentStep = 1;
+      console.log("clicked");
+    },
+    async submitForm() {
       console.log("submit data:", this.submittedData);
       try {
         const headers = {
@@ -166,13 +270,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-    step1() {
-      this.currentStep = 1;
-      console.log("clicked");
-    },
-    submitForm() {
-      // Handle form submission
     },
     getStepLabel(step) {
       if (step === 1) {
