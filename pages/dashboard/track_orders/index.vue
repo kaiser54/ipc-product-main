@@ -4,7 +4,7 @@
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>
     <div class="order-container">
-      <EmptyStates @leaveCart="leaveCart">
+      <EmptyStates @leaveCart="leaveCart" v-if="this.order.length === 0">
         <template v-slot:svg>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -238,8 +238,7 @@
       </EmptyStates>
       <!-- de -->
         <!-- <orderProduct :showSvg="true" /> -->
-        <OrderedProduct :tagText="tagText" :size="size" :type="type" />
-
+        <OrderedProduct v-else :tagText="tagText" :size="size" :type="type" />
     </div>
   </div>
 </template>
@@ -252,6 +251,7 @@ export default {
       pageTitle: "IPC | Track orders",
       duplicateCount: 10, // Specify the number of times to duplicate the component
       selectedIndex: 2,
+      order:[],
       listSelect: [
         {
           title: "Order procesing",
@@ -276,6 +276,22 @@ export default {
       title: this.pageTitle,
     };
   },
+  
+  async created() {
+    const userId = localStorage.getItem('userId')
+    try {
+      const response = await this.$axios.get(
+        `/orders/customer/${userId}`
+      );
+      this.order = response?.data?.data?.orders;
+      console.log(this.order);
+      // this.products = response?.data?.data?.orders?.products
+      // console.log(this.products)
+      this.loading = false;
+    } catch (error) {
+      console.error("Error fetching order details:", error);
+    }
+  },
   computed: {
     tagText() {
       return this.listSelect[this.selectedIndex].title;
@@ -287,18 +303,18 @@ export default {
       return this.listSelect[this.selectedIndex].size;
     },
   },
-  created() {
-    this.asyncData();
-  },
+  // created() {
+  //   this.asyncData();
+  // },
   methods: {
     leaveCart() {
       this.$router.push("/dashboard/market");
     },
     trackOrder() {
       this.$router.push(`/dashboard/track_orders/${id}`);
-    },
-  },
-};
+    }
+    }
+  }
 </script>
 
 <style scoped>

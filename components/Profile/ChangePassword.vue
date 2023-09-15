@@ -141,10 +141,29 @@ export default {
 
       return isValid;
     },
-    handleChangePassword() {
+    async handleChangePassword() {
       if (this.validatePasswords()) {
         // Code to submit password change request
-        console.log("Password change request submitted.");
+        console.log("Password change request submitted.:", this.oldPassword, this.newPassword, this.confirmPassword);
+        try {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        throw new Error('User email not found in localStorage.');
+      }
+      const response = await this.$axios.patch('/business-customers/change-password', {
+        customerId: userId,
+        oldPassword: this.oldPassword ,
+    newPassword: this.newPassword,
+    confirmPassword: this.confirmPassword
+      });
+      console.log('Password Changed UnSuccessfully:', response.data);
+      console.log(userId)
+
+      return { userId };
+    } catch (error) {
+      console.error('Password Changed Successfully:', error);
+      return { userId: null };
+    }
       }
     },
   },

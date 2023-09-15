@@ -66,6 +66,10 @@ export default {
       type: String,
       required: true,
     },
+    order:{
+      type: Array,
+      required: true
+    }
   },
 
   data() {

@@ -1,4 +1,4 @@
-<template>
+n<template>
   <div>
     <div class="logout-modal" style="z-index: 2;">
       <div class="WH-auto animate__animated" :class="animate">

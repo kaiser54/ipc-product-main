@@ -1,6 +1,11 @@
 <template>
     <div class="loading">
-        <span></span>
+        <div class="loading">
+            <span></span>
+        </div>
+        <div class="loading-text">
+            <p>Please Wait Verifying Email</p>
+        </div>
     </div>
 </template>
 
@@ -13,10 +18,11 @@
 <style scoped>
 .loading {
     top: 0;
+    left: 0;
     z-index: 100;
-    height: 100%;
-    width: 100%;  
-    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100vw;  
+    background: #0000005d;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -37,5 +43,9 @@
     border-bottom-color: #fff;
     border-radius: 50%;
     animation: spin ease 1000ms infinite;
+}
+.loading-text p{
+    color: #fff;
+    font-size: 25px;
 }
 </style>

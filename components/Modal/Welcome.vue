@@ -282,7 +282,6 @@ export default {
     width: 100%;
     height: 100%;
     background: var(--modal, rgba(48, 50, 55, 0.30));
-    ;
     justify-content: center;
     align-items: center;
     z-index: 9999;

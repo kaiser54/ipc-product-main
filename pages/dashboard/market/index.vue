@@ -2,7 +2,7 @@
   <div style="width: 100%">
     <LoaderComponent v-if="loading" />
     <div class="nuxt-page" v-else>
-      <promptAlert @openMail="handleOpenMail" />
+      <promptAlert @openMail="handleOpenMail" v-if="verifiedEmail" />
       <div class="page-title">
         <h2 class="h2-medium header-text">Market</h2>
       </div>
@@ -50,7 +50,8 @@ export default {
       checkMail: false,
       inCart: false,
       animate: null,
-      showModal: false
+      showModal: false,
+      verifiedEmail: true,
     };
   },
   async mounted() {
@@ -59,6 +60,11 @@ export default {
     await this.fetchAllProducts(); // Fetch all products when the component is mounted
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
+    if(localStorage.getItem('verified')){
+      this.verifiedEmail = false
+    }else{
+      this.verifiedEmail = true
+    }
   },
   computed: {
     ...mapState("product", ["loading", "error"]),
@@ -79,7 +85,7 @@ export default {
       if (!userEmail) {
         throw new Error('User email not found in localStorage.');
       }
-      const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/send-verification-email', {
+      const response = await this.$axios.post('/business-customers/send-verification-email', {
         email: userEmail,
       });
       console.log('Email sent successfully:', response.data);

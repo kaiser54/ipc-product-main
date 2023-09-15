@@ -89,6 +89,13 @@ export default {
       checkMail: false,
     };
   },
+  watch: {
+    $route: {
+      handler (val) {
+        console.log(val)
+      }
+    }
+  },
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);

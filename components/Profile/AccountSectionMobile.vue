@@ -70,7 +70,7 @@
       </div>
       <div class="verified__svg">
         <div class="logic__tag">
-          <div class="pending tag" v-if="!isVerified">Pending</div>
+          <div class="pending tag" v-if="isVerified">Pending</div>
           <div class="verified tag" v-else>Verified</div>
         </div>
         <svg
@@ -187,10 +187,17 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      isVerified: false,
+      isVerified: true,
     };
   },
   computed: {
+  },
+  async mounted() {
+    if(localStorage.getItem('verified')){
+      this.isVerified = false
+    }else{
+      this.isVerified = true
+    }
   },
 };
 </script>

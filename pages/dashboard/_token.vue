@@ -1,24 +1,17 @@
 <template>
     <div style="width: 100%">
-        <LoaderComponent v-if="loading" />
-        <div class="nuxt-page" v-else>
-            <div class="page-title">
-                <h2 class="h2-medium header-text">Market</h2>
-            </div>
-            <section class="market-product">
-                <div class="product-top-wrap">
-                    <productcard v-for="product in filteredProducts" :key="product.id" :product="product"
-                        :inCart="inCart" />
-                </div>
-            </section>
-            <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
-        </div>
+        <!-- <LoaderComponent v-if="loading" /> -->
+        <LoaderRolling v-if="loading" />
+        <ModalEmailVerified v-if="showModal"/>
     </div>
 </template>
   
+  
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
+import loading from '~/components/Loader/Rolling.vue';
 export default {
+  components: { loading },
     layout: "dashboardview",
     head() {
         return {
@@ -34,10 +27,10 @@ export default {
             showModal: false
         };
     },
-    async mounted() {
+    mounted() {
         // set welcome modal to show on condition that a user is new or not
         this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
-        await this.fetchAllProducts(); // Fetch all products when the component is mounted
+        // this.fetchAllProducts(); // Fetch all products when the component is mounted
         this.checkScreenSize();
         window.addEventListener("resize", this.checkScreenSize);
     },
@@ -53,27 +46,38 @@ export default {
         checkScreenSize() {
             this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
         },
-        async handleOpenMail() {
-            this.checkMail = !this.checkMail;
-            this.isVerifyMail = !this.isVerifyMail;
+        async getWhatever() {
             try {
-                const userEmail = localStorage.getItem('userEmail');
-                if (!userEmail) {
-                    throw new Error('User email not found in localStorage.');
+                const response = await this.$axios.post('/business-customers/verify-email', {
+                    token: this.$route.params.token
                 }
-                const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/send-verification-email', {
-                    email: userEmail,
-                });
-                console.log('Email sent successfully:', response.data);
-                console.log(userEmail)
+                )
+                console.log('Token Sent', response.data)
+                localStorage.setItem("verified",response.data.status ) 
+                const getVerified = localStorage.getItem("verified")
+                console.log(getVerified)
 
-                return { userEmail };
+                // Save the status in local storage
+                // localStorage.setItem("verified", response.data.status);
+                // Set showModal to true to display ModalEmailVerified
+                this.showModal = true;
+
+                // After 10 seconds, hide the modal and navigate to /dashboard/Market
+                setTimeout(() => {
+                this.showModal = false;
+                this.$router.push("/dashboard/Market");
+                }, 10000); // 10000 milliseconds = 10 seconds
+
+                // this.$router.push("/dashboard/Market");
             } catch (error) {
-                console.error('Error sending email:', error);
-                return { userEmail: null };
+                console.error('Wrong Token:', error)
             }
         },
+        handleOpenMail() {
+            this.checkMail = !this.checkMail;
+            this.isVerifyMail = !this.isVerifyMail;
 
+        },
         welcomeUser() {
             const welcome = localStorage.getItem('welcomeFlow')
             if (!welcome) {
@@ -88,23 +92,17 @@ export default {
             localStorage.setItem('welcomeFlow', 'complete');
         },
 
-        beforeDestroy() {
-            window.removeEventListener("resize", this.checkScreenSize);
-        },
+
 
     },
-    async created() {
-        try {
-            const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/verify-email', {
-                token: this.$route.params.token
-            }
-            )
-            console.log('Token Sent', response.data)
-            this.$router.push("/dashboard/Market");
-        } catch (error) {
-            console.error('Wrong Token:', error)
-        }
-    }
+    created() {
+        console.log(this.$route.params)
+        this.getWhatever()
+    },
+
+    beforeDestroy() {
+        window.removeEventListener("resize", this.checkScreenSize);
+    },
 
 
 };
