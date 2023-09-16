@@ -1,14 +1,15 @@
 <template>
   <div class="carousel-container">
-    <div class="carousel-wrapper" ref="carousel">
-      <div v-if="Array.isArray(images)">
-        <div class="carousel-slide" v-for="(image, index) in images" :key="index">
-          <!-- <img :src="require(`~/assets/images/${image}`)" /> -->
-          <img :src="image" alt="Product Image" />
-        </div>
-      </div>
-      <div class="carousel" v-else>
-        <img :src="images" alt="Product Image" />
+    <div
+      class="carousel-wrapper"
+      ref="carousel"
+      v-if="Array.isArray(images)"
+      @touchstart="onTouchStart"
+      @touchmove="onTouchMove"
+      @touchend="onTouchEnd"
+    >
+      <div class="carousel-slide" v-for="(image, index) in images" :key="index">
+        <img :src="image.url" alt="Product Image" />
       </div>
     </div>
   </div>
@@ -24,15 +25,21 @@ export default {
   data() {
     return {
       currentIndex: 0,
+      isTouching: false,
     };
   },
   mounted() {
-    this.$nextTick(() => {
-      this.slideNext();
-    });
+    this.startAutoScroll();
   },
   methods: {
+    startAutoScroll() {
+      this.autoScrollInterval = setInterval(this.slideNext, 3000);
+    },
+    stopAutoScroll() {
+      clearInterval(this.autoScrollInterval);
+    },
     slideNext() {
+      if (this.isTouching) return; // Don't auto-scroll while user is swiping
       const carousel = this.$refs.carousel;
       if (!carousel) return; // check if carousel exists
       const slideWidth = carousel.offsetWidth;
@@ -44,10 +51,17 @@ export default {
       });
 
       this.currentIndex = nextIndex;
-
-      setTimeout(() => {
-        this.slideNext();
-      }, 3000);
+    },
+    onTouchStart() {
+      this.isTouching = true;
+      this.stopAutoScroll();
+    },
+    onTouchMove() {
+      // You can add additional logic here if needed
+    },
+    onTouchEnd() {
+      this.isTouching = false;
+      this.startAutoScroll();
     },
   },
 };

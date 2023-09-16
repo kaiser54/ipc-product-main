@@ -29,7 +29,7 @@
           <div class="component-cart">
             <nuxt-link to="/dashboard/market/cart">
               <div class="badge">
-                <!-- <p>{{ cart.length }}</p> -->
+                <p>{{ TotalCart }}</p>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,11 +69,12 @@
           <!-- the moving product carousel -->
           <div
             class=""
+            style="width: 100%"
             v-if="
               productDetails?.images && Array.isArray(productDetails.images)
             "
           >
-            <productCarousel :images="productDetails?.images" />
+            <ProductCarousel :images="productDetails?.images" />
           </div>
           <!-- ---------------------------- -->
 
@@ -118,7 +119,7 @@
                 <img
                   v-for="(image, index) in productDetails.images"
                   :key="index"
-                  :src="image"
+                  :src="image.url"
                   alt="Product Image"
                   class="zoom-image"
                   ref="zoomImage"
@@ -174,9 +175,9 @@
                 {{ productDetails.description }}
               </p>
               <div class="product-details-price-grp">
-                <h3 class="h3-bold">
+                <h3 class="h3-bold" v-if="productDetails?.discountPrice">
                   <span class="naira"><span class="naira">₦</span></span>
-                  {{ productDetails.discountPrice }}
+                  {{ formatPriceWithCommas(productDetails.discountPrice) }}
                 </h3>
                 <tags />
               </div>
@@ -339,8 +340,8 @@
 
 
 <script>
-import { mapGetters } from "vuex";
-import { mapState, mapMutations } from "vuex";
+import { formatPriceWithCommas } from "~/static/formatPrice";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   name: "product",
   layout: "dashboardview",
@@ -367,6 +368,7 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["getProductById"]),
+    ...mapGetters("cart", ["TotalCart"]),
     product() {
       return this.getProductById(this.currentPage);
     },
@@ -425,6 +427,7 @@ export default {
   },
 
   methods: {
+    formatPriceWithCommas,
     checkScreenSize() {
       if (window.innerWidth <= 951) {
         this.mobile = true;
