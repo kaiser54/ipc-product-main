@@ -1,6 +1,7 @@
 <template>
   <div class="checkout__delivery">
-    <CheckoutOnTheWayMsg v-if="isPaid" :data="submittedData"/>
+    <LoaderSpin v-if="spinner" />
+    <CheckoutOnTheWayMsg v-if="isPaid" :data="submittedData" />
     <div v-else class="checkout-wrapper">
       <div v-if="!mobile" class="__bg__fixed">
         <CheckoutProgressBar
@@ -86,6 +87,8 @@ export default {
   layout: "checkOut",
   data() {
     return {
+      spinner: true,
+      user: null,
       currentStep: 1,
       isPaid: false,
       mobile: false,
@@ -110,9 +113,44 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
+
+    this.user = false;
+    this.spinner = true;
+    if (process.client) {
+      // Check if localStorage is available
+      if (typeof localStorage !== "undefined") {
+        // Check if user data is saved in localStorage
+        const userData = localStorage.getItem("user");
+
+        if (userData) {
+          // User data is available, log it
+          this.user = JSON.parse(userData);
+          // this.ref = `${this.user._id}-${new Date()}`; //invalid reference
+          this.ref = this.reference;
+          console.log("ref", this.ref);
+          console.log("User data in localStorage:", JSON.parse(userData));
+        } else {
+          // User data is not found in localStorage
+          console.log("User data not found in localStorage.");
+        }
+      } else {
+        // Local Storage is not available in this environment
+        // You can handle this situation accordingly
+        console.log("LocalStorage is not available in this environment.");
+      }
+    }
+      this.spinner = false;
   },
 
   computed: {
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      return text;
+    },
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
@@ -159,41 +197,67 @@ export default {
       }
     },
     async lastStep() {
-      try {
-        // Prepare data
-        const data = {
-          email: this.submittedData?.email,
-          amount: this.nairaToKobo(this.submittedData?.totalPrice),
-          firstName: this.submittedData?.firstName,
-          lastName: this.submittedData?.lastName,
-          phoneNumber: this.submittedData?.phoneNumbers,
-        };
 
-        console.log("Submit data:", data);
+      this.spinner = true;
+      this.payWithPaystack();
+      // try {
+      // Prepare data
+      // const data = {
+      //   email: this.submittedData?.email,
+      //   amount: this.nairaToKobo(this.submittedData?.totalPrice),
+      //   firstName: this.submittedData?.firstName,
+      //   lastName: this.submittedData?.lastName,
+      //   phoneNumber: this.submittedData?.phoneNumbers,
+      //   callback_url: "https://app.ipc-africa.com/dashboard/market/checkout",
+      // };
 
-        // Send POST request to initialize payment
-        const response = await axios.post(
-          `${DEV_URL}/paystack/initialize/`,
-          data
-        );
+      // console.log("Submit data:", data);
 
-        this.ref = response.data.data.data.reference;
+      // Send POST request to initialize payment
+      // const response = await axios.post(
+      //   `${DEV_URL}/paystack/initialize/`,
+      //   data
+      // );
 
-        console.log("Payment initialization response:", response.data);
-        console.log(
-          "Payment reference response:",
-          response.data.data.data.reference
-        );
+      // this.ref = response.data.data.data.reference;
 
-        // Initialize PaystackPop and resume transaction
-        const paystack = new window.PaystackPop();
-        const accessCode = response.data.data.data.access_code;
-        paystack.resumeTransaction(accessCode);
-        // verify payment
-        this.verifyPayment();
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
+      // console.log("Payment initialization response:", response.data);
+      // console.log(
+      //   "Payment reference response:",
+      //   response.data.data.data.reference
+      // );
+
+      // Initialize PaystackPop and resume transaction
+      // const paystack = new window.PaystackPop();
+      // const accessCode = response.data.data.data.access_code;
+      // paystack.resumeTransaction(accessCode);
+      // verify payment
+      // this.verifyPayment();
+      // } catch (error) {
+      //   console.error("Error:", error.message);
+      // }
+    },
+
+    payWithPaystack() {
+      this.spinner = true;
+      const handler = PaystackPop.setup({
+        // key: process.env.PAYSTACK_PUBLIC_KEY, // Replace with your public key
+        key: "pk_test_3319daf09404682ea805ac89a163ff5499a14d03", // Replace with your public key
+        email: this.submittedData?.email,
+        amount: this.nairaToKobo(this.submittedData?.totalPrice),
+        // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
+        ref: this.ref, // Generate a pseudo-unique reference
+        onClose: () => {
+          alert("Window closed.");
+        },
+        callback: (response) => {
+          const message = "Payment complete! Reference: " + response.reference;
+          alert(message);
+          this.submitForm();
+        },
+      });
+      this.spinner = false
+      handler.openIframe();
     },
 
     async verifyPayment() {
@@ -226,7 +290,7 @@ export default {
 
           if (result.status === "success") {
             console.log("Payment verification successful!");
-            this.submitForm()
+            this.submitForm();
             return; // Exit the retry loop
           }
         }
@@ -244,6 +308,8 @@ export default {
       console.log("clicked");
     },
     async submitForm() {
+      this.spinner = true
+      this.submittedData.ref = this.ref;
       console.log("submit data:", this.submittedData);
       try {
         const headers = {
@@ -263,6 +329,7 @@ export default {
 
         if (response.data.status === "success") {
           this.isPaid = true;
+        this.spinner = false
           window.startConfetti();
         } else {
           throw new Error("Failed to order.");

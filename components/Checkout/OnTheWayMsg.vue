@@ -54,7 +54,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 32px;
+  /* padding: 32px; */
   gap: 10px;
 
   width: 136px;
