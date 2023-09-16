@@ -91,7 +91,11 @@
             </div>
             <div class="product-details-price-grp">
               <h3 class="h3-bold">
-                <span class="naira">₦</span> {{ productDetails?.discountPrice }}
+                <span class="naira">₦</span>
+                {{
+                  productDetails &&
+                  formatPriceWithCommas(productDetails.discountPrice)
+                }}
               </h3>
               <tags />
             </div>
@@ -151,7 +155,7 @@
                     Brand: <span>{{ productDetails?.brand }}</span>
                   </p>
                 </div>
-                <div class="circle" @click="toggleLike">
+                <!-- <div class="circle" @click="toggleLike">
                   <svg
                     :class="{ liked: isLiked || isInSaved }"
                     xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +171,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                </div>
+                </div> -->
               </div>
               <!-- ------------------------------- -->
 
@@ -175,9 +179,12 @@
                 {{ productDetails.description }}
               </p>
               <div class="product-details-price-grp">
-                <h3 class="h3-bold" v-if="productDetails?.discountPrice">
+                <h3 class="h3-bold">
                   <span class="naira"><span class="naira">₦</span></span>
-                  {{ formatPriceWithCommas(productDetails.discountPrice) }}
+                  {{
+                    productDetails &&
+                    formatPriceWithCommas(productDetails.discountPrice)
+                  }}
                 </h3>
                 <tags />
               </div>
@@ -189,7 +196,7 @@
 
               <button
                 class="btn primary-btn"
-                @click="addToCart"
+                @click="addProductToCart"
                 v-if="!isInCart"
               >
                 Add to cart
@@ -221,7 +228,7 @@
                 <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
                 <div class="counter">{{ getProductQuantity }}</div>
 
-                <button @click="incrementQuantity" class="circle">
+                <button @click="addProductToCart" class="circle">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -252,7 +259,7 @@
 
       <div class="bottom-nav" v-if="mobile">
         <div class="addBtn">
-          <button class="btn primary-btn" @click="addToCart">
+          <button class="btn primary-btn" @click="addProductToCart">
             Add to cart
           </button>
         </div>
@@ -278,9 +285,10 @@
           </button>
 
           <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+
           <div class="counter">{{ getProductQuantity }}</div>
 
-          <button @click="incrementQuantity" class="circle">
+          <button @click="addProductToCart" class="circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -340,7 +348,6 @@
 
 
 <script>
-import { formatPriceWithCommas } from "~/static/formatPrice";
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   name: "product",
@@ -369,18 +376,36 @@ export default {
   computed: {
     ...mapGetters("product", ["getProductById"]),
     ...mapGetters("cart", ["TotalCart"]),
+    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
+    isInCart() {
+      return this.cart.some(
+        (cartItem) => cartItem.product._id === this.currentPage
+      );
+    },
+    getProductQuantity() {
+      if (this.isInCart) {
+        console.log("In cart:", this.isInCart);
+        console.log("Cart:", this.cart);
+        const cartItem = this.cart.find(
+          (item) => item.product._id === this.currentPage
+        );
+        console.log("CartItem:", cartItem);
+        return cartItem ? cartItem.quantity : 0;
+      } else {
+        return 0;
+      }
+    },
+
     product() {
       return this.getProductById(this.currentPage);
     },
-    isInCart() {},
     isInSaved() {},
-    getProductQuantity() {},
   },
   watch: {
     product(newProduct) {
       this.productDetails = newProduct;
       this.loading = false;
-      console.log("Product details:", newProduct);
+      console.log("Product detailsssssssss:", newProduct);
     },
   },
   async mounted() {
@@ -390,6 +415,7 @@ export default {
     this.currentPage = lastSegment;
     console.log(this.currentPage);
     this.checkScreenSize();
+    this.fetchCartItemsByUserID();
     window.addEventListener("resize", this.checkScreenSize);
 
     const zoomLevel = 2; // Change this value to adjust the zoom level
@@ -427,7 +453,24 @@ export default {
   },
 
   methods: {
-    formatPriceWithCommas,
+    ...mapActions("cart", [
+      "addToCart",
+      "reduceQuantity",
+      "fetchCartItemsByUserID",
+    ]),
+    formatPriceWithCommas(number) {
+      if (number === undefined) {
+        return number; // or any default value or error message you prefer
+      }
+      // Convert the number to a string
+      const numberStr = number.toString();
+
+      // Use regular expressions to add commas
+      // This regex adds commas every three digits from the end
+      const formattedNumber = numberStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      return formattedNumber;
+    },
     checkScreenSize() {
       if (window.innerWidth <= 951) {
         this.mobile = true;
@@ -438,9 +481,18 @@ export default {
     changeImage(index) {
       this.productImage = index;
     },
-    addToCart() {},
-    incrementQuantity() {},
-    decrementQuantity() {},
+    addProductToCart() {
+      this.loader = true; // Show the loader when adding to cart
+      this.addToCart(this.productDetails).then(() => {
+        this.loader = false; // Hide the loader after adding to cart
+      });
+    },
+    decrementQuantity() {
+      this.loader = true; // Show the loader when adding to cart
+      this.reduceQuantity(this.productDetails).then(() => {
+        this.loader = false; // Hide the loader after adding to cart
+      });
+    },
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked;
@@ -784,8 +836,8 @@ p.product-details-snippet {
     padding: 6px;
     gap: 10px;
 
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
 
     /* Grey/Grey4 */
 
