@@ -20,12 +20,16 @@
 </template>
 
 <script>
+import ProductCard from "@/components/productcard";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       inCart: false,
     };
+  },
+  components: {
+    ProductCard,
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
