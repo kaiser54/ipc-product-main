@@ -53,7 +53,7 @@
             </div>
           </div>
           <PrimaryBtn
-            :disabled="!selectedItem"
+            :disabled="selectedItem !== 'business'"
             @click="goToRoute()"
             buttonText="Continue"
           />
@@ -79,7 +79,7 @@ export default {
       email: "",
       invalidEmail: false,
       pageTitle: "IPC | Register",
-      selectedItem: "",
+      selectedItem: "business",
       indexOfCardWithComponent: 1,
       listSelect: [
         {

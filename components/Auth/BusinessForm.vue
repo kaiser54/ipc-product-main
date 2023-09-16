@@ -259,7 +259,7 @@ export default {
           businessName: this.businessName,
           password: this.password,
           confirmPassword: this.password,
-          phoneNumbers: this.phoneNumbers,
+          phoneNumbers: this.phoneNumber,
         };
 
         console.log(credentials);

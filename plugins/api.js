@@ -1,8 +1,8 @@
 // plugin/api.js
 
-export const BASE_URL = "https://api.ipc-africa.com/api/v1"; // Base API URL
-// export const DEV_URL = "http://localhost:8000/api/v1"; // Base API URL
-export const DEV_URL = "https://api.ipc-africa.com/api/v1"; // Base API URL
+export const BASE_URL = "http://localhost:8000/api/v1"; // Base API URL
+export const DEV_URL = "http://localhost:8000/api/v1"; // Base API URL
+// export const DEV_URL = "https://api.ipc-africa.com/api/v1"; // Base API URL
 
 export async function fetchData(endpoint, requestOptions) {
   try {
