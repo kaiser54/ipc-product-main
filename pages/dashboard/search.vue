@@ -5,7 +5,7 @@
         <Search />
       </div>
       <!-- @search-term-updated is catched from the search component  -->
-      <section class="market-product">
+      <section class="market-product p-16">
         <div class="product-top-wrap">
           <ProductCard
             v-for="product in filteredProducts"
@@ -86,6 +86,10 @@ export default {
   .product-top-wrap {
     padding: 0;
     gap: 8px;
+  }
+
+  .p-16 {
+    padding: 0 16px;
   }
 }
 </style>

@@ -27,7 +27,7 @@
       <input
         class="input-search"
         ref="search"
-        type=""
+        type="search"
         name=""
         v-model="searchQuery"
         id="input"
@@ -35,7 +35,7 @@
         autofocus
       />
 
-      <svg
+      <!-- <svg
         @click="cancelSearch"
         class="cancel-svg"
         xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@
           stroke-linecap="round"
           stroke-linejoin="round"
         />
-      </svg>
+      </svg> -->
     </div>
     <button @click="redirectTobackPage">Cancel</button>
   </div>
@@ -79,9 +79,10 @@ export default {
   methods: {
     ...mapActions("product", ["updateQuery"]),
     cancelSearch() {
-      this.searchTerm = "";
+      this.searchQuery = "";
     },
     redirectTobackPage() {
+      this.searchQuery = "";
       this.$router.go(-1);
     },
   },
@@ -117,7 +118,7 @@ export default {
   position: absolute;
 }
 .search-bar-input svg.cancel-svg {
-  top: 14px;
+  top: 16.2px;
   right: 16px;
   position: absolute;
 }
