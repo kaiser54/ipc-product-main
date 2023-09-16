@@ -1,9 +1,7 @@
 <template>
   <div class="cart-view" v-if="cart">
     <div class="mobile-cart" v-if="mobile">
-
-      <CartMobile/>
-      
+      <CartMobile />
     </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
@@ -152,7 +150,7 @@
           class="cart-list-con"
           v-for="(items, index) in cartItems"
           :key="index"
-          :items ="items"
+          :items="items"
           :inCart="true"
           @counterPlus="counterPlus"
           @counterMinus="counterMinus"
@@ -209,8 +207,10 @@ export default {
       title: this.pageTitle,
     };
   },
+  created() {
+    this.fetchCartItemsByUserID();
+  },
   async mounted() {
-    await this.fetchCartItemsByUserID(); 
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
   },
@@ -218,8 +218,8 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    cartItems () {
-      return this.cart
+    cartItems() {
+      return this.cart;
     },
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapGetters("cart", ["TotalCart", "cartTotalPrice"]),
@@ -227,13 +227,17 @@ export default {
   methods: {
     formatPriceWithCommas,
     counterPlus(e) {
-      this.addToCart(e)
+      this.addToCart(e);
     },
     counterMinus(e) {
-      console.log(e)
-      this.reduceQuantity(e)
+      console.log(e);
+      this.reduceQuantity(e);
     },
-    ...mapActions("cart", ["fetchCartItemsByUserID", "addToCart", "reduceQuantity"]),
+    ...mapActions("cart", [
+      "fetchCartItemsByUserID",
+      "addToCart",
+      "reduceQuantity",
+    ]),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
