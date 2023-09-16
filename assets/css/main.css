@@ -290,14 +290,6 @@ form {
     
 }
 
-@media (max-width: 350px) {
-    .circle {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-}
-
 
 
 .text-container {

@@ -16,7 +16,8 @@
             <p class="name">{{ items?.product?.name }}</p>
           </div>
           <p class="price">
-            <span class="naira">₦</span> {{ formatPriceWithCommas(items?.product?.discountPrice) }}
+            <span class="naira">₦</span>
+            {{ formatPriceWithCommas(items?.product?.discountPrice) }}
           </p>
         </div>
         <!-- -------------- -->
@@ -91,7 +92,7 @@
 </template>
 
 <script>
-import { formatPriceWithCommas } from '~/static/formatPrice';
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     items: {
@@ -279,6 +280,13 @@ p.price {
 
     border-radius: 100px;
     border: 1px solid var(--grey-grey-4, #bdc0ce);
+  }
+}
+
+@media (max-width: 350px) {
+  .circle {
+    width: 32px;
+    height: 32px;
   }
 }
 
