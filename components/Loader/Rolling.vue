@@ -4,14 +4,20 @@
             <span></span>
         </div>
         <div class="loading-text">
-            <p>Please Wait Verifying Email</p>
+            <p>{{ message }}</p>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'loading',
+        name: 'Loading',
+        props:{
+            message:{
+                type: String,
+                required: true
+            }
+        }
     }
 </script>
 

@@ -30,6 +30,7 @@
           @closeModalBG="handleOpenMail"
         />
       </transition>
+      <!-- <ModalEmailVerified/> -->
       <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
     </div>
   </div>
@@ -85,7 +86,7 @@ export default {
       if (!userEmail) {
         throw new Error('User email not found in localStorage.');
       }
-      const response = await this.$axios.post('/business-customers/send-verification-email', {
+      const response = await this.$axios.post('http://localhost:8000/api/v1/business-customers/send-verification-email', {
         email: userEmail,
       });
       console.log('Email sent successfully:', response.data);

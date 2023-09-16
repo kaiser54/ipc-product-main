@@ -110,7 +110,7 @@ button.primary:hover {
 }
 button.primary:focus,
 button.primary:active {
-  background-color: var(--primary-p500);
+  background-color: var(--primary-p300);
 }
 button.primary:disabled {
   background-color: var(--primary-p75);
@@ -163,8 +163,8 @@ button.neutral:hover {
 
 button.neutral:active,
 button.neutral:focus {
-  background-color: var(--grey-grey5);
-  border: 1px solid var(--grey-grey5);
+  background-color: var(--white);
+  border: 1px solid var(--grey-grey4);
 }
 
 button.neutral:disabled {

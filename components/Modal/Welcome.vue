@@ -38,7 +38,7 @@
                             </div>
                             <div class="modal-button">
                                 <div class="modal-bton">
-                                    <DynamicButton :disabled="maxLeft" class="neutral-btn"
+                                    <DynamicButton :disabled="activeCardIndex === 0" class="neutral-btn"
                                         @clickButton="move('-ve', 'modal-slides-ctn')" size="standard" type="neutral"
                                         buttonText="Previous" :showText="true" :slotNeeded="false" />
                                 </div>
@@ -220,6 +220,7 @@ export default {
                         this.maxLeft = false;
                     } else {
                         this.MobileActiveCardIndex = 0
+                        this.maxLeft = false
                     }
                 } else {
 
@@ -550,7 +551,7 @@ template svg {
     .mobile-modal-images {
         display: flex;
         width: 100%;
-        /* height: 212px; */
+        height: 212px;
         justify-content: center;
         align-items: center;
         overflow: hidden;

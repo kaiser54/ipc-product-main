@@ -1,17 +1,16 @@
 <template>
     <div style="width: 100%">
         <!-- <LoaderComponent v-if="loading" /> -->
-        <LoaderRolling v-if="loading" />
-        <ModalEmailVerified v-if="showModal"/>
+        <Loading :message="message"  v-if="verificationLoading" />
+        <ModalEmailVerified v-else-if="showModal"/>
     </div>
 </template>
-  
-  
+
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import loading from '~/components/Loader/Rolling.vue';
+import Loading from '~/components/Loader/Rolling.vue';
 export default {
-  components: { loading },
+  components: { Loading },
     layout: "dashboardview",
     head() {
         return {
@@ -24,12 +23,14 @@ export default {
             checkMail: false,
             inCart: false,
             animate: null,
-            showModal: false
+            verificationLoading: true,
+            showModal: false,
+            message: ''
         };
     },
     mounted() {
         // set welcome modal to show on condition that a user is new or not
-        this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
+        // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
         // this.fetchAllProducts(); // Fetch all products when the component is mounted
         this.checkScreenSize();
         window.addEventListener("resize", this.checkScreenSize);
@@ -46,12 +47,15 @@ export default {
         checkScreenSize() {
             this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
         },
-        async getWhatever() {
+        async verifyEmail() {
             try {
+              this.verificationLoading = true
+              this.message = "Verifying Email, Please wait"
                 const response = await this.$axios.post('/business-customers/verify-email', {
                     token: this.$route.params.token
                 }
                 )
+                this.verificationLoading = false
                 console.log('Token Sent', response.data)
                 localStorage.setItem("verified",response.data.status ) 
                 const getVerified = localStorage.getItem("verified")
@@ -64,19 +68,20 @@ export default {
 
                 // After 10 seconds, hide the modal and navigate to /dashboard/Market
                 setTimeout(() => {
-                this.showModal = false;
                 this.$router.push("/dashboard/Market");
-                }, 10000); // 10000 milliseconds = 10 seconds
+                }, 3000); // 3000 milliseconds = 3 seconds
+                
 
                 // this.$router.push("/dashboard/Market");
             } catch (error) {
+              this.verificationLoading = true
+              this.message = "Hold on, Something went wrong"
                 console.error('Wrong Token:', error)
             }
         },
         handleOpenMail() {
             this.checkMail = !this.checkMail;
             this.isVerifyMail = !this.isVerifyMail;
-
         },
         welcomeUser() {
             const welcome = localStorage.getItem('welcomeFlow')
@@ -91,13 +96,10 @@ export default {
             this.showModal = false
             localStorage.setItem('welcomeFlow', 'complete');
         },
-
-
-
     },
     created() {
         console.log(this.$route.params)
-        this.getWhatever()
+        this.verifyEmail()
     },
 
     beforeDestroy() {
