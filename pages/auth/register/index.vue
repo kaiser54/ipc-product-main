@@ -249,4 +249,11 @@ button:disabled {
     flex-direction: column;
   }
 }
+
+@media (max-width: 450px) {
+  .title-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 </style>

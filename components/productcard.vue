@@ -544,16 +544,20 @@ button p {
 }
 
 @media (max-width: 339px) {
+  .counter-btn .circle {
+    height: 32px;
+    width: 32px;
+  }
   .product-card {
-    max-width: 120px;
+    max-width: 146px;
     width: 100%;
   }
 
   .productcard-name p {
     width: 100px;
   }
-  .product-card {
+  /* .product-card {
     height: auto;
-  }
+  } */
 }
 </style>

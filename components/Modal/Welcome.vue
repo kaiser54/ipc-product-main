@@ -340,7 +340,7 @@ export default {
 .modal-title h3 {
     color: #303237;
     text-align: left;
-    font-family: Switzer;
+    /* font-family: Switzer; */
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
@@ -356,7 +356,7 @@ export default {
 
 
 .modal-description p {
-    font-family: Switzer;
+    /* font-family: Switzer; */
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -579,7 +579,7 @@ template svg {
 
     .mobile-modal-title h3 {
         color: var(--grey-grey-1, #303237);
-        font-family: Switzer;
+        /* font-family: Switzer; */
         font-size: 20px;
         font-style: normal;
         font-weight: 600;
@@ -595,7 +595,7 @@ template svg {
     .mobile-modal-description p {
         color: var(--grey-grey-3, #7E8494);
         align-self: stretch;
-        font-family: Switzer;
+        /* font-family: Switzer; */
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -638,7 +638,7 @@ template svg {
 
     .mobile-modal-title h3 {
         color: var(--grey-grey-1, #303237);
-        font-family: Switzer;
+        /* font-family: Switzer; */
         font-size: 20px;
         font-style: normal;
         font-weight: 600;

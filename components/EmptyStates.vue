@@ -44,6 +44,9 @@ export default {
   border-radius: 16px;
 }
 
+.nocart svg {
+  width: 100%;
+}
 .message {
   display: flex;
   flex-direction: column;
@@ -89,6 +92,12 @@ button {
     line-height: 30px;
     /* identical to box height, or 150% */
     letter-spacing: -0.5px;
+  }
+}
+@media (max-width: 450px) {
+  .nocart {
+    padding: 10px;
+    gap: 24px;
   }
 }
 </style>

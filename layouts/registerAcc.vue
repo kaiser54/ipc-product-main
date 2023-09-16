@@ -171,7 +171,7 @@ export default {
 }
 
 .center {
-  margin: 48px 0;
+  margin: 48px 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;

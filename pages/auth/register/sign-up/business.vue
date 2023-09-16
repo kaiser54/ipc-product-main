@@ -3,7 +3,13 @@
     <div class="center">
       <div class="switch-link">
         <p>
-          Sign up as an individual<nuxt-link to="/auth/register/sign-up/individual">
+          Sign up as an individual
+          <nuxt-link
+            to=""
+          >
+          <!-- <nuxt-link
+            to="/auth/register/sign-up/individual"
+          > -->
             <button class="btn ghost-btn-small">Change</button>
           </nuxt-link>
         </p>
