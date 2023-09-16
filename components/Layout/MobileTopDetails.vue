@@ -1,7 +1,7 @@
 <template>
   <section
     class="mobile-top-details"
-    :class="{ 'market-head': pageName === 'market' }"
+    :class="{ 'market-head': pageName === 'market', 'cart-head': pageName === 'cart' }"
   >
     <div
       class="welcome-cart"
@@ -307,6 +307,9 @@ export default {
 
   section.mobile-top-details.market-head {
     flex-direction: column;
+  }
+  section.mobile-top-details.cart-head {
+    position: fixed;
   }
 
   .welcome-cart {

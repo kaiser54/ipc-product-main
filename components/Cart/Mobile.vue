@@ -83,7 +83,7 @@ export default {
 
   width: 100%;
   position: fixed;
-  top: 66px;
+  top: 64px;
   left: 0;
   z-index: 1;
 }
@@ -141,7 +141,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 100px;
+  margin-top: 170px;
 }
 .checkout-bottom {
   padding: 16px;
