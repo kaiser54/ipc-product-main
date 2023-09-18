@@ -54,6 +54,10 @@ export default {
     user: {
       required: true,
     },
+    disabledProps: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -84,8 +88,8 @@ export default {
     },
     saveEdit(address) {
       this.$emit("saveEdit", address);
-      this.disabled = true;
-      this.isEditOpen = false;
+      this.disabled = this.disabledProps;
+      this.isEditOpen = !this.disabledProps;
     },
   },
 };

@@ -25,7 +25,7 @@
         <div class="button-group">
           <div class="delete-tag">
             <!-- delete button here -->
-            <div class="circle" @click="removeFromCart(product.id)">
+            <div class="circle" @click="removeFromCart(items.product._id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
@@ -106,6 +107,7 @@ export default {
   },
   computed: {},
   methods: {
+    ...mapActions("cart", ["removeFromCart"]),
     formatPriceWithCommas,
     IncreaseQuantity() {
       this.$emit("counterPlus", this.items.product);

@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      // api: process.env.BASE_URL,
       pageTitle: "IPC | Market",
       checkMail: false,
       inCart: false,

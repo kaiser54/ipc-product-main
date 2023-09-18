@@ -110,7 +110,7 @@
         </svg>
       </button>
 
-      <div class="counter"  v-if="!loader">{{ getProductQuantity }}</div>
+      <div class="counter" v-if="!loader">{{ getProductQuantity }}</div>
       <span class="loader" v-if="loader"></span>
 
       <button @click="addProductToCart" class="circle">
@@ -209,10 +209,12 @@ export default {
       });
     },
     decrementQuantity() {
-      this.loader = true; // Show the loader when adding to cart
-      this.reduceQuantity(this.product).then(() => {
-        this.loader = false; // Hide the loader after adding to cart
-      });
+      if (this.getProductQuantity > 1) {
+        this.loader = true; // Show the loader when adding to cart
+        this.reduceQuantity(this.product).then(() => {
+          this.loader = false; // Hide the loader after adding to cart
+        });
+      }
     },
     toggleLike() {},
 

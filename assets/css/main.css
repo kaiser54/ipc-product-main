@@ -5,7 +5,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 
-
 body {
     min-height: 100vh;
     color: var(--color-text);
@@ -41,6 +40,23 @@ p {
     font-size: 16px;
     line-height: 24px;
     color: var(--grey-grey2);
+}
+
+.caution {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.caution p {
+    color: var(--grey-grey2, #565c69);
+
+    /* Body Micro/Body Micro Regular */
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    /* 150% */
 }
 
 .__nuxt-error-page .error {
@@ -249,23 +265,6 @@ p {
 
 form {
     width: 100%;
-}
-
-.caution {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.caution p {
-    color: var(--grey-grey2, #565c69);
-
-    /* Body Micro/Body Micro Regular */
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
-    /* 150% */
 }
 
 .icon-button {

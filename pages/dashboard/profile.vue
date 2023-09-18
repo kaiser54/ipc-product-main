@@ -53,6 +53,7 @@
               />
             </div>
             <ProfileAddressDetails
+              :disabledProps="disabledProps"
               v-if="!activetab"
               switchedHeader="Address Book"
               :user="user"
@@ -357,6 +358,7 @@ export default {
       newPhoneNumber: "",
       invalidNumber: false,
       openEditAddress: false,
+      disabledProps: true,
     };
   },
   head() {
@@ -483,19 +485,39 @@ export default {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.patch(
-          `${DEV_URL}/business-customers/${this.user._id}`,
-          { address: address },
-          {
-            headers,
+        const body = {
+          customerId: this.user._id,
+          streetAddress: address.streetAddress,
+          state: address.state,
+          lga: address.lga,
+        };
+
+        console.log("sending data", body);
+
+        const response = await axios.post(`${DEV_URL}/addresses/`, body, {
+          headers,
+        });
+
+        if (response.status === 201) {
+          this.disabledProps = true;
+          try {
+            const response2 = await axios.get(`${DEV_URL}/addresses/`, {
+              headers,
+              params: {
+                customerId: this.user._id,
+              },
+            });
+            console.log("fetched user addresses:", response2);
+          } catch (error) {
+            console.error("Error fetching user:", error);
           }
-        );
-        this.user = response.data.data.customer;
-        console.log("e :", address);
-        console.log("backend :", response);
-        console.log("user :", this.user);
+        }
+
+        // this.user = response.data.data.customer;
+        console.log("Address saved:", response);
+        // console.log("Updated user:", this.user);
       } catch (error) {
-        console.log(error);
+        console.error("Error:", error);
       }
     },
     async saveAddress() {
@@ -509,14 +531,19 @@ export default {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.patch(
-          `${DEV_URL}/business-customers/${this.user._id}`,
-          { address: address },
+        const response = await axios.post(
+          `${DEV_URL}/addresses/`,
+          {
+            customerId: this.user._id,
+            streetAddress: this.address,
+            state: this.state,
+            lga: this.LGA,
+          },
           {
             headers,
           }
         );
-        this.user = response.data.data.customer;
+        // this.user = response.data.data.customer;
         console.log("e :", address);
         console.log("backend :", response);
         console.log("user :", this.user);

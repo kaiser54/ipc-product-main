@@ -3,7 +3,9 @@
     <h3 class="h3-medium header-text">Order summary</h3>
     <userInfo :data="data" v-if="data" :checkout="true">
       <template v-slot:button>
-        <button class="btn ghost-btn" @click="step1">Change delivery address</button>
+        <button class="btn ghost-btn" @click="step1">
+          Change delivery address
+        </button>
       </template>
       <template v-slot:delivery>
         <div class="delivery__time">
@@ -15,13 +17,56 @@
         <form action="">
           <label for="email">Email address</label>
           <input
+            :class="{ 'input-error': emailError }"
             type="text"
             class="input"
             placeholder="Enter your email address"
             v-model="email"
+            @input="validateEmail"
           />
-          <div class="caution">
+          <div
+            class="caution"
+            :class="{ error: emailError, caution: !emailError }"
+          >
             <svg
+              v-if="emailError"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_2260_9969)">
+                <path
+                  d="M8 5.33334V8"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 10.6797V10.6667"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_2260_9969">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <svg
+              v-if="!emailError"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -57,7 +102,10 @@
                 </clipPath>
               </defs>
             </svg>
-            <p>Provide us with an email for your invoice</p>
+            <p v-if="!emailError">Invoice is sent to this provided email</p>
+            <p v-if="emailError" style="color: rgb(255, 59, 45)">
+              {{ emailError }}
+            </p>
           </div>
         </form>
       </template>
@@ -80,21 +128,34 @@ export default {
   },
   data() {
     return {
-      email: ''
+      email: "",
+      emailError: null,
     };
   },
   methods: {
+    validateEmail() {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (!this.email.match(emailRegex)) {
+        this.emailError = "Invalid email address";
+      } else {
+        this.emailError = null;
+      }
+    },
     step1() {
-      this.$emit("step1")
+      this.$emit("step1");
     },
     submitForm() {
-      this.$emit("customEvent");
-      this.$set(this.data, 'email', this.email); // Add the number to the object
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth", // Optional: Add smooth scrolling effect
-      });
-      console.log(this.data)
+      this.validateEmail();
+      if (this.email !== "" && !this.emailError) {
+        this.$emit("customEvent");
+        this.$set(this.data, "email", this.email); // Add the number to the object
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Optional: Add smooth scrolling effect
+        });
+        console.log(this.data);
+      }
     },
   },
   mounted() {

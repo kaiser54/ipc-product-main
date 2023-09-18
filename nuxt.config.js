@@ -1,3 +1,6 @@
+// nuxt.config.js
+require('dotenv').config()
+
 export default {
   target: "server",
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -45,7 +48,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios", "nuxt-paystack"
+    "@nuxtjs/axios", "nuxt-paystack", "@nuxtjs/dotenv",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -69,6 +72,10 @@ export default {
       mobile: 950,
       desktop: Infinity,
     },
+  },
+  env: {
+    apiKey: process.env.API_KEY,
+    baseUrl: process.env.BASE_URL,
   },
   router: {
     middleware: ["auth", "redirect"],

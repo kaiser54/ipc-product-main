@@ -27,7 +27,7 @@
       
       <div class="client-frame">
         <span>Street address</span
-        ><span class="bold">{{ data.directions }}</span>
+        ><span class="bold">{{ data.address.streetAddress }}</span>
       </div>
       <div class="client-frame">
         <span>Local govt. area</span><span class="bold">{{ data.LGA }}</span>
@@ -51,21 +51,22 @@
     <div class="client-user-name bdr">
       <div class="client-frame">
         <!-- <span>Subtotal</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
-        <span>Subtotal</span><span class="bold">₦ 2222</span>
+        <span>Subtotal</span><span class="bold">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</span>
       </div>
       <div class="client-frame">
-        <span>Delivery fee</span><span class="bold">#0</span>
+        <span>Delivery fee</span><span class="bold">₦ 0</span>
       </div>
       <div class="client-frame total">
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
-        <span>Total</span><span class="bold">₦ 222</span>
+        <span>Total</span><span class="bold">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { formatPriceWithCommas } from "~/static/formatPrice";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   props: {
     data: {
@@ -78,7 +79,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["cart"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
@@ -88,19 +89,7 @@ export default {
     console.log(this.data);
   },
   methods: {
-    calculateTotalPrice() {
-      let totalPrice = 0;
-
-      for (const product of this.cart) {
-        const productInCart = this.$store.state.cart.find(
-          (p) => p.id === product.id
-        );
-        const quantity = productInCart ? productInCart.quantity : 0;
-        totalPrice += product.price * quantity;
-      }
-
-      return totalPrice;
-    },
+    formatPriceWithCommas,
   },
 };
 </script>

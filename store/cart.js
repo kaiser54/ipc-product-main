@@ -253,26 +253,25 @@ export default {
       try {
         commit("SET_LOADING", true);
 
-        const data = {
-          productId: productId,
-        };
-
         const headers = {
           "Content-Type": "application/json",
         };
 
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
-          `${DEV_URL}/delete-item/${productId}`,
+          `${DEV_URL}/delete-item/${productId}`, // Use productId as :id parameter in the URL
           {
             headers: headers,
-            data: data,
           }
         );
 
-        console.log(response);
-        
+        console.log("Response status:", response.status);
+
         if (response.status !== 204) {
+          console.error(
+            "Failed to remove the product from the cart:",
+            response.data
+          );
           throw new Error("Failed to remove the product from the cart.");
         }
 
