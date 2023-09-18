@@ -259,7 +259,7 @@ export default {
 
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
-          `${DEV_URL}/delete-item/${productId}`, // Use productId as :id parameter in the URL
+          `${DEV_URL}/cart/delete-item/${productId}`, // Use productId as :id parameter in the URL
           {
             headers: headers,
           }
