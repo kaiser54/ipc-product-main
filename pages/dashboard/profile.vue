@@ -53,11 +53,12 @@
               />
             </div>
             <ProfileAddressDetails
+              :address="address"
               :disabledProps="disabledProps"
               v-if="!activetab"
               switchedHeader="Address Book"
               :user="user"
-              @saveEdit="saveEdit"
+              @saveEdit="sendAddress"
             />
           </div>
         </div>
@@ -199,7 +200,9 @@
         </template>
       </ProfileEditDetails>
 
-      <!-- check address -->
+      <!-- ===================== -->
+
+      <!-- view address on mobile -->
 
       <ProfileInnerModalComponent
         v-if="CheckAddress && !closeHeaderComp"
@@ -213,7 +216,7 @@
                 label="Street Address"
                 name="address"
                 inputType="text"
-                v-model="address"
+                v-model="address.streetAddress"
                 :isInvalid="validAddress"
                 :errMsg="errAddress"
               />
@@ -222,7 +225,7 @@
                 label="State"
                 name="state"
                 inputType="text"
-                v-model="state"
+                v-model="address.state"
                 :isInvalid="validState"
                 :errMsg="errState"
               />
@@ -231,7 +234,7 @@
                 label="LGA (Local Govt. Area)"
                 name="LGA"
                 inputType="text"
-                v-model="LGA"
+                v-model="address.lga"
                 :isInvalid="validLGA"
                 :errMsg="errLGA"
               />
@@ -274,7 +277,9 @@
         </template>
       </ProfileInnerModalComponent>
 
-      <!-- change Address -->
+      <!-- ===================== -->
+
+      <!-- change Address on mobile -->
 
       <ProfileEditDetails
         header="Edit address details"
@@ -289,7 +294,7 @@
             label="Street Address"
             name="address"
             inputType="text"
-            v-model="address"
+            v-model="streetAddress"
             :isInvalid="validAddress"
             :errMsg="errAddress"
           />
@@ -313,6 +318,8 @@
           />
         </template>
       </ProfileEditDetails>
+
+      <!-- ===================== -->
     </div>
   </div>
 </template>
@@ -345,7 +352,8 @@ export default {
       addNumberFunc: false,
       animate: null,
       CheckAddress: false,
-      address: "",
+      address: null,
+      streetAddress: "",
       validAddress: null,
       errAddress: "Please enter a valid address",
       state: "",
@@ -394,6 +402,8 @@ export default {
         console.log("LocalStorage is not available in this environment.");
       }
     }
+
+    this.fetchAddress();
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -479,7 +489,7 @@ export default {
       this.openEditAddress = !this.openEditAddress;
       this.closeHeaderComp = !this.closeHeaderComp;
     },
-    async saveEdit(address) {
+    async sendAddress(address) {
       try {
         const headers = {
           "Content-Type": "application/json",
@@ -494,23 +504,15 @@ export default {
 
         console.log("sending data", body);
 
+        // sending the address to the backend end
+
         const response = await axios.post(`${DEV_URL}/addresses/`, body, {
           headers,
         });
 
         if (response.status === 201) {
           this.disabledProps = true;
-          try {
-            const response2 = await axios.get(`${DEV_URL}/addresses/`, {
-              headers,
-              params: {
-                customerId: this.user._id,
-              },
-            });
-            console.log("fetched user addresses:", response2);
-          } catch (error) {
-            console.error("Error fetching user:", error);
-          }
+          this.fetchAddress();
         }
 
         // this.user = response.data.data.customer;
@@ -521,38 +523,58 @@ export default {
       }
     },
     async saveAddress() {
-      const address = {
-        streetAddress: this.address,
-        state: this.state,
-        lga: this.LGA,
-      };
       try {
         const headers = {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.post(
-          `${DEV_URL}/addresses/`,
-          {
-            customerId: this.user._id,
-            streetAddress: this.address,
-            state: this.state,
-            lga: this.LGA,
-          },
-          {
-            headers,
-          }
-        );
+        const body = {
+          customerId: this.user._id,
+          streetAddress: this.address,
+          state: this.state,
+          lga: this.LGA,
+        };
+
+        const response = await axios.post(`${DEV_URL}/addresses/`, body, {
+          headers,
+        });
+
+        if (response.status === 201) {
+          this.disabledProps = true;
+          this.fetchAddress();
+          this.openEditAddress = !this.openEditAddress;
+          this.closeHeaderComp = !this.closeHeaderComp;
+        }
+
         // this.user = response.data.data.customer;
         console.log("e :", address);
         console.log("backend :", response);
         console.log("user :", this.user);
-
-        this.openEditAddress = !this.openEditAddress;
-        this.closeHeaderComp = !this.closeHeaderComp;
       } catch (error) {
         console.log(error);
       }
+    },
+    async fetchAddress() {
+      // sending the address to the backend end
+      await axios
+        .get(`${DEV_URL}/addresses/`, {
+          params: {
+            customerId: this.user._id,
+          },
+        })
+        .then((response) => {
+          // Handle the response data here
+          const addresses = response.data.data.addresses[0];
+          this.address = addresses;
+          this.streetAddress = this.address?.streetAddress;
+          this.state = this.address?.state;
+          this.LGA = this.address?.lga;
+          console.log("address", addresses);
+        })
+        .catch((error) => {
+          // Handle any errors here
+          console.error(error);
+        });
     },
   },
 };

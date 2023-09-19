@@ -31,6 +31,7 @@
     <userAddress
       :disabled="disabled"
       :data="user"
+      :address="address"
       v-if="user"
       :isEditOpen="isEditOpen"
       @closeEdit="closeEdit"
@@ -52,6 +53,9 @@ export default {
       default: false,
     },
     user: {
+      required: true,
+    },
+    address: {
       required: true,
     },
     disabledProps: {

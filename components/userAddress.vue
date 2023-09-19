@@ -1,6 +1,7 @@
 <template>
   <div class="userAddress">
     <div class="addressInput">
+      <!-- Street Address Input -->
       <div class="">
         <label for="streetAddress" class="label">Street Address</label>
         <input
@@ -12,6 +13,8 @@
           :disabled="disabled"
         />
       </div>
+
+      <!-- State Input -->
       <div class="">
         <label for="State" class="label">State</label>
         <input
@@ -23,8 +26,10 @@
           :disabled="disabled"
         />
       </div>
+
+      <!-- LGA Input -->
       <div class="">
-        <label for="LGA" class="label">LGA (Local Govt. Area) </label>
+        <label for="LGA" class="label">LGA (Local Govt. Area)</label>
         <input
           class="value input"
           name="LGA"
@@ -35,6 +40,7 @@
         />
       </div>
 
+      <!-- Buttons -->
       <div class="change-btn" v-if="isEditOpen">
         <button class="btn neutral-btn" @click="closeEdit">Cancel</button>
         <button class="btn primary-btn" @click="saveEdit">Save changes</button>
@@ -42,6 +48,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -57,6 +64,9 @@ export default {
     data: {
       type: Object,
     },
+    address: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -66,10 +76,10 @@ export default {
     };
   },
   created() {
-    if (this.data) {
-      this.streetAddress = this.data?.address?.streetAddress;
-      this.state = this.data?.address?.state;
-      this.lga = this.data?.address?.lga;
+    if (this.address) {
+      this.streetAddress = this.address?.streetAddress;
+      this.state = this.address?.state;
+      this.lga = this.address?.lga;
     }
   },
   methods: {
