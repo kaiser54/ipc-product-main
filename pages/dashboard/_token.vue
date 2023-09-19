@@ -2,7 +2,7 @@
     <div style="width: 100%">
         <!-- <LoaderComponent v-if="loading" /> -->
         <Loading :message="message"  v-if="verificationLoading" />
-        <ModalEmailVerified v-else-if="showModal"/>
+        <ModalEmailVerified v-else-if="showModal" @cancelModal="removeModal()" @routeToMarket="routeToMarket()"/>
     </div>
 </template>
 
@@ -47,6 +47,18 @@ export default {
         checkScreenSize() {
             this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
         },
+        removeModal() {
+            this.verificationLoading = true
+      this.showModal = false
+      localStorage.setItem('welcomeFlow', 'complete');
+      localStorage.setItem("verified",response.data.status ) 
+    },
+    routeToMarket(){
+        this.verificationLoading = true
+      this.$router.push("/dashboard/market")
+      this.showVerifiedModal = false
+      localStorage.setItem("verified",response.data.status ) 
+    },
         async verifyEmail() {
             try {
               this.verificationLoading = true
@@ -69,7 +81,7 @@ export default {
                 // After 10 seconds, hide the modal and navigate to /dashboard/Market
                 setTimeout(() => {
                 this.$router.push("/dashboard/Market");
-                }, 3000); // 3000 milliseconds = 3 seconds
+                }, 10000); // 10000 milliseconds = 3 seconds
                 
 
                 // this.$router.push("/dashboard/Market");

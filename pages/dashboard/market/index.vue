@@ -30,7 +30,7 @@
           @closeModalBG="handleOpenMail"
         />
       </transition>
-      <!-- <ModalEmailVerified/> -->
+      <!-- <ModalEmailVerified v-if="showVerifiedModal" @cancelModal="removeModal()" @routeToMarket="routeToMarket()"/> -->
       <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
     </div>
   </div>
@@ -53,6 +53,7 @@ export default {
       animate: null,
       showModal: false,
       verifiedEmail: true,
+      showVerifiedModal: true
     };
   },
   async mounted() {
@@ -110,9 +111,13 @@ export default {
     },
     removeModal() {
       this.showModal = false
+      this.showVerifiedModal = false
       localStorage.setItem('welcomeFlow', 'complete');
     },
-
+    routeToMarket(){
+      this.$router.push("/dashboard/market")
+      this.showVerifiedModal = false
+    },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
   },
