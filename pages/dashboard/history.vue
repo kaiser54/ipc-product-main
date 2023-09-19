@@ -174,7 +174,7 @@ export default {
       const userId = localStorage.getItem('userId')
       try {
         const response = await this.$axios.get(
-          `http://localhost:8000/api/v1/orders/customer/${userId}`
+          `/orders/customer/${userId}`
         );
         this.tableDatas = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
