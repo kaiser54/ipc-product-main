@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import { DEV_URL } from "@/plugins/api";
-import axios from "axios";
 export default {
   props: {
     switchedHeader: {
