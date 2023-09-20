@@ -96,6 +96,9 @@ export default {
       ref: "",
     };
   },
+  created() {
+    console.log(this.$config.PAYSTACK_PUBLIC_KEY)
+  },
   async mounted() {
     // payStack
     // this.verifyPayment();

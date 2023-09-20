@@ -570,6 +570,7 @@ export default {
           this.state = this.address?.state;
           this.LGA = this.address?.lga;
           console.log("address", addresses);
+          console.log("_id", this.user._id);
         })
         .catch((error) => {
           // Handle any errors here
