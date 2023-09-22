@@ -2,60 +2,28 @@
   <div class="view-page">
     <LoaderComponent v-if="!user" />
     <div class="" v-if="user">
-      <div
-        :class="{ 'profile-web-mobile': userHeaderComponent || CheckAddress }"
-        v-if="!userHeaderComponent && !CheckAddress"
-      >
+      <div :class="{ 'profile-web-mobile': userHeaderComponent || CheckAddress }"
+        v-if="!userHeaderComponent && !CheckAddress">
         <!-- DESKTOP VIEW COMPONENTS  -->
-        <div
-          class="profile"
-          v-if="!mobile || !userHeaderComponent || !CheckAddress"
-        >
+        <div class="profile" v-if="!mobile || !userHeaderComponent || !CheckAddress">
           <div class="title-header">
             <h2 class="h2-medium header-text">Profile</h2>
-            <DynamicTags
-            v-if="user?.type === 'INDIVIDUAL'"
-              tagText="Individual account"
-              size="small"
-              type="info"
-            />
-            <DynamicTags
-            v-if="user?.type === 'BUSINESS'"
-              tagText="Business account"
-              size="small"
-              type="positive"
-            />
+            <DynamicTags v-if="user?.type === 'INDIVIDUAL'" tagText="Individual account" size="small" type="info" />
+            <DynamicTags v-if="user?.type === 'BUSINESS'" tagText="Business account" size="small" type="positive" />
           </div>
-          <ProfileSwitchTab
-            v-show="!mobile"
-            @toggleTab="activetab = true"
-            @toggleTab2="activetab = false"
-            :myTab="activetab"
-            text1="Account details"
-            text2="Address book"
-          />
+          <ProfileSwitchTab v-show="!mobile" @toggleTab="activetab = true" @toggleTab2="activetab = false"
+            :myTab="activetab" text1="Account details" text2="Address book" />
 
           <div class="userdetails" v-if="!mobile">
             <div class="account-details-desktop" v-if="activetab">
               <div class="acc-btn">
-                <ProfileUserDetails
-                  :user="user"
-                  :invalidNumber="invalidNumber"
-                  :show-new-phone-number="showNewPhoneNumber"
-                  @add-number="handleAddNumber"
-                  @close-number="handleCloseNumber"
-                  @open-number="handleOpenNumber"
-                />
+                <ProfileUserDetails :user="user" :invalidNumber="invalidNumber"
+                  :show-new-phone-number="showNewPhoneNumber" @add-number="handleAddNumber"
+                  @close-number="handleCloseNumber" @open-number="handleOpenNumber" />
               </div>
-              <ProfileEmailDesktop
-                @openMail="toggleIsVerifyMail"
-                @openPassword="toggleChangePassword"
-              />
+              <ProfileEmailDesktop @openMail="toggleIsVerifyMail" @openPassword="toggleChangePassword" />
             </div>
-            <ProfileAddressDetails
-              v-if="!activetab"
-              switchedHeader="Address Book"
-            />
+            <ProfileAddressDetails v-if="!activetab" switchedHeader="Address Book" />
           </div>
         </div>
         <!-- ^^^^^^^^^^^^^^^^^^^^^ -->
@@ -64,44 +32,28 @@
 
         <div class="mobileUserProfile" v-if="mobile">
           <!-- user profile and name -->
-          <ProfileUserSection
-            @clicked="toggleuserHeaderComponent"
-            v-if="!userHeaderComponent || !CheckAddress"
-          />
+          <ProfileUserSection @clicked="toggleuserHeaderComponent" v-if="!userHeaderComponent || !CheckAddress" />
           <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
           <!-- verify address and change password -->
-          <div
-            class="user__details"
-            v-if="!userHeaderComponent || !CheckAddress"
-          >
+          <div class="user__details" v-if="!userHeaderComponent || !CheckAddress">
             <div class="user__details__head">
               <p>ACCOUNT</p>
             </div>
-            <ProfileAccountSectionMobile
-              @openMail="toggleIsVerifyMail"
-              @openAddress="CheckAddress = !CheckAddress"
-              @changePassword="toggleChangePassword"
-            />
+            <ProfileAccountSectionMobile @openMail="toggleIsVerifyMail" @openAddress="CheckAddress = !CheckAddress"
+              @changePassword="toggleChangePassword" />
           </div>
           <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
           <!-- FAQ customer privacy -->
-          <div
-            class="user__details"
-            v-if="!userHeaderComponent || !CheckAddress"
-          >
+          <div class="user__details" v-if="!userHeaderComponent || !CheckAddress">
             <div class="user__details__head">
               <p>ABOUT IPC</p>
             </div>
             <ProfileFAQSectionMobile />
           </div>
           <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-          <button
-            class="btn mqdn"
-            @click="toggleLogout"
-            v-if="!userHeaderComponent || !CheckAddress"
-          >
+          <button class="btn mqdn" @click="toggleLogout" v-if="!userHeaderComponent || !CheckAddress">
             Log out
           </button>
         </div>
@@ -109,62 +61,34 @@
 
       <!-- verify email popup -->
 
-      <popupModal
-        v-if="isVerifyMail"
-        :animate="animate"
-        title="Check your email address"
+      <popupModal v-if="isVerifyMail" :animate="animate" title="Check your email address"
         snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-        buttonText="Resend code"
-        buttonText2="Got it"
-        buttonClass="neutral-btn"
-        buttonClass2="primary-btn"
-        @closeModal="toggleIsVerifyMail"
-        @closeModalBG="toggleIsVerifyMail"
-      />
+        buttonText="Resend code" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
+        @closeModal="toggleIsVerifyMail" @closeModalBG="toggleIsVerifyMail" />
 
       <!-- ---------------------------- -->
 
       <!-- logout popup -->
 
-      <popupModal
-        v-if="isLogout"
-        :animate="animate"
-        title="Log out of IPC?"
+      <popupModal v-if="isLogout" :animate="animate" title="Log out of IPC?"
         snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
-        buttonText="Cancel"
-        buttonText2="Log out"
-        buttonClass="neutral-btn"
-        buttonClass2="negative-btn"
-        @closeModal="toggleLogout"
-        @closeModalBG="toggleLogout"
-      />
+        buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
+        @closeModal="toggleLogout" @closeModalBG="toggleLogout" />
 
       <!-- change password -->
-      <ProfileChangePassword
-        v-if="isChangePassword"
-        @close="toggleChangePassword"
-        :animate="animate"
-      />
+      <ProfileChangePassword v-if="isChangePassword" @close="toggleChangePassword" :animate="animate" />
       <!-- ---------------------------- -->
 
-      <ProfileInnerModalComponent
-        v-if="userHeaderComponent && !closeHeaderComp"
-        @redirectToprofilepage="redirectToprofilepage"
-      >
+      <ProfileInnerModalComponent v-if="userHeaderComponent && !closeHeaderComp"
+        @redirectToprofilepage="redirectToprofilepage">
         <template v-slot:components>
           <div class="profile-wrapper">
             <ProfileAccountAvatar />
             <div class="flex">
               <div class="acc-btn">
-                <ProfileUserDetails
-                  :BusinessName="BusinessName"
-                  :user-name="userName"
-                  :phone-numbers="phoneNumbers"
-                  :invalidNumber="invalidNumber"
-                  :show-new-phone-number="showNewPhoneNumber"
-                  @add-number="handleAddNumber"
-                  @open-number="toggleAddNumberFunc"
-                />
+                <ProfileUserDetails :BusinessName="BusinessName" :user-name="userName" :phone-numbers="phoneNumbers"
+                  :invalidNumber="invalidNumber" :show-new-phone-number="showNewPhoneNumber" @add-number="handleAddNumber"
+                  @open-number="toggleAddNumberFunc" />
               </div>
             </div>
           </div>
@@ -173,95 +97,36 @@
 
       <!-- add new number for mobile view -->
 
-      <ProfileEditDetails
-        header="Phone number"
-        buttonText="Add number"
-        title="Enter phone number"
-        v-if="addNumberFunc"
-        @closeDetails="toggleAddNumberFunc"
-        @detailsButton="handleAddNumber"
-      >
+      <ProfileEditDetails header="Phone number" buttonText="Add number" title="Enter phone number" v-if="addNumberFunc"
+        @closeDetails="toggleAddNumberFunc" @detailsButton="handleAddNumber">
         <template v-slot:details>
-          <InputComponent
-            id="phone-number"
-            label="Phone number"
-            name="number"
-            inputType="number"
-            v-model="newPhoneNumber"
-            :isInvalid="invalidNumber"
-            errMsg="Please enter a valid Phone number"
-          />
+          <InputComponent id="phone-number" label="Phone number" name="number" inputType="number" v-model="newPhoneNumber"
+            :isInvalid="invalidNumber" errMsg="Please enter a valid Phone number" />
         </template>
       </ProfileEditDetails>
 
       <!-- check address -->
 
-      <ProfileInnerModalComponent
-        v-if="CheckAddress && !closeHeaderComp"
-        @redirectToprofilepage="redirectToprofilepage"
-      >
+      <ProfileInnerModalComponent v-if="CheckAddress && !closeHeaderComp" @redirectToprofilepage="redirectToprofilepage">
         <template v-slot:components>
           <div class="profile-wrapper">
             <div class="textfield">
-              <InputComponent
-                id="streetAddress"
-                label="Street Address"
-                name="address"
-                inputType="text"
-                v-model="address"
-                :isInvalid="validAddress"
-                :errMsg="errAddress"
-              />
-              <InputComponent
-                id="state"
-                label="State"
-                name="state"
-                inputType="text"
-                v-model="state"
-                :isInvalid="validState"
-                :errMsg="errState"
-              />
-              <InputComponent
-                id="LGA"
-                label="LGA (Local Govt. Area)"
-                name="LGA"
-                inputType="text"
-                v-model="LGA"
-                :isInvalid="validLGA"
-                :errMsg="errLGA"
-              />
+              <InputComponent id="streetAddress" label="Street Address" name="address" inputType="text" v-model="address"
+                :isInvalid="validAddress" :errMsg="errAddress" />
+              <InputComponent id="state" label="State" name="state" inputType="text" v-model="state"
+                :isInvalid="validState" :errMsg="errState" />
+              <InputComponent id="LGA" label="LGA (Local Govt. Area)" name="LGA" inputType="text" v-model="LGA"
+                :isInvalid="validLGA" :errMsg="errLGA" />
             </div>
-            <DynamicButton
-              @clickButton="editAddress"
-              style="width: 100%"
-              class=""
-              buttonText="Change"
-              size="standard"
-              type="neutral"
-              icon="icon-left"
-            >
+            <DynamicButton @clickButton="editAddress" style="width: 100%" class="" buttonText="Change" size="standard"
+              type="neutral" icon="icon-left">
               <template v-slot:svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
-                  fill="none"
-                >
-                  <path
-                    d="M2.5 18H17.5"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+                  <path d="M2.5 18H17.5" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
                   <path
                     d="M3.74935 11.7495L12.0827 3.41621C12.773 2.72585 13.8923 2.72585 14.5827 3.41621C15.273 4.10656 15.273 5.22585 14.5827 5.91621L6.24935 14.2495L2.91602 15.0829L3.74935 11.7495Z"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </template>
             </DynamicButton>
@@ -271,41 +136,15 @@
 
       <!-- change Address -->
 
-      <ProfileEditDetails
-        header="Edit address details"
-        buttonText="Save changes"
-        v-if="openEditAddress"
-        @closeDetails="editAddress"
-        @detailsButton="editAddress"
-      >
+      <ProfileEditDetails header="Edit address details" buttonText="Save changes" v-if="openEditAddress"
+        @closeDetails="editAddress" @detailsButton="editAddress">
         <template v-slot:details>
-          <InputComponent
-            id="streetAddress"
-            label="Street Address"
-            name="address"
-            inputType="text"
-            v-model="address"
-            :isInvalid="validAddress"
-            :errMsg="errAddress"
-          />
-          <InputComponent
-            id="state"
-            label="State"
-            name="state"
-            inputType="text"
-            v-model="state"
-            :isInvalid="validState"
-            :errMsg="errState"
-          />
-          <InputComponent
-            id="LGA"
-            label="LGA (Local Govt. Area)"
-            name="LGA"
-            inputType="text"
-            v-model="LGA"
-            :isInvalid="validLGA"
-            :errMsg="errLGA"
-          />
+          <InputComponent id="streetAddress" label="Street Address" name="address" inputType="text" v-model="address"
+            :isInvalid="validAddress" :errMsg="errAddress" />
+          <InputComponent id="state" label="State" name="state" inputType="text" v-model="state" :isInvalid="validState"
+            :errMsg="errState" />
+          <InputComponent id="LGA" label="LGA (Local Govt. Area)" name="LGA" inputType="text" v-model="LGA"
+            :isInvalid="validLGA" :errMsg="errLGA" />
         </template>
       </ProfileEditDetails>
     </div>
@@ -388,6 +227,7 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   methods: {
+    
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -397,29 +237,29 @@ export default {
         this.animate = "animate__zoomIn";
       }
     },
-    async toggleIsVerifyMail(){
-   
+    async toggleIsVerifyMail() {
+
       this.isVerifyMail = !this.isVerifyMail
       try {
-      const userEmail = localStorage.getItem('userEmail');
-      if (!userEmail) {
-        throw new Error('User email not found in localStorage.');
-      }
-      const response = await this.$axios.post('/business-customers/send-verification-email', {
-        email: userEmail,
-      });
-      console.log('Email sent successfully:', response.data);
-      console.log(userEmail)
+        const userEmail = localStorage.getItem('userEmail');
+        if (!userEmail) {
+          throw new Error('User email not found in localStorage.');
+        }
+        const response = await this.$axios.post('/business-customers/send-verification-email', {
+          email: userEmail,
+        });
+        console.log('Email sent successfully:', response.data);
+        console.log(userEmail)
 
-      return { userEmail };
-    } catch (error) {
-      console.error('Error sending email:', error);
-      return { userEmail: null };
-    }
+        return { userEmail };
+      } catch (error) {
+        console.error('Error sending email:', error);
+        return { userEmail: null };
+      }
     },
-      
-  
-  
+
+
+
     toggleLogout() {
       this.isLogout = !this.isLogout;
     },
@@ -470,6 +310,7 @@ export default {
 .profile-web-mobile {
   position: fixed;
 }
+
 .profile {
   display: flex;
   flex-direction: column;

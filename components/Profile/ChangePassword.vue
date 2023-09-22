@@ -1,78 +1,52 @@
 <template>
-  <div class="addNumberFunc animate__animated" :class="animate">
-    <div class="change-password">
-      <header>
-        <div class="frame-bg">
-          <div class="frame-1"></div>
-          <div class="frame-2">
-            <div class="circle">
-              <svg
-                @click="$emit('close')"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M5 19L19 5M5 5L19 19L5 5Z"
-                  stroke="#565C69"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+  <div>
+    <Loading :message="message" v-if="verificationLoading" />
+    <div v-if="showPasswordModal" class="addNumberFunc animate__animated" :class="animate">
+      <div class="change-password">
+        <header>
+          <div class="frame-bg">
+            <div class="frame-1"></div>
+            <div class="frame-2">
+              <div class="circle">
+                <svg @click="$emit('close')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none">
+                  <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <p>Change password</p>
             </div>
-            <p>Change password</p>
           </div>
-        </div>
-      </header>
-      <div class="frame-content">
-        <div class="frame-content-header">
-          <h3 class="h3-heading">Enter Change password</h3>
-        </div>
+        </header>
+        <div class="frame-content">
+          <div class="frame-content-header">
+            <h3 class="h3-heading">Enter Change password</h3>
+          </div>
 
-        <div class="form-field">
-          <InputComponent
-            id="oldPassword"
-            label="Enter your old password"
-            name="password"
-            required
-            v-model="oldPassword"
-            :isInvalid="validOldPassword"
-            :errMsg="errOldPassword"
-          />
-          <InputComponent
-            id="newPassword"
-            label="Enter your new password"
-            name="password"
-            required
-            v-model="newPassword"
-            :isInvalid="validNewPassword"
-            :errMsg="errNewPassword"
-          />
-          <InputComponent
-            id="confirmPassword"
-            label="Enter your new password again"
-            name="password"
-            required
-            v-model="confirmPassword"
-            :isInvalid="ValidConfirmPassword"
-            :errMsg="errConfirmPassword"
-          />
+          <div class="form-field">
+            <InputComponent id="oldPassword" label="Enter your old password" name="password" required
+              v-model="oldPassword" :isInvalid="validOldPassword" :errMsg="errOldPassword" />
+            <InputComponent id="newPassword" label="Enter your new password" name="password" required
+              v-model="newPassword" :isInvalid="validNewPassword" :errMsg="errNewPassword" />
+            <InputComponent id="confirmPassword" label="Enter your new password again" name="password" required
+              v-model="confirmPassword" :isInvalid="ValidConfirmPassword" :errMsg="errConfirmPassword" />
+          </div>
+          <button class="btn primary-btn" @click="handleChangePassword">
+            Change password
+          </button>
         </div>
-        <button class="btn primary-btn" @click="handleChangePassword">
-          Change password
-        </button>
       </div>
+      <div class="passBG" @click="$emit('close')"></div>
     </div>
-    <div class="passBG" @click="$emit('close')"></div>
+    <ModalPasswordVerified v-else-if="showModal" @cancelModal="removeModal()" @routeToMarket="routeToMarket()" />
   </div>
 </template>
   
-  <script>
+<script>
 import "animate.css";
+import Loading from '~/components/Loader/Rolling.vue';
 export default {
+  components: { Loading },
   props: {
     animate: {
       type: String,
@@ -90,6 +64,11 @@ export default {
       validOldPassword: false,
       validNewPassword: false,
       ValidConfirmPassword: false,
+
+      verificationLoading: false,
+      showModal: false,
+      message: '',
+      showPasswordModal: true
     };
   },
   methods: {
@@ -143,34 +122,69 @@ export default {
     },
     async handleChangePassword() {
       if (this.validatePasswords()) {
-        // Code to submit password change request
-        console.log("Password change request submitted.:", this.oldPassword, this.newPassword, this.confirmPassword);
+        // Code to submit the password change request
+        console.log(
+          "Password change request submitted:",
+          this.oldPassword,
+          this.newPassword,
+          this.confirmPassword
+        );
         try {
-      const userId = localStorage.getItem('userId');
-      if (!userId) {
-        throw new Error('User email not found in localStorage.');
-      }
-      const response = await this.$axios.patch('/business-customers/change-password', {
-        customerId: userId,
-        oldPassword: this.oldPassword ,
-    newPassword: this.newPassword,
-    confirmPassword: this.confirmPassword
-      });
-      console.log('Password Changed UnSuccessfully:', response.data);
-      console.log(userId)
+          this.verificationLoading = true;
+          this.showPasswordModal = false
+          this.message = "Changing Password, Please wait"
+          const userId = localStorage.getItem("userId");
+          if (!userId) {
+            throw new Error("User Id not found in localStorage.");
+          }
+          const response = await this.$axios.post(
+            "/business-customers/change-password",
+            {
+              customerId: userId,
+              oldPassword: this.oldPassword,
+              newPassword: this.newPassword,
+              confirmPassword: this.confirmPassword,
+            }
+          );
+          this.verificationLoading = false;
+          this.showPasswordModal = false
+          console.log("Password Changed Successfully:", response.data);
+          console.log(userId);
+          this.showModal = true;
 
-      return { userId };
-    } catch (error) {
-      console.error('Password Changed Successfully:', error);
-      return { userId: null };
-    }
+          // After 10 seconds, hide the modal and navigate to /dashboard/Market
+          setTimeout(() => {
+            this.showModal = false;
+            this.$router.push("/dashboard/Market");
+          }, 3000); // 10000 milliseconds = 10 seconds
+        } catch (error) {
+          console.error("Password Change Unsuccessful:", error);
+          // Handle the error as needed
+          this.showModal = false;
+          this.message = "Try again, Something went wrong"
+        }
       }
     },
-  },
-};
+    closeModal() {
+      this.showPasswordModal = false;
+    },
+    removeModal() {
+      this.verificationLoading = true
+      this.showModal = false
+      this.message = "Let's go to Market"
+    },
+    routeToMarket(){
+      this.verificationLoading = true
+      this.$router.push("/dashboard/market")
+      this.showModal = false
+      this.message = "Let's go to Market"
+    },
+    
+  }
+}
 </script>
   
-  <style scoped>
+<style scoped>
 .animate__animated.animate__slideInUp {
   --animate-duration: 0.5s;
 }
@@ -185,10 +199,12 @@ export default {
   overflow: hidden;
   z-index: 3;
 }
+
 header,
 .frame-content {
   width: 100%;
 }
+
 .change-password {
   display: flex;
   flex-direction: column;
@@ -236,6 +252,7 @@ header,
 
   color: var(--grey-grey1);
 }
+
 .circle {
   padding: 6px;
   gap: 10px;
@@ -243,6 +260,7 @@ header,
   width: 32px;
   height: 32px;
 }
+
 .frame-content {
   display: flex;
   flex-direction: column;
@@ -282,6 +300,7 @@ header,
 .password-input {
   width: 100%;
 }
+
 form {
   display: flex;
   flex-direction: column;
@@ -299,11 +318,13 @@ form {
   align-items: flex-start;
   padding: 0px;
 }
+
 .passBG {
   background: rgba(48, 50, 55, 0.3);
   width: 100%;
   height: 100%;
 }
+
 @media (max-width: 950px) {
   .addNumberFunc header {
     position: absolute;
@@ -313,6 +334,7 @@ form {
     top: 0px;
     background: var(--primary-p500);
   }
+
   .frame-1 {
     box-sizing: border-box;
 
@@ -363,6 +385,7 @@ form {
     right: 17px;
     top: 15.75px;
   }
+
   .frame-bg {
     display: flex;
     position: absolute;
@@ -373,6 +396,7 @@ form {
     flex-direction: column;
     align-items: center;
   }
+
   .frame-content {
     display: flex;
     flex-direction: column;
@@ -383,6 +407,7 @@ form {
     margin-top: 116px;
     width: auto;
   }
+
   .change-password {
     display: block;
     padding: 0;
@@ -392,6 +417,7 @@ form {
     height: 100vh;
     transform: none;
   }
+
   .frame-content-header {
     display: flex;
     flex-direction: column;
@@ -399,6 +425,7 @@ form {
     padding: 0px;
     gap: 8px;
   }
+
   .circle {
     border: none;
   }

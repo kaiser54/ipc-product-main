@@ -2,7 +2,7 @@
   <div class="email-pass">
     <div class="email-desktop">
       <p>Email address</p>
-      <div class="email-address-detail" @click="$emit('openMail')" v-if="verifiedEmail">
+      <div class="email-address-detail" @click="$emit('openMail')" v-if="!verifiedEmail" >
         <div class="emailaddress" >
           <div class="icon-circle">
             <div class="badge"><p>!</p></div>
@@ -108,7 +108,7 @@
 export default {
   data(){
     return {
-      verifiedEmail : true,
+      verifiedEmail : false,
       userEmail:null
 
     }
@@ -117,13 +117,36 @@ export default {
     this.userEmail = localStorage.getItem('userEmail')
     console.log(this.userEmail)
   },
-  async mounted() {
-    if(localStorage.getItem('verified')){
-      this.verifiedEmail = false
-    }else{
-      this.verifiedEmail = true
-    }
+  mounted(){
+    const userData = localStorage.getItem("user");
+        if (userData) {
+          this.user = JSON.parse(userData);
+          console.log("User data in localStorage:", JSON.parse(userData));
+          console.log("User:", this.user.verified);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+          
+        } else {
+          console.log("User data not found in localStorage.");
+        }
+    this.getUserDetails()
   },
+  methods:{
+    async getUserDetails(){
+      try{
+        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+        this.userProfile = response.data.data.customer
+        console.log("user-profile:",this.userProfile)
+        console.log("user-profile-status:",this.userProfile.verified)
+        this.userProfileStatus = response.data.data.customer.verified
+        this.verifiedEmail = this.userProfileStatus
+      }catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
+  }
+  
 };
 </script>
 

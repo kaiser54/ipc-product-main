@@ -2,7 +2,7 @@
   <div style="width: 100%">
     <LoaderComponent v-if="loading" />
     <div class="nuxt-page" v-else>
-      <promptAlert @openMail="handleOpenMail" v-if="verifiedEmail" />
+      <promptAlert @openMail="handleOpenMail" v-if="!verifiedEmail" />
       <div class="page-title">
         <h2 class="h2-medium header-text">Market</h2>
       </div>
@@ -52,22 +52,26 @@ export default {
       inCart: false,
       animate: null,
       showModal: false,
-      verifiedEmail: true,
+      verifiedEmail: false,
       showVerifiedModal: true
     };
   },
-  async mounted() {
-    // set welcome modal to show on condition that a user is new or not
-    this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
-    await this.fetchAllProducts(); // Fetch all products when the component is mounted
-    this.checkScreenSize();
-    window.addEventListener("resize", this.checkScreenSize);
-    if(localStorage.getItem('verified')){
-      this.verifiedEmail = false
-    }else{
-      this.verifiedEmail = true
-    }
+  mounted(){
+    const userData = localStorage.getItem("user");
+        if (userData) {
+          this.user = JSON.parse(userData);
+          console.log("User data in localStorage:", JSON.parse(userData));
+          console.log("User:", this.user.verified);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+          
+        } else {
+          console.log("User data not found in localStorage.");
+        }
+        this.getAllProduct()
+        this.getUserDetails()
   },
+
   computed: {
     ...mapState("product", ["loading", "error"]),
     ...mapGetters("product", ["getProductsBySearch"]),
@@ -80,6 +84,27 @@ export default {
     checkScreenSize() {
       this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
+    async getUserDetails(){
+      try{
+        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+        this.userProfile = response.data.data.customer
+        console.log("user-profile:",this.userProfile)
+        console.log("user-profile-status:",this.userProfile.verified)
+        this.userProfileStatus = response.data.data.customer.verified
+        this.verifiedEmail = this.userProfileStatus
+      }catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
+    async getAllProduct(){
+    // set welcome modal to show on condition that a user is new or not
+    this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
+    await this.fetchAllProducts(); // Fetch all products when the component is mounted
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+
+  },
     async handleOpenMail() {
       this.checkMail = !this.checkMail;
       try {

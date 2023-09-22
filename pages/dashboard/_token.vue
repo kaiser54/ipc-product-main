@@ -28,12 +28,24 @@ export default {
             message: ''
         };
     },
-    mounted() {
+    created() {
         // set welcome modal to show on condition that a user is new or not
         // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
         // this.fetchAllProducts(); // Fetch all products when the component is mounted
         this.checkScreenSize();
         window.addEventListener("resize", this.checkScreenSize);
+        
+    },
+    mounted(){
+        const userData = localStorage.getItem("user");
+        if (userData) {
+          this.user = JSON.parse(userData);
+          console.log("User data in localStorage:", JSON.parse(userData));
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+        } else {
+          console.log("User data not found in localStorage.");
+        }
     },
     computed: {
         ...mapState("product", ["loading", "error"]),
@@ -50,15 +62,16 @@ export default {
         removeModal() {
             this.verificationLoading = true
       this.showModal = false
-      localStorage.setItem('welcomeFlow', 'complete');
       localStorage.setItem("verified",response.data.status ) 
+      this.getUserDetails()
     },
     routeToMarket(){
         this.verificationLoading = true
       this.$router.push("/dashboard/market")
-      this.showVerifiedModal = false
+      this.showModal = false
       localStorage.setItem("verified",response.data.status ) 
     },
+    
         async verifyEmail() {
             try {
               this.verificationLoading = true
@@ -70,6 +83,15 @@ export default {
                 this.verificationLoading = false
                 console.log('Token Sent', response.data)
                 localStorage.setItem("verified",response.data.status ) 
+                if(response.data.status === "success"){
+                    this.showModal = true
+                    this.user.verified = true
+                    this.userProfileStatus = true
+                    console.log(response.data.status)
+                } else{
+                    this.showModal = false
+                    this.user.verified = false
+                }
                 const getVerified = localStorage.getItem("verified")
                 console.log(getVerified)
 
@@ -81,7 +103,7 @@ export default {
                 // After 10 seconds, hide the modal and navigate to /dashboard/Market
                 setTimeout(() => {
                 this.$router.push("/dashboard/Market");
-                }, 10000); // 10000 milliseconds = 3 seconds
+                }, 6000); // 6000 milliseconds = 6 seconds
                 
 
                 // this.$router.push("/dashboard/Market");
@@ -91,6 +113,7 @@ export default {
                 console.error('Wrong Token:', error)
             }
         },
+        
         handleOpenMail() {
             this.checkMail = !this.checkMail;
             this.isVerifyMail = !this.isVerifyMail;
@@ -108,6 +131,17 @@ export default {
             this.showModal = false
             localStorage.setItem('welcomeFlow', 'complete');
         },
+        async getUserDetails(){
+      try{
+        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+        this.userProfile = response.data.data.customer
+        this.userProfileStatus = response.data.data.customer.verified
+        console.log(this.userProfile)
+      }catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
     },
     created() {
         console.log(this.$route.params)
