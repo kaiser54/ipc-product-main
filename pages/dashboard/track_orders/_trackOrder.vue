@@ -12,7 +12,7 @@
           <OrderProduct :tagText="tagText" :size="size" :type="type" />
           <TrackingBar />
         </div>
-        <userInfo class="child" :data="data" v-if="data"/>
+        <userInfo class="child" :data="data" v-if="data" />
       </div>
     </div>
   </div>
@@ -67,6 +67,9 @@ export default {
     size() {
       return this.listSelect[this.selectedIndex].size;
     },
+  },
+  created() {
+    this.orderId = this.$route.params.trackOrder
   },
   mounted() {
     console.log(this.data)
