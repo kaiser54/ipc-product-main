@@ -1,20 +1,7 @@
 <template>
-  <div style="width: 100%">
+  <div class="container" style="width: 100%; ">
     <LoaderComponent v-if="loading"  />
-    <div class="nuxt-page" v-else>
-      <promptAlert @openMail="handleOpenMail" v-if="!verifiedEmail" />
-      <div class="page-title">
-        <h2 class="h2-medium header-text">Market</h2>
-      </div>
-      <section class="market-product">
-        <div class="product-top-wrap">
-          <ProductCard
-            v-for="product in filteredProducts"
-            :key="product.id"
-            :product="product"
-            :inCart="inCart"
-          />
-          <div class="empty"  v-if="filteredProducts.length === 0">
+    <div class="empty"  v-else-if="filteredProducts.length === 0">
             <EmptySystem 
         :header="header"
         :snippet="snippet"
@@ -38,7 +25,21 @@
         </svg>
         </template>
     </EmptySystem>
-        </div>
+    </div>
+    <div class="nuxt-page" v-else>
+      <promptAlert @openMail="handleOpenMail" v-if="!verifiedEmail" />
+      <div class="page-title">
+        <h2 class="h2-medium header-text">Market</h2>
+      </div>
+      <section class="market-product">
+        <div class="product-top-wrap">
+          <ProductCard
+            v-for="product in filteredProducts"
+            :key="product.id"
+            :product="product"
+            :inCart="inCart"
+          />
+     
         </div>
       </section>
       <transition name="modal-fade">
@@ -60,7 +61,9 @@
         @cancelModal="removeModal()"
         @complete-flow="removeModal()"
       />
+      
     </div>
+ 
   </div>
 </template>
 
@@ -193,6 +196,8 @@ export default {
   display: flex;
   gap: 32px;
   flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
   width: auto;
   height: 100%;
 }
@@ -209,16 +214,19 @@ export default {
   width: 100%;
   justify-content: space-between;
 }
+
 .empty{
-  border: 1px solid red;
   width: 360px;
-        height: 210px;
-        /* border: 1px solid red; */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+  text-align: center;
+  margin: auto;
+  margin-top: 10%;
+        
 }
 
 @media (min-width: 950px) {

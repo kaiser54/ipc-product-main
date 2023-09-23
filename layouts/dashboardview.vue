@@ -3,7 +3,7 @@
     <Cart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
-      v-if="isNotification && !mobile && !user"
+      v-if="isNotification && !mobile "
     />
 
     <div class="dashboard-wrapper" v-if="user">
@@ -172,6 +172,8 @@ section {
 
 .dashboard-wrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 100%;
   width: 100%;
   height: 100%;
