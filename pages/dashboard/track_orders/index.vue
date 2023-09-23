@@ -4,7 +4,8 @@
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>
     <div class="order-container">
-      <EmptyStates @leaveCart="leaveCart" v-if="this.order.length === 0">
+        <div class="empty-state" v-if="this.order.length === 0">
+          <EmptyStates @leaveCart="leaveCart" >
         <template v-slot:svg>
           <svg xmlns="http://www.w3.org/2000/svg" width="404" height="154" viewBox="0 0 404 154" fill="none">
             <rect x="81.5" y="78.5" width="257" height="63" rx="15.5" fill="white" />
@@ -86,6 +87,7 @@
           </div>
         </template>
       </EmptyStates>
+        </div>
       <!-- de -->
       <!-- <orderProduct :showSvg="true" /> -->
       <OrderedProduct v-else :tagText="tagText" :size="size" :type="type" />
@@ -181,5 +183,12 @@ a {
   gap: 16px;
   max-width: 784px;
   width: 100%;
+}
+.empty-state{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
 }
 </style>

@@ -1,44 +1,28 @@
 <template>
   <div class="order-wrapper">
-    <div class="order-product">
-      <div class="image">
-        <img src="~/assets/images/p1.png" alt="" />
-      </div>
+  <div class="order-product" v-for="item in products" :key="item._id">
+    <div class="image">
+              <img v-if="item.images" :src="item.images[0].url" width="100" height="100" alt="product Image" />
+            </div>
       <div class="order-product-details">
         <div class="order-content">
-          <div class="title" :class="{ truncate: checkout }">
-            Mama'S Choice Nigerian Parboiled Rice 25kg
-          </div>
+          <div class="title">{{ item.name }}</div>
           <div class="order-id-price">
-            <div class="order-id" v-if="!checkout">Order Id: 1234567</div>
-            <div class="order-qty">Qty: 1</div>
+            <div class="order-id">Order Id: {{ orderId }} </div>
+            <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
-          <div class="order-price" :class="{ 'pricing': checkout }">
-            <span class="naira">₦</span> 75,000
-          </div>
+          <div class="order-price"><span class="naira">₦</span> {{item.discountPrice}}</div>
           <DynamicTags :tagText="tagText" :size="size" :type="type" />
         </div>
 
         <div class="price-qty">
-          <div class="order-price" :class="{ 'pricing': checkout }"><span class="naira">₦</span> 75,000</div>
-          <div class="order-qty">Qty: 1</div>
+          <div class="order-price"><span class="naira">₦</span> {{ item.discountPrice }}</div>
+          <div class="order-qty">Qty: {{ item.quantity }}</div>
         </div>
       </div>
-      <svg
-        v-if="showSvg"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="33"
-        viewBox="0 0 32 33"
-        fill="none"
-      >
-        <path
-          d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-          stroke="#565C69"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+      <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+        <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
       </svg>
     </div>
   </div>
@@ -62,11 +46,44 @@ export default {
       type: String,
       required: true,
     },
-    checkout: {
-      type: Boolean,
-      default: false,
-    },
+
   },
+
+data(){
+  return{
+    order:null,
+    orderId: '',
+    products: []
+  }
+},
+  async created() {
+    this.orderId = this.$route.params.trackOrder
+    try {
+      const response = await this.$axios.$get(`/orders/${this.orderId}`);
+      console.log(response.data)
+      this.order = response?.data?.order;
+      this.products = this.order.products
+      console.log(this.products)
+      this.loading = false;
+    } catch (error) {
+      console.error('Error fetching order details:', error);
+    }
+    // console.log(this.currentPage);
+  },
+  methods:{
+    getProductImages(images) {
+    console.log(images[0].url)
+    // return images[0].url
+    //   const image = images?.map((img) => {
+    // // return img[0].url
+    //   });
+    //   return image
+      
+
+    },
+
+
+  }
 };
 </script>
 
@@ -108,7 +125,7 @@ a {
 
 .image {
   width: 64px;
-  height: 72px;
+  height: auto;
 
   /* Grey/Grey6 */
 
@@ -263,18 +280,4 @@ a {
       max-width: 150px;
     }
   }
-}
-.truncate {
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide the overflowed text */
-  text-overflow: ellipsis; /* Show an ellipsis (...) when text overflows */
-  max-width: 100px; /* Optionally, set a maximum width for the container */
-}
-.price-qty .pricing {
-  /* Body Small/Body Small Medium */
-  font-size: 14px !important;
-  font-style: normal !important;
-  font-weight: 500 !important;
-  line-height: 21px !important; /* 150% */
-}
-</style>
+}</style>
