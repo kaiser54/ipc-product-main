@@ -15,7 +15,7 @@
           </defs>
         </svg>
       </div>
-      <p class="username">{{ user.businessName }}</p>
+      <p class="username">{{truncateId( user.businessName, 20) }}</p>
     </div>
     <div class="search-input">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -91,6 +91,17 @@ export default {
     },
     triggerNotification() {
       this.$emit("openNotification");
+    },
+    truncateId(id, maxLength) {
+      if (!id) {
+        return ''; // Return an empty string if id is undefined or null
+      }
+
+      if (id.length > maxLength) {
+        return id.substring(0, maxLength) + '...';
+      }
+
+      return id;
     },
   },
   watch: {
