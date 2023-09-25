@@ -31,6 +31,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
+      orderId: '',
       pageTitle: "IPC | Track orders",
       selectedIndex: 2,
       listSelect: [
@@ -68,7 +69,10 @@ export default {
       return this.listSelect[this.selectedIndex].size;
     },
   },
-  mounted() {
+  created () { 
+    this.orderId = this.$route.params.trackOrder
+  },
+    mounted() {
     console.log(this.data)
   }
 };

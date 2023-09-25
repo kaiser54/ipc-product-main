@@ -53,12 +53,8 @@
               />
             </div>
             <ProfileAddressDetails
-              :address="address"
-              :disabledProps="disabledProps"
               v-if="!activetab"
               switchedHeader="Address Book"
-              :user="user"
-              @saveEdit="sendAddress"
             />
           </div>
         </div>
@@ -71,7 +67,6 @@
           <ProfileUserSection
             @clicked="toggleuserHeaderComponent"
             v-if="!userHeaderComponent || !CheckAddress"
-            :user="user"
           />
           <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
@@ -169,7 +164,6 @@
                   :show-new-phone-number="showNewPhoneNumber"
                   @add-number="handleAddNumber"
                   @open-number="toggleAddNumberFunc"
-                  :user="user"
                 />
               </div>
             </div>
@@ -185,7 +179,7 @@
         title="Enter phone number"
         v-if="addNumberFunc"
         @closeDetails="toggleAddNumberFunc"
-        @detailsButton="handleAddNumber(newPhoneNumber)"
+        @detailsButton="handleAddNumber"
       >
         <template v-slot:details>
           <InputComponent
@@ -216,7 +210,7 @@
                 label="Street Address"
                 name="address"
                 inputType="text"
-                v-model="address.streetAddress"
+                v-model="address"
                 :isInvalid="validAddress"
                 :errMsg="errAddress"
               />
@@ -225,7 +219,7 @@
                 label="State"
                 name="state"
                 inputType="text"
-                v-model="address.state"
+                v-model="state"
                 :isInvalid="validState"
                 :errMsg="errState"
               />
@@ -234,7 +228,7 @@
                 label="LGA (Local Govt. Area)"
                 name="LGA"
                 inputType="text"
-                v-model="address.lga"
+                v-model="LGA"
                 :isInvalid="validLGA"
                 :errMsg="errLGA"
               />
@@ -286,7 +280,7 @@
         buttonText="Save changes"
         v-if="openEditAddress"
         @closeDetails="editAddress"
-        @detailsButton="saveAddress"
+        @detailsButton="editAddress"
       >
         <template v-slot:details>
           <InputComponent
@@ -294,7 +288,7 @@
             label="Street Address"
             name="address"
             inputType="text"
-            v-model="streetAddress"
+            v-model="address"
             :isInvalid="validAddress"
             :errMsg="errAddress"
           />
@@ -418,9 +412,29 @@ export default {
         this.animate = "animate__zoomIn";
       }
     },
-    toggleIsVerifyMail() {
+    async toggleIsVerifyMail() {
       this.isVerifyMail = !this.isVerifyMail;
+      try {
+        const userEmail = localStorage.getItem("userEmail");
+        if (!userEmail) {
+          throw new Error("User email not found in localStorage.");
+        }
+        const response = await this.$axios.post(
+          "/business-customers/send-verification-email",
+          {
+            email: userEmail,
+          }
+        );
+        console.log("Email sent successfully:", response.data);
+        console.log(userEmail);
+
+        return { userEmail };
+      } catch (error) {
+        console.error("Error sending email:", error);
+        return { userEmail: null };
+      }
     },
+
     toggleLogout() {
       this.isLogout = !this.isLogout;
     },
@@ -585,6 +599,7 @@ export default {
 .profile-web-mobile {
   position: fixed;
 }
+
 .profile {
   display: flex;
   flex-direction: column;

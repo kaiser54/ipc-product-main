@@ -17,10 +17,14 @@
                 </div>
                 <div class="tag-date">
                     <div class="tagged">
-                        <div class="tag positive">{{ tag }}</div>
-                        
+                        <DynamicTags
+                        :class="tagged"
+                        size="small"
+                        type="positive"
+                        :tagText="tagged"
+                        />
                     </div>
-                    <p class="date">{{ track.date }}</p>
+                    <p class="date">{{ formatDate(tracked) }}</p>
                 </div>
             </div>
         </div>
@@ -31,7 +35,7 @@
 export default {
     data() {
         return {
-            tag: 'Pending',
+            tag: null,
             tracking: [
                 {
                     id: 1,
@@ -59,17 +63,62 @@ export default {
     },
     computed: {
         tagClass() {
-            if (this.tag === 'completed') {
+            if (this.tag === 'DELIVERED') {
                 return 'completed';
-            } else if (this.tag === 'pending') {
+            } else if (this.tag === 'SHIPPED') {
                 return 'pending';
             } else if (this.tag === 'canceled') {
                 return 'canceled';
             } else {
                 return '';
             }
+        },
+        tagged(){
+            if(this.tag === 'DELIVERED'){
+                return "completed"
+            }
+            else if(this.tag === 'SHIPPED'){
+                return "pending"
+            }
+            else if(this.tag === 'CANCELED'){
+                return 'canceled';
+            }
         }
+        
+    },
+    async created() {
+    this.orderId = this.$route.params.trackOrder
+    try {
+      const response = await this.$axios.$get(`/orders/${this.orderId}`);
+      console.log(response.data)
+      this.order = response?.data?.order;
+      this.tracked = response?.data?.order.products[0].createdAt;
+      console.log(this.tracked)
+      this.tag = this.order.status
+      console.log(this.tag)
+      this.loading = false;
+    } catch (error) {
+      console.error('Error fetching order details:', error);
     }
+    // console.log(this.currentPage);
+  },
+  methods:{
+    formatDate(item) {
+  if (!item) return '';
+
+  const date = new Date(item);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based, so we add 1
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  // Customize the format as needed
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+  }
 };
 </script>
 

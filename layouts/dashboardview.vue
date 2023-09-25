@@ -32,7 +32,7 @@
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
-                :user="user"
+                  :user="user"
                   @openCart="toggleCart"
                   @openNotification="toggleNotification"
                 />
@@ -75,7 +75,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -89,6 +88,13 @@ export default {
       isNotification: false,
       checkMail: false,
     };
+  },
+  watch: {
+    $route: {
+      handler (val) {
+        console.log(val)
+      }
+    }
   },
   mounted() {
     this.checkScreenSize();
@@ -106,6 +112,11 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
+          console.log("_id:", this.user._id);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+
+
         } else {
           // User data is not found in localStorage
           console.log("User data not found in localStorage.");
@@ -118,6 +129,9 @@ export default {
     }
   },
   methods: {
+    saveUserIdToLocalStorage(userId){
+      localStorage.setItem('userId', this.user._id)
+    },
     toggleCart() {
       this.isCart = !this.isCart;
       if (this.mobile) {
@@ -163,7 +177,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 section {

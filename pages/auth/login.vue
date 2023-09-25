@@ -12,7 +12,7 @@
           <div class="header">
             <LoginWelcome />
           </div>
-          <div class="form-group">
+          <form @submit.prevent="submitLogin" class="form-group">
             <div class="form-field">
               <InputField
                 id="email"
@@ -55,7 +55,7 @@
                 </p>
               </div>
             </div>
-          </div>
+          </form>
           <div class="signup-link">
             <p>
               Are you new to IPC?<nuxt-link to="/auth/register">

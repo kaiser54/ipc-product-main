@@ -1,23 +1,31 @@
 <template>
   <div class="order-wrapper">
-  <div class="order-product" v-for="item in products" :key="item._id">
-    <div class="image">
-              <img v-if="item.images" :src="item.images[0].url" width="100" height="100" alt="product Image" />
-            </div>
+    <Nuxt-link :to="`/dashboard/track_orders/${item._id}`" class="order-product" v-for="item in order" :key="item._id">
+      <div class="image" v-for="image in getProductImages(item.products)" :key="image.id">
+        <!-- {{ image.url }} -->
+        <img :src="image.url" alt="product Image" />
+      </div>
       <div class="order-product-details">
         <div class="order-content">
-          <div class="title">{{ item.name }}</div>
+          <!-- <div class="title">{{ item.name }}</div> -->
+          <span class="product-name">
+            {{ getProductNames(item.products) }}
+          </span>
           <div class="order-id-price">
-            <div class="order-id">Order Id: {{ orderId }} </div>
-            <div class="order-qty">Qty: {{ item.quantity }}</div>
+            <div class="order-id">Order Id: {{ truncateId(item._id, 7) }}</div>
+            <div class="order-qty">Qty: {{ item.products[0].quantity }}</div>
           </div>
-          <div class="order-price"><span class="naira">₦</span> {{item.discountPrice}}</div>
+          <div class="order-price">
+            <span class="naira">₦</span> {{ getProductPrice(item.products, item) }}
+          </div>
           <DynamicTags :tagText="tagText" :size="size" :type="type" />
         </div>
 
         <div class="price-qty">
-          <div class="order-price"><span class="naira">₦</span> {{ item.discountPrice }}</div>
-          <div class="order-qty">Qty: {{ item.quantity }}</div>
+          <div class="order-price">
+            <span class="naira">₦</span>{{ getProductPrice(item.products, item) }}
+          </div>
+          <div class="order-qty">Qty: {{ item.products[0].quantity }}</div>
         </div>
       </div>
       <svg
@@ -36,7 +44,7 @@
           stroke-linejoin="round"
         />
       </svg>
-    </div>
+    </Nuxt-link>
   </div>
 </template>
 
@@ -58,43 +66,99 @@ export default {
       type: String,
       required: true,
     },
+    order:{
+      type: Array,
+      required: true
+    }
   },
 
-data(){
-  return{
-    order:null,
-    orderId: '',
-    products: []
-  }
-},
+  data() {
+    return {
+      order: null,
+      orderId: "",
+      products: [],
+    };
+  },
   async created() {
-    this.orderId = this.$route.params.trackOrder
+    const userId = localStorage.getItem('userId')
     try {
-      const response = await this.$axios.$get(`/orders/${this.orderId}`);
-      console.log(response.data)
-      this.order = response?.data?.order;
-      this.products = this.order.products
-      console.log(this.products)
+      const response = await this.$axios.get(
+        `/orders/customer/${userId}`
+      );
+      this.order = response?.data?.data?.orders;
+      console.log(this.order);
+      // this.products = response?.data?.data?.orders?.products
+      // console.log(this.products)
       this.loading = false;
     } catch (error) {
-      console.error('Error fetching order details:', error);
+      console.error("Error fetching order details:", error);
     }
-    // console.log(this.currentPage);
   },
-  methods:{
-    getProductImages(images) {
-    console.log(images[0].url)
-    // return images[0].url
-    //   const image = images?.map((img) => {
-    // // return img[0].url
-    //   });
-    //   return image
-      
+  methods: {
+    truncateId(id, maxLength) {
+      if (!id) {
+        return ""; // Return an empty string if id is undefined or null
+      }
 
+      if (id.length > maxLength) {
+        return id.substring(0, maxLength) + "...";
+      }
+
+      return id;
+    },
+    formatDate(item) {
+      if (
+        !item ||
+        !item?.products ||
+        item?.products?.length === 0 ||
+        !item?.products[0]?.createdAt
+      ) {
+        return ""; // Return an empty string if any of the required data is undefined
+      }
+      const date = new Date(item?.products[0]?.createdAt);
+      if (!date || isNaN(date.getTime())) {
+        return ""; // Return an empty string if date is invalid
+      }
+      const year = date.getFullYear().toString().slice(-2); // Last two digits of the year
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month, zero-padded
+      const day = String(date.getDate()).padStart(2, "0"); // Day, zero-padded
+      return `${day}-${month}-${year}`;
     },
 
-
-  }
+    getProductImages(products) {
+      const image = products?.map((product) => {
+        console.log(product.images[0].url);
+        return {
+          url: product.images[0].url,
+        };
+      });
+      return image;
+    },
+    getProductNames(products) {
+      if (!products || products.length === 0) {
+        return "No products";
+      } else if (products.length === 1) {
+        return products[0].name;
+      } else {
+        const truncatedNames =
+          products
+            .map((product) => product.name)
+            .join(", ")
+            .substring(0, 5) + "..."; // Adjust the character limit as needed
+        return truncatedNames;
+      }
+      console.log(products);
+    },
+    getProductPrice(products) {
+      if (!products || products.length === 0) {
+        return "No product";
+      } else if (products.length === 1) {
+        return products[0].discountPrice || products[0].totalPrice;
+      } else {
+        return products[0].discountPrice + products[1].discountPrice;
+      }
+    },
+  },
 };
 </script>
 
@@ -136,7 +200,7 @@ a {
 
 .image {
   width: 64px;
-  height: auto;
+  height: fit-content;
 
   /* Grey/Grey6 */
 
@@ -179,8 +243,8 @@ a {
 }
 
 /* .order-content .order-id {
-  display: none;
-} */
+    display: none;
+  } */
 .order-content .order-price {
   display: none;
 }
@@ -276,6 +340,7 @@ a {
     .order-content .title {
       max-width: 150px;
     }
+
     .order-product-details {
       width: 100%;
       max-width: 200px;
@@ -291,18 +356,5 @@ a {
       max-width: 150px;
     }
   }
-}
-.truncate {
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide the overflowed text */
-  text-overflow: ellipsis; /* Show an ellipsis (...) when text overflows */
-  max-width: 100px; /* Optionally, set a maximum width for the container */
-}
-.price-qty .pricing {
-  /* Body Small/Body Small Medium */
-  font-size: 14px !important;
-  font-style: normal !important;
-  font-weight: 500 !important;
-  line-height: 21px !important; /* 150% */
 }
 </style>

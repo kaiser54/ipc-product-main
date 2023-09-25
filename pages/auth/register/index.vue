@@ -14,7 +14,7 @@
             >
               <div class="list-select-header">
                 <div class="title-flex">
-                  <h3 class="h3-medium">{{ item.title }}</h3>
+                  <h3 class="h3-medium title-text">{{ item.title }}</h3>
                   <DynamicTags
                     class="auto"
                     tagText="COMING SOON"
@@ -146,13 +146,16 @@ export default {
 .h3-medium {
   color: var(--grey-grey1);
 }
+/* .title-text {
+  font-size: 16px;
+} */
 
 p.snippet {
+  color: var(--grey-grey3, #7e8494);
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--grey-grey3);
+  line-height: 24px; /* 150% */
 }
 
 .content-box button {

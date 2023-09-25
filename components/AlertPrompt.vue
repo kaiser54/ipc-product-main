@@ -64,7 +64,7 @@ export default {
     methods: {
         showAlert() {
             this.visible = true;
-            setTimeout(this.hideAlert, 3000); // Hide the alert after 4 seconds
+            setTimeout(this.hideAlert, 5000); // Hide the alert after 5 seconds
         },
         hideAlert() {
             this.visible = false;
@@ -107,7 +107,7 @@ export default {
 
 .top {
     top: 30px;
-    position: absolute;
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     /* Update to horizontally center the box */
@@ -124,7 +124,8 @@ export default {
     padding: 16px;
     gap: 8px;
     border-radius: 16px;
-    width: 343px;
+    max-width: 600px;
+    width: fit-content;
     height: 64px;
 }
 
