@@ -318,7 +318,7 @@ export default {
 
     async submitForm() {
       this.spinner = true;
-      this.submittedData.ref = this.ref;
+      this.submittedData.reference = this.ref;
       console.log("submit data:", this.submittedData);
 
       try {

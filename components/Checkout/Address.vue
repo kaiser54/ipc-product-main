@@ -262,13 +262,14 @@ export default {
         lastName: this.lastName,
         address: address,
         directions: this.Directions,
-        phoneNumbers: this.phoneNumbers,
+        // phoneNumbers: this.phoneNumbers,
+        phoneNumbers: ["08039137005"],
         state: this.selectedState,
         LGA: this.selectedLGA.name,
         products: this.cart,
         totalPrice: this.cartFullPrice,
         deliveryFee: this.deliveryFee,
-        subtotal: this.cartTotalPrice,
+        subtotalPrice: this.cartTotalPrice,
       };
       console.log(data);
       this.$emit("customEvent", data);
