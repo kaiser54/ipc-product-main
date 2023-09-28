@@ -85,7 +85,7 @@
               <p>
                 By clicking on create account, you agree to the Independent
                 Purchasing Company’s
-                <nuxt-link to="#">Terms & Conditions</nuxt-link>
+                <a href="https://ipc-africa.com/TermsConditions" rel="noreferrer" target="-blank">Terms & Conditions</a>
               </p>
             </div>
             <div class="submit-reset">

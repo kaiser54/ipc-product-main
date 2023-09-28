@@ -2,28 +2,29 @@
   <div class="order-wrapper">
   <div class="order-product" v-for="item in products" :key="item._id">
     <div class="image">
-              <img v-if="item.images" :src="item.images[0].url" width="100" height="100" alt="product Image" />
-            </div>
+        <img v-if="item.product && item.product.images && item.product.images.length > 0" :src="item.product.images[0].url" style="max-height: 100%; width: 100px " alt="product Image" />
+      </div>
       <div class="order-product-details">
         <div class="order-content">
-          <div class="title">{{ item.name }}</div>
+          <div class="title">{{ item.product.name }}</div>
           <div class="order-id-price">
-            <div class="order-id">Order Id: {{ orderId }} </div>
+            <div class="order-id">Order Id:  {{ truncateId(item._id, 10) }} </div>
             <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
-          <div class="order-price"><span class="naira">₦</span> {{item.discountPrice}}</div>
-          <DynamicTags :tagText="tagText" :size="size" :type="type" />
+          <div class="order-price"><span class="naira">₦</span> {{item.totalPrice
+}}</div>
+          <DynamicTags :tagText="status" :size="size" :type="getTagType(status)" />
         </div>
 
         <div class="price-qty">
-          <div class="order-price"><span class="naira">₦</span> {{ item.discountPrice }}</div>
+          <div class="order-price"><span class="naira">₦</span> {{ item.totalPrice }}</div>
           <div class="order-qty">Qty: {{ item.quantity }}</div>
         </div>
       </div>
-      <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+      <!-- <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
         <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round" />
-      </svg>
+      </svg> -->
     </div>
   </div>
 </template>
@@ -53,7 +54,25 @@ data(){
   return{
     order:null,
     orderId: '',
-    products: []
+    products: [],
+    status:"",
+    listSelect: [
+        {
+          title: "Order Processing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
   }
 },
   async created() {
@@ -64,6 +83,11 @@ data(){
       this.order = response?.data?.order;
       this.products = this.order.products
       console.log(this.products)
+      console.log(this.order.status)
+      this.status = this.order.status
+      const level = this.listSelect.findIndex(s => s.title.toLowerCase().includes(this.status.toLowerCase()))
+      this.$emit('set-level', {level, status: this.status})
+      console.log(level)
       this.loading = false;
     } catch (error) {
       console.error('Error fetching order details:', error);
@@ -81,7 +105,28 @@ data(){
       
 
     },
+    getTagType(status) {
+      if (status === "PROCESSING") {
+        return "warning";
+      } else if (status === "SHIPPED") {
+        return "info";
+      } else if (status === "DELIVERED") {
+        return "positive";
+      } else {
+        return ""; // Handle any other cases if needed
+      }
+    },
+    truncateId(id, maxLength) {
+      if (!id) {
+        return ''; // Return an empty string if id is undefined or null
+      }
 
+      if (id.length > maxLength) {
+        return id.substring(0, maxLength) + '...';
+      }
+
+      return id;
+    },
 
   }
 };
@@ -115,11 +160,11 @@ a {
   padding: 16px;
   gap: 16px;
 
-  width: 100%;
+  width: 90%;
 
   /* Grey/Grey5 */
 
-  border: 1px solid var(--grey-grey5);
+  /* border: 1px solid var(--grey-grey5); */
   border-radius: 16px;
 }
 

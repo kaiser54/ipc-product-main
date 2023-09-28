@@ -1,15 +1,30 @@
 <template>
-    <!-- waiting for the backend before i continue -->
     <div class="tracking-bar">
-        <div class="track-wrapper" v-for="(track, index) in tracking" :key="track.id">
-            <div class="indicator">
-                <svg :class="tagClass" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none">
-                    <rect x="1" y="1" width="22" height="22" rx="11" fill="white" stroke="#20AF0B" stroke-width="2" />
-                    <circle cx="11.9992" cy="11.9992" r="7.8" fill="#20AF0B" />
-                </svg>
-                <div class="line" :class="tagClass" v-if="index !== tracking.length - 1" ></div>
+        <div class="track-wrapped">
+            <!-- First Circle -->
+            <div class="circle"
+                :class="{ 'green': trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
+                <div class="inner-circle"
+                    v-if="trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED'">
+                </div>
             </div>
+            <!-- First Line -->
+            <div class="line" :class="{ 'green': trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
+            </div>
+            <!-- Second Circle -->
+            <div class="circle" :class="{ 'green': trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
+                <div class="inner-circle" v-if="trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED'"></div>
+            </div>
+            <!-- Second Line -->
+            <div class="line" :class="{ 'green': trackLevel.status === 'DELIVERED' }"></div>
+            <!-- Third Circle -->
+            <div class="circle" :class="{ 'green': trackLevel.status === 'DELIVERED' }">
+                <div class="inner-circle" v-if="trackLevel.status === 'DELIVERED'"></div>
+            </div>
+        </div>
+        <!-- Status -->
+        <div class="track-container">
+            <div class="track-wrapper" v-for="(track, index) in tracking" :key="index">
             <div class="tracking">
                 <div class="details">
                     <p class="title">{{ track.title }}</p>
@@ -17,21 +32,27 @@
                 </div>
                 <div class="tag-date">
                     <div class="tagged">
-                        <div class="tag positive">{{ tag }}</div>
-                        
+                        <DynamicTags :tagText="trackLevel.status" :size="size" :type="getTagType(trackLevel.status)" />
                     </div>
                     <p class="date">{{ track.date }}</p>
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </template>
-
+  
 <script>
 export default {
+    props: {
+        trackLevel: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
-            tag: 'Pending',
+            selectedIndex: 0,
             tracking: [
                 {
                     id: 1,
@@ -50,45 +71,161 @@ export default {
                 {
                     id: 3,
                     title: "Delivered",
-                    snippet: "Your order has been delivered  to you.",
+                    snippet: "Your order has been delivered to you.",
                     date: "13/03/2021",
                     status: "Completed",
+                },
+            ],
+            listSelect: [
+                {
+                    title: "Order processing",
+                    type: "warning",
+                    size: "small",
+                },
+                {
+                    title: "Shipped",
+                    type: "info",
+                    size: "small",
+                },
+                {
+                    title: "Delivered",
+                    type: "positive",
+                    size: "small",
                 },
             ],
         };
     },
     computed: {
-        tagClass() {
-            if (this.tag === 'completed') {
-                return 'completed';
-            } else if (this.tag === 'pending') {
-                return 'pending';
-            } else if (this.tag === 'canceled') {
-                return 'canceled';
+        isProcessing() {
+            return this.trackLevel.status === "PROCESSING";
+        },
+        size() {
+            return this.listSelect[this.selectedIndex].size;
+        },
+    },
+    methods: {
+        getTagClass(index) {
+            if (this.isProcessing) {
+                if (index === 0) return "processing";
+                return "grey";
+            } else if (this.trackLevel.status === "SHIPPED") {
+                if (index === 0) return "processing";
+                else if (index === 1) return "processing";
+                return "grey";
             } else {
-                return '';
+                return "grey";
             }
-        }
-    }
+        },
+        getTagType(status) {
+            if (status === "PROCESSING") {
+                return "warning";
+            } else if (status === "SHIPPED") {
+                return "info";
+            } else if (status === "DELIVERED") {
+                return "positive";
+            } else {
+                return "";
+            }
+        },
+    },
 };
 </script>
-
+  
 <style scoped>
+.track-wrapped {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-direction: column;
+    /* border: 1px solid red; */
+    height: 100%;
+}
+
+.circle {
+    width: 25px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    /* Green border */
+    background-color: white;
+    /* White interior */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* Transition for both border and interior color */
+    position: relative;
+}
+
+.inner-circle {
+    width: 15px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: green;
+    /* Small green circle color */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.circle.green {
+    background-color: white;
+    /* Interior color when green class is applied */
+    border-color: green;
+    /* Border color when green class is applied */
+}
+
+.line {
+    width: 2px;
+    height: 100%;
+    max-height: 160px;
+    background-color: grey;
+    transition: background-color 0.3s ease;
+}
+
+.line.green {
+    background-color: green;
+}
+
+.status {
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--grey-grey1);
+}
+
 .tracking-bar {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    margin-left: 48px;
+    /* border: 1px solid blue; */
+    height: 300px;
+}
+.track-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
+.track-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    gap: 4px;
-    margin-left: 48px;
+    gap: 16px;
+    /* border: 1px solid purple; */
 }
 
-.track-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 16px;
+.processing {
+    stroke: #20af0b;
+    fill: #20af0b;
+}
+
+.grey {
+    stroke: grey;
+    fill: grey;
 }
 
 .indicator {
@@ -100,18 +237,14 @@ export default {
     height: 100%;
 }
 
-.line {
-    width: 2px;
-    height: 100%;
-    background:#20AF0B;
-}
+
+
 .tracking {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
-    gap: 24px;
-
+    gap: 2px;
     max-width: 295px;
     width: 100%;
     margin-bottom: 21px;
@@ -124,14 +257,11 @@ export default {
     padding: 0px;
     gap: 4px;
 }
+
 p.title {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    /* identical to box height, or 150% */
-
-    /* Grey/Grey1 */
-
     color: var(--grey-grey1);
 }
 
@@ -139,10 +269,6 @@ p.snippet {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    /* identical to box height, or 150% */
-
-    /* Grey/Grey3 */
-
     color: var(--grey-grey3);
 }
 
@@ -157,10 +283,6 @@ p.date {
     font-weight: 500;
     font-size: 12px;
     line-height: 18px;
-    /* identical to box height, or 150% */
-
-    /* Grey/Grey2 */
-
     color: var(--grey-grey2);
 }
 
@@ -191,3 +313,4 @@ p.date {
     }
 }
 </style>
+  

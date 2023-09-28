@@ -21,11 +21,14 @@
           </td>
           <td>{{ formatDate(item) || "22-12-23" }}</td>
           <td>{{ truncateId(item._id, 7) }}</td>
-          <td>{{ item.products[0].quantity }}</td>
-          <td>{{ getProductPrice(item.products, item) }}</td>
+          <td>{{ calculateTotalProductQuantity(item.products) }}</td>
+          <td>{{ calculateTotalOrderPrice(item.products) }}</td>
           <td style="text-align: -webkit-right">
-            <span v-if="item.status === 'Pending'" :class="['tag', 'pending']">{{ item.status }}</span>
-            <span v-else :class="['tag', 'verified']">{{ item.status }}</span>
+            <DynamicTags
+                :tagText="item.status"
+                :size="listSelect.size"
+                :type="getTagType(item.status)"
+              />
           </td>
         </tr>
       </tbody>
@@ -41,7 +44,7 @@
         </tr>
       </thead>
     </table>
-    <!-- <p>No data</p> -->
+    <p> No data </p>
   </div>
 </template>
   
@@ -65,7 +68,24 @@ export default {
     return {
       startDate: "",
       endDate: "",
-      item: {}
+      item: {},
+      listSelect: [
+        {
+          title: "Order procesing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
     };
   },
   methods: {
@@ -77,6 +97,7 @@ export default {
       this.$router.push(`/dashboard/track_orders/${id}`);
       // this.$router.push({ name: 'OrderDetails', params: { orderId } });
       // console.log(window.location.origin + "/")
+      console.log("try", this.tableData)
     },
     truncateId(id, maxLength) {
       if (!id) {
@@ -103,45 +124,75 @@ export default {
       return `${day}-${month}-${year}`;
     },
 
-
-
     getProductImages(products) {
+      // Use the `map` function to create a new array
+      const images = products.slice(0, 3).map((product, index) => {
+        // Access the `images` property of each product (assuming it's an array)
+        const productImages = product.images;
 
-      const image = products?.map((product) => {
-        console.log(product.images[0].url)
-        return {
-          url: product.images[0].url
+        // Log the chosen products
+        if (index < 3) {
+          console.log(`Chosen Product ${index + 1}:`, product);
         }
+
+        // Return the first image URL
+        return productImages ? productImages[0] : product.product.images[0];
       });
-      return image;
 
+      // Log the chosen images to the console
+      console.log("Chosen Images:", images);
 
+      return images;
+    },
+    calculateTotalProductQuantity(products) {
+      if (Array.isArray(products) && products.length > 0) {
+        // Sum the quantities of all products in the order
+        return products.reduce((totalQuantity, product) => {
+          if (product && typeof product.quantity === 'number') {
+            return totalQuantity + product.quantity;
+          }
+          return totalQuantity;
+        }, 0);
+      }
+      return 0; // Return 0 if products is not defined or empty
     },
     getProductNames(products) {
-      if (!products || products.length === 0) {
-        return "No products";
-      } else if (products.length === 1) {
-        return products[0].name;
+  if (products.length === 0) {
+    return "No products";
+  } else if (products.length === 1) {
+    return products[0]?.name || products[0]?.product.name || "No name";
+  } else {
+    const truncatedNames =
+      products
+        .map((product) => product?.name || product?.product.name || "No name")
+        .join(", ")
+        .substring(0, 5) + "..."; // Adjust the character limit as needed
+    return truncatedNames;
+  }
+},
+calculateTotalOrderPrice(products) {
+    if (Array.isArray(products) && products.length > 0) {
+      // Sum the total prices of all products in the order
+      return products.reduce((totalPrice, product) => {
+        if (product && typeof product.totalPrice === 'number') {
+          return totalPrice + product.totalPrice;
+        }
+        return totalPrice;
+      }, 0);
+    }
+    return 0; // Return 0 if products is not defined or empty
+  },
+  getTagType(status) {
+      if (status === "PROCESSING") {
+        return "warning";
+      } else if (status === "SHIPPED") {
+        return "info";
+      } else if (status === "DELIVERED") {
+        return "positive";
       } else {
-        const truncatedNames =
-          products
-            .map((product) => product.name)
-            .join(", ")
-            .substring(0, 5) + "..."; // Adjust the character limit as needed
-        return truncatedNames;
-      }
-      console.log(products)
-    },
-    getProductPrice(products) {
-      if (!products || products.length === 0) {
-        return "No product";
-      } else if (products.length === 1) {
-        return products[0].discountPrice || products[0].totalPrice;
-      } else {
-        return products[0].discountPrice + products[1].discountPrice
+        return ""; // Handle any other cases if needed
       }
     },
-
   },
   created() {
     if (this.item?.products?.length > 0) {

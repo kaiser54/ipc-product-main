@@ -137,8 +137,8 @@ export default {
       );
       this.order = response?.data?.data?.orders;
       console.log(this.order);
-      // this.products = response?.data?.data?.orders?.products
-      // console.log(this.products)
+      this.products = response?.data?.data?.orders?.products
+      console.log(this.products)
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);

@@ -195,6 +195,7 @@ export default {
   flex-direction: column;
   width: auto;
   height: 100%;
+  min-width: 100%;
 }
 </style>
 
@@ -207,7 +208,7 @@ export default {
   padding: 16px;
   gap: 16px;
   width: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .empty {

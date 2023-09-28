@@ -56,9 +56,8 @@
       <!-- history table for mooile views -->
 
       <HistoryMobileTable
-        :tableData="tableDataClone"
-        :tableHeaders="tableHeaders"
         v-if="mobile"
+        :tableData="tableData"
       />
       <HistoryMobileFilter
         v-show="isFilterOpen && mobile"
@@ -106,6 +105,7 @@ export default {
       tableDataClone: [],
       tableDatas: null,
       filteredStatus:null,
+      tableDataMobile: []
       // filteredData: []
     };
   },
@@ -119,10 +119,15 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
+    
+    this.getOrders();
+    console.log(this.tableData)
+    console.log(this.tableDataClone)
     this.tableData.forEach((data) => {
     console.log('data Status:', data.status);
-  });
 
+  });
+  console.log("tableDataMobile", this.tableDataClone)
   },
   created() {
     if (this.$route.path === "/dashboard") {
@@ -131,6 +136,8 @@ export default {
     }
 
     this.getOrders();
+    console.log(this.tableData)
+    console.log(this.tableDataClone)
   },
   beforeDestroy() {
     this.checkScreenSize();
@@ -177,9 +184,11 @@ export default {
           `/orders/customer/${userId}`
         );
         this.tableDatas = response?.data?.data?.orders;
+        this.tableDataMobile = response?.data?.data?.orders
         this.tableData = this.tableDatas;
         this.tableDataClone = this.tableData;
-
+        console.log(this.tableData)
+    console.log(this.tableDataClone)
   this.tableDatas.forEach((order) => {
     this.filteredStatus = order.status
     console.log('Order Status:',this.filteredStatus);
@@ -194,22 +203,27 @@ export default {
 
 
     filterTableDataByStatus(status) {
-  this.status = status;
-  if (status === "All") {
+  this.status = status.status;
+  console.log("Selected status:", this.status); 
+  if (status.status === "All") {
     this.tableData = this.tableDataClone;
-  } else if (status === "Completed") {
-    this.tableData = this.tableDataClone.filter((item) => item.status === "DELIVERED")
-  } else if (status === "Pending") {
+  } else if (status.status === "Completed") {
+    this.tableData = this.tableDataClone.filter((item) => item.status === "DELIVERED");
+  } else if (status.status === "Pending") {
     this.tableData = this.tableDataClone.filter(
       (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
     );
-  } else if (status === "Cancelled") {
+  } else if (status.status === "Cancelled") {
     this.tableData = this.tableDataClone.filter((item) => item.status === "CANCELLED");
   } else {
     console.error("Invalid status selected");
     this.tableData = []; 
   }
+  
+  // Set the activeTabs array to reflect the selected status
+  this.activeTabs = [status];
 },
+
 
 
 
