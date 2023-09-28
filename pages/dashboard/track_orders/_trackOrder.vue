@@ -10,49 +10,62 @@
       <div class="product-description">
         <div class="child order-track">
           <div class="user">
-            <div class="orderProduct"  >
-              <div class="userProduct" @click="moreOrder()">
+            <div class="orderProduct">
+              <div class="userProduct" @click="moreOrder">
                 <NewOrderProduct
-              v-if="orderDetails"
-              :tagText="dynamicTagProps.tagText"
-              size="small"
-              :type="dynamicTagProps.type"
-              :data="orderDetails"
-              />
-              
+                  v-if="orderDetails"
+                  :tagText="dynamicTagProps.tagText"
+                  size="small"
+                  :type="dynamicTagProps.type"
+                  :data="orderDetails"
+                />
               </div>
-              <OrderProduct 
-              class="more"
-                v-if="more"
-              :tagText="tagText" :size="'small'" :type="type" @set-level="setTrackOrderLevel($event)"   />
+              <div class="" style="position: sticky; overflow: hidden">
+                <div :class="{ 'slide-out': !more, 'slide-in': more }">
+                  <OrderProduct
+                    v-for="(order, index) in orderDetails?.products"
+                    :key="index"
+                    :item="order"
+                    :status="orderDetails?.status"
+                    class="more"
+                    :tagText="tagText"
+                    :size="'small'"
+                    :type="type"
+                    @set-level="setTrackOrderLevel($event)"
+                  />
+                </div>
+              </div>
+
               <TrackingBar :track-level="trackLevel" />
             </div>
             <UserInfo
-            class="userInform"
-            v-if="orderDetails"
-          :data="orderDetails"
-          style="max-width: 387px; width: 100%; margin-left: 20px"
+              class="userInform"
+              v-if="orderDetails"
+              :data="orderDetails"
+              style="max-width: 387px; width: 100%; margin-left: 20px"
             />
           </div>
           <div class="mobile-user">
-            <div class="orderProduct"  @click="showUserModal">
-            
-              <MobileOrderProduct  :tagText="tagText" :size="'small'" :type="type" @set-level="setTrackOrderLevel($event)"   />
+            <div class="orderProduct" @click="showUserModal">
+              <MobileOrderProduct
+                :tagText="tagText"
+                :size="'small'"
+                :type="type"
+                @set-level="setTrackOrderLevel($event)"
+              />
             </div>
             <TrackingBar :track-level="trackLevel" />
-            <div class="modal-overlay" v-if="showUserInfoModal" @click="showUserInfoModal = false">
-          <div class="modal-content">
-            <UserInfo
-            v-if="orderDetails"
-          :data="orderDetails"
-        
-            />
+            <div
+              class="modal-overlay"
+              v-if="showUserInfoModal"
+              @click="showUserInfoModal = false"
+            >
+              <div class="modal-content">
+                <UserInfo v-if="orderDetails" :data="orderDetails" />
+              </div>
+            </div>
           </div>
         </div>
-          </div>
-        
-        </div>
-       
       </div>
     </div>
   </div>
@@ -60,9 +73,7 @@
 
 <script>
 export default {
-  props: {
-    
-  },
+  props: {},
   layout: "dashboardview",
   // Other component properties and methods
   data() {
@@ -71,7 +82,7 @@ export default {
       pageTitle: "IPC | Track orders",
       selectedIndex: 2,
       showUserInfoModal: false,
-      more:false,
+      more: false,
       listSelect: [
         {
           title: "Order procesing",
@@ -89,7 +100,7 @@ export default {
           size: "small",
         },
       ],
-      orderDetails: null
+      orderDetails: null,
     };
   },
   head() {
@@ -133,67 +144,81 @@ export default {
     },
   },
   created() {
-    this.orderId = this.$route.params.trackOrder
-    this.getOrders()
+    this.orderId = this.$route.params.trackOrder;
+    this.getOrders();
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     setTrackOrderLevel(val) {
-      this.selectedIndex = val.level
-      this.trackLevel = val
+      this.selectedIndex = val.level;
+      this.trackLevel = val;
     },
-    moreOrder(){
-      this.more = !this.more
+    moreOrder() {
+      this.more = !this.more;
     },
     async getOrders() {
-      this.orderId = this.$route.params.trackOrder
-    try {
-      const response = await this.$axios.$get(`/orders/${this.orderId}`);
-      console.log("orderDetails:",response.data.order)
-      this.orderDetails = response?.data?.order;
-      this.selectedItem = this.orderDetails?.status;
-      this.loading = false;
-    } catch (error) {
-      console.error('Error fetching order details:', error);
-    }
+      this.orderId = this.$route.params.trackOrder;
+      try {
+        const response = await this.$axios.$get(`/orders/${this.orderId}`);
+        console.log("orderDetails:", response.data.order);
+        this.orderDetails = response?.data?.order;
+        this.selectedItem = this.orderDetails?.status;
+        this.loading = false;
+      } catch (error) {
+        console.error("Error fetching order details:", error);
+      }
+    },
+    showUserModal() {
+      this.showUserInfoModal = true;
+      console.log("working");
+    },
   },
-  showUserModal(){
-    this.showUserInfoModal = true
-    console.log('working')
-  }
-  }
 };
 </script>
 
 <style scoped>
+.slide-in {
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  opacity: 1;
+  height: auto; /* Auto height for slide-in */
+}
+
+.slide-out {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  opacity: 0;
+  height: 0; /* Collapsed height for slide-out */
+}
 .view-page {
   gap: 32px;
 }
-.mobile-user{
+.mobile-user {
   display: none;
 }
-.more{
+.more {
   margin-bottom: 30px;
   display: flex;
-  justify-content: center ;
-  align-items:center ;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+  transition: all;
 }
-.user{
+.user {
   display: flex;
   gap: 20px;
 }
-.userProduct{
+.userProduct {
   margin-bottom: 50px;
   cursor: pointer;
 }
-.userInform{
+.userInform {
   position: sticky;
   position: -webkit-sticky;
-  top: 0px;
-	height: 350px;
+  top: 16px;
+  height: 350px;
 }
 .top-header {
   display: flex;
@@ -206,7 +231,7 @@ export default {
 .title-header {
   gap: 16px;
 }
-.orderProduct{
+.orderProduct {
   width: 100%;
 }
 .product-transaction {
@@ -238,14 +263,12 @@ export default {
   gap: 30px;
 }
 
-
 .total {
   color: var(--grey-grey1);
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
 }
-
 
 .modal-overlay {
   /* Styles for modal overlay on mobile */
@@ -272,8 +295,6 @@ export default {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-
-
 @media (max-width: 1030px) {
   .child:nth-child(1) {
     flex: 100;
@@ -285,16 +306,16 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-  .userInform{
+  .userInform {
     display: none;
   }
-  .user{
+  .user {
     display: none;
   }
-  .mobile-user{
+  .mobile-user {
     display: block;
   }
-  .orderProduct{
+  .orderProduct {
     margin-bottom: 20px;
   }
 }

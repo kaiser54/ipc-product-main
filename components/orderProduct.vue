@@ -1,23 +1,40 @@
 <template>
   <div class="order-wrapper">
-  <div class="order-product" v-for="item in products" :key="item._id">
-    <div class="image">
-        <img v-if="item.product && item.product.images && item.product.images.length > 0" :src="item.product.images[0].url" style="max-height: 100%; width: 100px " alt="product Image" />
+    <!-- <div class="order-product" v-for="item in products" :key="item._id"> -->
+    <div class="order-product">
+      <div class="image">
+        <img
+          v-if="
+            item.product &&
+            item.product.images &&
+            item.product.images.length > 0
+          "
+          :src="item.product.images[0].url"
+          style="max-height: 100%; width: 100px"
+          alt="product Image"
+        />
       </div>
       <div class="order-product-details">
         <div class="order-content">
           <div class="title">{{ item.product.name }}</div>
           <div class="order-id-price">
-            <div class="order-id">Order Id:  {{ truncateId(item._id, 10) }} </div>
+            <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
             <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
-          <div class="order-price"><span class="naira">₦</span> {{item.totalPrice
-}}</div>
-          <DynamicTags :tagText="status" :size="size" :type="getTagType(status)" />
+          <div class="order-price">
+            <span class="naira">₦</span> {{ item.totalPrice }}
+          </div>
+          <DynamicTags
+            :tagText="status"
+            :size="size"
+            :type="getTagType(status)"
+          />
         </div>
 
         <div class="price-qty">
-          <div class="order-price"><span class="naira">₦</span> {{ item.totalPrice }}</div>
+          <div class="order-price">
+            <span class="naira">₦</span> {{ item.totalPrice }}
+          </div>
           <div class="order-qty">Qty: {{ item.quantity }}</div>
         </div>
       </div>
@@ -47,16 +64,23 @@ export default {
       type: String,
       required: true,
     },
-
+    item: {
+      type: Object,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
   },
 
-data(){
-  return{
-    order:null,
-    orderId: '',
-    products: [],
-    status:"",
-    listSelect: [
+  data() {
+    return {
+      order: null,
+      orderId: "",
+      // products: [],
+      // status: "",
+      listSelect: [
         {
           title: "Order Processing",
           type: "warning",
@@ -73,38 +97,16 @@ data(){
           size: "small",
         },
       ],
-  }
-},
-  async created() {
-    this.orderId = this.$route.params.trackOrder
-    try {
-      const response = await this.$axios.$get(`/orders/${this.orderId}`);
-      console.log(response.data)
-      this.order = response?.data?.order;
-      this.products = this.order.products
-      console.log(this.products)
-      console.log(this.order.status)
-      this.status = this.order.status
-      const level = this.listSelect.findIndex(s => s.title.toLowerCase().includes(this.status.toLowerCase()))
-      this.$emit('set-level', {level, status: this.status})
-      console.log(level)
-      this.loading = false;
-    } catch (error) {
-      console.error('Error fetching order details:', error);
-    }
-    // console.log(this.currentPage);
+    };
   },
-  methods:{
-    getProductImages(images) {
-    console.log(images[0].url)
-    // return images[0].url
-    //   const image = images?.map((img) => {
-    // // return img[0].url
-    //   });
-    //   return image
-      
-
-    },
+  created() {
+    const level = this.listSelect.findIndex((s) =>
+      s.title.toLowerCase().includes(this.status.toLowerCase())
+    );
+    this.$emit("set-level", { level, status: this.status });
+    this.loading = false;
+  },
+  methods: {
     getTagType(status) {
       if (status === "PROCESSING") {
         return "warning";
@@ -118,17 +120,16 @@ data(){
     },
     truncateId(id, maxLength) {
       if (!id) {
-        return ''; // Return an empty string if id is undefined or null
+        return ""; // Return an empty string if id is undefined or null
       }
 
       if (id.length > maxLength) {
-        return id.substring(0, maxLength) + '...';
+        return id.substring(0, maxLength) + "...";
       }
 
       return id;
     },
-
-  }
+  },
 };
 </script>
 
@@ -325,4 +326,5 @@ a {
       max-width: 150px;
     }
   }
-}</style>
+}
+</style>

@@ -22,11 +22,11 @@
           <td>{{ formatDate(item) || "22-12-23" }}</td>
           <td>{{ truncateId(item._id, 7) }}</td>
           <td>{{ calculateTotalProductQuantity(item.products) }}</td>
-          <td>{{ calculateTotalOrderPrice(item.products) }}</td>
+          <td><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item.products)) }}</td>
           <td style="text-align: -webkit-right">
             <DynamicTags
                 :tagText="item.status"
-                :size="listSelect.size"
+                size="small"
                 :type="getTagType(item.status)"
               />
           </td>
@@ -49,6 +49,7 @@
 </template>
   
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     activeTabs: {
@@ -89,6 +90,7 @@ export default {
     };
   },
   methods: {
+    formatPriceWithCommas,
     toHistoryDetails(id) {
       // const baseURL = "/dashboard/track orders/";
       // const baseURL = `/dashboard/track orders/${value}`;

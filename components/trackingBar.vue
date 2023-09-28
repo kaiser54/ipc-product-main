@@ -143,8 +143,7 @@ export default {
 }
 
 .circle {
-    width: 25px;
-    height: 70px;
+    padding: 10px;
     border-radius: 50%;
     border: 2px solid grey;
     /* Green border */
@@ -157,7 +156,7 @@ export default {
 
 .inner-circle {
     width: 15px;
-    height: 16px;
+    height: 15px;
     border-radius: 50%;
     background-color: green;
     /* Small green circle color */
