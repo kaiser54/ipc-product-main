@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div class="empty"  v-if="notifications.length === 0">
-            <EmptyNotification 
+    <div>
+        <EmptyNotification
         :header="header"
         :snippet="snippet"
         >
-        
         <template v-slot:svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="147" height="159" viewBox="0 0 147 159" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="147" height="159" viewBox="0 0 147 159" fill="none">
   <path d="M141.851 118.992C139.741 115.952 136.911 112.882 133.441 109.842C122.311 100.072 104.661 90.6716 83.7707 84.3016C62.8807 77.9316 42.9907 75.8816 28.3007 77.7816C23.7307 78.3716 19.6607 79.3416 16.2207 80.6816C23.9407 77.7216 30.2607 71.3716 32.8507 62.8516L36.7707 49.9916C45.1707 22.4716 73.2007 6.34163 100.821 12.2716C102.341 12.6016 103.861 12.9916 105.371 13.4516C106.881 13.9116 108.361 14.4416 109.811 15.0116C122.211 19.9616 131.931 29.0616 137.851 40.1816C144.471 52.5916 146.341 67.5316 141.921 82.0516L138.001 94.9116C135.401 103.432 137.101 112.232 141.851 118.992Z" fill="#7E8494"/>
   <path d="M142.562 144.262L142.342 145.002C142.392 144.882 142.432 144.752 142.462 144.632C142.492 144.512 142.532 144.392 142.562 144.262Z" fill="#FFD52B"/>
   <path d="M142.882 139.132C142.452 135.743 140.812 132.152 138.142 128.512C136.112 125.742 133.472 122.922 130.302 120.152C119.172 110.382 101.522 100.982 80.6321 94.6125C59.7421 88.2425 39.8521 86.1925 25.1621 88.0925C20.9921 88.6325 17.2421 89.4825 14.0021 90.6525C9.75207 92.1925 6.38207 94.2525 4.12207 96.8325C2.85207 98.2725 1.94207 99.8725 1.40207 101.632C-3.39793 117.372 24.2921 139.772 63.2421 151.652C101.882 163.432 137.102 160.432 142.342 145.012L142.562 144.272C143.012 142.632 143.112 140.922 142.882 139.142V139.132ZM134.672 144.652C128.012 155.932 97.8321 157.152 64.6421 147.032C31.4521 136.912 7.11207 119.052 7.86207 105.982C7.90207 105.212 8.04207 104.442 8.26207 103.702C8.69207 102.302 9.42207 101.032 10.4521 99.8925C13.0821 96.9325 17.5921 94.8225 23.4821 93.6025C36.8721 90.8025 57.3921 92.5525 79.2321 99.2125C101.062 105.872 119.072 115.872 128.622 125.662C132.832 129.962 135.402 134.232 135.922 138.152C136.142 139.672 136.032 141.132 135.612 142.532C135.392 143.272 135.072 143.982 134.672 144.642V144.652Z" fill="#E5E7EF"/>
@@ -22,180 +20,19 @@
         </template>
     </EmptyNotification>
     </div>
-    <div class="notification-wrapper">
-      <div class="notification" v-for="(notification, index) in notifications" :key="index">
-        <div class="time">{{ notification.time }}</div>
-        <div class="notification-header">
-          <div class="title">{{ notification.title }}</div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
-            <path d="M5.83301 3.16699L11.1663 8.50033L5.83301 13.8337" stroke="#565C69" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-        <div class="message">{{ notification.message }}</div>
-        <div class="notification-product">
-          <div class="image">
-            <img :src="require(`~/assets/images/${notification.image}`)" />
-          </div>
-          <div class="product-name">{{ notification.productName }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-export default {
-  layout: "dashboardview",
-  // Other component properties and methods
-  data() {
-    return {
-      pageTitle: "IPC | Market",
-      notifications: [
- 
-      ],
-      header:"No notification",
-      snippet:"You have no notifications right now, come back later",
-    };
-  },
-  head() {
-    return {
-      title: this.pageTitle,
-    };
-  },
-};
+    export default {
+        data(){
+            return{
+                header:"NO notification",
+                snippet:"You have no notifications right now, come back later"
+            }
+        }
+    }
 </script>
 
-<style scoped>
-.notification-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-.empty{
-  width: 255px;
-  height: 265px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* border: 1px solid red; */
-  text-align: center;
-  margin: auto;
-        
-}
-.notification {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 12px;
-  gap: 8px;
+<style lang="scss" scoped>
 
-  /* width: 342px;
-height: 189px; */
-
-  /* Grey/Grey5 */
-
-  border: 1px solid var(--grey-grey5);
-  border-radius: 16px;
-}
-
-.time {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 18px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey3 */
-
-  color: var(--grey-grey3);
-}
-
-.notification-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-  gap: 3px;
-  width: 100%;
-}
-
-.notification-header .title {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-
-.message {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 18px;
-  /* or 150% */
-
-
-  /* Grey/Grey2 */
-
-  color: var(--grey-grey2);
-}
-
-.notification-product {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px;
-  gap: 8px;
-
-  width: 318px;
-  height: 48px;
-
-  /* Grey/Grey6 */
-
-  border: 1px solid var(--grey-grey6);
-  border-radius: 12px;
-}
-
-.notification-product .image {
-  width: 28.44px;
-  height: 32px;
-}
-
-.notification-product img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-.product-name {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
-  color: var(--grey-grey1);
-}
-@media screen and (max-width:600px) {
-  .empty{
-  width: 255px;
-  height: 265px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* border: 1px solid red; */
-  text-align: center;
-  margin: auto;
-  margin-top: 25%;
-        
-}
-}
 </style>

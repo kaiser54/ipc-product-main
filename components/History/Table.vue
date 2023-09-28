@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container" style="width: 100%">
+  <div v-if="tableData.length" class="table-container" style="width: 100%">
     <table style="width: 100%">
       <thead>
         <tr>
@@ -9,32 +9,47 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails">
+        <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails(item._id)">
           <td style="display: flex; align-items: center; gap: 5px">
-            <div class="img">
-              <img src="@/assets/images/p1.png" alt="" />
+            <div class="img" v-for="image in getProductImages(item.products)" :key="image.id">
+              <!-- {{ image.url }} -->
+              <img :src="image.url" alt="product Image" />
             </div>
-            {{ item.name }}
+            <span class="product-name">{{
+              getProductNames(item.products)
+            }}</span>
           </td>
-          <td>{{ item.date }}</td>
-          <td>{{ item.orderId }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.price }}</td>
+          <td>{{ formatDate(item) || "22-12-23" }}</td>
+          <td>{{ truncateId(item._id, 7) }}</td>
+          <td>{{ calculateTotalProductQuantity(item.products) }}</td>
+          <td><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item.products)) }}</td>
           <td style="text-align: -webkit-right">
-            <span
-              v-if="item.status === 'Pending'"
-              :class="['tag', 'pending']"
-              >{{ item.status }}</span
-            >
-            <span v-else :class="['tag', 'verified']">{{ item.status }}</span>
+            <DynamicTags
+                :tagText="item.status"
+                size="small"
+                :type="getTagType(item.status)"
+              />
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <div v-else class="table-container" style="width: 100%">
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th v-for="header in tableHeaders" :key="header">
+            {{ header }}
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <TableLoader />
+  </div>
 </template>
   
-  <script>
+<script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     activeTabs: {
@@ -54,22 +69,145 @@ export default {
     return {
       startDate: "",
       endDate: "",
+      item: {},
+      listSelect: [
+        {
+          title: "Order procesing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
     };
   },
   methods: {
-    toHistoryDetails() {
+    formatPriceWithCommas,
+    toHistoryDetails(id) {
       // const baseURL = "/dashboard/track orders/";
       // const baseURL = `/dashboard/track orders/${value}`;
       // this.$router.push(baseURL + value)
       // this.$router.push(`/dashboard/track orders/${value}`)
-      this.$router.push(`/dashboard/track_orders/lol`);
+      this.$router.push(`/dashboard/track_orders/${id}`);
+      // this.$router.push({ name: 'OrderDetails', params: { orderId } });
       // console.log(window.location.origin + "/")
+      console.log("try", this.tableData)
+    },
+    truncateId(id, maxLength) {
+      if (!id) {
+        return ''; // Return an empty string if id is undefined or null
+      }
+
+      if (id.length > maxLength) {
+        return id.substring(0, maxLength) + '...';
+      }
+
+      return id;
+    },
+    formatDate(item) {
+      if (!item || !item?.products || item?.products?.length === 0 || !item?.products[0]?.createdAt) {
+        return ''; // Return an empty string if any of the required data is undefined
+      }
+      const date = new Date(item?.products[0]?.createdAt);
+      if (!date || isNaN(date.getTime())) {
+        return ''; // Return an empty string if date is invalid
+      }
+      const year = date.getFullYear().toString().slice(-2); // Last two digits of the year
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Month, zero-padded
+      const day = String(date.getDate()).padStart(2, "0"); // Day, zero-padded
+      return `${day}-${month}-${year}`;
+    },
+
+    getProductImages(products) {
+      // Use the `map` function to create a new array
+      const images = products.slice(0, 3).map((product, index) => {
+        // Access the `images` property of each product (assuming it's an array)
+        const productImages = product.images;
+
+        // Log the chosen products
+        if (index < 3) {
+          console.log(`Chosen Product ${index + 1}:`, product);
+        }
+
+        // Return the first image URL
+        return productImages ? productImages[0] : product.product.images[0];
+      });
+
+      // Log the chosen images to the console
+      console.log("Chosen Images:", images);
+
+      return images;
+    },
+    calculateTotalProductQuantity(products) {
+      if (Array.isArray(products) && products.length > 0) {
+        // Sum the quantities of all products in the order
+        return products.reduce((totalQuantity, product) => {
+          if (product && typeof product.quantity === 'number') {
+            return totalQuantity + product.quantity;
+          }
+          return totalQuantity;
+        }, 0);
+      }
+      return 0; // Return 0 if products is not defined or empty
+    },
+    getProductNames(products) {
+  if (products.length === 0) {
+    return "No products";
+  } else if (products.length === 1) {
+    return products[0]?.name || products[0]?.product.name || "No name";
+  } else {
+    const truncatedNames =
+      products
+        .map((product) => product?.name || product?.product.name || "No name")
+        .join(", ")
+        .substring(0, 5) + "..."; // Adjust the character limit as needed
+    return truncatedNames;
+  }
+},
+calculateTotalOrderPrice(products) {
+    if (Array.isArray(products) && products.length > 0) {
+      // Sum the total prices of all products in the order
+      return products.reduce((totalPrice, product) => {
+        if (product && typeof product.totalPrice === 'number') {
+          return totalPrice + product.totalPrice;
+        }
+        return totalPrice;
+      }, 0);
+    }
+    return 0; // Return 0 if products is not defined or empty
+  },
+  getTagType(status) {
+      if (status === "PROCESSING") {
+        return "warning";
+      } else if (status === "SHIPPED") {
+        return "info";
+      } else if (status === "DELIVERED") {
+        return "positive";
+      } else {
+        return ""; // Handle any other cases if needed
+      }
     },
   },
-};
+  created() {
+    if (this.item?.products?.length > 0) {
+      const firstProductCreatedAt = this.item?.products;
+      console.log(firstProductCreatedAt);
+    } else {
+      console.log('No products in the array.');
+    }
+  }
+}
 </script>
   
-  <style scoped>
+<style scoped>
 table,
 th,
 td {
@@ -103,6 +241,7 @@ tr:hover {
 thead tr:hover {
   background-color: none !important;
 }
+
 th:last-child {
   text-align: center;
 }

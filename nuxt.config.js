@@ -84,14 +84,6 @@ export default {
     baseUrl: process.env.BASE_URL,
   },
   router: {
-    middleware: ["auth", "redirect"],
-    // middleware: ["redirect"],
-    extendRoutes(routes, resolve) {
-      routes.push({
-        // name: 'product',
-        path: "/dashboard/market/:productId",
-        component: resolve(__dirname, "pages/dashboard/market/_product.vue"),
-      });
-    },
+    middleware: ['auth'],
   },
 };

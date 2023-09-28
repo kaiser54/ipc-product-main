@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="logout-modal" style="z-index: 2;">
+    <div class="logout-modal" style="z-index: 2">
       <div class="WH-auto animate__animated" :class="animate">
         <div class="modal">
           <div class="modal-msg">
@@ -30,11 +30,9 @@
             <button @click="closeModal" class="btn" :class="buttonClass">
               {{ buttonText }}
             </button>
-            <nuxt-link :to="{ name: 'index' }"
-              ><button class="btn" :class="buttonClass2">
-                {{ buttonText2 }}
-              </button></nuxt-link
-            >
+            <button class="btn" @click="okModal" :class="buttonClass2">
+              {{ buttonText2 }}
+            </button>
           </div>
         </div>
         <div class="modalbg WH-auto logout-modal" ref="modalRef"></div>
@@ -94,6 +92,9 @@ export default {
     },
     closeModal() {
       this.$emit("closeModal");
+    },
+    okModal() {
+      this.$emit("okModal");
     },
   },
 };

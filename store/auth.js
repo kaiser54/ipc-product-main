@@ -32,6 +32,10 @@ export default {
       state.token = "";
       state.user = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("welcomeFlow");
     },
   },
 
@@ -94,7 +98,7 @@ export default {
       }
     },
 
-    async logout({ commit }) {
+    async logoutUser({ commit }) {
       commit("LOGOUT");
     },
   },

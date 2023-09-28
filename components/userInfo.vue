@@ -51,14 +51,23 @@
     <div class="client-user-name bdr">
       <div class="client-frame">
         <!-- <span>Subtotal</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
-        <span>Subtotal</span><span class="bold">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</span>
+        <span>Subtotal</span><span class="bold">₦
+          {{
+            formatPriceWithCommas(getTotalProductPrice(data?.products))
+          }}</span>
       </div>
       <div class="client-frame">
-        <span>Delivery fee</span><span class="bold">₦ 0</span>
+        <span>Delivery fee</span><span class="bold">₦ {{ formatPriceWithCommas(data.deliveryFee)  || 0 
+ }}</span>
       </div>
       <div class="client-frame total">
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
-        <span>Total</span><span class="bold">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</span>
+        <span>Total</span><span class="bold">₦
+          {{
+            formatPriceWithCommas(
+              getTotalProductPrice(data?.products) + data?.deliveryFee
+            )
+          }}</span>
       </div>
     </div>
   </div>
@@ -89,7 +98,26 @@ export default {
     console.log(this.data);
   },
   methods: {
-    formatPriceWithCommas,
+    formatPriceWithCommas(price) {
+    if (price !== null && price !== undefined) {
+      // Use the toLocaleString method with appropriate options to add commas
+      return price.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    } else {
+      // Handle the case where price is null or undefined
+      return "0.00"; // or any default value you prefer
+    }
+  },
+  getTotalProductPrice(products) {
+      let price = 0;
+
+      for (const product of products) {
+        if (product.totalPrice) {
+          price += product.totalPrice;
+        }
+      }
+
+      return price;
+    },
   },
 };
 </script>

@@ -2,8 +2,8 @@
   <div class="email-pass">
     <div class="email-desktop">
       <p>Email address</p>
-      <div class="email-address-detail" @click="$emit('openMail')">
-        <div class="emailaddress">
+      <div class="email-address-detail" @click="$emit('openMail')" v-if="!verifiedEmail" >
+        <div class="emailaddress" >
           <div class="icon-circle">
             <div class="badge"><p>!</p></div>
             <div class="circle">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="email-verification">
-            <p class="email">adminchickenrepublic@gmail.com</p>
+            <p class="email">{{userEmail}}</p>
             <p class="verification">Pending verification</p>
           </div>
         </div>
@@ -52,7 +52,18 @@
           />
         </svg>
       </div>
+      <div class="verified-Email" v-else>
+        <div class="emailaddress" >
+          <div class="icon-circle">
+            <img src="~/assets/images/verified-email.png" alt="verified-email">
+          </div>
+          <div class="email-verification">
+            <p class="email">{{userEmail}}</p>
+            <p class="verification">Email Verified</p>
+          </div>
+        </div>
     </div>
+      </div>
     <div class="email-desktop">
       <div class="email-address-detail" @click="$emit('openPassword')">
         <div class="emailaddress">
@@ -94,7 +105,49 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return {
+      verifiedEmail : false,
+      userEmail:null
+
+    }
+  },
+  created(){
+    this.userEmail = localStorage.getItem('userEmail')
+    console.log(this.userEmail)
+  },
+  mounted(){
+    const userData = localStorage.getItem("user");
+        if (userData) {
+          this.user = JSON.parse(userData);
+          console.log("User data in localStorage:", JSON.parse(userData));
+          console.log("User:", this.user.verified);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+          
+        } else {
+          console.log("User data not found in localStorage.");
+        }
+    this.getUserDetails()
+  },
+  methods:{
+    async getUserDetails(){
+      try{
+        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+        this.userProfile = response.data.data.customer
+        console.log("user-profile:",this.userProfile)
+        console.log("user-profile-status:",this.userProfile.verified)
+        this.userProfileStatus = response.data.data.customer.verified
+        this.verifiedEmail = this.userProfileStatus
+      }catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
+  }
+  
+};
 </script>
 
 <style scoped>
@@ -114,7 +167,7 @@ export default {};
   gap: 8px;
   width: 100%;
 }
-.email-address-detail {
+.email-address-detail, .verified-Email {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -189,3 +242,4 @@ p.verification {
   color: var(--primary-p300);
 }
 </style>
+{{ verifiedEmail ? 'Email Verified' : 'Pending verification' }}

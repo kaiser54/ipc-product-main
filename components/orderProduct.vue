@@ -1,45 +1,47 @@
 <template>
   <div class="order-wrapper">
+    <!-- <div class="order-product" v-for="item in products" :key="item._id"> -->
     <div class="order-product">
       <div class="image">
-        <img src="~/assets/images/p1.png" alt="" />
+        <img
+          v-if="
+            item.product &&
+            item.product.images &&
+            item.product.images.length > 0
+          "
+          :src="item.product.images[0].url"
+          style="max-height: 100%; width: 100px"
+          alt="product Image"
+        />
       </div>
       <div class="order-product-details">
         <div class="order-content">
-          <div class="title" :class="{ truncate: checkout }">
-            Mama'S Choice Nigerian Parboiled Rice 25kg
-          </div>
+          <div class="title">{{ item.product.name }}</div>
           <div class="order-id-price">
-            <div class="order-id" v-if="!checkout">Order Id: 1234567</div>
-            <div class="order-qty">Qty: 1</div>
+            <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
+            <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
-          <div class="order-price" :class="{ 'pricing': checkout }">
-            <span class="naira">₦</span> 75,000
+          <div class="order-price">
+            <span class="naira">₦</span> {{ item.totalPrice }}
           </div>
-          <DynamicTags :tagText="tagText" :size="size" :type="type" />
+          <DynamicTags
+            :tagText="status"
+            :size="size"
+            :type="getTagType(status)"
+          />
         </div>
 
         <div class="price-qty">
-          <div class="order-price" :class="{ 'pricing': checkout }"><span class="naira">₦</span> 75,000</div>
-          <div class="order-qty">Qty: 1</div>
+          <div class="order-price">
+            <span class="naira">₦</span> {{ item.totalPrice }}
+          </div>
+          <div class="order-qty">Qty: {{ item.quantity }}</div>
         </div>
       </div>
-      <svg
-        v-if="showSvg"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="33"
-        viewBox="0 0 32 33"
-        fill="none"
-      >
-        <path
-          d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
-          stroke="#565C69"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <!-- <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+        <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg> -->
     </div>
   </div>
 </template>
@@ -62,9 +64,70 @@ export default {
       type: String,
       required: true,
     },
-    checkout: {
-      type: Boolean,
-      default: false,
+    item: {
+      type: Object,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      order: null,
+      orderId: "",
+      // products: [],
+      // status: "",
+      listSelect: [
+        {
+          title: "Order Processing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
+    };
+  },
+  created() {
+    const level = this.listSelect.findIndex((s) =>
+      s.title.toLowerCase().includes(this.status.toLowerCase())
+    );
+    this.$emit("set-level", { level, status: this.status });
+    this.loading = false;
+  },
+  methods: {
+    getTagType(status) {
+      if (status === "PROCESSING") {
+        return "warning";
+      } else if (status === "SHIPPED") {
+        return "info";
+      } else if (status === "DELIVERED") {
+        return "positive";
+      } else {
+        return ""; // Handle any other cases if needed
+      }
+    },
+    truncateId(id, maxLength) {
+      if (!id) {
+        return ""; // Return an empty string if id is undefined or null
+      }
+
+      if (id.length > maxLength) {
+        return id.substring(0, maxLength) + "...";
+      }
+
+      return id;
     },
   },
 };
@@ -98,17 +161,17 @@ a {
   padding: 16px;
   gap: 16px;
 
-  width: 100%;
+  width: 90%;
 
   /* Grey/Grey5 */
 
-  border: 1px solid var(--grey-grey5);
+  /* border: 1px solid var(--grey-grey5); */
   border-radius: 16px;
 }
 
 .image {
   width: 64px;
-  height: 72px;
+  height: auto;
 
   /* Grey/Grey6 */
 
@@ -263,18 +326,5 @@ a {
       max-width: 150px;
     }
   }
-}
-.truncate {
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide the overflowed text */
-  text-overflow: ellipsis; /* Show an ellipsis (...) when text overflows */
-  max-width: 100px; /* Optionally, set a maximum width for the container */
-}
-.price-qty .pricing {
-  /* Body Small/Body Small Medium */
-  font-size: 14px !important;
-  font-style: normal !important;
-  font-weight: 500 !important;
-  line-height: 21px !important; /* 150% */
 }
 </style>

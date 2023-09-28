@@ -73,6 +73,14 @@ export default {
   computed: {
     ...mapGetters("cart", ["TotalCart"]),
   },
+  mounted() {
+    if (process.client) {
+      const userData = localStorage.getItem("user");
+      if (!userData) {
+        this.$router.push("/auth/login");
+      }
+    }
+  },
   methods: {
     goBack() {
       this.$router.go(-1);

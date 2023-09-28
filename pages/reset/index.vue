@@ -1,6 +1,7 @@
 <template>
     <div>
         <!-- <loading /> -->
+        <Loading :message="message"  v-if="verificationLoading" />
         <div class="content" v-if="!isConfirm">
             <div class="container">
                 <div class="wrapper">
@@ -34,15 +35,18 @@
                 </div>
             </div>
         </div>
-        <AuthConfirmation :maskedEmail=hiddenMail v-else class="animate__animated animate__zoomIn" />
+        <AuthConfirmation :maskedEmail="hiddenMail" v-else-if="confirmation" class="animate__animated animate__zoomIn" />
+        <AuthFailedState  :maskedEmail="hiddenMail"  v-else-if="Notconfirmed" class="animate__animated animate__zoomIn" />
     </div>
 </template>
   
 <script>
 import 'animate.css';
+import Loading from '~/components/Loader/Rolling.vue';
 // import { mapState } from 'vuex';
 // import { createStore } from '~/plugins/store';
 export default {
+    components: { Loading },
     layout: "registration layout",
     // Other component properties and methods
     data() {
@@ -53,6 +57,10 @@ export default {
             isConfirm: false,
             emailErrorMessage: "",
             pageTitle: "IPC | Reset Password",
+            confirmation: false,
+            Notconfirmed: false,
+            verificationLoading: false,
+            message: ''
         };
     },
     head() {
@@ -132,12 +140,20 @@ export default {
         },
         async sendForgotPasswordEmail() {
             try {
+                this.verificationLoading = true
+                this.message = "Verifying Email, Please wait"
                 const response = await this.$axios.post('/business-customers/forgot-password', {
                     email: this.email
                 });
+                this.verificationLoading = false
                 console.log('Email sent successfully', response.data);
+                this.confirmation = true
+                
+               
             } catch (error) {
                 console.error('Error sending email:', error);
+                this.verificationLoading = false
+              this.Notconfirmed = true
             }
         }
     },

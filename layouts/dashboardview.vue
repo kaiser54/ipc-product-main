@@ -3,7 +3,7 @@
     <Cart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
-      v-if="isNotification && !mobile && !user"
+      v-if="isNotification && !mobile "
     />
 
     <div class="dashboard-wrapper" v-if="user">
@@ -68,8 +68,9 @@
         buttonText2="Log out"
         buttonClass="neutral-btn"
         buttonClass2="negative-btn"
-        @closeModal="logoutUser"
-        @closeModalBG="logoutUserBG"
+        @closeModal="closeLogoutUser"
+        @okModal="logOutUser"
+        @closeModalBG="closeLogoutUserBG"
       />
     </transition>
   </div>
@@ -77,6 +78,7 @@
 
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -108,6 +110,7 @@ export default {
           console.log("User data in localStorage:", JSON.parse(userData));
         } else {
           // User data is not found in localStorage
+          this.$router.push("/auth/login");
           console.log("User data not found in localStorage.");
         }
       } else {
@@ -118,6 +121,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions("auth", ["logoutUser"]),
+    logOutUser() {
+      this.logoutUser()
+      this.$router.push("/auth/login")
+    },
     toggleCart() {
       this.isCart = !this.isCart;
       if (this.mobile) {
@@ -137,7 +145,7 @@ export default {
     },
     updatelogout(value) {
       this.showPopup = value ? false : this.showPopup;
-      this.logout = value;
+      this.logout = value
     },
     closePopup() {
       this.showPopup = false;
@@ -151,10 +159,10 @@ export default {
         this.$router.push("/dashboard/search");
       }
     },
-    logoutUser() {
+    closeLogoutUser() {
       this.logout = true;
     },
-    logoutUserBG() {
+    closeLogoutUserBG() {
       this.logout = false;
     },
     handleOpenMail() {

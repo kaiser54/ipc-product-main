@@ -1,15 +1,20 @@
 // middleware/auth.js
 
-export default function ({ store, redirect, route }) {
-  // Check if the user is logged in
-  if (!store.state.user) {
-    // Specify the paths that should be accessible when not logged in
-    const allowedPaths = ['/', '/register', '/business', '/individual', '/confirm', '/confirmation', '/forgot-password', '/reset-password'];
+export default function ({ route, redirect }) {
+  // Check if user is logged in based on localStorage or any other method
+  const USER = process.client ? localStorage.getItem("user") : {};
 
-    // Redirect to the login page if the current route is not allowed
-    // if (!allowedPaths.includes(route.path)) {
-    //   redirect('/');
-    // }
+  // Define the pages that should be accessible when the user is not logged in
+  const allowedPages = [
+    "/auth/login",
+    "/reset",
+    "/auth/register",
+    "/auth/register/sign-up/business",
+  ];
+
+  // If the user is not logged in and is trying to access a restricted page, redirect to login
+  if (!USER && !allowedPages.includes(route.path)) {
+    return redirect("/auth/login"); // You can change this URL to your actual login page
   }
-  
+  console.log("route path middleware :", route.path)
 }
