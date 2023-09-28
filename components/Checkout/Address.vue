@@ -80,11 +80,11 @@
                 <select class="input" id="lgas" v-model="selectedLGA">
                   <option value="" selected>Please select a LGA</option>
                   <option
-                    v-for="(city, index) in cities"
+                    v-for="(lga, index) in lgas"
                     :key="index"
-                    :value="city"
+                    :value="lga"
                   >
-                    {{ city }}
+                    {{ lga.name }}
                   </option>
                 </select>
               </div>
@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import { lgas } from "@/static/LagosLGAs";
 import { mapState, mapActions, mapGetters } from "vuex";
 import { State, Country, City } from "country-state-city";
 import axios from "axios";
@@ -135,16 +136,29 @@ export default {
       // for picking states and local government
       selectedState: "Lagos",
       selectedLGA: "",
+      coordinate: "",
       selectedCity: "",
       statesAndLGAs: {},
       states: [],
-      cities: [],
+      lgas: lgas,
       // -------------------------------
     };
   },
   computed: {
-    ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
-    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
+    ...mapState("cart", [
+      "cart",
+      "distance",
+      "deliveryFee",
+      "cartLoading",
+      "totalPrice",
+      "error",
+    ]),
+    ...mapGetters("cart", [
+      "TotalCart",
+      "cartTotalQuantity",
+      "cartTotalPrice",
+      "cartFullPrice",
+    ]),
     isEmailValid() {
       // Define a regular expression for email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -155,21 +169,38 @@ export default {
       return this.statesAndLGAs[this.selectedState] || [];
     },
   },
-  watch: {},
+  watch: {
+    selectedLGA(newSelectedLGA) {
+      if (
+        newSelectedLGA &&
+        newSelectedLGA.latlon &&
+        newSelectedLGA.latlon.length >= 2
+      ) {
+        const latitude = newSelectedLGA.latlon[0];
+        const longitude = newSelectedLGA.latlon[1];
+        this.getDistanceFromLatLonInKm({
+          latitude2: latitude,
+          longitude2: longitude,
+        });
+      } else {
+        console.error("Invalid or undefined newSelectedLGA:", newSelectedLGA);
+      }
+    },
+  },
   async mounted() {
     this.loadUser();
-    try {
-      const response = await axios.get("/Statelist.json");
-      console.log("response: ", response);
-      const { Lagos } = response.data;
-      this.cities = Lagos;
-      console.log(this.cities);
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const response = await axios.get("/Statelist.json");
+    //   console.log("response: ", response);
+    //   const { Lagos } = response.data;
+    //   this.cities = Lagos;
+    //   console.log(this.cities);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   },
   methods: {
-    // get all states in Nigeria
+    ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
     async loadUser() {
       try {
         let user = null;
@@ -182,7 +213,7 @@ export default {
           this.customerId = user._id;
           this.FirstName = user.firstName;
           this.lastName = user.lastName;
-          this.phoneNumbers = user.phoneNumbers;
+          this.phoneNumbers = user.phoneNumbers[0];
         }
       } catch (err) {
         console.log(err);
@@ -215,11 +246,14 @@ export default {
       this.selectedCity = ""; // Reset selected city when changing the state
     },
     submitForm() {
+      this.getDeliveryFee({
+        distance: this.distance,
+      });
       const address = {
         streetAddress: this.address,
         directions: this.Directions,
         state: this.selectedState,
-        lga: this.selectedLGA,
+        lga: this.selectedLGA.name,
         // customerId: this.customerId,
       };
       const data = {
@@ -230,13 +264,15 @@ export default {
         directions: this.Directions,
         phoneNumbers: this.phoneNumbers,
         state: this.selectedState,
-        LGA: this.selectedLGA,
+        LGA: this.selectedLGA.name,
         products: this.cart,
-        totalPrice: this.cartTotalPrice,
+        totalPrice: this.cartFullPrice,
+        deliveryFee: this.deliveryFee,
+        subtotal: this.cartTotalPrice,
       };
       console.log(data);
       this.$emit("customEvent", data);
-      console.log(data);
+      console.log("order info", data);
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect

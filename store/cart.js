@@ -10,6 +10,8 @@ export default {
     totalPrice: [],
     // checkoutData: [],
     checkoutResponse: [],
+    distance: 0,
+    deliveryFee: 0,
     error: null,
     error_msg: null,
     cartLoading: false,
@@ -32,6 +34,12 @@ export default {
     },
     SET_TOTAL_PRICE(state, totalPrice) {
       state.totalPrice = totalPrice;
+    },
+    SET_DISTANCE(state, distance) {
+      state.distance = distance;
+    },
+    SET_DELIVERY_FEE(state, deliveryFee) {
+      state.deliveryFee = deliveryFee;
     },
     SET_ERROR(state, error) {
       state.error = error;
@@ -284,6 +292,45 @@ export default {
         commit("SET_LOADING", false);
       }
     },
+    getDistanceFromLatLonInKm({ commit }, { latitude2, longitude2, units }) {
+      let latitude1 = 6.5376382;
+      let longitude1 = 3.3651075;
+      let p = 0.017453292519943295; // This is Math.PI / 180
+      let c = Math.cos;
+      let a =
+        0.5 -
+        c((latitude2 - latitude1) * p) / 2 +
+        (c(latitude1 * p) *
+          c(latitude2 * p) *
+          (1 - c((longitude2 - longitude1) * p))) /
+          2;
+      let R = 6371; // Earth's radius in km
+      let dist = 2 * R * Math.asin(Math.sqrt(a));
+      commit("SET_DISTANCE", dist);
+    },
+
+    getDeliveryFee({ commit }, { distance, value }) {
+      const baseFare = 1500;
+      const baseDistance = 5;
+      const baseValue = 50000;
+      const pricePerKm = 200;
+      let totalCharge = 0;
+
+      if (distance > baseDistance && value > baseValue) {
+        let extraValueCharge = 0.01 * value;
+        let extraDistance = distance - baseDistance;
+        let extraDistanceCharge = extraDistance * pricePerKm;
+        totalCharge = extraValueCharge + extraDistanceCharge + baseFare;
+      } else if (value > baseValue) {
+        totalCharge = 0.01 * value + baseFare;
+      } else if (distance > baseDistance) {
+        let extraDistance = distance - baseDistance;
+        totalCharge = extraDistance * pricePerKm + baseFare;
+      } else {
+        totalCharge = baseFare;
+      }
+      commit("SET_DELIVERY_FEE", totalCharge);
+    },
   },
 
   getters: {
@@ -291,7 +338,19 @@ export default {
     TotalCart: (state) => state.cart.length,
     cartTotalQuantity: (state) =>
       state.cart.reduce((total, item) => total + item.quantity, 0),
-    cartTotalPrice: (state) =>
+      cartTotalPrice: (state) =>
       state.cart.reduce((acc, item) => acc + item.totalPrice, 0),
+    cartFullPrice: (state) => {
+      // Calculate the total price of items in the cart
+      const totalPrice = state.cart.reduce(
+        (acc, item) => acc + item.totalPrice,
+        0
+      );
+
+      // Add the delivery fee to the total price
+      const totalWithDeliveryFee = totalPrice + state.deliveryFee;
+
+      return totalWithDeliveryFee;
+    },
   },
 };

@@ -159,7 +159,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.data);
+    console.log("user info",this.data);
   },
 };
 </script>

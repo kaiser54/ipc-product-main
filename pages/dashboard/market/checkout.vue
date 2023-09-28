@@ -97,7 +97,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$config.PAYSTACK_PUBLIC_KEY)
+    console.log(this.$config.PAYSTACK_PUBLIC_KEY);
   },
   async mounted() {
     // payStack
@@ -142,7 +142,7 @@ export default {
         console.log("LocalStorage is not available in this environment.");
       }
     }
-      this.spinner = false;
+    this.spinner = false;
   },
 
   computed: {
@@ -159,7 +159,12 @@ export default {
       return (this.currentStep - 1) * 49.5;
     },
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
-    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
+    ...mapGetters("cart", [
+      "TotalCart",
+      "cartTotalQuantity",
+      "cartTotalPrice",
+      "cartFullPrice",
+    ]),
   },
 
   beforeDestroy() {
@@ -185,6 +190,7 @@ export default {
     },
     handleFormSubmission(data) {
       this.submittedData = data;
+      console.log(data);
       if (this.currentStep < 3) {
         this.currentStep++;
       }
@@ -200,7 +206,6 @@ export default {
       }
     },
     async lastStep() {
-
       this.spinner = true;
       this.payWithPaystack();
       // try {
@@ -259,7 +264,7 @@ export default {
           this.submitForm();
         },
       });
-      this.spinner = false
+      this.spinner = false;
       handler.openIframe();
     },
 
@@ -310,10 +315,12 @@ export default {
       this.currentStep = 1;
       console.log("clicked");
     },
+
     async submitForm() {
-      this.spinner = true
+      this.spinner = true;
       this.submittedData.ref = this.ref;
       console.log("submit data:", this.submittedData);
+
       try {
         const headers = {
           "Content-Type": "application/json",
@@ -327,18 +334,19 @@ export default {
           }
         );
 
-        console.log("data sent to backend:", this.submittedData);
-        console.log(response);
+        console.log("Response from the backend:", response.data);
 
         if (response.data.status === "success") {
           this.isPaid = true;
-        this.spinner = false
           window.startConfetti();
         } else {
-          throw new Error("Failed to order.");
+          console.log(response);
+          throw new Error("Failed to create an order.");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error:", error);
+      } finally {
+        this.spinner = false;
       }
     },
     getStepLabel(step) {
