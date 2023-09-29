@@ -14,17 +14,17 @@
             >
               <div class="list-select-header">
                 <div class="title-flex">
-                 <div class="header">
-                  <h3 class="h3-medium title.text">{{ item.title }}</h3>
-                 </div>
+                  <div class="header">
+                    <h3 class="h3-medium title.text">{{ item.title }}</h3>
+                  </div>
                   <div class="dynamicTag">
                     <DynamicTags
-                    class="auto"
-                    tagText="COMING SOON"
-                    size="small"
-                    type="positive"
-                    v-if="index === indexOfCardWithComponent"
-                  />
+                      class="auto"
+                      tagText="COMING SOON"
+                      size="small"
+                      type="positive"
+                      v-if="index === indexOfCardWithComponent"
+                    />
                   </div>
                 </div>
                 <label>
@@ -150,15 +150,15 @@ export default {
 .h3-medium {
   color: var(--grey-grey1);
 }
-.title-text{
-color: var(--grey-grey-1, #303237);
-/* H3/Heading 3 Medium */
-font-family: Switzer;
-font-size: 24px;
-font-style: normal;
-font-weight: 500;
-line-height: 36px; /* 150% */
-letter-spacing: -0.5px;
+.title-text {
+  color: var(--grey-grey-1, #303237);
+  /* H3/Heading 3 Medium */
+  font-family: Switzer;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px; /* 150% */
+  letter-spacing: -0.5px;
 }
 p.snippet {
   font-style: normal;
@@ -261,36 +261,40 @@ button:disabled {
   .content-select {
     flex-direction: column;
   }
-  .h3-medium{
+  .h3-medium {
     color: var(--grey-grey-1, #303237);
 
-/* Body Large/Body Large Medium */
-font-family: Switzer;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 24px; /* 150% */
-}
+    /* Body Large/Body Large Medium */
+    font-family: Switzer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+  }
 
-p.snippet {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 24px;
-  color: var(--grey-grey3);
-}
-
+  p.snippet {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--grey-grey3);
+  }
 }
 
 @media (max-width: 600px) {
   .title-flex {
     /* flex-direction: column; */
     align-items: flex-start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
 }
-  
+
+@media (max-width: 400px) {
+  .list-select {
+    padding: 16px;
+  }
 }
 </style>
