@@ -367,7 +367,7 @@ export default {
 
 <style scoped>
 .main {
-  margin-top: 124px;
+  /* margin-top: 24px; */
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
@@ -447,7 +447,8 @@ export default {
 
 .__bg__fixed {
   background: var(--white);
-  position: fixed;
+  /* position: fixed; */
+  position: sticky;
   z-index: 9;
   width: 100%;
   padding-bottom: 24px;
