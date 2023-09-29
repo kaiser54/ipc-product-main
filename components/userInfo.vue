@@ -19,7 +19,7 @@
       <div class="client-frame" v-if="checkout">
         <div class="client-frame">
           <span>Phone number</span
-          ><span class="bold">{{ data.phoneNumbers }}</span>
+          ><span class="bold">{{ data.phoneNumbers[0] }}</span>
         </div>
       </div>
 
