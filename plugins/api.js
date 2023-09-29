@@ -2,8 +2,8 @@
 
 // export const BASE_URL = process.env.BASE_URL; // Base API URL
 // export const BASE_URL = "http://localhost:8000/api/v1"; // Base API URL
-export const BASE_URL = "https://api.ipc-africa.com/api/v1" ; // Base API URL
-export const DEV_URL = "https://api.ipc-africa.com/api/v1"; // Base API URL
+export const BASE_URL = "https://ipc-server-o3gsr.ondigitalocean.app/api/v1" ; // Base API URL
+export const DEV_URL = "https://ipc-server-o3gsr.ondigitalocean.app/api/v1"; // Base API URL
 // export const DEV_URL = "http://localhost:8000/api/v1"; // Base API URL
 // export const DEV_URL = process.env.DEV_URL; // Base API URL
 
