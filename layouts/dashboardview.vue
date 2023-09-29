@@ -1,9 +1,14 @@
 <template>
   <div>
+    <ModalWelcome
+      v-if="showModal"
+      @cancelModal="removeModal()"
+      @complete-flow="removeModal()"
+    />
     <Cart @openCart="toggleCart" v-if="isCart && !mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
-      v-if="isNotification && !mobile "
+      v-if="isNotification && !mobile"
     />
 
     <div class="dashboard-wrapper" v-if="user">
@@ -32,7 +37,7 @@
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
-                :user="user"
+                  :user="user"
                   @openCart="toggleCart"
                   @openNotification="toggleNotification"
                 />
@@ -41,7 +46,8 @@
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
                 <LayoutMobileTopDetails
                   @redirectToSearchPage="redirectToSearchPageFunc"
-                  @openCart="toggleCart" :user="user"
+                  @openCart="toggleCart"
+                  :user="user"
                 />
               </section>
             </div>
@@ -90,9 +96,12 @@ export default {
       isCart: false,
       isNotification: false,
       checkMail: false,
+      showModal: false,
     };
   },
   mounted() {
+    // set welcome modal to show on condition that a user is new or not
+    this.showModal = localStorage.getItem("welcomeFlow") !== "complete";
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
     // Initialize other data or perform actions when the component is mounted
@@ -121,10 +130,15 @@ export default {
     }
   },
   methods: {
+    removeModal() {
+      this.showModal = false;
+      this.showVerifiedModal = false;
+      localStorage.setItem("welcomeFlow", "complete");
+    },
     ...mapActions("auth", ["logoutUser"]),
     logOutUser() {
-      this.logoutUser()
-      this.$router.push("/auth/login")
+      this.logoutUser();
+      this.$router.push("/auth/login");
     },
     toggleCart() {
       this.isCart = !this.isCart;
@@ -145,7 +159,7 @@ export default {
     },
     updatelogout(value) {
       this.showPopup = value ? false : this.showPopup;
-      this.logout = value
+      this.logout = value;
     },
     closePopup() {
       this.showPopup = false;

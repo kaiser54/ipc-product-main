@@ -86,7 +86,7 @@ export default {};
   padding: 24px 0;
 }
 .branding svg {
-  /* width: 100%; */
+  width: 100%;
   max-width: 182.751px;
   /* height: 56px; */
 }

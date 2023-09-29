@@ -248,6 +248,22 @@ button:disabled {
   align-items: center;
   gap: 10px;
 }
+.list-select-header label {
+  height: fit-content !important;
+  margin-bottom: 0px !important;
+}
+@media only screen and (max-width: 900px) and (min-width: 751px) {
+  .title-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0px;
+  }
+  .title-flex .auto {
+    margin-top: 10px;
+  }
+}
 @media (max-width: 750px) {
   .content-box {
     padding: 0;
@@ -295,6 +311,18 @@ button:disabled {
 @media (max-width: 400px) {
   .list-select {
     padding: 16px;
+  }
+}
+@media (max-width: 330px) {
+  .title-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0px;
+  }
+  .title-flex .auto {
+    margin-top: 10px;
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="container" style="width: 100%; ">
+      <!-- <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" /> -->
     <LoaderComponent v-if="loading" />
     <div class="empty" v-else-if="filteredProducts.length === 0">
       <EmptySystem :header="header" :snippet="snippet">
@@ -57,7 +58,6 @@
           buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
           @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
       </transition>
-      <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
 
     </div>
 
@@ -84,7 +84,7 @@ export default {
       checkMail: false,
       inCart: false,
       animate: null,
-      showModal: false,
+      // showModal: false,
       header: "Search not found",
       snippet: "This product is not currently available, search for another item",
       verifiedEmail: false,
@@ -154,7 +154,7 @@ export default {
     },
     async getAllProduct() {
       // set welcome modal to show on condition that a user is new or not
-      this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
+      // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
       await this.fetchAllProducts(); // Fetch all products when the component is mounted
       this.checkScreenSize();
       window.addEventListener("resize", this.checkScreenSize);
@@ -169,11 +169,11 @@ export default {
     clear() {
       localStorage.removeItem("welcomeFlow");
     },
-    removeModal() {
-      this.showModal = false;
-      this.showVerifiedModal = false
-      localStorage.setItem("welcomeFlow", "complete");
-    },
+    // removeModal() {
+    //   this.showModal = false;
+    //   this.showVerifiedModal = false
+    //   localStorage.setItem("welcomeFlow", "complete");
+    // },
     routeToMarket() {
       this.$router.push("/dashboard/market")
       this.showVerifiedModal = false
