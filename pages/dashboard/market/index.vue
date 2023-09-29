@@ -1,5 +1,6 @@
 <template>
   <div class="container" style="width: 100%; ">
+
     <LoaderComponent v-if="loading" />
     <div class="empty" v-else-if="filteredProducts.length === 0">
       <EmptySystem :header="header" :snippet="snippet">
@@ -79,6 +80,7 @@ export default {
   },
   data() {
     return {
+      
       // api: process.env.BASE_URL,
       pageTitle: "IPC | Market",
       checkMail: false,

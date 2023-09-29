@@ -1,80 +1,48 @@
 <template>
+
   <div class="view-page history">
-    <div class="title-header history-head">
-      <h2 class="h2-medium header-text">History</h2>
-      <DynamicButton
-        v-if="mobile"
-        @clickButton="toggleFilter"
-        class="d__btn"
-        style="width: auto"
-        buttonText="Filter history"
-        icon="icon-left"
-        size="small"
-        type="neutral"
-      >
-        <template v-slot:svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
-              stroke="#303237"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </template>
-      </DynamicButton>
-
-      <!-- table filters for desktop views -->
-
-      <HistoryHeader
-        @clickTab="filterTableDataByStatus"
-        v-if="!mobile"
-        @filterProducts="filterProductsByDate"
-      />
-
-      <!-- ================================ -->
-    </div>
-    <div class="history-content">
-      <!-- history table for desktop views -->
-
-      <HistoryTable
-        :tableData="tableData"
-        :activeTabs="activeTabs"
-        :tableHeaders="tableHeaders"
-        v-if="!mobile"
-      />
-
-      <!-- ================================ -->
-
-      <!-- history table for mooile views -->
-
-      <HistoryMobileTable v-if="mobile" :tableData="tableData" />
-      <HistoryMobileFilter
-        v-show="isFilterOpen && mobile"
-        :animate="animate"
-        :activeTabs="activeTabs"
-        title="Filter by"
-        snippet="Filter product’s status"
-        snippet2="Filter date"
-        buttonText="Apply filter"
-        buttonClass="primary-btn"
-        @closeModal="toggleFilter"
-        @clickTab="filterTableDataByStatus"
-        @filterProducts="filterProductsByDate"
-        @closeModalBG="toggleFilter"
-      />
-      <!-- -------------------------------- -->
+    
+    <div>
+      <div class="title-header history-head">
+        <h2 class="h2-medium header-text">History</h2>
+  
+        <DynamicButton v-if="mobile" @clickButton="toggleFilter" class="d__btn" style="width: auto"
+          buttonText="Filter history" icon="icon-left" size="small" type="neutral">
+          <template v-slot:svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M7.33398 11.3346H8.66732M1.33398 4.66797H14.6673H1.33398ZM4.00065 8.0013H12.0007H4.00065Z"
+                stroke="#303237" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </template>
+        </DynamicButton>
+  
+        <!-- table filters for desktop views -->
+  
+        <HistoryHeader @clickTab="filterTableDataByStatus" v-if="!mobile" @filterProducts="filterProductsByDate" />
+  
+        <!-- ================================ -->
+      </div>
+      <LoaderTracking v-if="verificationLoading && mobile" class="load" />
+      <div class="history-content" v-else>
+        <!-- history table for desktop views -->
+        <HistoryTable :tableData="tableData" :activeTabs="activeTabs" :tableHeaders="tableHeaders" v-if="!mobile" />
+  
+        <!-- ================================ -->
+  
+        <!-- history table for mooile views -->
+  
+        <HistoryMobileTable v-if="mobile" :tableData="tableData" />
+  
+        <HistoryMobileFilter v-show="isFilterOpen && mobile" :animate="animate" :activeTabs="activeTabs" title="Filter by"
+          snippet="Filter product’s status" snippet2="Filter date" buttonText="Apply filter" buttonClass="primary-btn"
+          @closeModal="toggleFilter" @clickTab="filterTableDataByStatus" @filterProducts="filterProductsByDate"
+          @closeModalBG="toggleFilter" />
+        <!-- -------------------------------- -->
+      </div>
     </div>
   </div>
-</template>
 
+</template>
 <script>
 import moment from "moment";
 export default {
@@ -82,6 +50,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
+      verificationLoading: true,
       pageTitle: "IPC | History",
       mobile: false,
       loading: false,
@@ -173,9 +142,11 @@ export default {
     },
     async getOrders() {
       const userId = localStorage.getItem("userId");
+      this.verificationLoading = true
       try {
         this.loading = true;
         const response = await this.$axios.get(`/orders/customer/${userId}`);
+        this.verificationLoading = false
         this.tableDatas = response?.data?.data?.orders;
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
@@ -191,6 +162,7 @@ export default {
         this.loading = false;
       } catch (error) {
         console.error("Error fetching data", error);
+        this.verificationLoading = true
         return { responseData: null };
       }
     },
@@ -285,6 +257,7 @@ export default {
 
   /* height: 50vh; */
 }
+
 @media (max-width: 1300px) {
   .history {
     max-width: 100%;
@@ -307,6 +280,7 @@ export default {
 
   .history-content {
     padding: 16px;
+
   }
 }
 </style>

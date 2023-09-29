@@ -1,5 +1,5 @@
 <template>
-   <div class="body">
+   <div class="body_wrap">
     <div class="container">
         <div class="image">
             <slot name="svg"></slot>
@@ -34,7 +34,7 @@
 </script>
 
 <style scoped>
-   .body {
+   .body_wrap {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,7 +43,7 @@
     .container{
         width: 360px;
         height: 210px;
-        /* border: 1px solid red; */
+        border: 1px solid red;
         display: flex;
         flex-direction: column;
         align-items: center;
