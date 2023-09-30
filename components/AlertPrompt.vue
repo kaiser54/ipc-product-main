@@ -108,6 +108,7 @@ export default {
 .top {
     top: 30px;
     position: absolute;
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     /* Update to horizontally center the box */

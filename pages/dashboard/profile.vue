@@ -141,6 +141,7 @@
         buttonClass="neutral-btn"
         buttonClass2="negative-btn"
         @closeModal="toggleLogout"
+        @okModal="logoutUserFunc"
         @closeModalBG="toggleLogout"
       />
 
@@ -325,6 +326,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { DEV_URL } from "@/plugins/api";
 import axios from "axios";
 export default {
@@ -409,6 +411,7 @@ export default {
     window.removeEventListener("resize", this.checkScreenSize);
   },
   methods: {
+    ...mapActions("auth", ["logoutUser"]),
     checkScreenSize() {
       if (window.innerWidth <= 950) {
         this.mobile = true;
@@ -423,6 +426,11 @@ export default {
     },
     toggleLogout() {
       this.isLogout = !this.isLogout;
+    },
+    logoutUserFunc() {
+      this.isLogout = !this.isLogout;
+      this.logoutUser();
+      this.$router.push("/auth/login");
     },
     toggleChangePassword() {
       this.isChangePassword = !this.isChangePassword;

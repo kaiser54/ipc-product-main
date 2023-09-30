@@ -99,7 +99,8 @@ export default {
       showModal: false,
     };
   },
-  mounted() {
+  async mounted() {
+    await this.fetchCartItemsByUserID();
     // set welcome modal to show on condition that a user is new or not
     this.showModal = localStorage.getItem("welcomeFlow") !== "complete";
     this.checkScreenSize();
@@ -136,6 +137,7 @@ export default {
       localStorage.setItem("welcomeFlow", "complete");
     },
     ...mapActions("auth", ["logoutUser"]),
+    ...mapActions("cart", ["fetchCartItemsByUserID"]),
     logOutUser() {
       this.logoutUser();
       this.$router.push("/auth/login");

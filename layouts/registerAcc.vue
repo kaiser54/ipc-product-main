@@ -1,5 +1,10 @@
 <template>
   <div>
+    <AlertPrompt
+      ref="alertPrompt"
+      message="error_msg"
+      alertType="error"
+    />
     <section class="registerAcc">
       <div class="f-d-r">
         <div class="login__ui">

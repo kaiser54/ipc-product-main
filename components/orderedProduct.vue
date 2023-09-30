@@ -1,9 +1,20 @@
 <template>
   <div class="order-wrapper">
-    <Nuxt-link :to="`/dashboard/track_orders/${item._id}`" class="order-product" v-for="item in order" :key="item._id">
-      <div class="image" v-for="(image, index) in getProductImages(item.products)" :key="index">
-        <!-- {{ image.url }} -->
-        <img :src="image?.url" alt="product Image" />
+    <Nuxt-link
+      :to="`/dashboard/track_orders/${item._id}`"
+      class="order-product"
+      v-for="item in order"
+      :key="item._id"
+    >
+      <div class="image_wrap">
+        <div
+          class="image"
+          v-for="(image, index) in getProductImages(item.products)"
+          :key="index"
+        >
+          <!-- {{ image.url }} -->
+          <img :src="image?.url" alt="product Image" />
+        </div>
       </div>
       <div class="order-product-details">
         <div class="order-content">
@@ -13,30 +24,51 @@
           </span>
           <div class="order-id-price">
             <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
-            <div class="order-qty">Qty: {{ item.products.length }}</div>
+            <div class="order-qty">Qty: {{ item?.products?.length }}</div>
           </div>
           <div class="order-price">
-            <span class="naira">₦</span>{{ calculateTotalOrderPrice(item.products) }}
+            <span class="naira">₦</span
+            >{{ formatPriceWithCommas(calculateTotalOrderPrice(item?.products)) }}
           </div>
-          <DynamicTags :tagText="item.status" :size="size" :type="getTagType(item.status)" />
+          <DynamicTags
+            :tagText="item.status"
+            :size="size"
+            :type="getTagType(item.status)"
+          />
         </div>
 
         <div class="price-qty">
           <div class="order-price">
-    <span class="naira">₦</span>{{ calculateTotalOrderPrice(item.products) }}
-  </div>
-          <div class="order-qty">Qty: {{ calculateTotalProductQuantity(item.products) }}</div>
+            <span class="naira">₦</span
+            >{{ formatPriceWithCommas(calculateTotalOrderPrice(item.products)) }}
+          </div>
+          <div class="order-qty">
+            Qty: {{ calculateTotalProductQuantity(item.products) }}
+          </div>
         </div>
       </div>
-      <svg v-if="showSvg" xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
-        <path d="M13.334 11.168L18.6673 16.5013L13.334 21.8346" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" />
+      <svg
+        v-if="showSvg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="33"
+        viewBox="0 0 32 33"
+        fill="none"
+      >
+        <path
+          d="M13.334 11.168L18.6673 16.5013L13.334 21.8346"
+          stroke="#565C69"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </Nuxt-link>
   </div>
 </template>
   
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     showSvg: {
@@ -81,21 +113,20 @@ export default {
     };
   },
   async created() {
-    const userId = localStorage.getItem('userId')
+    const userId = localStorage.getItem("userId");
     try {
-      const response = await this.$axios.get(
-        `/orders/customer/${userId}`
-      );
+      const response = await this.$axios.get(`/orders/customer/${userId}`);
       this.order = response?.data?.data?.orders;
       console.log(this.order);
-      this.products = response?.data?.data?.orders[0]?.products
-      console.log(this.products)
+      this.products = response?.data?.data?.orders[0]?.products;
+      console.log(this.products);
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);
     }
   },
   methods: {
+    formatPriceWithCommas,
     truncateId(id, maxLength) {
       if (!id) {
         return ""; // Return an empty string if id is undefined or null
@@ -126,18 +157,18 @@ export default {
       return `${day}-${month}-${year}`;
     },
     calculateTotalOrderPrice(products) {
-    if (Array.isArray(products) && products.length > 0) {
-      // Sum the total prices of all products in the order
-      return products.reduce((totalPrice, product) => {
-        if (product && typeof product.totalPrice === 'number') {
-          return totalPrice + product.totalPrice;
-        }
-        return totalPrice;
-      }, 0);
-    }
-    return 0; // Return 0 if products is not defined or empty
-  },
-  getTagType(status) {
+      if (Array.isArray(products) && products.length > 0) {
+        // Sum the total prices of all products in the order
+        return products.reduce((totalPrice, product) => {
+          if (product && typeof product.totalPrice === "number") {
+            return totalPrice + product.totalPrice;
+          }
+          return totalPrice;
+        }, 0);
+      }
+      return 0; // Return 0 if products is not defined or empty
+    },
+    getTagType(status) {
       if (status === "PROCESSING") {
         return "warning";
       } else if (status === "SHIPPED") {
@@ -152,7 +183,7 @@ export default {
       if (Array.isArray(products) && products.length > 0) {
         // Sum the quantities of all products in the order
         return products.reduce((totalQuantity, product) => {
-          if (product && typeof product.quantity === 'number') {
+          if (product && typeof product.quantity === "number") {
             return totalQuantity + product.quantity;
           }
           return totalQuantity;
@@ -223,9 +254,10 @@ export default {
         return products.reduce((totalPrice, product) => {
           if (product && product.product) {
             // Use product.product to access the nested product object
-            const { discountPrice, totalPrice: productTotalPrice } = product.product;
-            console.log(totalPrice)
-            console.log( productTotalPrice)
+            const { discountPrice, totalPrice: productTotalPrice } =
+              product.product;
+            console.log(totalPrice);
+            console.log(productTotalPrice);
             return totalPrice + (discountPrice || productTotalPrice || 0);
           }
           return totalPrice;
@@ -233,8 +265,8 @@ export default {
       }
       return 0; // Return 0 if products is not defined or empty
     },
-  }
-}
+  },
+};
 </script>
   
 <style scoped>
@@ -271,6 +303,10 @@ a {
 
   border: 1px solid var(--grey-grey5);
   border-radius: 16px;
+}
+
+.image_wrap {
+  display: flex;
 }
 
 .image {
@@ -371,6 +407,7 @@ a {
   .order-product {
     gap: 8px;
     align-items: flex-start;
+    justify-content: space-between;
   }
 
   .price-qty {
@@ -410,26 +447,37 @@ a {
   .order-content .order-price {
     display: flex;
   }
+}
 
-  @media (max-width: 451px) {
-    .order-content .title {
-      max-width: 150px;
-    }
-
-    .order-product-details {
-      width: 100%;
-      max-width: 200px;
-    }
+@media (max-width: 451px) {
+  .image_wrap {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    max-height: 144px;
+    height: 100%;
   }
 
-  @media (max-width: 450px) {
-    .order-content {
-      max-width: 190px;
-    }
+  .image {
+    width: 43px;
+  }
+  .order-content .title {
+    max-width: 150px;
+  }
 
-    .order-content .title {
-      max-width: 150px;
-    }
+  .order-product-details {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 450px) {
+  .order-content {
+    max-width: 190px;
+  }
+
+  .order-content .title {
+    max-width: 150px;
   }
 }
 </style>
