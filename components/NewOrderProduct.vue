@@ -14,12 +14,12 @@
                         <div class="order-id">Order ID : {{ order?._id }}</div>
                         <div class="order-qty">Qty: {{ getProductQuantity(order?.products) }}</div>
                     </div>
-                    <div class="order-price"><span class="naira">₦</span>{{ calculateTotalOrderPrice(order.products) }}</div>
+                    <div class="order-price"><span class="naira">₦</span>{{ formatPriceWithCommas(calculateTotalOrderPrice(order.products)) }}</div>
                     <DynamicTags :tagText="tagText" :size="size" :type="type" />
                 </div>
 
                 <div class="price-qty">
-                    <div class="order-price"><span class="naira">₦</span>{{ calculateTotalOrderPrice(order.products) }}</div>
+                    <div class="order-price"><span class="naira">₦</span>{{ formatPriceWithCommas(calculateTotalOrderPrice(order.products)) }}</div>
                     <div class="order-qty">Qty: {{ getProductQuantity(order?.products) }}</div>
                 </div>
             </div>
@@ -34,6 +34,7 @@
 </template>
   
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
     props: {
         data: {
@@ -67,6 +68,7 @@ export default {
         },
     },
     methods: {
+    formatPriceWithCommas,
         userRoute(value) {
             this.$router.push(`/dashboard/orders/${value}`);
         },

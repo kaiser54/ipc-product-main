@@ -28,10 +28,12 @@
         ><span class="bold">{{ data.address.streetAddress }}</span>
       </div>
       <div class="client-frame">
-        <span>Local govt. area</span><span class="bold">{{ data.LGA || data.address.lga }}</span>
+        <span>Local govt. area</span
+        ><span class="bold">{{ data.LGA || data.address.lga }}</span>
       </div>
       <div class="client-frame">
-        <span>State</span><span class="bold">{{ data.state || data.address.state }}</span>
+        <span>State</span
+        ><span class="bold">{{ data.state || data.address.state }}</span>
       </div>
       <slot name="button"></slot>
     </div>
@@ -168,6 +170,8 @@ export default {
 
 .client-frame .bold {
   color: var(--grey-grey1);
+  max-width: 50%;
+  text-align: right;
 }
 .total .bold {
   font-weight: 700;

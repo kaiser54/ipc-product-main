@@ -22,7 +22,7 @@
             <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
           <div class="order-price">
-            <span class="naira">₦</span> {{ item.totalPrice }}
+            <span class="naira">₦</span> {{ formatPriceWithCommas(item.totalPrice) }}
           </div>
           <DynamicTags
             :tagText="status"
@@ -33,7 +33,7 @@
 
         <div class="price-qty">
           <div class="order-price">
-            <span class="naira">₦</span> {{ item.totalPrice }}
+            <span class="naira">₦</span> {{ formatPriceWithCommas(item.totalPrice) }}
           </div>
           <div class="order-qty">Qty: {{ item.quantity }}</div>
         </div>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
     showSvg: {
@@ -107,6 +108,7 @@ export default {
     this.loading = false;
   },
   methods: {
+    formatPriceWithCommas,
     getTagType(status) {
       if (status === "PROCESSING") {
         return "warning";
