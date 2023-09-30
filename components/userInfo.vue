@@ -28,10 +28,10 @@
         ><span class="bold">{{ data.address.streetAddress }}</span>
       </div>
       <div class="client-frame">
-        <span>Local govt. area</span><span class="bold">{{ data.LGA }}</span>
+        <span>Local govt. area</span><span class="bold">{{ data.LGA || data.address.lga }}</span>
       </div>
       <div class="client-frame">
-        <span>State</span><span class="bold">{{ data.state }}</span>
+        <span>State</span><span class="bold">{{ data.state || data.address.state }}</span>
       </div>
       <slot name="button"></slot>
     </div>
