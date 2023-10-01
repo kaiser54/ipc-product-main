@@ -185,4 +185,10 @@ export default {
 
     color: var(--negative-n400);
 }
+
+@media (max-width: 450px) {
+   .alert__prompt {
+    width: max-content;
+   } 
+}
 </style>

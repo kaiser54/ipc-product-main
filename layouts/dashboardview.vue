@@ -1,5 +1,10 @@
 <template>
   <div>
+    <AlertPrompt
+      ref="alertPrompt"
+      :message="error_msg"
+      :alertType="alertType"
+    />
     <ModalWelcome
       v-if="showModal"
       @cancelModal="removeModal()"
@@ -84,7 +89,7 @@
 
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -97,7 +102,12 @@ export default {
       isNotification: false,
       checkMail: false,
       showModal: false,
+      error_msg: "",
+      alertType: "",
     };
+  },
+  computed: {
+    ...mapState("cart", ["cartAlert"]),
   },
   async mounted() {
     await this.fetchCartItemsByUserID();
@@ -183,6 +193,23 @@ export default {
     },
     handleOpenMail() {
       this.checkMail = !this.checkMail;
+    },
+  },
+  watch: {
+    cartAlert(newValue, oldValue) {
+      if (newValue === false) {
+        this.$refs.alertPrompt.showAlert();
+        this.error_msg = "Error adding product to the cart";
+        this.alertType = "error";
+      } else if (newValue === true) {
+        this.$refs.alertPrompt.showAlert();
+        this.error_msg = "Product successfully added to cart";
+        this.alertType = "success";
+      } else if (newValue === 'removed') {
+        this.$refs.alertPrompt.showAlert();
+        this.error_msg = "Product successfully removed from cart";
+        this.alertType = "success";
+      }
     },
   },
 };

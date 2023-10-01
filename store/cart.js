@@ -7,6 +7,7 @@ import product from "./product";
 export default {
   state: () => ({
     cart: [],
+    cartAlert: "",
     totalPrice: [],
     // checkoutData: [],
     checkoutResponse: [],
@@ -20,6 +21,11 @@ export default {
   mutations: {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
+      // state.cart.push(cartItem);
+      console.log("mutant cart", state.cart);
+    },
+    ADD_TO_CART_ALERT(state, arg) {
+      state.cartAlert = arg;
       // state.cart.push(cartItem);
       console.log("mutant cart", state.cart);
     },
@@ -99,6 +105,7 @@ export default {
     async addToCart({ commit, state }, product) {
       try {
         commit("SET_LOADING", true);
+        commit("ADD_TO_CART_ALERT", null);
 
         const user = process.client
           ? JSON.parse(localStorage.getItem("user")) || null
@@ -123,6 +130,12 @@ export default {
         });
 
         const { cartItem } = response.data.data;
+
+        if (response.status === 200) {
+          commit("ADD_TO_CART_ALERT", true);
+        } else {
+          commit("ADD_TO_CART_ALERT", false);
+        }
 
         console.log(" response data: ", response);
 
@@ -179,6 +192,7 @@ export default {
     async reduceQuantity({ commit, state }, product) {
       try {
         commit("SET_LOADING", true);
+        commit("ADD_TO_CART_ALERT", null);
 
         const user = process.client
           ? JSON.parse(localStorage.getItem("user")) || null
@@ -202,6 +216,8 @@ export default {
             (c) => c.productId === product._id
           );
 
+          commit("ADD_TO_CART_ALERT", "removed");
+
           console.log(" response data: ", response);
           console.log(" indexOfCartItem : ", indexOfCartItem);
           console.log(" quantity : ", state.cart[indexOfCartItem].quantity - 1);
@@ -215,9 +231,11 @@ export default {
                 state.cart[indexOfCartItem].product.discountPrice,
             });
           } else {
-            // commit("SET_LOADING", false);
-            // commit("SET_ERROR", "product not found");
+            commit("SET_LOADING", false);
+            commit("SET_ERROR", null);
           }
+          commit("SET_LOADING", false);
+          commit("SET_ERROR", null);
         }
       } catch (error) {
         commit("SET_ERROR", error.message);
@@ -338,7 +356,7 @@ export default {
     TotalCart: (state) => state.cart.length,
     cartTotalQuantity: (state) =>
       state.cart.reduce((total, item) => total + item.quantity, 0),
-      cartTotalPrice: (state) =>
+    cartTotalPrice: (state) =>
       state.cart.reduce((acc, item) => acc + item.totalPrice, 0),
     cartFullPrice: (state) => {
       // Calculate the total price of items in the cart

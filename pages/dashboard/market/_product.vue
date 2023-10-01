@@ -226,7 +226,10 @@
                 </button>
 
                 <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-                <div class="counter">{{ getProductQuantity }}</div>
+                <div class="counter" v-if="!cartLoading">
+                  {{ getProductQuantity }}
+                </div>
+                <span class="loader" v-if="cartLoading"></span>
 
                 <button @click="addProductToCart" class="circle">
                   <svg
@@ -286,7 +289,10 @@
 
           <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
 
-          <div class="counter">{{ getProductQuantity }}</div>
+          <div class="counter" v-if="!cartLoading">
+            {{ getProductQuantity }}
+          </div>
+          <span class="loader" v-if="cartLoading"></span>
 
           <button @click="addProductToCart" class="circle">
             <svg
@@ -366,6 +372,7 @@ export default {
       inCart: false,
       loading: true,
       isLiked: false,
+      loader: false,
     };
   },
   head() {

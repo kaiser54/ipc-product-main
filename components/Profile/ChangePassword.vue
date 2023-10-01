@@ -1,17 +1,32 @@
 <template>
   <div>
     <Loading :message="message" v-if="verificationLoading" />
-    <div v-if="showPasswordModal" class="addNumberFunc animate__animated" :class="animate">
+    <div
+      v-if="showPasswordModal"
+      class="addNumberFunc animate__animated"
+      :class="animate"
+    >
       <div class="change-password">
         <header>
           <div class="frame-bg">
             <div class="frame-1"></div>
             <div class="frame-2">
               <div class="circle">
-                <svg @click="$emit('close')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                  fill="none">
-                  <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                <svg
+                  @click="$emit('close')"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M5 19L19 5M5 5L19 19L5 5Z"
+                    stroke="#565C69"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </div>
               <p>Change password</p>
@@ -24,12 +39,69 @@
           </div>
 
           <div class="form-field">
-            <InputComponent id="oldPassword" label="Enter your old password" name="password" required
-              v-model="oldPassword" :isInvalid="validOldPassword" :errMsg="errOldPassword" />
-            <InputComponent id="newPassword" label="Enter your new password" name="password" required
-              v-model="newPassword" :isInvalid="validNewPassword" :errMsg="errNewPassword" />
-            <InputComponent id="confirmPassword" label="Enter your new password again" name="password" required
-              v-model="confirmPassword" :isInvalid="ValidConfirmPassword" :errMsg="errConfirmPassword" />
+            <!-- <InputComponent
+              id="oldPassword"
+              label="Enter your old password"
+              name="password"
+              required
+              v-model="oldPassword"
+              :isInvalid="validOldPassword"
+              :errMsg="errOldPassword"
+            /> -->
+            <InputField
+              id="oldPassword"
+              label="Enter your old password"
+              v-model="oldPassword"
+              :value="passwordValue"
+              :type="inputType"
+              placeholder="Enter your old password"
+              :required="true"
+              :error="error"
+              :invalid="validOldPassword"
+              :errorMessage="errOldPassword"
+            />
+            <!-- <InputComponent
+              id="newPassword"
+              label="Enter your new password"
+              name="password"
+              required
+              v-model="newPassword"
+              :isInvalid="validNewPassword"
+              :errMsg="errNewPassword"
+            /> -->
+            <InputField
+              id="newPassword"
+              label="Enter your new password"
+              v-model="newPassword"
+              :value="passwordValue"
+              :type="inputType"
+              placeholder="Enter your old password"
+              :required="true"
+              :error="error"
+              :invalid="validNewPassword"
+              :errorMessage="errNewPassword"
+            />
+            <!-- <InputComponent
+              id="confirmPassword"
+              label="Enter your new password again"
+              name="password"
+              required
+              v-model="confirmPassword"
+              :isInvalid="ValidConfirmPassword"
+              :errMsg="errConfirmPassword"
+            /> -->
+            <InputField
+              id="confirmPassword"
+              label="Enter your old password again"
+              v-model="confirmPassword"
+              :value="passwordValue"
+              :type="inputType"
+              placeholder="Enter your old password again"
+              :required="true"
+              :error="error"
+              :invalid="ValidConfirmPassword"
+              :errorMessage="errConfirmPassword"
+            />
           </div>
           <button class="btn primary-btn" @click="handleChangePassword">
             Change password
@@ -38,13 +110,17 @@
       </div>
       <div class="passBG" @click="$emit('close')"></div>
     </div>
-    <ModalPasswordVerified v-else-if="showModal" @cancelModal="removeModal()" @routeToMarket="routeToMarket()" />
+    <ModalPasswordVerified
+      v-else-if="showModal"
+      @cancelModal="removeModal()"
+      @routeToMarket="routeToMarket()"
+    />
   </div>
 </template>
   
 <script>
 import "animate.css";
-import Loading from '~/components/Loader/Rolling.vue';
+import Loading from "~/components/Loader/Rolling.vue";
 export default {
   components: { Loading },
   props: {
@@ -64,12 +140,25 @@ export default {
       validOldPassword: false,
       validNewPassword: false,
       ValidConfirmPassword: false,
+      
+      error: null,
+      inputType: "password",
 
       verificationLoading: false,
       showModal: false,
-      message: '',
-      showPasswordModal: true
+      message: "",
+      showPasswordModal: true,
     };
+  },
+  computed: {
+    passwordValue: {
+      get() {
+        return this.password;
+      },
+      set(newValue) {
+        this.password = newValue;
+      },
+    },
   },
   methods: {
     validatePasswords() {
@@ -131,8 +220,8 @@ export default {
         );
         try {
           this.verificationLoading = true;
-          this.showPasswordModal = false
-          this.message = "Changing Password, Please wait"
+          this.showPasswordModal = false;
+          this.message = "Changing Password, Please wait";
           const userId = localStorage.getItem("userId");
           if (!userId) {
             throw new Error("User Id not found in localStorage.");
@@ -147,7 +236,7 @@ export default {
             }
           );
           this.verificationLoading = false;
-          this.showPasswordModal = false
+          this.showPasswordModal = false;
           console.log("Password Changed Successfully:", response.data);
           console.log(userId);
           this.showModal = true;
@@ -161,7 +250,7 @@ export default {
           console.error("Password Change Unsuccessful:", error);
           // Handle the error as needed
           this.showModal = false;
-          this.message = "Try again, Something went wrong"
+          this.message = "Try again, Something went wrong";
         }
       }
     },
@@ -169,19 +258,18 @@ export default {
       this.showPasswordModal = false;
     },
     removeModal() {
-      this.verificationLoading = true
-      this.showModal = false
-      this.message = "Let's go to Market"
+      this.verificationLoading = true;
+      this.showModal = false;
+      this.message = "Let's go to Market";
     },
-    routeToMarket(){
-      this.verificationLoading = true
-      this.$router.push("/dashboard/market")
-      this.showModal = false
-      this.message = "Let's go to Market"
+    routeToMarket() {
+      this.verificationLoading = true;
+      this.$router.push("/dashboard/market");
+      this.showModal = false;
+      this.message = "Let's go to Market";
     },
-    
-  }
-}
+  },
+};
 </script>
   
 <style scoped>

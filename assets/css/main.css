@@ -95,7 +95,7 @@ p {
 
 .badge p {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 12px !important;
     /* line-height: 18px; */
     /* identical to box height, or 150% */
 
@@ -285,6 +285,9 @@ form {
     }
     .mobile {
         display: block !important;
+    }
+    .desktop_mode {
+        display: none !important;
     }
     
 }

@@ -3,7 +3,7 @@
     <LoaderSpin v-if="spinner" />
     <CheckoutOnTheWayMsg v-if="isPaid" :data="submittedData" />
     <div v-else class="checkout-wrapper">
-      <div v-if="!mobile" class="__bg__fixed">
+      <div v-if="!mobile" class="__bg__fixed desktop_mode">
         <CheckoutProgressBar
           :progressPercentage="progressPercentage"
           :currentStep="currentStep"

@@ -64,7 +64,8 @@
                 />
               </svg>
             </button>
-            <div class="counter">{{ items?.quantity }}</div>
+            <div class="counter" v-if="!loader">{{ items?.quantity }}</div>
+            <span class="loader" v-if="loader"></span>
             <button class="circle" @click="IncreaseQuantity">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +93,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
   props: {
@@ -105,19 +106,35 @@ export default {
       default: false,
     },
   },
-  computed: {},
+  data() {
+    return {
+      loader: false,
+    };
+  },
+  computed: {
+    ...mapState("cart", ["cartLoading"]),
+  },
   methods: {
     ...mapActions("cart", ["removeFromCart"]),
     formatPriceWithCommas,
     IncreaseQuantity() {
+      this.loader = true;
       this.$emit("counterPlus", this.items.product);
     },
     decreaseQuantity() {
       if (this.items.quantity > 1) {
+        this.loader = true;
         this.$emit("counterMinus", this.items.product);
       }
     },
   },
+  watch: {
+    cartLoading(newValue, oldValue) {
+      if (newValue === false) {
+        this.loader = false
+      }
+    }
+  }
 };
 </script>
 
