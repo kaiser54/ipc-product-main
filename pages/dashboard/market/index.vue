@@ -42,7 +42,7 @@
       </EmptySystem>
     </div>
     <div class="nuxt-page" v-else>
-      <promptAlert @openMail="handleOpenMail" v-if="!verifiedEmail" />
+      <!-- <promptAlert @openMail="handleOpenMail" v-if="!verifiedEmail" /> -->
       <div class="page-title">
         <h2 class="h2-medium header-text">Market</h2>
       </div>
@@ -52,12 +52,12 @@
 
         </div>
       </section>
-      <transition name="modal-fade">
+      <!-- <transition name="modal-fade">
         <popupModal v-if="checkMail" :animate="animate" title="Check your email address"
           snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
           buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
           @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
-      </transition>
+      </transition> -->
 
     </div>
 
@@ -104,7 +104,7 @@ export default {
       console.log("User data not found in localStorage.");
     }
     this.getAllProduct()
-    this.getUserDetails()
+    // this.getUserDetails()
   },
   computed: {
     ...mapState("product", ["loading", "error"]),
@@ -120,38 +120,19 @@ export default {
       this.animate =
         window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
-    async getUserDetails() {
-      try {
-        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
-        this.userProfile = response.data.data.customer
-        console.log("user-profile:", this.userProfile)
-        console.log("user-profile-status:", this.userProfile.verified)
-        this.userProfileStatus = response.data.data.customer.verified
-        this.verifiedEmail = this.userProfileStatus
-      } catch (error) {
-        console.error("Error fetching data", error);
-        return { responseData: null };
-      }
-    },
-    async handleOpenMail() {
-      this.checkMail = !this.checkMail;
-      try {
-        const userEmail = localStorage.getItem('userEmail');
-        if (!userEmail) {
-          throw new Error('User email not found in localStorage.');
-        }
-        const response = await this.$axios.post('/business-customers/send-verification-email', {
-          email: userEmail,
-        });
-        console.log('Email sent successfully:', response.data);
-        console.log(userEmail)
-
-        return { userEmail };
-      } catch (error) {
-        console.error('Error sending email:', error);
-        return { userEmail: null };
-      }
-    },
+    // async getUserDetails() {
+    //   try {
+    //     const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+    //     this.userProfile = response.data.data.customer
+    //     console.log("user-profile:", this.userProfile)
+    //     console.log("user-profile-status:", this.userProfile.verified)
+    //     this.userProfileStatus = response.data.data.customer.verified
+    //     this.verifiedEmail = this.userProfileStatus
+    //   } catch (error) {
+    //     console.error("Error fetching data", error);
+    //     return { responseData: null };
+    //   }
+    // },
     async getAllProduct() {
       // set welcome modal to show on condition that a user is new or not
       // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'

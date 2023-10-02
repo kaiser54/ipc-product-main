@@ -1,74 +1,104 @@
 <template>
-  <div class="mobileHistory-container">
+  <div class="mobileHistory-container" v-if="tableData">
     <div
       class="mobileHistory"
-      v-for="item in tableData"
-      :key="item.id"
-      @click="toHistoryDetails(item._id)"
+      v-for="(item, index) in tableData"
+      :key="index"
+      @click="toHistoryDetails(item?._id)"
     >
       <div class="img-name-order">
-        <div class="img" v-for="image in getProductImages(item.products)" :key="image.id">
-              <!-- {{ image.url }} -->
-              <img :src="image.url" alt="product Image" />
-            </div>
+        <div class="img-wrap">
+          <div
+            class="img"
+            v-for="(image, index) in getProductImages(item?.products)"
+            :key="index"
+          >
+            <!-- {{ image.url }} -->
+            <img :src="image.url" alt="product Image" />
+          </div>
+        </div>
         <div class="name-order">
-          <div class="name">{{  getProductNames(item.products) }}</div>
-          <div class="order">Order id: {{ truncateId(item._id, 7) }}</div>
+          <div class="name">{{ getProductNames(item?.products) }}</div>
+          <div class="order">Order id: {{ truncateId(item?._id, 7) }}</div>
         </div>
       </div>
-      <div class="price">#{{ calculateTotalOrderPrice(item.products) }}</div>
+      <div class="price"><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item?.products)) }}</div>
     </div>
   </div>
 </template>
   
   <script>
+  import { formatPriceWithCommas } from "~/static/formatPrice";
 export default {
-  props:{
-    tableData:{
+  props: {
+    tableData: {
       type: Array,
-      Required: true
-    }
+      Required: true,
+    },
   },
   data() {
     return {
-      tableHeaders: ["Product’s name", "Date", "Order ID", "Quantity", "Price", "Status"],
+      tableHeaders: [
+        "Product’s name",
+        "Date",
+        "Order ID",
+        "Quantity",
+        "Price",
+        "Status",
+      ],
       tableDatas: [],
     };
   },
   methods: {
+    formatPriceWithCommas,
     toHistoryDetails(id) {
       // const baseURL = "/dashboard/track orders/";
       // const baseURL = `/dashboard/track orders/${value}`;
       // this.$router.push(baseURL + value)
       // this.$router.push(`/dashboard/track orders/${value}`)
       this.$router.push(`/dashboard/track_orders/${id}`);
-      console.log("working:", this.tableData)
+      console.log("working:", this.tableData);
     },
 
     truncateId(id, maxLength) {
       if (!id) {
-        return ''; // Return an empty string if id is undefined or null
+        return ""; // Return an empty string if id is undefined or null
       }
 
       if (id.length > maxLength) {
-        return id.substring(0, maxLength) + '...';
+        return id.substring(0, maxLength) + "...";
       }
 
       return id;
     },
     getProductImages(products) {
       // Use the `map` function to create a new array
-      const images = products.slice(0, 3).map((product, index) => {
+      const images = products.slice(0, 1).map((product, index) => {
         // Access the `images` property of each product (assuming it's an array)
-        const productImages = product.images;
+        const productImages =
+          product.images || (product.product && product.product.images);
 
         // Log the chosen products
         if (index < 3) {
           console.log(`Chosen Product ${index + 1}:`, product);
         }
 
-        // Return the first image URL
-        return productImages ? productImages[0] : product.product.images[0];
+        // Check if `productImages` is an array and not empty
+        if (Array.isArray(productImages) && productImages.length > 0) {
+          return productImages[0]; // Return the first image URL
+        }
+
+        // Check if `product.product.images` is an array and not empty
+        if (
+          Array.isArray(product.product?.images) &&
+          product.product.images.length > 0
+        ) {
+          return product.product.images[0]; // Return the first image URL from `product.product`
+        }
+
+        // If no valid image URL is found, you can return a default image URL or handle it as needed.
+        // For now, let's assume a default URL.
+        return "default-image-url.jpg";
       });
 
       // Log the chosen images to the console
@@ -76,39 +106,42 @@ export default {
 
       return images;
     },
+
     getProductNames(products) {
-  if (products.length === 0) {
-    return "No products";
-  } else if (products.length === 1) {
-    return products[0]?.name || products[0]?.product.name || "No name";
-  } else {
-    const truncatedNames =
-      products
-        .map((product) => product?.name || product?.product.name || "No name")
-        .join(", ")
-        .substring(0, 5) + "..."; // Adjust the character limit as needed
-    return truncatedNames;
-  }
-},
-calculateTotalOrderPrice(products) {
-    if (Array.isArray(products) && products.length > 0) {
-      // Sum the total prices of all products in the order
-      return products.reduce((totalPrice, product) => {
-        if (product && typeof product.totalPrice === 'number') {
-          return totalPrice + product.totalPrice;
-        }
-        return totalPrice;
-      }, 0);
-    }
-    return 0; // Return 0 if products is not defined or empty
+      if (products.length === 0) {
+        return "No products";
+      } else if (products.length === 1) {
+        return products[0]?.name || products[0]?.product.name || "No name";
+      } else {
+        const truncatedNames =
+          products
+            .map(
+              (product) => product?.name || product?.product.name || "No name"
+            )
+            .join(", ")
+            .substring(0, 5) + "... and " + products.length + " more"; // Adjust the character limit as needed
+        return truncatedNames;
+      }
+    },
+    calculateTotalOrderPrice(products) {
+      if (Array.isArray(products) && products.length > 0) {
+        // Sum the total prices of all products in the order
+        return products.reduce((totalPrice, product) => {
+          if (product && typeof product.totalPrice === "number") {
+            return totalPrice + product.totalPrice;
+          }
+          return totalPrice;
+        }, 0);
+      }
+      return 0; // Return 0 if products is not defined or empty
+    },
   },
+  mounted() {
+    console.log(this.tableData);
   },
-  mounted(){
-    console.log(this.tableData)
+  created() {
+    console.log("tableData-prop:", this.tableData);
   },
-  created(){
-    console.log('tableData-prop:', this.tableData);
-  }
 };
 </script>
   

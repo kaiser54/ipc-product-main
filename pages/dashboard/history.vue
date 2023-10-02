@@ -1,5 +1,5 @@
 <template>
-  <div class="view-page history">
+  <div class="view-page history goTop">
     <div class="title-header history-head">
       <h2 class="h2-medium header-text">History</h2>
       <DynamicButton
@@ -41,7 +41,8 @@
 
       <!-- ================================ -->
     </div>
-    <div class="history-content">
+    <p v-if="!tableData">No history yet</p>
+    <div class="history-content" v-if="tableData">
       <!-- history table for desktop views -->
 
       <HistoryTable
@@ -55,7 +56,7 @@
 
       <!-- history table for mooile views -->
 
-      <HistoryMobileTable v-if="mobile" :tableData="tableData" />
+      <HistoryMobileTable v-if="mobile && tableData" :tableData="tableData" />
       <HistoryMobileFilter
         v-show="isFilterOpen && mobile"
         :animate="animate"
@@ -132,8 +133,6 @@ export default {
     }
 
     this.getOrders();
-    console.log(this.tableData);
-    console.log(this.tableDataClone);
   },
   beforeDestroy() {
     this.checkScreenSize();
@@ -273,14 +272,14 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px 32px;
+  /* padding: 24px 32px; */
   gap: 32px;
 
   width: 100%;
   /* White */
   background: var(--white);
   /* Grey/Grey5 */
-  border: 1px solid var(--grey-grey5);
+  /* border: 1px solid var(--grey-grey5); */
   border-radius: 16px;
 
   /* height: 50vh; */
@@ -305,9 +304,9 @@ export default {
     z-index: 0;
   }
 
-  .history-content {
+  /* .history-content {
     padding: 16px;
-  }
+  } */
 }
 </style>
 

@@ -38,7 +38,7 @@
         </div>
         <div class="top-fixed" @click="closePopup">
           <section class="dashview">
-            <div class="ipc-top-fixed">
+            <div class="ipc-top-fixed" v-if="!isProductDetailsPage">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
@@ -58,6 +58,12 @@
             </div>
             <div class="view-wrapper">
               <section class="view">
+                <div class="" style="padding: 16px">
+                  <promptAlert
+                    @openMail="okModal"
+                    v-if="!verifiedEmail && $route.name === 'dashboard-market'"
+                  />
+                </div>
                 <div class="page-wrapper nuxt-page-here">
                   <div class="page-container">
                     <nuxt />
@@ -84,6 +90,21 @@
         @closeModalBG="closeLogoutUserBG"
       />
     </transition>
+    <transition name="modal-fade">
+      <popupModal
+        v-if="checkMail"
+        :animate="animate"
+        title="Check your email address"
+        snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
+        buttonText="Got it"
+        buttonText2="Resend link"
+        buttonClass="neutral-btn"
+        buttonClass2="primary-btn"
+        @okModal="okModal"
+        @closeModal="handleOpenMail"
+        @closeModalBG="handleOpenMail"
+      />
+    </transition>
   </div>
 </template>
 
@@ -104,10 +125,17 @@ export default {
       showModal: false,
       error_msg: "",
       alertType: "",
+      verifiedEmail: false,
+      animate: null,
     };
   },
   computed: {
     ...mapState("cart", ["cartAlert"]),
+    isProductDetailsPage() {
+      // Check if the current route is a product details page
+      console.log(this.$route.name);
+      return this.$route.name === "dashboard-market-product";
+    },
   },
   async mounted() {
     await this.fetchCartItemsByUserID();
@@ -127,6 +155,7 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
+          this.verifiedEmail = this.user.verified;
           console.log("User data in localStorage:", JSON.parse(userData));
         } else {
           // User data is not found in localStorage
@@ -179,6 +208,8 @@ export default {
     },
     checkScreenSize() {
       this.mobile = window.innerWidth < 952;
+      this.animate =
+        window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
     redirectToSearchPageFunc() {
       if (this.mobile) {
@@ -194,6 +225,27 @@ export default {
     handleOpenMail() {
       this.checkMail = !this.checkMail;
     },
+    async okModal() {
+      try {
+        this.checkMail = !this.checkMail;
+        const userEmail = localStorage.getItem("userEmail");
+        if (!userEmail) {
+          throw new Error("User email not found in localStorage.");
+        }
+        const response = await this.$axios.post(
+          "/business-customers/send-verification-email",
+          {
+            email: userEmail,
+          }
+        );
+        console.log("Email sent successfully:", response.data);
+        console.log(userEmail);
+        return { userEmail };
+      } catch (error) {
+        console.error("Error sending email:", error);
+        return { userEmail: null };
+      }
+    },
   },
   watch: {
     cartAlert(newValue, oldValue) {
@@ -205,7 +257,7 @@ export default {
         this.$refs.alertPrompt.showAlert();
         this.error_msg = "Product successfully added to cart";
         this.alertType = "success";
-      } else if (newValue === 'removed') {
+      } else if (newValue === "removed") {
         this.$refs.alertPrompt.showAlert();
         this.error_msg = "Product successfully removed from cart";
         this.alertType = "success";
@@ -322,10 +374,13 @@ section.view {
   .view-wrapper {
     overflow-y: visible;
     height: 100%;
+    margin-top: 154px;
+    /* margin-top: 100px; */
   }
 
   .ipc-top-fixed {
     position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

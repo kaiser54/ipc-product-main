@@ -141,7 +141,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 170px;
+  /* margin-top: 170px; */
 }
 .checkout-bottom {
   padding: 16px;

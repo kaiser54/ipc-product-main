@@ -107,7 +107,7 @@ export default {
 
 <style scoped>
 .categories {
-  width: 97%;
+  width: 100%;
   background-color: #f4f5f8;
   padding: 10px 15px;
   border-radius: 8px;

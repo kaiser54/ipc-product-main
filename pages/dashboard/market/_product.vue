@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div :class="{ 'user-details-component': mobile }" v-if="productDetails" class="goTop">
     <LoaderComponent v-if="loading" />
-    <div :class="{ 'user-details-component': mobile }" v-if="productDetails">
-      <div class="component-header" v-if="mobile">
-        <div class="component-header-main">
-          <!-- back button for mobile view -->
-          <svg
+    <div class="component-header" v-if="mobile">
+      <div class="component-header-main">
+        <!-- back button for mobile view -->
+        <svg
             @click="$router.go(-1)"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -21,141 +20,139 @@
               stroke-linejoin="round"
             />
           </svg>
-          <!-- ---------------------------- -->
+        <!-- ---------------------------- -->
 
-          <!-- header -->
-          <p>Product details</p>
+        <!-- header -->
+        <p>Product details</p>
 
-          <div class="component-cart">
-            <nuxt-link to="/dashboard/market/cart">
-              <div class="badge">
-                <p>{{ TotalCart }}</p>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
-                  stroke="#565C69"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
-                  stroke="#565C69"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </nuxt-link>
+        <div class="component-cart">
+          <nuxt-link to="/dashboard/market/cart">
+            <div class="badge">
+              <p>{{ TotalCart }}</p>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888"
+                stroke="#565C69"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </nuxt-link>
+        </div>
+        <!-- ----------------- -->
+      </div>
+    </div>
+
+    <!-- back button -->
+    <!-- <goback style="margin-top: 28px; margin-left: 16px" /> -->
+    <!-- ----------- -->
+
+    <div class="product-detail-con">
+      <!-- product details page for mobile view -->
+      <div class="mobile-product-details" v-if="mobile">
+        <!-- the moving product carousel -->
+        <div
+          class=""
+          style="width: 100%"
+          v-if="productDetails?.images && Array.isArray(productDetails.images)"
+        >
+          <ProductCarousel :images="productDetails?.images" />
+        </div>
+        <!-- ---------------------------- -->
+
+        <div class="product-content">
+          <!-- product title, brand name and like button -->
+
+          <div class="product-details-title">
+            <h3 class="h3-small-medium">
+              {{ productDetails?.name }}
+            </h3>
+            <p class="product-details-brand">
+              Brand: <span>{{ productDetails?.brand }}</span>
+            </p>
           </div>
-          <!-- ----------------- -->
+          <div class="product-details-price-grp">
+            <h3 class="h3-bold">
+              <span class="naira">₦</span>
+              {{
+                productDetails &&
+                formatPriceWithCommas(productDetails.discountPrice)
+              }}
+            </h3>
+            <tags />
+          </div>
+          <p class="product-details-snippet">
+            {{ productDetails?.description }}
+          </p>
+
+          <!-- ------------------------------- -->
         </div>
       </div>
+      <!-- -------------------------------------- -->
 
-      <!-- back button -->
-      <goback style="margin-top: 28px; margin-left: 16px" />
-      <!-- ----------- -->
-
-      <div class="product-detail-con">
-        <!-- product details page for mobile view -->
-        <div class="mobile-product-details" v-if="mobile">
-          <!-- the moving product carousel -->
-          <div
-            class=""
-            style="width: 100%"
-            v-if="
-              productDetails?.images && Array.isArray(productDetails.images)
-            "
-          >
-            <ProductCarousel :images="productDetails?.images" />
-          </div>
-          <!-- ---------------------------- -->
-
-          <div class="product-content">
-            <!-- product title, brand name and like button -->
-
-            <div class="product-details-title">
-              <h3 class="h3-small-medium">
-                {{ productDetails?.name }}
-              </h3>
-              <p class="product-details-brand">
-                Brand: <span>{{ productDetails?.brand }}</span>
-              </p>
+      <!-- product details page for desktop view -->
+      <div class="product-details-wrapper" v-else>
+        <div class="product-details-main">
+          <div class="product-img-thumb">
+            <!-- image container -->
+            <div
+              class="product-img zoom-container"
+              ref="zoomContainer"
+              v-if="
+                productDetails?.images && Array.isArray(productDetails.images)
+              "
+            >
+              <img
+                v-for="(image, index) in productDetails.images"
+                :key="index"
+                :src="image.url"
+                alt="Product Image"
+                class="zoom-image"
+                ref="zoomImage"
+              />
             </div>
-            <div class="product-details-price-grp">
-              <h3 class="h3-bold">
-                <span class="naira">₦</span>
-                {{
-                  productDetails &&
-                  formatPriceWithCommas(productDetails.discountPrice)
-                }}
-              </h3>
-              <tags />
-            </div>
-            <p class="product-details-snippet">
-              {{ productDetails?.description }}
-            </p>
 
-            <!-- ------------------------------- -->
-          </div>
-        </div>
-        <!-- -------------------------------------- -->
+            <!-- --------------- -->
 
-        <!-- product details page for desktop view -->
-        <div class="product-details-wrapper" v-else>
-          <div class="product-details-main">
-            <div class="product-img-thumb">
-              <!-- image container -->
+            <!-- product thumbnail under the main product image -->
+            <div class="product-thumb">
               <div
-                class="product-img zoom-container"
-                ref="zoomContainer"
-                v-if="
-                  productDetails?.images && Array.isArray(productDetails.images)
-                "
+                class="thumb"
+                v-for="(image, index) in fakeProduct.images"
+                :key="index"
               >
-                <img
-                  v-for="(image, index) in productDetails.images"
-                  :key="index"
-                  :src="image.url"
-                  alt="Product Image"
-                  class="zoom-image"
-                  ref="zoomImage"
-                />
+                <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
               </div>
-
-              <!-- --------------- -->
-
-              <!-- product thumbnail under the main product image -->
-              <div class="product-thumb">
-                <div
-                  class="thumb"
-                  v-for="(image, index) in fakeProduct.images"
-                  :key="index"
-                >
-                  <!-- <img :src="require(`~/assets/images/${image}`)" alt="" @click="changeImage(index)" /> -->
-                </div>
-                <!-- -------------------------------------------- -->
-              </div>
+              <!-- -------------------------------------------- -->
             </div>
-            <div class="product-details-content">
-              <div class="product-details-title-like">
-                <!-- product title, brand name and like button -->
-                <div class="product-details-title">
-                  <h3 class="h3-small-medium">
-                    {{ productDetails?.name }}
-                  </h3>
-                  <p class="product-details-brand">
-                    Brand: <span>{{ productDetails?.brand }}</span>
-                  </p>
-                </div>
-                <!-- <div class="circle" @click="toggleLike">
+          </div>
+          <div class="product-details-content">
+            <div class="product-details-title-like">
+              <!-- product title, brand name and like button -->
+              <div class="product-details-title">
+                <h3 class="h3-small-medium">
+                  {{ productDetails?.name }}
+                </h3>
+                <p class="product-details-brand">
+                  Brand: <span>{{ productDetails?.brand }}</span>
+                </p>
+              </div>
+              <!-- <div class="circle" @click="toggleLike">
                   <svg
                     :class="{ liked: isLiked || isInSaved }"
                     xmlns="http://www.w3.org/2000/svg"
@@ -172,182 +169,181 @@
                     />
                   </svg>
                 </div> -->
+            </div>
+            <!-- ------------------------------- -->
+
+            <p class="product-details-snippet">
+              {{ productDetails.description }}
+            </p>
+            <div class="product-details-price-grp">
+              <h3 class="h3-bold">
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails &&
+                  formatPriceWithCommas(productDetails.discountPrice)
+                }}
+              </h3>
+              <tags />
+            </div>
+            <!-- cart button -->
+
+            <!-- add to cart button  -->
+
+            <!-- <button class="btn primary-btn">Add to cart</button> -->
+
+            <button
+              class="btn primary-btn"
+              @click="addProductToCart"
+              v-if="!isInCart"
+            >
+              Add to cart
+            </button>
+
+            <!-- -------------------------------- -->
+
+            <div v-else class="counter-btn">
+              <!-- counter button -->
+
+              <button @click="decrementQuantity" class="circle btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 8H12.6666"
+                    stroke="#0009B3"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+              <div class="counter" v-if="!cartLoading">
+                {{ getProductQuantity }}
               </div>
-              <!-- ------------------------------- -->
+              <span class="loader" v-if="cartLoading"></span>
 
-              <p class="product-details-snippet">
-                {{ productDetails.description }}
-              </p>
-              <div class="product-details-price-grp">
-                <h3 class="h3-bold">
-                  <span class="naira"><span class="naira">₦</span></span>
-                  {{
-                    productDetails &&
-                    formatPriceWithCommas(productDetails.discountPrice)
-                  }}
-                </h3>
-                <tags />
-              </div>
-              <!-- cart button -->
-
-              <!-- add to cart button  -->
-
-              <!-- <button class="btn primary-btn">Add to cart</button> -->
-
-              <button
-                class="btn primary-btn"
-                @click="addProductToCart"
-                v-if="!isInCart"
-              >
-                Add to cart
+              <button @click="addProductToCart" class="circle">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+                    stroke="#0009B3"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </button>
 
               <!-- -------------------------------- -->
-
-              <div v-else class="counter-btn">
-                <!-- counter button -->
-
-                <button @click="decrementQuantity" class="circle btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M3.33325 8H12.6666"
-                      stroke="#0009B3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-                <div class="counter" v-if="!cartLoading">
-                  {{ getProductQuantity }}
-                </div>
-                <span class="loader" v-if="cartLoading"></span>
-
-                <button @click="addProductToCart" class="circle">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-                      stroke="#0009B3"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                <!-- -------------------------------- -->
-              </div>
-              <!-- --------- -->
-              <guarantee />
             </div>
+            <!-- --------- -->
+            <guarantee />
           </div>
-          <relatedProduuct />
         </div>
-        <!-- ---------------------------------- -->
+        <relatedProduuct />
       </div>
+      <!-- ---------------------------------- -->
+    </div>
 
-      <div class="bottom-nav" v-if="mobile">
-        <div class="addBtn">
-          <button class="btn primary-btn" @click="addProductToCart">
-            Add to cart
-          </button>
-        </div>
-        <div class="operation">
-          <!-- counter button -->
-
-          <button @click="decrementQuantity" class="circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M3.33325 8H12.6666"
-                stroke="#0009B3"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-
-          <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-
-          <div class="counter" v-if="!cartLoading">
-            {{ getProductQuantity }}
-          </div>
-          <span class="loader" v-if="cartLoading"></span>
-
-          <button @click="addProductToCart" class="circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-                stroke="#0009B3"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
+    <div class="bottom-nav" v-if="mobile">
+      <div class="addBtn">
+        <button class="btn primary-btn" @click="addProductToCart">
+          Add to cart
+        </button>
       </div>
+      <div class="operation">
+        <!-- counter button -->
 
-      <div class="categories-ctn">
-        <CategoryCards Header="You might also like this">
-          <template v-slot:svg>
-            <svg
-              @click="toggleColor"
-              :class="{ Red: isRed }"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z"
-                :stroke="isRed ? '#FF0000' : '#565C69'"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <rect
-                x="0.5"
-                y="0.5"
-                width="31"
-                height="31"
-                rx="15.5"
-                :stroke="isRed ? '#FF0000' : '#565C69'"
-              />
-            </svg>
-          </template>
-        </CategoryCards>
-        <!-- <div class="product-buttom-nav">
+        <button @click="decrementQuantity" class="circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M3.33325 8H12.6666"
+              stroke="#0009B3"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
+
+        <div class="counter" v-if="!cartLoading">
+          {{ getProductQuantity }}
+        </div>
+        <span class="loader" v-if="cartLoading"></span>
+
+        <button @click="addProductToCart" class="circle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
+              stroke="#0009B3"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="categories-ctn">
+      <CategoryCards Header="You might also like this">
+        <template v-slot:svg>
+          <svg
+            @click="toggleColor"
+            :class="{ Red: isRed }"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.6304 21.8405L10.3843 16.3775C8.90659 14.8388 8.99964 12.3157 10.5863 10.8995C12.1604 9.49454 14.5471 9.76737 15.791 11.4945L16.0002 11.7848L16.2093 11.4945C17.4532 9.76737 19.8399 9.49454 21.414 10.8995C23.0007 12.3157 23.0938 14.8388 21.616 16.3775L16.3699 21.8405C16.1657 22.0531 15.8346 22.0531 15.6304 21.8405Z"
+              :stroke="isRed ? '#FF0000' : '#565C69'"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <rect
+              x="0.5"
+              y="0.5"
+              width="31"
+              height="31"
+              rx="15.5"
+              :stroke="isRed ? '#FF0000' : '#565C69'"
+            />
+          </svg>
+        </template>
+      </CategoryCards>
+      <!-- <div class="product-buttom-nav">
         <ProductDetailb />
       </div> -->
-      </div>
     </div>
   </div>
 </template>
@@ -510,6 +506,12 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 950px) {
+  .user-details-component {
+    height: auto;
+    position: relative;
+  }
+}
 .zoom-container {
   position: relative;
   overflow: hidden;
@@ -523,7 +525,11 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin: 28px 16px;
+  /* margin: 28px 16px; */
+}
+
+@media (max-width: 750px) {
+  
 }
 
 .mobile-product-details {
@@ -760,6 +766,7 @@ p.product-details-snippet {
   color: var(--grey-grey1);
 }
 .categories-ctn {
+  margin-top: 48px;
   padding: 0px 0px;
   margin-bottom: 0px;
   width: 100%;
@@ -860,6 +867,8 @@ p.product-details-snippet {
     position: fixed;
     padding: 10px 20px;
     bottom: 0;
+    left: 0;
+    height: 77px;
     width: 100%;
     z-index: 99;
     display: flex;

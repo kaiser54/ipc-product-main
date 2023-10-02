@@ -162,6 +162,15 @@ p {
     /* Grey/Grey5 */
 
     border-bottom: 1px solid var(--grey-grey5);
+
+    z-index: 99;
+}
+
+@media (max-width: 950px) {
+    .component-header {
+        position: fixed;
+        width: 100%;
+    }
 }
 
 .component-header-main {
@@ -275,21 +284,25 @@ form {
 .naira {
     font-family: 'Roboto', sans-serif;
 }
+
 .mobile {
     display: none !important;
 }
+
 @media (max-width: 950px) {
     .market-product {
         padding: 0;
         gap: 8px;
     }
+
     .mobile {
         display: block !important;
     }
+
     .desktop_mode {
         display: none !important;
     }
-    
+
 }
 
 
@@ -330,4 +343,9 @@ form {
     /* Limit to 2 lines of text */
     overflow: hidden;
     /* Hide any overflowing content */
+}
+
+
+.goTop {
+    margin-top: -68px;
 }

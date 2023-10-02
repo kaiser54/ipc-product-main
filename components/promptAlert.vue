@@ -36,6 +36,7 @@ export default {};
   flex-direction: row;
   align-items: flex-start;
   padding: 24px;
+  /* margin: 16px; */
   gap: 24px;
 
   width: 100%;
@@ -107,6 +108,7 @@ button p {
   .prompt-alert {
     padding: 16px;
     gap: 12px;
+    /* width: fit-content; */
   }
 
   .alert-warning {

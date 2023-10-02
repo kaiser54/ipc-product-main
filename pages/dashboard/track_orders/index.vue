@@ -1,5 +1,5 @@
 <template>
-  <div class="view-page">
+  <div class="view-page goTop">
     <div class="title-header">
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>

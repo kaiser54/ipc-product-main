@@ -1,5 +1,5 @@
 <template>
-  <div class="view-page">
+  <div class="view-page goTop">
     <LoaderComponent v-if="!user" />
     <div class="" v-if="user">
       <div
