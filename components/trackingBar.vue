@@ -32,7 +32,7 @@
                 </div>
                 <div class="tag-date">
                     <div class="tagged">
-                        <DynamicTags :tagText="trackLevel.status" :size="size" :type="getTagType(trackLevel.status)" />
+                        <DynamicTags :tagText="track.status" :size="size" :type="getTagType(track.status)" />
                     </div>
                     <p class="date">{{ track.date }}</p>
                 </div>
@@ -59,14 +59,14 @@ export default {
                     title: "Order processing",
                     snippet: "We’re processing your order to be ready.",
                     date: "13/03/2021",
-                    status: "Completed",
+                    status: "Processing",
                 },
                 {
                     id: 2,
                     title: "Shipped",
                     snippet: "Your order is on its way to you right now!",
                     date: "13/03/2021",
-                    status: "Pending",
+                    status: "Shipped",
                 },
                 {
                     id: 3,
@@ -117,11 +117,11 @@ export default {
             }
         },
         getTagType(status) {
-            if (status === "PROCESSING") {
+            if (status === "Processing") {
                 return "warning";
-            } else if (status === "SHIPPED") {
+            } else if (status === "Shipped") {
                 return "info";
-            } else if (status === "DELIVERED") {
+            } else if (status === "Completed") {
                 return "positive";
             } else {
                 return "";

@@ -1,6 +1,5 @@
 <template>
   <div class="container" style="width: 100%; ">
-
     <LoaderComponent v-if="loading" />
     <div class="empty" v-else-if="filteredProducts.length === 0">
       <EmptySystem :header="header" :snippet="snippet">
@@ -58,7 +57,7 @@
           buttonText="Resend link" buttonText2="Got it" buttonClass="neutral-btn" buttonClass2="primary-btn"
           @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
       </transition>
-      <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
+      <ModalWelcome class="modal" v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
 
     </div>
 
@@ -80,7 +79,6 @@ export default {
   },
   data() {
     return {
-      
       // api: process.env.BASE_URL,
       pageTitle: "IPC | Market",
       checkMail: false,
@@ -191,6 +189,10 @@ export default {
 
 
 <style>
+.container{
+  z-index: 10;
+
+}
 .nuxt-page {
   display: flex;
   gap: 32px;
@@ -226,7 +228,10 @@ export default {
   margin-top: 10%;
 
 }
-
+.modal{
+  z-index: 1000;
+  border: 1px solid red;
+}
 @media (min-width: 950px) {
   .webskeleton {
     display: block;
