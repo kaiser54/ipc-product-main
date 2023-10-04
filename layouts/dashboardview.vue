@@ -370,12 +370,19 @@ section.view {
   section.view {
     max-width: 100%;
   }
-
+  .nuxt-page-here {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+}
   .view-wrapper {
     overflow-y: visible;
     height: 100%;
-    margin-top: 154px;
-    /* margin-top: 100px; */
+    /* margin-top: 154px; */
+    margin-top: 150px;
   }
 
   .ipc-top-fixed {
@@ -401,5 +408,11 @@ section.view {
     margin: 16px;
     gap: 16px;
   }
+  
+section.view {
+
+  margin-bottom: 0px;
+}
+
 }
 </style>

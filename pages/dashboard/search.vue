@@ -7,7 +7,7 @@
       <!-- @search-term-updated is catched from the search component  -->
       <section class="market-product p-16">
       <div class="empty" v-if="filteredProducts.length === 0">
-      <EmptySystem :header="header" :snippet="snippet">
+      <EmpitifiedState @redirectPage="redirected()" :header="header" :snippet="snippet">
 
         <template v-slot:svg>
           <svg xmlns="http://www.w3.org/2000/svg" width="106" height="86" viewBox="0 0 106 86" fill="none">
@@ -43,7 +43,7 @@
             <path d="M18.2346 14.6475L27.5938 29.5525L41.3629 41.6368L49.0039 15.2965L18.2346 14.6475Z" fill="#7E8494" />
           </svg>
         </template>
-      </EmptySystem>
+      </EmpitifiedState>
     </div>
         <div class="product-top-wrap" v-else>
           <ProductCard
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import {EventBus} from "@/utils/event-bus"
 import ProductCard from "@/components/productcard";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
@@ -74,7 +75,15 @@ export default {
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
+    redirected() {
+  console.log("Redirected to /dashboard/market");
+  this.$router.go(-1);
+  EventBus.$emit('clearInput')
+}
+
   },
+    
+  
   async mounted() {
     await this.fetchAllProducts(); // Fetch all products when the component is mounted
     if (this.$route.path === "/dashboard/search") {
@@ -82,10 +91,11 @@ export default {
         const searchInput = this.$refs.search;
         if (searchInput) {
           searchInput.focus();
-        }
+        } 
       });
     }
   },
+
   computed: {
     ...mapState("product", ["loading", "error"]),
     ...mapGetters("product", ["getProductsBySearch"]),
@@ -120,7 +130,7 @@ export default {
   /* border: 1px solid red; */
   text-align: center;
   margin: auto;
-  margin-top: 50%;
+  margin-top: 20%;
 
 }
 .product-top-wrap {
@@ -132,7 +142,7 @@ export default {
   gap: 16px;
   width: 100%;
   justify-content: space-between;
-  margin-top: 95px;
+  margin-top: 96px;
 }
 
 @media (max-width: 950px) {
@@ -144,5 +154,18 @@ export default {
   .p-16 {
     padding: 0 16px;
   }
+  .empty {
+  width: 360px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+  text-align: center;
+  margin: auto;
+  margin-top: 50%;
+
+}
 }
 </style>

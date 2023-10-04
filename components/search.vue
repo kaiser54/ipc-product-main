@@ -28,7 +28,7 @@
         class="input-search"
         ref="search"
         type="search"
-        name=""
+        name="search"
         v-model="searchQuery"
         id="input"
         placeholder="Search for products"
@@ -59,6 +59,7 @@
 
 
 <script>
+import {EventBus} from "@/utils/event-bus"
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -75,6 +76,9 @@ export default {
         }
       });
     }
+    EventBus.$on('clearInput', ()=> {
+      this.searchQuery = ""
+    })
   },
   methods: {
     ...mapActions("product", ["updateQuery"]),
