@@ -108,10 +108,10 @@ export default {
           }
         );
         this.verificationLoading = false;
-        console.log("Token Sent", response.data);
+        console.log("Token response", response);
         localStorage.setItem("verified", response.data.status);
-        localStorage.removeItem("user");
-        localStorage.setItem("user", response.data.customer);
+        // localStorage.removeItem("user");
+        // localStorage.setItem("user", response.data.customer);
         if (response.data.status === "success") {
           this.showModal = true;
           this.user.verified = true;
@@ -125,9 +125,9 @@ export default {
         console.log(getVerified);
         this.showModal = true;
         // After 10 seconds, hide the modal and navigate to /dashboard/Market
-        setTimeout(() => {
-          this.$router.push("/dashboard/Market");
-        }, 5000); // 6000 milliseconds = 6 seconds
+        // setTimeout(() => {
+        //   this.$router.push("/dashboard/Market");
+        // }, 5000); // 6000 milliseconds = 6 seconds
         // this.$router.push("/dashboard/Market");
       } catch (error) {
         this.verificationLoading = false;
