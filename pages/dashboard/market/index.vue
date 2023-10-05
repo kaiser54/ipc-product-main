@@ -168,7 +168,6 @@ export default {
 </script>
 
 
-
 <style>
 .nuxt-page {
   display: flex;
