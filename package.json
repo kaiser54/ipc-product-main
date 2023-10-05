@@ -33,6 +33,7 @@
     "vue": "^2.7.14",
     "vue-2-breadcrumbs": "^0.8.1",
     "vue-demi": "^0.14.5",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-paystack": "^2.0.4",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",

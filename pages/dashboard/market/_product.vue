@@ -59,7 +59,7 @@
     </div>
 
     <!-- back button -->
-    <!-- <goback style="margin-top: 28px; margin-left: 16px" /> -->
+    <goback style="margin-bottom: 28px; margin-left: 16px" />  
     <!-- ----------- -->
 
     <div class="product-detail-con">
@@ -792,6 +792,9 @@ p.product-details-snippet {
 }
 
 @media (min-width: 950px) {
+  .goTop {
+    margin: 0;
+  }
   .webskeleton {
     display: block;
   }

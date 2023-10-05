@@ -345,7 +345,8 @@ form {
     /* Hide any overflowing content */
 }
 
-
-.goTop {
-    margin-top: -68px;
+@media (max-width: 950px) {
+    .goTop {
+        margin-top: -68px;
+    }
 }

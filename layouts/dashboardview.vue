@@ -38,7 +38,10 @@
         </div>
         <div class="top-fixed" @click="closePopup">
           <section class="dashview">
-            <div class="ipc-top-fixed" v-if="!isProductDetailsPage">
+            <div
+              class="ipc-top-fixed"
+              :class="{ ProductDetailsPage: isProductDetailsPage }"
+            >
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
@@ -400,6 +403,10 @@ section.view {
   .nuxt-page-here {
     margin: 16px;
     gap: 16px;
+  }
+
+  .ProductDetailsPage {
+    display: none;
   }
 }
 </style>
