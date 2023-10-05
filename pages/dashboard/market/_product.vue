@@ -510,6 +510,7 @@ export default {
   .user-details-component {
     height: auto;
     position: relative;
+    margin-top: -100px;
   }
 }
 .zoom-container {

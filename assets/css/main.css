@@ -171,6 +171,10 @@ p {
         position: fixed;
         width: 100%;
     }
+    
+.goTop {
+    margin-top: -68px;
+}
 }
 
 .component-header-main {

@@ -77,6 +77,11 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 400px) {
+    .alert__prompt {
+        width: auto;
+    }
+}
 .slide-enter-active {
     animation: slide-in 1s ease;
 }
@@ -125,7 +130,8 @@ export default {
     padding: 16px;
     gap: 8px;
     border-radius: 16px;
-    width: 343px;
+    /* width: 343px; */
+    width: fit-content;
     height: 64px;
 }
 

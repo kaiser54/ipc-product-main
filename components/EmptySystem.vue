@@ -14,6 +14,9 @@
                 </p>
             </div>
         </div>
+        <div class="button">
+            <PrimaryBtn :buttonText="buttonText" @click="redirect()" class="button" />
+        </div>
     </div>
    </div>
 </template>
@@ -28,6 +31,17 @@
             snippet:{
                 type: String,
                 required: true
+            },
+            buttonText: {
+      type: String,
+      default: "Go to market",
+    },
+        },
+        methods:{
+            redirect(){
+                this.$emit("leavePage");
+                this.$router.push("/dashboard/market")
+                console.log("u")
             }
         }
     }
@@ -44,6 +58,7 @@
         width: 360px;
         height: 210px;
         border: 1px solid red;
+        /* height: 210px; */
         display: flex;
         flex-direction: column;
         align-items: center;

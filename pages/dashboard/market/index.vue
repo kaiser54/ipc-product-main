@@ -2,8 +2,9 @@
   <div class="container" style="width: 100%">
     <!-- <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" /> -->
     <LoaderComponent v-if="loading" />
-    <div class="empty" v-else-if="filteredProducts.length === 0">
-      <EmptySystem :header="header" :snippet="snippet">
+    <div class="empty" v-else-if="filteredProducts.length === 0 && !mobile">
+      <EmptySystem  @leavePage="cleared" :header="header" :snippet="snippet">
+
         <template v-slot:svg>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +95,7 @@
 </template>
 
 <script>
+import {EventBus} from "@/utils/event-bus"
 import { mapState, mapActions, mapGetters } from "vuex";
 import ProductCard from "@/components/productcard";
 export default {
@@ -119,6 +121,7 @@ export default {
         "This product is not currently available, search for another item",
       verifiedEmail: false,
       showVerifiedModal: true,
+      mobile: false,
     };
   },
   mounted() {
@@ -141,6 +144,7 @@ export default {
     filteredProducts() {
       return this.getProductsBySearch; // Use the searchQuery here
     },
+  
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
@@ -149,19 +153,9 @@ export default {
       this.animate =
         window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
-    // async getUserDetails() {
-    //   try {
-    //     const response = await this.$axios.get(`/business-customers/${this.user._id}`)
-    //     this.userProfile = response.data.data.customer
-    //     console.log("user-profile:", this.userProfile)
-    //     console.log("user-profile-status:", this.userProfile.verified)
-    //     this.userProfileStatus = response.data.data.customer.verified
-    //     this.verifiedEmail = this.userProfileStatus
-    //   } catch (error) {
-    //     console.error("Error fetching data", error);
-    //     return { responseData: null };
-    //   }
-    // },
+    cleared(){
+      EventBus.$emit('clearInput')
+    },
     async getAllProduct() {
       // set welcome modal to show on condition that a user is new or not
       // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
@@ -187,9 +181,19 @@ export default {
       this.$router.push("/dashboard/market");
       this.showVerifiedModal = false;
     },
+    checkScreenSize() {
+      if (window.innerWidth <= 950) {
+        this.mobile = true;
+        this.animate = "animate__slideInUp";
+      } else {
+        this.mobile = false;
+        this.animate = "animate__zoomIn";
+      }
+    },
   },
 
   beforeDestroy() {
+    this.checkScreenSize();
     window.removeEventListener("resize", this.checkScreenSize);
   },
 };
@@ -230,7 +234,8 @@ export default {
   /* border: 1px solid red; */
   text-align: center;
   margin: auto;
-  margin-top: 10%;
+  margin-top:8%;
+
 }
 
 @media (min-width: 950px) {
@@ -256,6 +261,9 @@ export default {
   .SkeletonLoader {
     display: block;
   }
+  /* .empty{
+    display: none;
+  } */
 }
 
 @media (max-width: 950px) {

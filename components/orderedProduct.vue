@@ -117,17 +117,17 @@ export default {
     };
   },
   async created() {
-    const userId = localStorage.getItem("userId");
-    try {
-      const response = await this.$axios.get(`/orders/customer/${userId}`);
-      this.order = response?.data?.data?.orders;
-      console.log(this.order);
-      this.products = response?.data?.data?.orders[0]?.products;
-      console.log(this.products);
-      this.loading = false;
-    } catch (error) {
-      console.error("Error fetching order details:", error);
-    }
+    // const userId = localStorage.getItem("userId");
+    // try {
+    //   const response = await this.$axios.get(`/orders/customer/${userId}`);
+    //   this.order = response?.data?.data?.orders;
+    //   console.log(this.order);
+    //   this.products = response?.data?.data?.orders[0]?.products;
+    //   console.log(this.products);
+    //   this.loading = false;
+    // } catch (error) {
+    //   console.error("Error fetching order details:", error);
+    // }
   },
   methods: {
     formatPriceWithCommas,

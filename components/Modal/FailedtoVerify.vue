@@ -22,12 +22,12 @@
                         </svg>
                     </div>
                     <div class="message">
-                        <h2 class="h2-medium header-text">Invalid Email Entered</h2>
+                        <h2 class="header">Verification Unsuccessful</h2>
                         <div class="snippet">
                             <p>
-                                This Email 
+                                This Verification for this email
                                 <span>{{ this.maskedEmail }}</span>
-                                is Invalid, Enter a Valid Email.
+                                was Unsuccessful, Please try again.
                             </p>
                         </div>
                     </div>
@@ -55,6 +55,16 @@ export default {
     max-width: 446px;
     margin-inline: auto;
 }
+.header{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 36px;
+    /* or 150% */
+
+    text-align: center;
+
+}
 
 .confirmation-wrap {
     display: flex;
@@ -74,8 +84,8 @@ export default {
     justify-content: center;
     align-items: center;
 
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height:40px;
 
     /* Positive/P50 */
 
@@ -114,15 +124,6 @@ export default {
         display: none;
     }
 
-    .svg-bg  {
-        width: 96px;
-        height: 96px;
-    }
-
-    svg {
-        width: 48px;
-        height: 48px;
-    }
 
     h2 {
         font-weight: 500;
@@ -132,5 +133,23 @@ export default {
 
         letter-spacing: -1px;
     }
+    .content{
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        width: 100%;
+
+    }
+    .confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 32px;
+    max-width: 446px;
+    margin:0;
+}
 }
 </style>

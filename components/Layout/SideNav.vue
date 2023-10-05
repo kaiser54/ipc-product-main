@@ -234,7 +234,7 @@
         </div>
 
         <div class="popup" v-if="showPopup" ref="popup" @click="togglePopup">
-          <nuxt-link to="/dashboard/saved-items">
+          <!-- <nuxt-link to="/dashboard/saved-items">
             <div class="desktop-nav">
               <div class="nav-content">
                 <svg
@@ -252,14 +252,14 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p>Saved items</p>
+                <p>Saved items</p> -->
 
                 <!-- <div class="badge" v-if="savedItem.length > 0">
                   <p>{{ getCartLength }}</p>
                 </div> -->
-              </div>
+              <!-- </div>
             </div>
-          </nuxt-link>
+          </nuxt-link> -->
           <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
