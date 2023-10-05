@@ -24,7 +24,8 @@
           </span>
           <div class="order-id-price">
             <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
-            <div class="order-qty">Qty: {{ item?.products?.length }}</div>
+            <!-- <div class="order-qty">Qty: {{ item?.products?.length }}</div> -->
+            <div class="order-qty">Qty: {{ calculateTotalProductQuantity(item.products) }}</div>
           </div>
           <div class="order-price">
             <span class="naira">₦</span
@@ -86,11 +87,14 @@ export default {
       type: String,
       required: true,
     },
+    order:{
+      type: Array,
+      required: true
+    }
   },
 
   data() {
     return {
-      order: null,
       orderId: "",
       products: [],
       listSelect: [
@@ -160,7 +164,7 @@ export default {
       if (Array.isArray(products) && products.length > 0) {
         // Sum the total prices of all products in the order
         return products.reduce((totalPrice, product) => {
-          if (product && typeof product.totalPrice === "number") {
+          if (product && typeof product.totalPrice === 'number') {
             return totalPrice + product.totalPrice;
           }
           return totalPrice;
@@ -191,17 +195,7 @@ export default {
       }
       return 0; // Return 0 if products is not defined or empty
     },
-    // getProductImages(products) {
-    //   if (Array.isArray(products) && products.length > 0) {
-    //     return products.map((product) => {
-    //       console.log(product.images[0].url);
-    //       return {
-    //         url: product.images[0].url,
-    //       };
-    //     });
-    //   }
-    //   return []; // Return an empty array if products is not defined or empty
-    // },
+
     getProductNames(products) {
       const number = products.length;
       if (number === 0) {
@@ -217,15 +211,6 @@ export default {
         return `${firstProductName} and ${additionalProductCount} more`;
       }
     },
-    // getProductPrice(products) {
-    //   if (!products || products.length === 0) {
-    //     return "No product";
-    //   } else if (products.length === 1) {
-    //     return products[0].discountPrice || products[0].totalPrice;
-    //   } else {
-    //     return products[0].discountPrice + products[1].discountPrice;
-    //   }
-    // },
 
     getProductImages(products) {
       // Use the `map` function to create a new array

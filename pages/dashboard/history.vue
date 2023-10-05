@@ -41,6 +41,9 @@
 
       <!-- ================================ -->
     </div>
+
+    <LoaderTracking v-if="verificationLoading && mobile" class="load" />
+
     <p v-if="!tableData">No history yet</p>
     <div class="history-content" v-if="tableData">
       <!-- history table for desktop views -->
@@ -74,8 +77,8 @@
       <!-- -------------------------------- -->
     </div>
   </div>
-</template>
 
+</template>
 <script>
 import moment from "moment";
 export default {
@@ -83,6 +86,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
+      verificationLoading: true,
       pageTitle: "IPC | History",
       mobile: false,
       loading: false,
@@ -172,9 +176,11 @@ export default {
     },
     async getOrders() {
       const userId = localStorage.getItem("userId");
+      this.verificationLoading = true;
       try {
         this.loading = true;
         const response = await this.$axios.get(`/orders/customer/${userId}`);
+        this.verificationLoading = false;
         this.tableDatas = response?.data?.data?.orders;
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
@@ -190,6 +196,7 @@ export default {
         this.loading = false;
       } catch (error) {
         console.error("Error fetching data", error);
+        this.verificationLoading = true;
         return { responseData: null };
       }
     },
@@ -284,6 +291,7 @@ export default {
 
   /* height: 50vh; */
 }
+
 @media (max-width: 1300px) {
   .history {
     max-width: 100%;

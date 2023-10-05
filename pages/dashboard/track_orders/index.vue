@@ -3,7 +3,9 @@
     <div class="title-header">
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>
-      <div class="empty-state" v-if="order.length === 0">
+      
+<LoaderTracking v-if="verificationLoading" />
+<div class="empty-state" v-if="order.length === 0">
         <EmptyStates @leaveCart="leaveCart">
           <template v-slot:svg>
             <svg
@@ -394,7 +396,8 @@
     <div class="order-container" v-else>
       <!-- de -->
       <!-- <orderProduct :showSvg="true" /> -->
-      <OrderedProduct :tagText="tagText" :size="size" :type="type" />
+      
+      <OrderedProduct :tagText="tagText" :size="size" :type="type" :order="order" />
     </div>
   </div>
 </template>
@@ -407,6 +410,7 @@ export default {
       pageTitle: "IPC | Track orders",
       duplicateCount: 10, // Specify the number of times to duplicate the component
       selectedIndex: 2,
+      verificationLoading: true,
       order: [],
       listSelect: [
         {
@@ -444,8 +448,10 @@ export default {
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);
-    }
-  },
+
+    this.getOrdersNow()
+    }}
+    ,
   computed: {
     tagText() {
       return this.listSelect[this.selectedIndex].title;
@@ -467,11 +473,31 @@ export default {
     trackOrder() {
       this.$router.push(`/dashboard/track_orders/${id}`);
     },
-  },
-};
+    async getOrdersNow(){
+      const userId = localStorage.getItem('userId')
+      this.verificationLoading = true
+    try {
+      const response = await this.$axios.get(
+        `/orders/customer/${userId}`
+      );
+      this.verificationLoading = false
+      this.order = response?.data?.data?.orders;
+      console.log(this.order);
+      this.products = response?.data?.data?.orders[0]?.products
+      console.log(this.products)
+      this.loading = false;
+    } catch (error) {
+      this.verificationLoading = true
+      console.error("Error fetching order details:", error);
+    }
+
+  }
+}
+}
 </script>
 
 <style scoped>
+
 a {
   color: inherit;
   width: 100%;
@@ -483,13 +509,38 @@ a {
   align-items: flex-start;
   padding: 0px;
   gap: 16px;
-  max-width: 784px;
+  max-width: 80%;
   width: 100%;
 }
 .empty-state {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: auto;}
+  
+.empty-state{
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;
+    width: 100%;  
+    /* background: #0000005d; */
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+
+}
+@media screen and (max-width: 750px) {
+  .order-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  max-width: 100%;
+  width: 100%;
+}
 }
 </style>

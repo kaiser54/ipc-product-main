@@ -341,6 +341,7 @@ section.dashview {
   height: calc(100vh - 136px);
   max-width: calc(100vw - 278px);
   justify-content: center;
+  position: relative;
 }
 
 section.view {
@@ -372,6 +373,7 @@ section.view {
   .view-wrapper,
   section.view {
     max-width: 100%;
+    position: relative;
   }
 
   .view-wrapper {
