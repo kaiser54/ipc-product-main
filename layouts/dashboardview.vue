@@ -264,6 +264,10 @@ export default {
         this.$refs.alertPrompt.showAlert();
         this.error_msg = "Product successfully removed from cart";
         this.alertType = "success";
+      }else if (newValue === "deleted") {
+        this.$refs.alertPrompt.showAlert();
+        this.error_msg = "Product successfully deleted from cart";
+        this.alertType = "success";
       }
     },
   },
@@ -341,6 +345,7 @@ section.dashview {
   height: calc(100vh - 136px);
   max-width: calc(100vw - 278px);
   justify-content: center;
+  position: relative;
 }
 
 section.view {
@@ -372,13 +377,21 @@ section.view {
   .view-wrapper,
   section.view {
     max-width: 100%;
+    position: relative;
   }
-
+  .nuxt-page-here {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+  }
   .view-wrapper {
     overflow-y: visible;
     height: 100%;
-    margin-top: 154px;
-    /* margin-top: 100px; */
+    /* margin-top: 154px; */
+    margin-top: 150px;
   }
 
   .ipc-top-fixed {
@@ -407,6 +420,10 @@ section.view {
 
   .ProductDetailsPage {
     display: none;
+  }
+
+  section.view {
+    margin-bottom: 0px;
   }
 }
 </style>

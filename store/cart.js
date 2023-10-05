@@ -24,6 +24,7 @@ export default {
       // state.cart.push(cartItem);
       console.log("mutant cart", state.cart);
     },
+
     ADD_TO_CART_ALERT(state, arg) {
       state.cartAlert = arg;
       // state.cart.push(cartItem);
@@ -57,7 +58,7 @@ export default {
       state.cartLoading = cartLoading;
     },
     REMOVE_FROM_CART(state, productId) {
-      state.cart = state.cart.filter((item) => item._id !== productId);
+      state.cart = state.cart.filter((item) => item.product._id !== productId);
     },
     CLEAR_CART(state) {
       state.cart = [];
@@ -278,6 +279,7 @@ export default {
     async removeFromCart({ commit }, productId) {
       try {
         commit("SET_LOADING", true);
+        commit("ADD_TO_CART_ALERT", null);
 
         const headers = {
           "Content-Type": "application/json",
@@ -285,11 +287,17 @@ export default {
 
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
-          `${DEV_URL}/cart/delete-item/${productId}`, // Use productId as :id parameter in the URL
+          `${DEV_URL}/cart/${productId}`, // Use productId as :id parameter in the URL
           {
             headers: headers,
           }
         );
+
+        if (response.status === 204) {
+          commit("ADD_TO_CART_ALERT", "deleted");
+        } else {
+          commit("ADD_TO_CART_ALERT", false);
+        }
 
         console.log("Response status:", response.status);
 

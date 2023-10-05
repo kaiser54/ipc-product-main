@@ -3,6 +3,7 @@
         <!-- <LoaderComponent v-if="loading" /> -->
         <Loading :message="message"  v-if="verificationLoading" />
         <ModalEmailVerified v-else-if="showModal" @cancelModal="removeModal()" @routeToMarket="routeToMarket()"/>
+        <ModalFailedtoVerify :maskedEmail="maskEmail(email)"  v-else-if="notVerified"/>
     </div>
 </template>
 
@@ -25,7 +26,10 @@ export default {
             animate: null,
             verificationLoading: true,
             showModal: false,
-            message: ''
+            message: '',
+            notVerified: false,
+            email: "",
+            hiddenMail: ""
         };
     },
     created() {
@@ -43,9 +47,16 @@ export default {
           console.log("User data in localStorage:", JSON.parse(userData));
           localStorage.setItem("userId", this.user._id);
           localStorage.setItem("userEmail", this.user.email);
+          localStorage.setItem("userVerified", this.user.verified)
+
         } else {
           console.log("User data not found in localStorage.");
         }
+        this.email = localStorage.getItem("userEmail")
+        this.hiddenMail = this.maskEmail(this.email);
+        console.log(this.email)
+        console.log(this.hiddenMail)
+        this.getUserDetails()
     },
     computed: {
         ...mapState("product", ["loading", "error"]),
@@ -71,8 +82,17 @@ export default {
       this.showModal = false
       localStorage.setItem("verified",response.data.status ) 
     },
-    
+    maskEmail: (email) => {
+            // function body
+            if (email.length < 12) {
+                return email;
+            }
+            const [username, domain] = email.split("@");
+            const maskedUsername = `${username.substring(0, 3)}${"*".repeat(4)}`;
+            return `${maskedUsername}@${domain}`;
+        },
         async verifyEmail() {
+
             try {
               this.verificationLoading = true
               this.message = "Verifying Email, Please wait"
@@ -83,33 +103,27 @@ export default {
                 this.verificationLoading = false
                 console.log('Token Sent', response.data)
                 localStorage.setItem("verified",response.data.status ) 
+                localStorage.setItem("user",response.data.customer)
                 if(response.data.status === "success"){
                     this.showModal = true
                     this.user.verified = true
+                    localStorage.setItem("userVerified", true)
                     this.userProfileStatus = true
                     console.log(response.data.status)
-                } else{
-                    this.showModal = false
-                    this.user.verified = false
+                    console.log("User",this.user)
+                    console.log("userProfile",this.userProfileStatus)
                 }
                 const getVerified = localStorage.getItem("verified")
                 console.log(getVerified)
-
-                // Save the status in local storage
-                // localStorage.setItem("verified", response.data.status);
-                // Set showModal to true to display ModalEmailVerified
                 this.showModal = true;
-
                 // After 10 seconds, hide the modal and navigate to /dashboard/Market
                 setTimeout(() => {
                 this.$router.push("/dashboard/Market");
-                }, 6000); // 6000 milliseconds = 6 seconds
-                
-
+                }, 5000); // 6000 milliseconds = 6 seconds
                 // this.$router.push("/dashboard/Market");
             } catch (error) {
-              this.verificationLoading = true
-              this.message = "Hold on, Something went wrong"
+              this.verificationLoading = false
+                this.notVerified = true
                 console.error('Wrong Token:', error)
             }
         },

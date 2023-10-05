@@ -25,7 +25,7 @@
         <div class="button-group">
           <div class="delete-tag">
             <!-- delete button here -->
-            <div class="circle" @click="removeFromCart(items.product._id)">
+            <div class="circle" @click="removeItem">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -125,16 +125,22 @@ export default {
       if (this.items.quantity > 1) {
         this.loader = true;
         this.$emit("counterMinus", this.items.product);
+      } else {
+        this.removeFromCart(this.items.product._id);
       }
+    },
+    removeItem() {
+      this.loader = true;
+      this.removeFromCart(this.items.product._id);
     },
   },
   watch: {
     cartLoading(newValue, oldValue) {
       if (newValue === false) {
-        this.loader = false
+        this.loader = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

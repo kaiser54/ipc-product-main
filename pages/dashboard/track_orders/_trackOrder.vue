@@ -8,17 +8,19 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <div class="child order-track">
+        <LoaderTracking v-if="verificationLoading" />
+        <div class="child order-track" v-else>
           <div class="user">
             <div class="orderProduct">
               <div class="userProduct" @click="moreOrder">
                 <NewOrderProduct
-                  v-if="orderDetails"
+                  v-if ="orderDetails"
                   :tagText="dynamicTagProps.tagText"
                   size="small"
                   :type="dynamicTagProps.type"
                   :data="orderDetails"
                 />
+               
               </div>
               <div class="" style="position: sticky; overflow: hidden">
                 <div :class="{ 'slide-out': !more, 'slide-in': more }">
@@ -82,6 +84,7 @@ export default {
       pageTitle: "IPC | Track orders",
       selectedIndex: 2,
       showUserInfoModal: false,
+      verificationLoading: true,
       more: false,
       listSelect: [
         {
@@ -158,13 +161,16 @@ export default {
     },
     async getOrders() {
       this.orderId = this.$route.params.trackOrder;
+      this.verificationLoading = true
       try {
         const response = await this.$axios.$get(`/orders/${this.orderId}`);
+        this.verificationLoading = false
         console.log("orderDetails:", response.data.order);
         this.orderDetails = response?.data?.order;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
       } catch (error) {
+        this.verificationLoading = true
         console.error("Error fetching order details:", error);
       }
     },

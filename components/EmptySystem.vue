@@ -1,5 +1,5 @@
 <template>
-   <div class="body">
+   <div class="body_wrap">
     <div class="container">
         <div class="image">
             <slot name="svg"></slot>
@@ -13,6 +13,9 @@
                     {{ snippet }}
                 </p>
             </div>
+        </div>
+        <div class="button">
+            <PrimaryBtn :buttonText="buttonText" @click="redirect()" class="button" />
         </div>
     </div>
    </div>
@@ -28,13 +31,24 @@
             snippet:{
                 type: String,
                 required: true
+            },
+            buttonText: {
+      type: String,
+      default: "Go to market",
+    },
+        },
+        methods:{
+            redirect(){
+                this.$emit("leavePage");
+                this.$router.push("/dashboard/market")
+                console.log("u")
             }
         }
     }
 </script>
 
 <style scoped>
-   .body {
+   .body_wrap {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,7 +57,8 @@
     .container{
         width: 360px;
         height: 210px;
-        /* border: 1px solid red; */
+        border: 1px solid red;
+        /* height: 210px; */
         display: flex;
         flex-direction: column;
         align-items: center;

@@ -237,6 +237,7 @@ export default {
       this.$router.push("/dashboard/market/cart");
     },
     leaveCart() {
+      this.closeCart()
       this.$router.push("/dashboard/market");
     },
   },

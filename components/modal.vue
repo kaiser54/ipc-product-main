@@ -83,13 +83,18 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
 
-width: 128px;
-height: 128px;
+width: 50px;
+height: 50px;
 
 /* Positive/P50 */
 
 background: var(--positive-p50);
 border-radius: 100%;
+}
+.svg-bg svg{
+  
+width: 50px;
+height: 50px;
 }
 .modal-content p {
   text-align: center;

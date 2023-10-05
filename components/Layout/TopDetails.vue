@@ -30,7 +30,7 @@
           </clipPath>
         </defs>
       </svg>
-      <input class="input-search" type="search" name="search" id="search" placeholder="Search for products" v-model="searchQuery" />
+      <input class="input-search" ref="search" type="search" name="search" id="search" placeholder="Search for products" v-model="searchQuery" />
     </div>
     <div class="notify-cart">
       <div class="notification" @click="triggerNotification">
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import {EventBus} from "@/utils/event-bus"
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
@@ -80,6 +81,11 @@ export default {
       searchQuery: "",
       cart: null,
     };
+  },
+  mounted(){
+    EventBus.$on('clearInput', ()=> {
+      this.searchQuery = ""
+    })
   },
   computed: {
     ...mapGetters("cart", ["TotalCart"]),
