@@ -218,7 +218,7 @@
                 label="Street Address"
                 name="address"
                 inputType="text"
-                v-model="streetAddress"
+                v-model="address.streetAddress"
                 :isInvalid="validAddress"
                 :errMsg="errAddress"
               />
@@ -227,7 +227,7 @@
                 label="State"
                 name="state"
                 inputType="text"
-                v-model="state"
+                v-model="address.state"
                 :isInvalid="validState"
                 :errMsg="errState"
               />
@@ -236,7 +236,7 @@
                 label="LGA (Local Govt. Area)"
                 name="LGA"
                 inputType="text"
-                v-model="LGA"
+                v-model="address.LGA"
                 :isInvalid="validLGA"
                 :errMsg="errLGA"
               />
