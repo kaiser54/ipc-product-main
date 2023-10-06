@@ -10,7 +10,7 @@
       @cancelModal="removeModal()"
       @complete-flow="removeModal()"
     />
-    <Cart @openCart="toggleCart" v-if="isCart && !mobile" />
+    <Cart @closeCart="showCart=false" :showModal="showCart" v-if="!mobile" />
     <LayoutNotificationDesktop
       @openNotification="toggleNotification"
       v-if="isNotification && !mobile"
@@ -46,7 +46,7 @@
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
                 <LayoutTopDetails
                   :user="user"
-                  @openCart="toggleCart"
+                  @openCart="showCart=true"
                   @openNotification="toggleNotification"
                 />
               </section>
@@ -123,6 +123,7 @@ export default {
       loading: true,
       logout: false,
       isCart: false,
+      showCart: false,
       isNotification: false,
       checkMail: false,
       showModal: false,
@@ -185,9 +186,12 @@ export default {
       this.$router.push("/auth/login");
     },
     toggleCart() {
-      this.isCart = !this.isCart;
+        this.showCart = true;
       if (this.mobile) {
         this.$router.push("/dashboard/market/cart");
+      } else {
+        this.showCart = true;
+        this.isCart = !this.isCart;
       }
       console.log("cart clicked");
     },
@@ -264,7 +268,7 @@ export default {
         this.$refs.alertPrompt.showAlert();
         this.error_msg = "Product successfully removed from cart";
         this.alertType = "success";
-      }else if (newValue === "deleted") {
+      } else if (newValue === "deleted") {
         this.$refs.alertPrompt.showAlert();
         this.error_msg = "Product successfully deleted from cart";
         this.alertType = "success";

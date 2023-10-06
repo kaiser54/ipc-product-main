@@ -25,7 +25,7 @@
             </div>
           </header>
           <div class="cart-list">
-            <EmptyStates v-if="cart.length == 0" @leaveCart="leaveCart">
+            <EmptyStates @leaveCart="leaveCart">
               <template v-slot:svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -158,38 +158,6 @@
                 </div>
               </template>
             </EmptyStates>
-            <div class="cart-lista" v-if="cart.length > 0">
-              <CartList
-                class="cart-list-con"
-                v-for="(items, index) in cartItems"
-                :key="index"
-                :items="items"
-                :inCart="true"
-                @counterPlus="counterPlus"
-                @counterMinus="counterMinus"
-              />
-            </div>
-          </div>
-          <div class="checkout-wrap" v-if="cart.length > 0">
-            <div class="checkout-container">
-              <div class="checkout-details">
-                <div class="checkout-title">
-                  <p>Orders</p>
-                  <div class="item-list-tag">
-                    {{ formatPriceWithCommas(TotalCart) }} items
-                  </div>
-                </div>
-                <div class="total-price checkout-title">
-                  <p class="total">Subtotal</p>
-                  <p class="price">
-                    ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
-                  </p>
-                </div>
-              </div>
-              <button class="btn primary-btn" @click="checkout">
-                Checkout
-              </button>
-            </div>
           </div>
         </div>
       </transition>
@@ -203,12 +171,13 @@
     </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import { formatPriceWithCommas } from "~/static/formatPrice";
 import { mapState, mapGetters, mapActions } from "vuex";
+import "animate.css";
 export default {
-  props: {
+    props: {
     showModal: {
       type: Boolean,
     }
@@ -237,19 +206,28 @@ export default {
       "addToCart",
       "reduceQuantity",
     ]),
-    checkout() {
+    triggerCart() {
       this.$emit("closeCart");
+    },
+    closeCart() {
+      this.$emit("closeCart");
+    },
+    checkout() {
+      this.triggerCart();
+      this.gotoCart();
+    },
+    gotoCart() {
       this.$router.push("/dashboard/market/cart");
     },
     leaveCart() {
-      this.$emit("closeCart");
+      this.closeCart();
       this.$router.push("/dashboard/market");
     },
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .stay-up {
   position: relative;
   top: 0;
@@ -262,7 +240,7 @@ export default {
   justify-content: flex-end;
   position: absolute;
   width: 100%;
-  /* height: 100vh; */
+  height: 100vh;
   left: 0px;
   top: 0px;
 }
@@ -276,7 +254,7 @@ export default {
 
   position: absolute;
   width: 100%;
-  max-width: 40%;
+  max-width: 489px;
   height: 100vh;
   margin-right: auto;
   top: 0px;
@@ -285,8 +263,8 @@ export default {
 
   position: fixed;
   top: 50%;
-  right: 0%;
-  transform: translate(-0%, -50%);
+  left: 100%;
+  transform: translate(-50%, -50%);
   z-index: 99;
 }
 
@@ -458,9 +436,10 @@ p.price {
 }
 
 .cart-bg {
-  width: 100%;
+  /* width: 100%;
   height: 100vh;
-
+  background: rgba(48, 50, 55, 0.3); */
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -474,7 +453,8 @@ a {
   width: 100%;
 }
 
-/* ANIMATIONS */
+
+
 
 .fade-enter-active,
 .fade-leave-active {
@@ -496,3 +476,4 @@ a {
   transform: translateY(-50%) translateX(100vw);
 }
 </style>
+  

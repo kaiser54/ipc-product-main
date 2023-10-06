@@ -57,7 +57,7 @@
     .container{
         width: 360px;
         height: 210px;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         /* height: 210px; */
         display: flex;
         flex-direction: column;
