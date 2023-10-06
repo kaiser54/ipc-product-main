@@ -131,7 +131,11 @@ export default {
     },
     removeItem() {
       this.loader = true;
-      this.removeFromCart(this.items.product._id);
+      if(this.items.quantity > 1){
+        this.$emit("counterMinus", this.items.product);
+      } else {
+        this.removeFromCart(this.items.product._id);
+      }
     },
   },
   watch: {

@@ -209,7 +209,8 @@
         v-if="CheckAddress && !closeHeaderComp"
         @redirectToprofilepage="redirectToprofilepage"
       >
-        <template v-slot:components>
+      
+        <template v-slot:components >
           <div class="profile-wrapper">
             <div class="textfield">
               <InputComponent
@@ -217,7 +218,7 @@
                 label="Street Address"
                 name="address"
                 inputType="text"
-                v-model="address.streetAddress"
+                v-model="streetAddress"
                 :isInvalid="validAddress"
                 :errMsg="errAddress"
               />
@@ -226,7 +227,7 @@
                 label="State"
                 name="state"
                 inputType="text"
-                v-model="address.state"
+                v-model="state"
                 :isInvalid="validState"
                 :errMsg="errState"
               />
@@ -235,7 +236,7 @@
                 label="LGA (Local Govt. Area)"
                 name="LGA"
                 inputType="text"
-                v-model="address.lga"
+                v-model="LGA"
                 :isInvalid="validLGA"
                 :errMsg="errLGA"
               />
@@ -682,19 +683,22 @@ export default {
 .profile-wrapper {
   position: absolute;
   z-index: -1;
-  height: 156vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 32px;
   background: rgb(255, 255, 255);
   padding: 5%;
+  /* border: 1px solid blue; */
+  /* margin-top: 70px; */
 }
 
 .textfield {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* border:1px solid red; */
 }
 
 @media (min-width: 950px) {

@@ -192,6 +192,17 @@ export default {
   },
   computed: {
   },
+  mounted(){
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.user = JSON.parse(userData);
+      console.log("User data in localStorage:", JSON.parse(userData));
+      localStorage.setItem("userVerified", this.user.verified);
+    } else {
+      console.log("User data not found in localStorage.");
+    }
+    this.isVerified = localStorage.getItem("userVerified");
+  }
 };
 </script>
   

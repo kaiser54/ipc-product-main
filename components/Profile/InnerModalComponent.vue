@@ -92,5 +92,8 @@ button.btn p {
 
   color: var(--grey-grey1);
 }
+.component-header{
+  position: sticky;
+}
 </style>
   

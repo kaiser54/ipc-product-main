@@ -291,6 +291,7 @@ export default {
     removeFromCart() {
       // this.$store.commit("addToCart", this.product);
       this.$emit("removeFromCartEvent", this.product.id);
+      c
     },
     incrementQuantity() {
       // this.$store.commit("incrementQuantity", { productId: this.product.id });

@@ -7,7 +7,7 @@
     />
     <ModalWelcome
       v-if="showModal"
-      @cancelModal="removeModal()"
+      @cancelModal="removeModals()"
       @complete-flow="removeModal()"
     />
     <Cart @closeCart="showCart=false" :showModal="showCart" v-if="!mobile" />
@@ -178,6 +178,10 @@ export default {
       this.showModal = false;
       this.showVerifiedModal = false;
       localStorage.setItem("welcomeFlow", "complete");
+    },
+    removeModals() {
+      this.showModal = false;
+      this.showVerifiedModal = false;
     },
     ...mapActions("auth", ["logoutUser"]),
     ...mapActions("cart", ["fetchCartItemsByUserID"]),
