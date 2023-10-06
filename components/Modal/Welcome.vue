@@ -17,7 +17,7 @@
                         <div id="modal-slides-ctn" class="modal-slides-ctn">
                             <div v-for="content, index in contents" :key="index" class="modal-slides">
                                 <div class="modal-image">
-                                    <img :src="content.image" alt="" />
+                                    <img :src="content.svg" alt="" />
                                 </div>
                                 <div class="modal-text">
                                     <div class="modal-title">
@@ -45,7 +45,8 @@
                                 <div class="modal-btn">
                                     <DynamicButton :disabled="maxRight" class="primary-btn"
                                         @clickButton="move('+ve', 'modal-slides-ctn')" size="standard" type="primary"
-                                        :buttonText="activeCardIndex === 4 ? 'Continue' : 'Next'" :showText="true" :slotNeeded="false" />
+                                        :buttonText="activeCardIndex === 4 ? 'Continue' : 'Next'" :showText="true"
+                                        :slotNeeded="false" />
                                 </div>
                             </div>
                         </div>
@@ -81,7 +82,7 @@
                         <div id="mobile-modal-slides-ctn" class="mobile-modal-slides-ctn">
                             <div v-for="content, index in contents" :key="index" class="mobile-modal-slides">
                                 <div class="mobile-modal-images">
-                                    <img :src="content.mobileImage" alt="">
+                                    <img :src="content.mobileSvg" alt="">
                                 </div>
                                 <div class="mobile-modal-text">
                                     <div class="mobile-modal-title">
@@ -104,13 +105,14 @@
                         <div class="mobile-modal-button">
                             <div class="mobile-modal-bttn">
                                 <DynamicButton :disabled="maxLeft" class="neutral-btn"
-                                @clickButton="move('-ve', 'mobile-modal-slides-ctn')" size="standard" type="neutral"
+                                    @clickButton="move('-ve', 'mobile-modal-slides-ctn')" size="standard" type="neutral"
                                     buttonText="Previous" :showText="true" :slotNeeded="false" />
                             </div>
                             <div class="mobile-modal-btn">
                                 <DynamicButton :disabled="maxRight" class="primary-btn"
-                                @clickButton="move('+ve', 'mobile-modal-slides-ctn')" size="standard" type="primary"
-                                :buttonText="MobileActiveCardIndex === 4 ? 'Continue' : 'Next'" :showText="true" :slotNeeded="false" />
+                                    @clickButton="move('+ve', 'mobile-modal-slides-ctn')" size="standard" type="primary"
+                                    :buttonText="MobileActiveCardIndex === 4 ? 'Continue' : 'Next'" :showText="true"
+                                    :slotNeeded="false" />
                             </div>
                         </div>
                     </div>
@@ -138,30 +140,40 @@ export default {
                     title: "Hello, welcome to IPC",
                     image: require('~/assets/images/cutting-edge.png'),
                     mobileImage: require('~/assets/images/mobilecutting-edge.png'),
+                    svg: require('~/assets/images/Welcome-IPC.svg'),
+                    mobileSvg: require('~/assets/images/welcome-IPC-mobile.svg'),
                     description: "Welcome to our cutting-edge e-commerce platform, where efficient procurement becomes a breeze."
                 },
                 {
                     title: "Get instant invoice ",
                     image: require('~/assets/images/detailed-invoice.png'),
                     mobileImage: require('~/assets/images/mobiledetailed-invoice.png'),
+                    svg: require('~/assets/images/instant-invoice.svg'),
+                    mobileSvg: require('~/assets/images/instant-invoice-mobile.svg'),
                     description: "Get the detailed invoice of everything about your order in your email and in PDF immediately after checking out."
                 },
                 {
                     title: "Track your orders",
                     image: require('~/assets/images/single-bulk-order.png'),
                     mobileImage: require('~/assets/images/mobilesingle-bulk-order.png'),
+                    svg: require('~/assets/images/track-order.svg'),
+                    mobileSvg: require('~/assets/images/track-order-mobile.svg'),
                     description: "When you buy on IPC, either single or bulk orders, you get to track your order from processing to delivery."
                 },
                 {
                     title: "Seamless payment options",
                     image: require('~/assets/images/seamless-payment.png'),
                     mobileImage: require('~/assets/images/mobileseamless-payment.png'),
+                    svg: require('~/assets/images/seamless-payment.svg'),
+                    mobileSvg: require('~/assets/images/seamless-payment-mobile.svg'),
                     description: "Different seamless payment options for you on IPC to make your checkout experience a smooth one."
                 },
                 {
                     title: "Refer and earn cash",
                     image: require('~/assets/images/refer-friend.png'),
                     mobileImage: require('~/assets/images/mobilerefer-friend.png'),
+                    svg: require('~/assets/images/refer-cash.svg'),
+                    mobileSvg:require('~/assets/images/refer-cash-mobile.svg'),
                     description: "Get up to ₦1,000 by referring your friends and family to buy and procure food and other items on IPC."
                 },
             ]
@@ -376,11 +388,12 @@ export default {
     display: flex;
     align-items: center;
     gap: 16px;
-  
+
 }
-.modal-btn{
+
+.modal-btn {
     /* max-width: 150px; */
-    width:115px;
+    width: 115px;
     /* border: 1px solid red; */
 }
 
@@ -457,22 +470,22 @@ template svg {
         flex-direction: column;
         margin: 0px;
     }
+
     .bigscreen {
         display: none;
     }
 
     .smallScreen {
         display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--modal, rgba(48, 50, 55, 0.30));
-    ;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--modal, rgba(48, 50, 55, 0.30));        
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
 
     }
 
@@ -497,9 +510,10 @@ template svg {
         box-shadow: 0px 216px 60px 0px rgba(0, 2, 46, 0), 0px 9px 19px 0px rgba(0, 2, 46, 0.1),
             0px 35px 35px 0px rgba(0, 2, 46, 0.09), 0px 78px 47px 0px hsla(237, 100%, 9%, 0.05),
             0px 138px 55px 0px rgba(0, 2, 46, 0.01), 0px 216px 60px 0px rgba(0, 2, 46, 0);
-          position: fixed;
-    bottom: 0;
-    left: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 9;
     }
 
     .mobile-top-icon {
@@ -520,7 +534,7 @@ template svg {
     }
 
     .scroll-icon {
-        display:none;
+        display: none;
         width: 100%;
         height: 25px;
         padding: 8px;
@@ -574,7 +588,7 @@ template svg {
         justify-content: center;
         gap: 8px;
         height: 30px;
-        
+
     }
 
     .mobile-modal-title h3 {
@@ -611,6 +625,7 @@ template svg {
         gap: 32px;
         align-self: stretch;
     }
+
     .mobile-modal-button {
         display: flex;
         align-items: center;
@@ -624,29 +639,28 @@ template svg {
         width: 100%;
     }
 
-    @media screen and (max-width : 300px ) {
+    @media screen and (max-width : 300px) {
         .mobile-modal-title {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: column;
-        gap: 8px;
-        height: 30px;
-        margin-bottom: 10px;
-        
-    }
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            height: 30px;
+            margin-bottom: 10px;
 
-    .mobile-modal-title h3 {
-        color: var(--grey-grey-1, #303237);
-        /* font-family: Switzer; */
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 30px;
-        letter-spacing: -0.5px;
-        white-space: nowrap;
+        }
+
+        .mobile-modal-title h3 {
+            color: var(--grey-grey-1, #303237);
+            /* font-family: Switzer; */
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 30px;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
     }
-    }
-}
-</style>
+}</style>
   

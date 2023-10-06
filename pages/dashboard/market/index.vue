@@ -201,6 +201,10 @@ export default {
 
 
 <style>
+.container{
+  z-index: 10;
+
+}
 .nuxt-page {
   display: flex;
   gap: 32px;
@@ -236,7 +240,10 @@ export default {
   margin-top:8%;
 
 }
-
+.modal{
+  z-index: 1000;
+  border: 1px solid red;
+}
 @media (min-width: 950px) {
   .webskeleton {
     display: block;

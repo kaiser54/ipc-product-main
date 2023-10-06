@@ -19,7 +19,7 @@
               getProductNames(item.products)
             }}</span>
           </td>
-          <td>{{ formatDate(item) || "22-12-23" }}</td>
+          <td>{{ convertDateFormat(item.createdAt) || "22-12-23" }}</td>
           <td>{{ truncateId(item._id, 7) }}</td>
           <td>{{ calculateTotalProductQuantity(item.products) }}</td>
           <td><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item.products)) }}</td>
@@ -111,6 +111,16 @@ export default {
       }
 
       return id;
+    },
+     convertDateFormat(inputDate) {
+      if (inputDate) {
+        const date = new Date(inputDate);
+        const year = date.getFullYear().toString().substr(-2); // Extract the last 2 digits of the year
+        const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
+        const day = date.getDate().toString().padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+      }
     },
     formatDate(item) {
       if (!item || !item?.products || item?.products?.length === 0 || !item?.products[0]?.createdAt) {
