@@ -200,20 +200,6 @@ export default {
 </script>
 
 
-<style>
-.container{
-  z-index: 10;
-
-}
-.nuxt-page {
-  display: flex;
-  gap: 32px;
-  flex-direction: column;
-  width: auto;
-  height: 100%;
-  min-width: 100%;
-}
-</style>
 
 <style scoped>
 .product-top-wrap {
