@@ -391,9 +391,9 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
-          this.address = this.user?.address?.streetAddress;
-          this.state = this.user?.address?.state;
-          this.LGA = this.user?.address?.lga;
+          this.address = this.user?.address?.streetAddress || [];
+          this.state = this.user?.address?.state || [];
+          this.LGA = this.user?.address?.lga || [];
         } else {
           // User data is not found in localStorage
           console.log("User data not found in localStorage.");
@@ -572,11 +572,12 @@ export default {
         })
         .then((response) => {
           // Handle the response data here
-          const addresses = response.data.data.addresses[0];
-          this.address = addresses;
+          const addresses = response?.data?.data?.addresses[0];
+          this.address = addresses || [];
           this.streetAddress = this.address?.streetAddress;
           this.state = this.address?.state;
           this.LGA = this.address?.lga;
+          console.log("response", response);
           console.log("address", addresses);
           console.log("_id", this.user._id);
         })
@@ -710,6 +711,11 @@ export default {
 
   .profile {
     gap: 32px;
+  }
+
+  .profile-wrapper {
+    height: auto;
+    margin-top: 86px;
   }
 }
 </style>

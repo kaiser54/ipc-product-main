@@ -1,8 +1,13 @@
 <template>
   <div class="checkout__delivery">
     <LoaderSpin v-if="spinner" />
-    <CheckoutOnTheWayMsg v-if="isPaid" :data="submittedData" />
-    <div v-else class="checkout-wrapper">
+
+    <!-- Order on the way message -->
+    <CheckoutOnTheWayMsg v-show="isPaid" :data="submittedData" />
+    <!-- ------------------------ -->
+
+    <div v-show="!isPaid" class="checkout-wrapper">
+      <!-- progress bar -->
       <div v-if="!mobile" class="__bg__fixed desktop_mode">
         <CheckoutProgressBar
           :progressPercentage="progressPercentage"
@@ -10,7 +15,11 @@
           :getStepLabel="getStepLabel"
         />
       </div>
+      <!-- ------------- -->
+
       <div class="main">
+        <!-- mobile pricing header -->
+
         <div v-if="mobile" class="order__pricing__group">
           <div class="mobile_ _orders">
             <div class="mobile-order">Orders</div>
@@ -23,19 +32,24 @@
             </div>
           </div>
         </div>
+
+        <!-- ----------------------- -->
+
         <div class="user-form-data">
-          <CheckoutAddress
-            v-show="currentStep === 1"
-            @customEvent="handleFormSubmission"
-          />
+          <transition name="slide" appear>
+            <CheckoutAddress
+              v-show="currentStep === 1"
+              @customEvent="handleFormSubmission"
+            />
+          </transition>
           <CheckoutOrderSummary
-            v-if="currentStep === 2 && submittedData"
+            v-show="currentStep === 2 && submittedData"
             @customEvent="nextStep"
             @step1="step1"
             :data="submittedData"
           />
           <CheckoutPayment
-            v-if="currentStep === 3 && submittedData"
+            v-show="currentStep === 3 && submittedData"
             @lastStep="lastStep"
             :data="submittedData"
           />
@@ -591,5 +605,25 @@ export default {
     max-width: 90%;
     margin-inline: auto;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-50%) translateX(100vw);
 }
 </style>
