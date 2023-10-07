@@ -44,7 +44,7 @@
         </tr>
       </thead>
     </table>
-    <TableLoader />
+    <TableLoader v-if="loading"/>
   </div>
 </template>
   
@@ -63,6 +63,9 @@ export default {
     tableData: {
       type: Array,
       required: true,
+    },
+    loading: {
+      type: Boolean,
     },
   },
   data() {

@@ -53,6 +53,7 @@
         :activeTabs="activeTabs"
         :tableHeaders="tableHeaders"
         v-if="!mobile"
+        :loading="verificationLoading"
       />
 
       <!-- ================================ -->
