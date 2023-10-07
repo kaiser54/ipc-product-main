@@ -191,12 +191,14 @@ export default {
           this.filteredStatus = order.status;
           console.log("Order Status:", this.filteredStatus);
         });
+        
+        this.loading = false;
+        this.verificationLoading = false;
 
         return { responseData: response.data };
-        this.loading = false;
       } catch (error) {
         console.error("Error fetching data", error);
-        this.verificationLoading = true;
+        this.verificationLoading = false;
         return { responseData: null };
       }
     },

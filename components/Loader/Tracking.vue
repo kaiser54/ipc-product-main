@@ -34,19 +34,9 @@
   box-sizing: border-box;
   animation: animloader 1s linear infinite alternate;
 }
-@media screen and (max-width:750px) {
+@media screen and (max-width:950px) {
     .loading {
-    top: 250px;
-    left: 0;
-    z-index: 100;
-    height: 100%;
-    width: 100%;  
-    /* background: #0000005d; */
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
+    width: 100%;
 }
   }
 @keyframes animloader {

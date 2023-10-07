@@ -311,7 +311,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 950px) {
   .userInform {
     display: none;
   }
@@ -320,6 +320,7 @@ export default {
   }
   .mobile-user {
     display: block;
+    padding-bottom: 50%;
   }
   .orderProduct {
     margin-bottom: 20px;
