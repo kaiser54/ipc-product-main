@@ -1,35 +1,34 @@
 <template>
-  <div>
-    <div class="individual-form">
-      <h3 class="h3-medium header-text">Address details</h3>
-      <div class="myAuth-group">
-        <div class="myAuth">
-          <div class="form-group">
-            <div class="form-field">
-              <div class="personal">
-                <InputOne
-                  id="FirstName"
-                  label="First name"
-                  v-model="FirstName"
-                  type="text"
-                  placeholder="Lanre"
-                  :required="true"
-                  :invalid="invalidName"
-                  :errorMessage="FNErrorMessage"
-                />
+  <div class="individual-form">
+    <h3 class="h3-medium header-text">Address details</h3>
+    <div class="myAuth-group">
+      <div class="myAuth">
+        <div class="form-group">
+          <div class="form-field">
+            <div class="personal">
+              <InputOne
+                id="FirstName"
+                label="First name"
+                v-model="FirstName"
+                type="text"
+                placeholder="Lanre"
+                :required="true"
+                :invalid="invalidName"
+                :errorMessage="FNErrorMessage"
+              />
 
-                <InputOne
-                  id="LastName"
-                  label="Last name"
-                  v-model="lastName"
-                  type="text"
-                  placeholder="Bello"
-                  :required="true"
-                  :invalid="invalidLastName"
-                  :errorMessage="LNErrorMessage"
-                />
-              </div>
-              <!-- <ClickAddNum
+              <InputOne
+                id="LastName"
+                label="Last name"
+                v-model="lastName"
+                type="text"
+                placeholder="Bello"
+                :required="true"
+                :invalid="invalidLastName"
+                :errorMessage="LNErrorMessage"
+              />
+            </div>
+            <!-- <ClickAddNum
                 :phone-numbers="phoneNumbers"
                 :invalidNumber="invalidNumber"
                 :disabled="false"
@@ -38,60 +37,55 @@
                 @close-number="handleCloseNumber"
                 @open-number="handleOpenNumber"
               /> -->
-              <InputOne
-                id="phoneNumber"
-                label="Phone number"
-                v-model="phoneNumbers"
-                type="text"
-                placeholder="080123456789"
-                :required="true"
-                :invalid="invalidNumber"
-                :errorMessage="PNErrorMessage"
-              />
-              <InputOne
-                id="address"
-                label="Street address"
-                v-model="address"
-                type="text"
-                placeholder="Enter delivery address"
-                :required="true"
-                :invalid="invalidAddress"
-                :errorMessage="addressErrorMessage"
-              />
-              <InputOne
-                id="Directions"
-                label="Directions (Optional)"
-                v-model="Directions"
-                type="text"
-                placeholder="Directions"
-                :required="false"
-                :invalid="invalidDirections"
-                :errorMessage="DirectionsErrorMessage"
-              />
-              <div class="states __width100">
-                <label for="states">Select State</label>
-                <select class="input" id="state">
-                  <option>Lagos</option>
-                </select>
-              </div>
+            <InputOne
+              id="phoneNumber"
+              label="Phone number"
+              v-model="phoneNumbers"
+              type="text"
+              placeholder="080123456789"
+              :required="true"
+              :invalid="invalidNumber"
+              :errorMessage="PNErrorMessage"
+            />
+            <InputOne
+              id="address"
+              label="Street address"
+              v-model="address"
+              type="text"
+              placeholder="Enter delivery address"
+              :required="true"
+              :invalid="invalidAddress"
+              :errorMessage="addressErrorMessage"
+            />
+            <InputOne
+              id="Directions"
+              label="Directions (Optional)"
+              v-model="Directions"
+              type="text"
+              placeholder="Directions"
+              :required="false"
+              :invalid="invalidDirections"
+              :errorMessage="DirectionsErrorMessage"
+            />
+            <div class="states __width100">
+              <label for="states">Select State</label>
+              <select class="input" id="state">
+                <option>Lagos</option>
+              </select>
+            </div>
 
-              <div class="lga __width100">
-                <label for="lgas">Select LGA</label>
-                <select class="input" id="lgas" v-model="selectedLGA">
-                  <option value="" selected>Please select a LGA</option>
-                  <option
-                    v-for="(lga, index) in lgas"
-                    :key="index"
-                    :value="lga"
-                  >
-                    {{ lga.name }}
-                  </option>
-                </select>
-              </div>
+            <div class="lga __width100">
+              <label for="lgas">Select LGA</label>
+              <select class="input" id="lgas" v-model="selectedLGA">
+                <option value="" selected>Please select a LGA</option>
+                <option v-for="(lga, index) in lgas" :key="index" :value="lga">
+                  {{ lga.name }}
+                </option>
+              </select>
             </div>
-            <div class="submit-reset">
-              <PrimaryBtn buttonText="Save and continue" @click="submitForm" />
-            </div>
+          </div>
+          <div class="submit-reset">
+            <PrimaryBtn buttonText="Save and continue" @click="submitForm" />
           </div>
         </div>
       </div>

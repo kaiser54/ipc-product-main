@@ -42,17 +42,21 @@
               @customEvent="handleFormSubmission"
             />
           </transition>
-          <CheckoutOrderSummary
-            v-show="currentStep === 2 && submittedData"
-            @customEvent="nextStep"
-            @step1="step1"
-            :data="submittedData"
-          />
-          <CheckoutPayment
-            v-show="currentStep === 3 && submittedData"
-            @lastStep="lastStep"
-            :data="submittedData"
-          />
+          <transition name="slide" appear>
+            <CheckoutOrderSummary
+              v-show="currentStep === 2 && submittedData"
+              @customEvent="nextStep"
+              @step1="step1"
+              :data="submittedData"
+            />
+          </transition>
+          <transition name="slide" appear>
+            <CheckoutPayment
+              v-show="currentStep === 3 && submittedData"
+              @lastStep="lastStep"
+              :data="submittedData"
+            />
+          </transition>
         </div>
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">
@@ -607,23 +611,25 @@ export default {
   }
 }
 
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+ transition: opacity .5s;
 }
 
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+ opacity: 0;
 }
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.5s;
+ transition: transform .5s;
 }
 
 .slide-enter,
 .slide-leave-to {
-  transform: translateY(-50%) translateX(100vw);
+ transform: translateX(100vw);
+ opacity: 0.3;
 }
 </style>
