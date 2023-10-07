@@ -1,8 +1,9 @@
 <template>
   <div class="view-page goTop">
     <LoaderComponent v-if="!user" />
-    <div class="" v-if="user">
+    <div class="aaa" v-if="user" style="padding-bottom: 20%">
       <div
+        class="inner_profile"
         :class="{ 'profile-web-mobile': userHeaderComponent || CheckAddress }"
         v-if="!userHeaderComponent && !CheckAddress"
       >
