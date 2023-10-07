@@ -352,7 +352,7 @@ export default {
           }
         );
 
-        console.log("Response from the backend:", response.data);
+        console.log("Response from the backend:", response);
 
         if (response.data.status === "success") {
           this.isPaid = true;

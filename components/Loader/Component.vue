@@ -13,4 +13,9 @@
 
 
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 950px) {
+    .webskeleton {
+        display: none;
+    }
+}</style>

@@ -1,9 +1,9 @@
 <template>
   <div class="skeleton-loader">
-    <header>
+    <!-- <header>
       <div class="skeleton-loader__welcome"></div>
       <div class="skeleton-loader__search"></div>
-    </header>
+    </header> -->
     <section>
       <div class="product-loader">
         <div class="products">
