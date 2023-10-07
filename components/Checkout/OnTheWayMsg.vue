@@ -8,8 +8,8 @@
         <div class="title">Your order is on its way!</div>
         <div class="snippet">
           We have sent your order invoice to
-          <span class="bold">{{ data.email }}</span> Kindly check
-          to see your order’s full details.
+          <span class="bold">{{ data?.email || "" }}</span> Kindly check to see
+          your order’s full details.
         </div>
       </div>
       <div class="btn__group">
@@ -26,12 +26,7 @@
 
 <script>
 export default {
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    }
-  }
+  props: ['data']
 };
 </script>
 
