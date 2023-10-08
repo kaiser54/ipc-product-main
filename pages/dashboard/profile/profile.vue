@@ -70,7 +70,6 @@
         <div class="mobileUserProfile" v-if="mobile">
           <!-- user profile and name -->
           <ProfileUserSection
-            @clicked="toggleuserHeaderComponent"
             v-if="!userHeaderComponent || !CheckAddress"
             :user="user"
           />
@@ -153,175 +152,6 @@
         :animate="animate"
       />
       <!-- ---------------------------- -->
-
-      <ProfileInnerModalComponent
-        v-if="userHeaderComponent && !closeHeaderComp"
-        @redirectToprofilepage="redirectToprofilepage"
-      >
-        <template v-slot:components>
-          <div class="profile-wrapper">
-            <ProfileAccountAvatar :user="user" />
-            <div class="flex">
-              <div class="acc-btn">
-                <ProfileUserDetails
-                  :BusinessName="BusinessName"
-                  :user-name="userName"
-                  :phone-numbers="phoneNumbers"
-                  :invalidNumber="invalidNumber"
-                  :show-new-phone-number="showNewPhoneNumber"
-                  @add-number="handleAddNumber"
-                  @open-number="toggleAddNumberFunc"
-                  :user="user"
-                />
-              </div>
-            </div>
-          </div>
-        </template>
-      </ProfileInnerModalComponent>
-
-      <!-- add new number for mobile view -->
-
-      <ProfileEditDetails
-        header="Phone number"
-        buttonText="Add number"
-        title="Enter phone number"
-        v-if="addNumberFunc"
-        @closeDetails="toggleAddNumberFunc"
-        @detailsButton="handleAddNumber(newPhoneNumber)"
-      >
-        <template v-slot:details>
-          <InputComponent
-            id="phone-number"
-            label="Phone number"
-            name="number"
-            inputType="number"
-            v-model="newPhoneNumber"
-            :isInvalid="invalidNumber"
-            errMsg="Please enter a valid Phone number"
-          />
-        </template>
-      </ProfileEditDetails>
-
-      <!-- ===================== -->
-
-      <!-- view address on mobile -->
-
-      <ProfileInnerModalComponent
-        v-if="CheckAddress && !closeHeaderComp"
-        @redirectToprofilepage="redirectToprofilepage"
-      >
-        <template v-slot:components>
-          <div class="profile-wrapper">
-            <div class="textfield">
-              <InputComponent
-                id="streetAddress"
-                label="Street Address"
-                name="address"
-                inputType="text"
-                v-model="address.streetAddress"
-                :isInvalid="validAddress"
-                :errMsg="errAddress"
-              />
-              <InputComponent
-                id="state"
-                label="State"
-                name="state"
-                inputType="text"
-                v-model="address.state"
-                :isInvalid="validState"
-                :errMsg="errState"
-              />
-              <InputComponent
-                id="LGA"
-                label="LGA (Local Govt. Area)"
-                name="LGA"
-                inputType="text"
-                v-model="address.lga"
-                :isInvalid="validLGA"
-                :errMsg="errLGA"
-              />
-            </div>
-            <DynamicButton
-              @clickButton="editAddress"
-              style="width: 100%"
-              class=""
-              buttonText="Change"
-              size="standard"
-              type="neutral"
-              icon="icon-left"
-            >
-              <template v-slot:svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
-                  fill="none"
-                >
-                  <path
-                    d="M2.5 18H17.5"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M3.74935 11.7495L12.0827 3.41621C12.773 2.72585 13.8923 2.72585 14.5827 3.41621C15.273 4.10656 15.273 5.22585 14.5827 5.91621L6.24935 14.2495L2.91602 15.0829L3.74935 11.7495Z"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </template>
-            </DynamicButton>
-          </div>
-        </template>
-      </ProfileInnerModalComponent>
-
-      <!-- ===================== -->
-
-      <!-- change Address on mobile -->
-
-      <ProfileEditDetails
-        header="Edit address details"
-        buttonText="Save changes"
-        v-if="openEditAddress"
-        @closeDetails="editAddress"
-        @detailsButton="saveAddress"
-      >
-        <template v-slot:details>
-          <InputComponent
-            id="streetAddress"
-            label="Street Address"
-            name="address"
-            inputType="text"
-            v-model="streetAddress"
-            :isInvalid="validAddress"
-            :errMsg="errAddress"
-          />
-          <InputComponent
-            id="state"
-            label="State"
-            name="state"
-            inputType="text"
-            v-model="state"
-            :isInvalid="validState"
-            :errMsg="errState"
-          />
-          <InputComponent
-            id="LGA"
-            label="LGA (Local Govt. Area)"
-            name="LGA"
-            inputType="text"
-            v-model="LGA"
-            :isInvalid="validLGA"
-            :errMsg="errLGA"
-          />
-        </template>
-      </ProfileEditDetails>
-
-      <!-- ===================== -->
     </div>
   </div>
 </template>
@@ -483,21 +313,6 @@ export default {
     handleOpenNumber() {
       this.showNewPhoneNumber = true;
     },
-    toggleuserHeaderComponent() {
-      this.userHeaderComponent = true;
-    },
-    redirectToprofilepage() {
-      this.userHeaderComponent = false;
-      this.CheckAddress = false;
-    },
-    toggleAddNumberFunc() {
-      this.addNumberFunc = !this.addNumberFunc;
-      this.closeHeaderComp = !this.closeHeaderComp;
-    },
-    editAddress() {
-      this.openEditAddress = !this.openEditAddress;
-      this.closeHeaderComp = !this.closeHeaderComp;
-    },
     async sendAddress(address) {
       try {
         const headers = {
@@ -529,38 +344,6 @@ export default {
         // console.log("Updated user:", this.user);
       } catch (error) {
         console.error("Error:", error);
-      }
-    },
-    async saveAddress() {
-      try {
-        const headers = {
-          "Content-Type": "application/json",
-        };
-
-        const body = {
-          customerId: this.user._id,
-          streetAddress: this.address,
-          state: this.state,
-          lga: this.LGA,
-        };
-
-        const response = await axios.post(`${DEV_URL}/addresses/`, body, {
-          headers,
-        });
-
-        if (response.status === 201) {
-          this.disabledProps = true;
-          this.fetchAddress();
-          this.openEditAddress = !this.openEditAddress;
-          this.closeHeaderComp = !this.closeHeaderComp;
-        }
-
-        // this.user = response.data.data.customer;
-        console.log("e :", address);
-        console.log("backend :", response);
-        console.log("user :", this.user);
-      } catch (error) {
-        console.log(error);
       }
     },
     async fetchAddress() {

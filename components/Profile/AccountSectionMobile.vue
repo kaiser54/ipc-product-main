@@ -1,6 +1,9 @@
 <template>
   <div class="user__details__head__group">
-    <div class="user__details__head__address udhs" @click="$emit('openAddress')">
+    <div
+      class="user__details__head__address udhs"
+      @click="$router.push('/dashboard/profile/profile-settings/address')"
+    >
       <div class="udh__svg__group">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -190,8 +193,7 @@ export default {
       isVerified: false,
     };
   },
-  computed: {
-  },
+  computed: {},
 };
 </script>
   

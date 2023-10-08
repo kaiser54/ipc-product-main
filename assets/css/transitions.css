@@ -1,0 +1,16 @@
+
+.newPage-enter-active,
+.newPage-leave-active {
+    transition: transform 1s;
+}
+
+.newPage-enter
+
+/* .fade-leave-active below version 2.1.8 */
+    {
+    transform: translateX(-100%);
+}
+
+.newPage-leave-to {
+    transform: translateX(100%);
+}

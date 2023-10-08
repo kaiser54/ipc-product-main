@@ -1,13 +1,13 @@
 <template>
-  <div class="user-details-component animate__animated animate__slideInRight">
-    <div class="component-header">
+  <div class="user-details-component">
+    <!-- <div class="component-header"> -->
       <!-- the top back name and car component -->
-      <ProfileUserNavHeader
+      <!-- <ProfileUserNavHeader
         @redirectToprofilepage="$emit('redirectToprofilepage')"
         :modalName="modalName"
-      />
+      /> -->
       <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    </div>
+    <!-- </div> -->
     <slot name="components"/>
   </div>
 </template>

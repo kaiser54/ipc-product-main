@@ -65,7 +65,7 @@ export default {
       type: Object,
     },
     address: {
-      type: Object,
+      required: false
     },
   },
   data() {

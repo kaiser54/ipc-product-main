@@ -1,5 +1,5 @@
 <template>
-  <div class="addNumberFunc animate__animated animate__slideInUp">
+  <div class="addNumberFunc ">
     <!-- Header -->
 
     <header>
@@ -149,6 +149,7 @@ export default {
   color: var(--grey-grey1);
 }
 .frame-content {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -156,6 +157,7 @@ export default {
   gap: 32px;
   margin-inline: 16px;
   margin-top: 116px;
+  overflow: auto;
 }
 .frame-content-header {
   display: flex;

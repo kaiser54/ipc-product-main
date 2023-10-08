@@ -23,6 +23,7 @@ export default {
     "@/assets/css/reset.css",
     "@/assets/css/base.css",
     "@/assets/css/main.css",
+    "@/assets/css/transitions.css",
     "animate.css/animate.min.css",
   ],
 

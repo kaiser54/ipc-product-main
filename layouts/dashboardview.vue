@@ -69,7 +69,9 @@
                 </div>
                 <div class="page-wrapper nuxt-page-here">
                   <div class="page-container">
+                    <transition name="newPage" mode="out-in">
                     <nuxt />
+                  </transition>
                   </div>
                 </div>
               </section>

@@ -1,14 +1,14 @@
 <template>
   <div class="user_name_mail">
     <div class="user_name_mail_header">
-      <div class="user_name_mail_header_img avatar">
+      <div class="user_name_mail_header_img avatar" v-if="user">
         <RandomAvatar
           size="big"
           :name="`${user?.firstName} ${user?.lastName}`"
         />
       </div>
       <div class="name-mail">
-        <h3 class=".h3-small-regular">{{ user.businessName }}</h3>
+        <h3 class=".h3-small-regular">{{ user?.businessName }}</h3>
         <p>{{ user?.email }}</p>
       </div>
       <DynamicTags
@@ -46,7 +46,7 @@ export default {
   gap: 32px;
   /* width: 100%; */
 
-  margin: 35px 16px;
+  /* margin: 35px 16px; */
 }
 .user_name_mail_header {
   display: flex;
