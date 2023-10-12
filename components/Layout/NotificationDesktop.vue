@@ -1,10 +1,11 @@
 <template>
   <div class="stay-up">
     <div class="full-cart-bg">
-      <div class="full-cart animate__animated animate__slideInRight">
+      <transition name="slide" appear>
+        <div class="full-cart " v-if="showNotify">
         <header>
           <div class="modal-title">
-            <svg @click="triggerNotification" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            <svg @click="$emit('closeNotify')" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" fill="none">
               <path d="M5 19L19 5M5 5L19 19L5 5Z" stroke="#565C69" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round" />
@@ -56,7 +57,12 @@
           </div>
         </div>
       </div>
-      <div class="cart-bg" @click="triggerNotification"></div>
+      </transition>
+      <transition name="fade" appear>
+        <div class="cart-bg modal-overlay" @click="$emit('closeNotify')"
+        v-if="showNotify"
+        ></div>
+      </transition>
     </div>
   </div>
 </template>
@@ -64,6 +70,17 @@
 <script>
 import "animate.css";
 export default {
+  props:{
+    showNotify:{
+      type: Boolean,
+      // default: ()=> false
+    }
+  },
+  watch: {
+    showNotify () {
+      console.log('yo')
+    }
+  },
   data() {
     return {
       pageTitle: "IPC | Market",
@@ -84,7 +101,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .empty{
   width: 360px;
@@ -110,7 +126,7 @@ export default {
   justify-content: flex-end;
   position: absolute;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   left: 0px;
   top: 0px;
 }
@@ -124,12 +140,17 @@ export default {
 
   position: absolute;
   width: 100%;
-  max-width: 489px;
-  height: 100vh;
+  max-width: 35%;
+  height: 100vh; 
   margin-right: auto;
   top: 0px;
 
   background: #ffffff;
+  position: fixed;
+  top: 50%;
+  right: 0%;
+  transform: translate(-0%, -50%);
+  z-index: 99;
 }
 
 header {
@@ -280,7 +301,19 @@ height: 189px; */
   border: 1px solid var(--grey-grey6);
   border-radius: 12px;
 }
+.cart-bg {
+  width: 100%;
+  height: 100vh;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 98;
+  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(48, 50, 55, 0.3);
+}
 .notification-product .image {
   width: 28.44px;
   height: 32px;
@@ -303,6 +336,28 @@ height: 189px; */
   color: var(--grey-grey1);
 }
 
+
+/* ANIMATIONS */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-50%) translateX(100vw);
+}
 @media (min-width: 950px) {
   .notification-product {
     max-width: 100%;
@@ -320,9 +375,5 @@ height: 189px; */
   }
 }
 
-.cart-bg {
-  width: 100%;
-  height: 100vh;
-  background: rgba(48, 50, 55, 0.3);
-}
+
 </style>

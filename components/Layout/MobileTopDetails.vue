@@ -396,6 +396,7 @@ input {
   padding-left: 52px;
   /* max-width: 522px; */
   max-width: 100%;
+  border-radius: 100px;
 }
 
 .notify-cart {

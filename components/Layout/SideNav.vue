@@ -489,7 +489,9 @@ export default {
 .menu {
   display: flex;
   flex-direction: column;
+  gap: 4px;
   max-width: 230px;
+  /* border: 1px solid red; */
 }
 
 .nav-content {
@@ -511,7 +513,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  gap: 4px;
+  padding: 16px 0px;
 
   position: absolute;
   width: 278px;
@@ -519,9 +522,10 @@ export default {
   left: 0px;
   top: 255px;
   background: var(--white);
+  box-shadow: 0px 1px 12px 0px rgba(0, 6, 125, 0.20);
 
   filter: drop-shadow(0px 1px 12px rgba(0, 6, 125, 0.2));
-  border-radius: 21px;
+  border-radius: 16px;
   z-index: 12;
 }
 
@@ -532,7 +536,9 @@ export default {
 .cursor {
   cursor: pointer;
 }
-
+.popup .ddesktop-nav:hover{
+  background: var(--grey-grey2)
+}
 .popup .desktop-nav {
   border-radius: 0px;
 }

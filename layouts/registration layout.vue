@@ -41,12 +41,25 @@
             size="small"
             type="positive"
             style="
-              background: #20af0b;
-              color: white;
-              height: 22px;
+              /* background: #20af0b; */
+              font-family: Switzer;
               font-size: 10px;
-              width: 40.22px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 15px;
+              /* height: 22px; */
+              width: 41px;
               cursor: auto;
+              border-radius: 100px;
+              background-color: var(--positive-p-300-base, #07B463);
+              display: flex;
+              height: 16px;
+              padding: 4px 8px;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              gap: 10px;
+              color: white;
             "
           />
         </nuxt-link>
@@ -87,7 +100,7 @@ export default {};
 }
 .branding svg {
   /* width: 100%; */
-  max-width: 182.751px;
+  max-width: 145px;
   /* height: 56px; */
 }
 .content {
