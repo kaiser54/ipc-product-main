@@ -113,7 +113,7 @@
       <div class="counter" v-if="!loader">{{ getProductQuantity }}</div>
       <span class="loader" v-if="loader"></span>
 
-      <button @click="addProductToCart" class="circle">
+      <button @click="increaseQuantity" class="circle">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -201,18 +201,27 @@ export default {
   },
   methods: {
     formatPriceWithCommas,
-    ...mapActions("cart", ["addToCart", "reduceQuantity"]),
+    ...mapActions("cart", ["addToCart", "increaseItem", "reduceQuantity"]),
     addProductToCart() {
-      this.loader = true; // Show the loader when adding to cart
+      this.loader = true;
       this.addToCart(this.product).then(() => {
-        this.loader = false; // Hide the loader after adding to cart
+        this.loader = false;
+      });
+    },
+    increaseQuantity() {
+      const e = {
+        productId: this.product._id,
+      };
+      this.loader = true;
+      this.increaseItem(e).then(() => {
+        this.loader = false;
       });
     },
     decrementQuantity() {
       if (this.getProductQuantity > 1) {
-        this.loader = true; // Show the loader when adding to cart
+        this.loader = true;
         this.reduceQuantity(this.product).then(() => {
-          this.loader = false; // Hide the loader after adding to cart
+          this.loader = false;
         });
       }
     },

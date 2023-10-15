@@ -119,19 +119,20 @@ export default {
     formatPriceWithCommas,
     IncreaseQuantity() {
       this.loader = true;
-      this.$emit("counterPlus", this.items.product);
+      this.$emit("counterPlus", this.items);
     },
     decreaseQuantity() {
       if (this.items.quantity > 1) {
         this.loader = true;
         this.$emit("counterMinus", this.items.product);
       } else {
-        this.removeFromCart(this.items.product._id);
+        // this.removeFromCart(this.items.product._id);
       }
     },
     removeItem() {
       this.loader = true;
-      this.removeFromCart(this.items.product._id);
+      console.log(this.items.productId);
+      this.removeFromCart(this.items.productId);
     },
   },
   watch: {

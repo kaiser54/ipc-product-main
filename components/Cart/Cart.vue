@@ -226,7 +226,7 @@ export default {
   methods: {
     formatPriceWithCommas,
     counterPlus(e) {
-      this.addToCart(e);
+      this.increaseItem(e);
     },
     counterMinus(e) {
       console.log(e);
@@ -236,6 +236,7 @@ export default {
       "fetchCartItemsByUserID",
       "addToCart",
       "reduceQuantity",
+      "increaseItem",
     ]),
     checkout() {
       this.$emit("closeCart");

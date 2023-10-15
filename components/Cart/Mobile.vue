@@ -184,7 +184,7 @@ export default {
     },
     formatPriceWithCommas,
     counterPlus(e) {
-      this.addToCart(e);
+      this.IncreaseQuantity(e);
     },
     counterMinus(e) {
       console.log(e);
@@ -193,6 +193,7 @@ export default {
     ...mapActions("cart", [
       "fetchCartItemsByUserID",
       "addToCart",
+      "IncreaseQuantity",
       "reduceQuantity",
     ]),
   },
