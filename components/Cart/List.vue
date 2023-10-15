@@ -127,6 +127,7 @@ export default {
         this.$emit("counterMinus", this.items.product);
       } else {
         // this.removeFromCart(this.items.product._id);
+        this.removeFromCart(this.items.productId);
       }
     },
     removeItem() {

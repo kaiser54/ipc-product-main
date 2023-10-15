@@ -115,7 +115,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$config.PAYSTACK_PUBLIC_KEY);
+    (this.$config.PAYSTACK_PUBLIC_KEY);
   },
   async mounted() {
     // payStack
@@ -148,16 +148,16 @@ export default {
           this.user = JSON.parse(userData);
           // this.ref = `${this.user._id}-${new Date()}`; //invalid reference
           this.ref = this.reference;
-          console.log("ref", this.ref);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          ("ref", this.ref);
+          ("User data in localStorage:", JSON.parse(userData));
         } else {
           // User data is not found in localStorage
-          console.log("User data not found in localStorage.");
+          ("User data not found in localStorage.");
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
+        ("LocalStorage is not available in this environment.");
       }
     }
     this.spinner = false;
@@ -208,7 +208,7 @@ export default {
     },
     handleFormSubmission(data) {
       this.submittedData = data;
-      console.log(data);
+      (data);
       if (this.currentStep < 3) {
         this.currentStep++;
       }
@@ -237,7 +237,7 @@ export default {
       //   callback_url: "https://app.ipc-africa.com/dashboard/market/checkout",
       // };
 
-      // console.log("Submit data:", data);
+      // ("Submit data:", data);
 
       // Send POST request to initialize payment
       // const response = await axios.post(
@@ -247,8 +247,8 @@ export default {
 
       // this.ref = response.data.data.data.reference;
 
-      // console.log("Payment initialization response:", response.data);
-      // console.log(
+      // ("Payment initialization response:", response.data);
+      // (
       //   "Payment reference response:",
       //   response.data.data.data.reference
       // );
@@ -287,8 +287,8 @@ export default {
     },
 
     async verifyPayment() {
-      console.log("Verifying payment");
-      console.log("this.ref:", this.ref);
+      ("Verifying payment");
+      ("this.ref:", this.ref);
 
       try {
         const myHeaders = new Headers();
@@ -312,10 +312,10 @@ export default {
 
         if (response.ok) {
           const result = await response.json();
-          console.log("Verification result:", result);
+          ("Verification result:", result);
 
           if (result.status === "success") {
-            console.log("Payment verification successful!");
+            ("Payment verification successful!");
             this.submitForm();
             return; // Exit the retry loop
           }
@@ -331,13 +331,13 @@ export default {
 
     step1() {
       this.currentStep = 1;
-      console.log("clicked");
+      ("clicked");
     },
 
     async submitForm() {
       this.spinner = true;
       this.submittedData.reference = this.ref;
-      console.log("submit data:", this.submittedData);
+      ("submit data:", this.submittedData);
 
       try {
         const headers = {
@@ -352,13 +352,13 @@ export default {
           }
         );
 
-        console.log("Response from the backend:", response);
+        ("Response from the backend:", response);
 
         if (response.data.status === "success") {
           this.isPaid = true;
           window.startConfetti();
         } else {
-          console.log(response);
+          (response);
           throw new Error("Failed to create an order.");
         }
       } catch (error) {

@@ -80,7 +80,7 @@ export default {
           body: JSON.stringify(data),
         });
 
-        console.log(response);
+        (response);
         if (response.status === "success") {
           const { token, data } = response;
           commit("SET_TOKEN_AND_USER", { token, user: data?.customer });

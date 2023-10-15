@@ -51,7 +51,7 @@ export default {
       this.loading = true;
       const response = await fetchData("/categories/");
       this.categories = response.data.categories;
-      console.log(response)
+      (response)
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {

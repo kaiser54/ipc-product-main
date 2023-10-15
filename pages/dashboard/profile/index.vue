@@ -391,18 +391,18 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          ("User data in localStorage:", JSON.parse(userData));
           this.address = this.user?.address?.streetAddress || [];
           this.state = this.user?.address?.state || [];
           this.LGA = this.user?.address?.lga || [];
         } else {
           // User data is not found in localStorage
-          console.log("User data not found in localStorage.");
+          ("User data not found in localStorage.");
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
+        ("LocalStorage is not available in this environment.");
       }
     }
 
@@ -440,8 +440,8 @@ export default {
       const number = [];
       this.user.phoneNumbers.forEach((num) => number.push(newPhoneNumber));
       number.push(newPhoneNumber);
-      console.log("number", number);
-      console.log("data", this.phoneNumbers);
+      ("number", number);
+      ("data", this.phoneNumbers);
       try {
         const phoneNumberRegex =
           /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
@@ -458,8 +458,8 @@ export default {
             }
           );
           this.user = response.data.data.customer;
-          console.log("backend :", response);
-          console.log("user :", this.user);
+          ("backend :", response);
+          ("user :", this.user);
           this.phoneNumbers.push(newPhoneNumber);
           this.showNewPhoneNumber = false; // Hide the new-phone-number div
           this.addNumberFunc = false;
@@ -473,7 +473,7 @@ export default {
           this.showNewPhoneNumber = true;
         }
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
     handleCloseNumber() {
@@ -511,7 +511,7 @@ export default {
           lga: address.lga,
         };
 
-        console.log("sending data", body);
+        ("sending data", body);
 
         // sending the address to the backend end
 
@@ -525,8 +525,8 @@ export default {
         }
 
         // this.user = response.data.data.customer;
-        console.log("Address saved:", response);
-        // console.log("Updated user:", this.user);
+        ("Address saved:", response);
+        // ("Updated user:", this.user);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -556,11 +556,11 @@ export default {
         }
 
         // this.user = response.data.data.customer;
-        console.log("e :", address);
-        console.log("backend :", response);
-        console.log("user :", this.user);
+        ("e :", address);
+        ("backend :", response);
+        ("user :", this.user);
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
     async fetchAddress() {
@@ -578,9 +578,9 @@ export default {
           this.streetAddress = this.address?.streetAddress;
           this.state = this.address?.state;
           this.LGA = this.address?.lga;
-          console.log("response", response);
-          console.log("address", addresses);
-          console.log("_id", this.user._id);
+          ("response", response);
+          ("address", addresses);
+          ("_id", this.user._id);
         })
         .catch((error) => {
           // Handle any errors here

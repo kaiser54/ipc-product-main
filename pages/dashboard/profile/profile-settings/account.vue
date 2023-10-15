@@ -73,19 +73,19 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
-          console.log("usser data", this.user);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          ("usser data", this.user);
+          ("User data in localStorage:", JSON.parse(userData));
           this.address = this.user?.address?.streetAddress || [];
           this.state = this.user?.address?.state || [];
           this.LGA = this.user?.address?.lga || [];
         } else {
           // User data is not found in localStorage
-          console.log("User data not found in localStorage.");
+          ("User data not found in localStorage.");
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
+        ("LocalStorage is not available in this environment.");
       }
     }
   },
@@ -94,8 +94,8 @@ export default {
       const number = [];
       this.user.phoneNumbers.forEach((num) => number.push(newPhoneNumber));
       number.push(newPhoneNumber);
-      console.log("number", number);
-      console.log("data", this.phoneNumbers);
+      ("number", number);
+      ("data", this.phoneNumbers);
       try {
         const phoneNumberRegex =
           /^((090)[23589])|((070)[1-9])|((080)[2-9])|((081)[0-9])(\d{7})$/;
@@ -112,8 +112,8 @@ export default {
             }
           );
           this.user = response.data.data.customer;
-          console.log("backend :", response);
-          console.log("user :", this.user);
+          ("backend :", response);
+          ("user :", this.user);
           this.phoneNumbers.push(newPhoneNumber);
           this.showNewPhoneNumber = false; // Hide the new-phone-number div
           this.addNumberFunc = false;
@@ -127,7 +127,7 @@ export default {
           this.showNewPhoneNumber = true;
         }
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
   },

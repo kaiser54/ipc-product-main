@@ -42,20 +42,26 @@
   --negative-n400: #b3291f;
   --negative-n500: #9c241b;
 
-  --positive-p50: #e9f7e7;
+  /* --positive-p50: #e9f7e7; */
+  --positive-p50: #E6F8EF;
   --positive-p75: #a4de9b;
-  --positive-p100: #7ed171;
+  --positive-p100: #6FD4A5;
+  /* --positive-p100: #7ed171; */
   --positive-p200: #46bd34;
-  --positive-p300: #20af0b;
-  --positive-p400: #167a08;
+  /* --positive-p300: #20af0b; */
+  --positive-p300: #07B463;
+  /* --positive-p400: #167a08; */
+  --positive-p400: #057E45;
   --positive-p500: #146b07;
 
-  --warning-w50: #fff9ea;
+  /* --warning-w50: #fff9ea; */
+  --warning-w50: #FBEEE6;
   --warning-w75: #ffe6a9;
   --warning-w100: #ffdc86;
   --warning-w200: #ffcc52;
   --warning-w300: #ffc22e;
-  --warning-w400: #b38820;
+  /* --warning-w400: #b38820; */
+  --warning-w400: #973E00;
   --warning-w500: #9c761c;
 }
 
@@ -246,7 +252,7 @@ button {
 .primary-btn {
   padding: 16px 24px;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 
@@ -604,7 +610,7 @@ button {
   padding: 16px 24px;
 
   /* width: 100%; */
-  height: 56px;
+  height: 48px;
   border-radius: 100px !important;
 
   /* transition: all 0.2s ease-in; */

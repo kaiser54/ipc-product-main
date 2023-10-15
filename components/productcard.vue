@@ -169,8 +169,8 @@ export default {
         const productIdToCheck = this.productId;
         return this.favorites.some((favorite) => {
           const favoriteProductId = favorite.productId;
-          console.log("Favorite Product ID:", favoriteProductId);
-          console.log("Target Product ID:", productIdToCheck);
+          // ("Favorite Product ID:", favoriteProductId);
+          // ("Target Product ID:", productIdToCheck);
           this.favoriteId = favoriteProductId ? favoriteProductId : null;
           return favoriteProductId === productIdToCheck;
         });
@@ -251,11 +251,11 @@ export default {
               redirect: "follow",
             });
 
-            console.log(this.favoriteId);
-            console.log(JSON.stringify(payload));
+            // (this.favoriteId);
+            // (JSON.stringify(payload));
 
             if (res.ok) {
-              console.log("Product removed from favorites successfully.");
+              // ("Product removed from favorites successfully.");
               // Remove the favorite ID from your component's data
               this.favoriteId = null;
             } else {
@@ -269,13 +269,13 @@ export default {
               headers: { "Content-Type": "application/json" },
             });
 
-            console.log(this.favoriteId);
-            console.log(JSON.stringify(payload));
+            // (this.favoriteId);
+            // (JSON.stringify(payload));
 
             if (res.ok) {
               const responseData = await res.json();
-              console.log("Product added to favorites successfully.");
-              console.log("Product added to favorites .", responseData);
+              // ("Product added to favorites successfully.");
+              // ("Product added to favorites .", responseData);
               this.liked = true;
               // Store the favorite ID in your component's data
               this.favoriteId = responseData.favoriteId;

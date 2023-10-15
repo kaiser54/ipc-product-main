@@ -106,7 +106,6 @@ export default {
   methods: {
     selectItem(value) {
       this.selectedItem = value;
-      console.log(value);
     },
     submitForm() {
       this.$emit("lastStep");
@@ -115,7 +114,7 @@ export default {
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
-      console.log("FINAL DATA: ",this.data);
+ 
     },
   },
 };

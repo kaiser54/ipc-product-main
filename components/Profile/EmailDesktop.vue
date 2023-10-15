@@ -115,19 +115,15 @@ export default {
   },
   created(){
     this.userEmail = localStorage.getItem('userEmail')
-    console.log(this.userEmail)
   },
   mounted(){
     const userData = localStorage.getItem("user");
         if (userData) {
           this.user = JSON.parse(userData);
-          console.log("User data in localStorage:", JSON.parse(userData));
-          console.log("User:", this.user.verified);
           localStorage.setItem("userId", this.user._id);
           localStorage.setItem("userEmail", this.user.email);
           
         } else {
-          console.log("User data not found in localStorage.");
         }
     this.getUserDetails()
   },
@@ -136,8 +132,6 @@ export default {
       try{
         const response = await this.$axios.get(`/business-customers/${this.user._id}`)
         this.userProfile = response.data.data.customer
-        console.log("user-profile:",this.userProfile)
-        console.log("user-profile-status:",this.userProfile.verified)
         this.userProfileStatus = response.data.data.customer.verified
         this.verifiedEmail = this.userProfileStatus
       }catch (error) {
