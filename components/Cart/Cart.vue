@@ -229,7 +229,6 @@ export default {
       this.addToCart(e);
     },
     counterMinus(e) {
-      console.log(e);
       this.reduceQuantity(e);
     },
     ...mapActions("cart", [

@@ -42,11 +42,9 @@
     methods:{
         setDismissModal() {
             this.$emit("cancelModal");
-            console.log("try");
         },
         routeToMarket(){
             this.$emit("routeToMarket")
-            console.log('pushed')
         }
     }
 }

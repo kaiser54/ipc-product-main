@@ -312,7 +312,7 @@
     </div>
 
     <div class="categories-ctn">
-      <CategoryCards Header="You might also like this">
+      <!-- <CategoryCards Header="You might also like this">
         <template v-slot:svg>
           <svg
             @click="toggleColor"
@@ -340,7 +340,7 @@
             />
           </svg>
         </template>
-      </CategoryCards>
+      </CategoryCards> -->
       <!-- <div class="product-buttom-nav">
         <ProductDetailb />
       </div> -->
@@ -387,12 +387,12 @@ export default {
     },
     getProductQuantity() {
       if (this.isInCart) {
-        console.log("In cart:", this.isInCart);
-        console.log("Cart:", this.cart);
+        ("In cart:", this.isInCart);
+        ("Cart:", this.cart);
         const cartItem = this.cart.find(
           (item) => item.product._id === this.currentPage
         );
-        console.log("CartItem:", cartItem);
+        ("CartItem:", cartItem);
         return cartItem ? cartItem.quantity : 0;
       } else {
         return 0;
@@ -408,7 +408,7 @@ export default {
     product(newProduct) {
       this.productDetails = newProduct;
       this.loading = false;
-      console.log("Product detailsssssssss:", newProduct);
+      ("Product detailsssssssss:", newProduct);
     },
   },
   async mounted() {
@@ -416,7 +416,7 @@ export default {
     const pathArray = this.$route.path.split("~");
     const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
     this.currentPage = lastSegment;
-    console.log(this.currentPage);
+    (this.currentPage);
     this.checkScreenSize();
     this.fetchCartItemsByUserID();
     window.addEventListener("resize", this.checkScreenSize);

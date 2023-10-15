@@ -149,13 +149,10 @@ export default {
           top: 0,
           behavior: "smooth", // Optional: Add smooth scrolling effect
         });
-        console.log(this.data);
       }
     },
   },
-  mounted() {
-    console.log("user info",this.data);
-  },
+
 };
 </script>
   

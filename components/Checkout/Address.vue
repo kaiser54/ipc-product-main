@@ -183,15 +183,7 @@ export default {
   },
   async mounted() {
     this.loadUser();
-    // try {
-    //   const response = await axios.get("/Statelist.json");
-    //   console.log("response: ", response);
-    //   const { Lagos } = response.data;
-    //   this.cities = Lagos;
-    //   console.log(this.cities);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+
   },
   methods: {
     ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
@@ -201,7 +193,7 @@ export default {
         if (process.client) {
           user = JSON.parse(localStorage.getItem("user")) || null;
         }
-        console.log(user.firstName);
+
 
         if (user) {
           this.customerId = user._id;
@@ -210,7 +202,6 @@ export default {
           this.phoneNumbers = user.phoneNumbers[0];
         }
       } catch (err) {
-        console.log(err);
       }
     },
 
@@ -265,9 +256,7 @@ export default {
         deliveryFee: this.deliveryFee,
         subtotalPrice: this.cartTotalPrice,
       };
-      console.log(data);
       this.$emit("customEvent", data);
-      console.log("order info", data);
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect

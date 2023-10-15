@@ -97,7 +97,6 @@ export default {
     },
     triggerNotification() {
       this.$emit("openNotification");
-      console.log("fucking display")
     },
     truncateId(id, maxLength) {
       if (!id) {

@@ -57,7 +57,7 @@ export default {
       // this.$router.push(baseURL + value)
       // this.$router.push(`/dashboard/track orders/${value}`)
       this.$router.push(`/dashboard/track_orders/${id}`);
-      console.log("working:", this.tableData);
+    
     },
 
     truncateId(id, maxLength) {
@@ -80,7 +80,7 @@ export default {
 
         // Log the chosen products
         if (index < 3) {
-          console.log(`Chosen Product ${index + 1}:`, product);
+        
         }
 
         // Check if `productImages` is an array and not empty
@@ -101,8 +101,7 @@ export default {
         return "default-image-url.jpg";
       });
 
-      // Log the chosen images to the console
-      console.log("Chosen Images:", images);
+    
 
       return images;
     },
@@ -135,12 +134,6 @@ export default {
       }
       return 0; // Return 0 if products is not defined or empty
     },
-  },
-  mounted() {
-    console.log(this.tableData);
-  },
-  created() {
-    console.log("tableData-prop:", this.tableData);
   },
 };
 </script>

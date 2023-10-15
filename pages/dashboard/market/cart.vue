@@ -310,7 +310,7 @@
         </nuxt-link>
       </div>
     </div>
-    <div class="category-list">
+    <!-- <div class="category-list">
       <div class="categories">
         <CategoryCards Header="Recommended for you" />
       </div>
@@ -320,7 +320,7 @@
       <div class="categories">
         <CategoryCards Header="You might also like this" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -365,7 +365,7 @@ export default {
       this.addToCart(e);
     },
     counterMinus(e) {
-      console.log(e);
+      (e);
       this.reduceQuantity(e);
     },
     ...mapActions("cart", [

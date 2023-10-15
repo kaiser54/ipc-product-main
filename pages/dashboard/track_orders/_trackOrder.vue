@@ -165,7 +165,7 @@ export default {
       try {
         const response = await this.$axios.$get(`/orders/${this.orderId}`);
         this.verificationLoading = false
-        console.log("orderDetails:", response.data.order);
+        ("orderDetails:", response.data.order);
         this.orderDetails = response?.data?.order;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
@@ -176,7 +176,7 @@ export default {
     },
     showUserModal() {
       this.showUserInfoModal = true;
-      console.log("working");
+      ("working");
     },
   },
 };

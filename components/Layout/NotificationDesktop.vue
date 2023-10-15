@@ -78,7 +78,6 @@ export default {
   },
   watch: {
     showNotify () {
-      console.log('yo')
     }
   },
   data() {

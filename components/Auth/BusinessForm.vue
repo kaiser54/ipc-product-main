@@ -262,8 +262,6 @@ export default {
           phoneNumbers: this.phoneNumber,
         };
 
-        console.log(credentials);
-
         await this.register(credentials);
 
         if (this.isLoggedIn) {

@@ -94,7 +94,7 @@ export default {
     ...mapState("cart", ["cartAlert"]),
     isProductDetailsPage() {
       // Check if the current route is a product details page
-      console.log(this.$route.name);
+     
       return this.$route.name === "dashboard-market-product";
     },
   },
@@ -117,16 +117,15 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           this.verifiedEmail = this.user.verified;
-          console.log("User data in localStorage:", JSON.parse(userData));
+          
         } else {
           // User data is not found in localStorage
           this.$router.push("/auth/login");
-          console.log("User data not found in localStorage.");
+         
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
       }
     }
   },
@@ -150,14 +149,13 @@ export default {
         this.showCart = true;
         this.isCart = !this.isCart;
       }
-      console.log("cart clicked");
     },
     toggleNotification() {
       this.showNotify = true
       if (this.mobile) {
         this.$router.push("/dashboard/market/notifications");
       }
-      console.log(this.showNotify);
+      
     },
     updateShowPopup(value) {
       this.showPopup = value;
@@ -202,8 +200,7 @@ export default {
             email: userEmail,
           }
         );
-        console.log("Email sent successfully:", response.data);
-        console.log(userEmail);
+        
         return { userEmail };
       } catch (error) {
         console.error("Error sending email:", error);

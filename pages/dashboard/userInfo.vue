@@ -21,7 +21,7 @@
       this.orderId = this.$route.params.trackOrder
     try {
       const response = await this.$axios.$get(`/orders/${this.orderId}`);
-      console.log("orderDetails:",response.data.order)
+      ("orderDetails:",response.data.order)
       this.orderDetails = response?.data?.order;
       this.loading = false;
     } catch (error) {

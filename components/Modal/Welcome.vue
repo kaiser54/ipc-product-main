@@ -183,11 +183,11 @@ export default {
     methods: {
         showmode() {
             this.showModal = false
-            console.log('paged')
+           
         },
         setDismissModal() {
             this.$emit("cancelModal");
-            console.log("try");
+            
         },
         nextTab() {
             this.$emit("nextTab");
@@ -196,7 +196,7 @@ export default {
             return this.isMobile ? content.mobileImage : content.image;
         },
         move(dir, id) {
-            console.log(dir)
+          
             const feedbackBoxWidth = document.getElementById(id);
             if (dir === "+ve") {
                 if (id === "modal-slides-ctn") {
@@ -208,11 +208,10 @@ export default {
                 const maxScrollLeft =
                     feedbackBoxWidth.scrollWidth - feedbackBoxWidth.clientWidth;
                 feedbackBoxWidth.scrollLeft += feedbackBoxWidth.clientWidth;
-                console.log(feedbackBoxWidth.scrollLeft)
+              
                 if (maxScrollLeft - feedbackBoxWidth.scrollLeft < 100) {
                     this.maxRight = true;
                     this.$emit('complete-flow')
-                    // console.log('completed')
                 } else {
                     this.maxRight = false;
 

@@ -278,9 +278,6 @@ export default {
       // Get the last segment (the part after the last slash)
       const lastSegment = pathSegments[pathSegments.length - 1];
 
-      // Log the last segment to the console
-      console.log(lastSegment); // This will log the last segment of the current route
-
       // Update the pageName data property
       this.pageName = lastSegment;
     },

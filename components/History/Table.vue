@@ -95,14 +95,7 @@ export default {
   methods: {
     formatPriceWithCommas,
     toHistoryDetails(id) {
-      // const baseURL = "/dashboard/track orders/";
-      // const baseURL = `/dashboard/track orders/${value}`;
-      // this.$router.push(baseURL + value)
-      // this.$router.push(`/dashboard/track orders/${value}`)
       this.$router.push(`/dashboard/track_orders/${id}`);
-      // this.$router.push({ name: 'OrderDetails', params: { orderId } });
-      // console.log(window.location.origin + "/")
-      console.log("try", this.tableData)
     },
     truncateId(id, maxLength) {
       if (!id) {
@@ -147,15 +140,14 @@ export default {
 
         // Log the chosen products
         if (index < 3) {
-          console.log(`Chosen Product ${index + 1}:`, product);
+         
         }
 
         // Return the first image URL
         return productImages ? productImages[0] : product.product.images[0];
       });
 
-      // Log the chosen images to the console
-      console.log("Chosen Images:", images);
+    
 
       return images;
     },
@@ -212,9 +204,9 @@ calculateTotalOrderPrice(products) {
   created() {
     if (this.item?.products?.length > 0) {
       const firstProductCreatedAt = this.item?.products;
-      console.log(firstProductCreatedAt);
+      
     } else {
-      console.log('No products in the array.');
+    
     }
   }
 }

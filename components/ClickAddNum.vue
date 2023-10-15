@@ -121,7 +121,6 @@ export default {
       this.$emit("open-number");
       // this.localShowNewPhoneNumber = true; // Update the local data property
       this.phoneNumbers.push(this.newNumber); // Push the number into the array
-      console.log(this.newNumber);
     },
     closeNumber() {
       this.$emit("close-number");
