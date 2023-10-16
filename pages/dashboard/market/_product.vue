@@ -459,6 +459,7 @@ export default {
     ...mapActions("cart", [
       "addToCart",
       "reduceQuantity",
+      "increaseItem",
       "fetchCartItemsByUserID",
     ]),
     formatPriceWithCommas(number) {
@@ -485,8 +486,11 @@ export default {
       this.productImage = index;
     },
     addProductToCart() {
+      const e = {
+        productId: this.productDetails._id,
+      };
       this.loader = true; // Show the loader when adding to cart
-      this.addToCart(this.productDetails).then(() => {
+      this.increaseItem(e).then(() => {
         this.loader = false; // Hide the loader after adding to cart
       });
     },
