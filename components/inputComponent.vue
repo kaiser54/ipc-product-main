@@ -11,6 +11,7 @@
         @input="$emit('input', $event.target.value)"
         name="password"
         required
+        :readonly="readonly"
       />
       <span @click="togglePassword" v-if="inputType == 'password'">
         <svg
@@ -96,6 +97,10 @@ export default {
     errMsg: {
       type: String,
       required: true,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
     value: {
     },

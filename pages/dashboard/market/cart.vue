@@ -2,141 +2,139 @@
   <div class="cart-view" v-if="cart">
     <div class="mobile-cart" v-if="mobile">
       <CartMobile v-if="cart.length" />
-      <EmptyStates @leaveCart="leaveCart " v-else  class="empty-state">
-      <template v-slot:svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="357"
-          height="178"
-          viewBox="0 0 357 178"
-          fill="none"
-        >
-          <rect
-            x="28"
-            y="1.40625"
-            width="301"
-            height="175.188"
-            rx="15.5"
-            fill="white"
-          />
-          <rect
-            x="43.5"
-            y="16.9062"
-            width="44.4375"
-            height="32.0625"
-            rx="6.19761"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="94.6875"
-            y="16.9062"
-            width="79.875"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="94.6875"
-            y="31.0938"
-            width="46.1052"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="244.312"
-            y="16.9062"
-            width="69.1875"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="43.5"
-            y="72.9688"
-            width="44.4375"
-            height="32.0625"
-            rx="6.19761"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="94.6875"
-            y="72.9688"
-            width="79.875"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="94.6875"
-            y="87.1562"
-            width="46.1052"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="244.312"
-            y="72.9688"
-            width="69.1875"
-            height="8"
-            rx="4"
-            fill="#E5E7EF"
-          />
-          <rect
-            x="43.5"
-            y="129.031"
-            width="44.4375"
-            height="32.0625"
-            rx="6.19761"
-            fill="#F4F5F8"
-          />
-          <rect
-            x="94.6875"
-            y="129.031"
-            width="79.875"
-            height="8"
-            rx="4"
-            fill="#F4F5F8"
-          />
-          <rect
-            x="94.6875"
-            y="143.219"
-            width="46.1052"
-            height="8"
-            rx="4"
-            fill="#F4F5F8"
-          />
-          <rect
-            x="244.312"
-            y="129.031"
-            width="69.1875"
-            height="8"
-            rx="4"
-            fill="#F4F5F8"
-          />
-          <rect
-            x="28"
-            y="1.40625"
-            width="301"
-            height="175.188"
-            rx="15.5"
-            stroke="#F4F5F8"
-          />
-        </svg>
-      </template>
-      <template v-slot:message>
-        <div class="message">
-          <h2 class="">Your cart is empty</h2>
-          <div class="snippet">
-            Visit the market to purchase your food items, kitchen utensils, and
-            other necessary products.
+      <EmptyStates @leaveCart="leaveCart" v-else class="empty-state">
+        <template v-slot:svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="357"
+            height="178"
+            viewBox="0 0 357 178"
+            fill="none"
+          >
+            <rect
+              x="28"
+              y="1.40625"
+              width="301"
+              height="175.188"
+              rx="15.5"
+              fill="white"
+            />
+            <rect
+              x="43.5"
+              y="16.9062"
+              width="44.4375"
+              height="32.0625"
+              rx="6.19761"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="94.6875"
+              y="16.9062"
+              width="79.875"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="94.6875"
+              y="31.0938"
+              width="46.1052"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="244.312"
+              y="16.9062"
+              width="69.1875"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="43.5"
+              y="72.9688"
+              width="44.4375"
+              height="32.0625"
+              rx="6.19761"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="94.6875"
+              y="72.9688"
+              width="79.875"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="94.6875"
+              y="87.1562"
+              width="46.1052"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="244.312"
+              y="72.9688"
+              width="69.1875"
+              height="8"
+              rx="4"
+              fill="#E5E7EF"
+            />
+            <rect
+              x="43.5"
+              y="129.031"
+              width="44.4375"
+              height="32.0625"
+              rx="6.19761"
+              fill="#F4F5F8"
+            />
+            <rect
+              x="94.6875"
+              y="129.031"
+              width="79.875"
+              height="8"
+              rx="4"
+              fill="#F4F5F8"
+            />
+            <rect
+              x="94.6875"
+              y="143.219"
+              width="46.1052"
+              height="8"
+              rx="4"
+              fill="#F4F5F8"
+            />
+            <rect
+              x="244.312"
+              y="129.031"
+              width="69.1875"
+              height="8"
+              rx="4"
+              fill="#F4F5F8"
+            />
+            <rect
+              x="28"
+              y="1.40625"
+              width="301"
+              height="175.188"
+              rx="15.5"
+              stroke="#F4F5F8"
+            />
+          </svg>
+        </template>
+        <template v-slot:message>
+          <div class="message">
+            <h2 class="">Your cart is empty</h2>
+            <div class="snippet">
+              Visit the market to purchase your food items, kitchen utensils,
+              and other necessary products.
+            </div>
           </div>
-        </div>
-      </template>
-    </EmptyStates>
-     
-   
+        </template>
+      </EmptyStates>
     </div>
     <div class="title-header" v-if="!mobile">
       <div class="page-head-content">
@@ -362,7 +360,7 @@ export default {
   methods: {
     formatPriceWithCommas,
     counterPlus(e) {
-      this.addToCart(e);
+      this.increaseItem(e);
     },
     counterMinus(e) {
       console.log(e);
@@ -371,6 +369,7 @@ export default {
     ...mapActions("cart", [
       "fetchCartItemsByUserID",
       "addToCart",
+      "increaseItem",
       "reduceQuantity",
     ]),
     checkScreenSize() {
@@ -388,7 +387,7 @@ export default {
 </script>
 
 <style scoped>
-.empty-state{
+.empty-state {
   margin-top: -100px;
 }
 a {

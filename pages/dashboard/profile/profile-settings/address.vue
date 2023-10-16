@@ -10,6 +10,7 @@
           v-model="streetAddress"
           :isInvalid="validAddress"
           :errMsg="errAddress"
+          :readonly="true"
         />
         <InputComponent
           id="state"
@@ -19,6 +20,7 @@
           v-model="state"
           :isInvalid="validState"
           :errMsg="errState"
+          :readonly="true"
         />
         <InputComponent
           id="LGA"
@@ -28,6 +30,7 @@
           v-model="LGA"
           :isInvalid="validLGA"
           :errMsg="errLGA"
+          :readonly="true"
         />
       </div>
       <DynamicButton
@@ -181,7 +184,7 @@ export default {
 
         const body = {
           customerId: this.user._id,
-          streetAddress: this.address,
+          streetAddress: this.streetAddress,
           state: this.state,
           lga: this.LGA,
         };

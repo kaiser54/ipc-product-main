@@ -135,6 +135,10 @@ export default {
 </script>
 
 <style scoped>
+.acc-btn {
+    width: 100%;
+    padding-bottom: 100px;
+  }
 .profile-wrapper {
   width: 100%;
   display: flex;
@@ -144,6 +148,7 @@ export default {
   padding: 5%;
 }
 @media (max-width: 950px) {
+  
   .profile-wrapper {
     height: auto;
     margin-top: 86px;

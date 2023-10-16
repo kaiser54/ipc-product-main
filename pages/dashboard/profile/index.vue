@@ -336,6 +336,7 @@ export default {
   data() {
     return {
       user: null,
+      userID: "",
       pageTitle: "IPC | Profile",
       activetab: true,
       mobile: false,
@@ -392,6 +393,10 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           console.log("User data in localStorage:", JSON.parse(userData));
+          this.userID = this.user?._id;
+          if (this.userID) {
+            this.fetchUser();
+          }
           this.address = this.user?.address?.streetAddress || [];
           this.state = this.user?.address?.state || [];
           this.LGA = this.user?.address?.lga || [];
@@ -497,6 +502,29 @@ export default {
     editAddress() {
       this.openEditAddress = !this.openEditAddress;
       this.closeHeaderComp = !this.closeHeaderComp;
+    },
+    async fetchUser() {
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        // sending the address to the backend end
+
+        if (this.userID) {
+          console.log(`${DEV_URL}/business-customers/${this.userID}`);
+          const response = await axios.get(
+            `${DEV_URL}/business-customers/${this.user._id}`,
+            {
+              headers,
+            }
+          );
+          this.user = response?.data?.data?.customer
+        }
+        // console.log("Updated user:", this.user);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     },
     async sendAddress(address) {
       try {

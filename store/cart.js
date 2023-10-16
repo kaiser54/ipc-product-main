@@ -264,46 +264,45 @@ export default {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
 
-        const user = process.client
-          ? JSON.parse(localStorage.getItem("user")) || null
-          : null;
-
-        const customerId = user?._id;
-
         const headers = {
           "Content-Type": "application/json",
         };
 
-        const response = await axios.delete(`${DEV_URL}/cart/${product._id}`, {
-          headers: headers,
-          // params: {productId: product._id,}
-        });
+        // Send a DELETE request to your server to reduce the quantity
+        const response = await axios.delete(
+          `${DEV_URL}/cart/${product._id}`,
+          {
+            headers: headers,
+          }
+        );
 
-        console.log("reduce cart :", response);
+        console.log("response", response)
 
-        if (response.status == 204) {
+        if (response.status === 204) {
           const indexOfCartItem = state.cart.findIndex(
             (c) => c.productId === product._id
           );
 
           commit("ADD_TO_CART_ALERT", "removed");
 
-          console.log(" response data: ", response);
-          console.log(" indexOfCartItem : ", indexOfCartItem);
-          console.log(" quantity : ", state.cart[indexOfCartItem].quantity - 1);
-
           if (indexOfCartItem !== -1) {
+            // Update the quantity and totalPrice of the cart item
+            const newQuantity = state.cart[indexOfCartItem].quantity - 1;
+            const newTotalPrice =
+              state.cart[indexOfCartItem].totalPrice -
+              state.cart[indexOfCartItem].product.discountPrice;
+
             commit("UPDATE_CARTITEM_QUANTITY", {
               index: indexOfCartItem,
-              quantity: state.cart[indexOfCartItem].quantity - 1,
-              totalPrice:
-                state.cart[indexOfCartItem].totalPrice -
-                state.cart[indexOfCartItem].product.discountPrice,
+              quantity: newQuantity,
+              totalPrice: newTotalPrice,
             });
           } else {
+            // Handle the case where the cart item was not found
             commit("SET_LOADING", false);
             commit("SET_ERROR", null);
           }
+
           commit("SET_LOADING", false);
           commit("SET_ERROR", null);
         }
@@ -312,7 +311,6 @@ export default {
         commit("SET_LOADING", false);
       }
     },
-
     async chechout({ commit }, product) {
       try {
         commit("SET_LOADING", true);
