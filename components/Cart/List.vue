@@ -131,8 +131,10 @@ export default {
     },
     removeItem() {
       this.loader = true;
-      console.log(this.items.productId);
-      this.removeFromCart(this.items.productId);
+      const { customerId, productId, _id } = this.items;
+      this.removeFromCart({
+        customerId, productId, _id
+      });
     },
   },
   watch: {

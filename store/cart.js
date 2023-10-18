@@ -343,11 +343,14 @@ export default {
       }
     },
 
-    async removeFromCart({ commit }, productId) {
+    async removeFromCart({ commit }, arg) {
       try {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
-        console.log("Data sending to backend", productId);
+        console.log("Data sending to backend", arg);
+
+        const { customerId, productId, _id } = arg;
+
 
         const headers = {
           "Content-Type": "application/json",
@@ -355,7 +358,10 @@ export default {
 
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
-          `${DEV_URL}/cart/delete-item/${productId}`, // Use productId as :id parameter in the URL
+          `${DEV_URL}/cart/delete-item/${_id}`, // Use productId as :id parameter in the URL
+          {
+            customerId,
+          },
           {
             headers: headers,
           }
