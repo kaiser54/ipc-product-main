@@ -190,6 +190,7 @@ input {
   padding-left: 52px;
   /* max-width: 522px; */
   max-width: 100%;
+  border-radius: 100px;
 }
 
 .notify-cart {
@@ -221,6 +222,9 @@ input {
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
   transition: all 0.2s ease-in;
+  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.10);
+
+
 }
 
 .circle:hover {

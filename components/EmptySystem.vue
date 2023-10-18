@@ -41,7 +41,7 @@
             redirect(){
                 this.$emit("leavePage");
                 this.$router.push("/dashboard/market")
-                console.log("u")
+            
             }
         }
     }

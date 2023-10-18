@@ -96,7 +96,7 @@ export default {
         },
     },
     created() {
-        console.log(this.$route.params.token)
+        (this.$route.params.token)
     },
     methods: {
         submitLogin() {
@@ -111,7 +111,7 @@ export default {
                 }
             } else {
                 // Submit form or perform other actions
-                console.log("Valid login");
+                ("Valid login");
                 
                 this.resetTokenSent()
             }
@@ -124,7 +124,7 @@ export default {
                     token: this.$route.params.token
                 }
                 )
-                console.log('Token Sent', response.data)
+                ('Token Sent', response.data)
                 this.$router.push("/auth/login");
             } catch(error){
                 console.error('Wrong Token:', error)

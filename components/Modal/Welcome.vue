@@ -156,8 +156,10 @@ export default {
                     title: "Track your orders",
                     image: require('~/assets/images/single-bulk-order.png'),
                     mobileImage: require('~/assets/images/mobilesingle-bulk-order.png'),
-                    svg: require('~/assets/images/track-order.svg'),
-                    mobileSvg: require('~/assets/images/track-order-mobile.svg'),
+                    // svg: require('~/assets/images/track-order.svg'),
+                    svg: require('~/assets/images/single-bulk-order.png'),
+                    mobileSvg: require('~/assets/images/mobilesingle-bulk-order.png'),
+                    // mobileSvg: require('~/assets/images/track-order-mobile.svg'),
                     description: "When you buy on IPC, either single or bulk orders, you get to track your order from processing to delivery."
                 },
                 {
@@ -183,11 +185,11 @@ export default {
     methods: {
         showmode() {
             this.showModal = false
-            console.log('paged')
+           
         },
         setDismissModal() {
             this.$emit("cancelModal");
-            console.log("try");
+            
         },
         nextTab() {
             this.$emit("nextTab");
@@ -196,7 +198,7 @@ export default {
             return this.isMobile ? content.mobileImage : content.image;
         },
         move(dir, id) {
-            console.log(dir)
+          
             const feedbackBoxWidth = document.getElementById(id);
             if (dir === "+ve") {
                 if (id === "modal-slides-ctn") {
@@ -208,11 +210,10 @@ export default {
                 const maxScrollLeft =
                     feedbackBoxWidth.scrollWidth - feedbackBoxWidth.clientWidth;
                 feedbackBoxWidth.scrollLeft += feedbackBoxWidth.clientWidth;
-                console.log(feedbackBoxWidth.scrollLeft)
+              
                 if (maxScrollLeft - feedbackBoxWidth.scrollLeft < 100) {
                     this.maxRight = true;
                     this.$emit('complete-flow')
-                    // console.log('completed')
                 } else {
                     this.maxRight = false;
 

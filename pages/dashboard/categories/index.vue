@@ -51,7 +51,7 @@ export default {
       this.loading = true;
       const response = await fetchData("/categories/");
       this.categories = response.data.categories;
-      console.log(response)
+      (response)
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -110,7 +110,7 @@ a {
 
 .category:hover,
 .category:focus {
-  border: 1px solid var(--primary-p300);
+  border: 1px solid var(--new-primary-p300);
 }
 
 .category img {

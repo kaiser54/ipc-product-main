@@ -212,12 +212,7 @@ export default {
     async handleChangePassword() {
       if (this.validatePasswords()) {
         // Code to submit the password change request
-        console.log(
-          "Password change request submitted:",
-          this.oldPassword,
-          this.newPassword,
-          this.confirmPassword
-        );
+     
         try {
           this.verificationLoading = true;
           this.showPasswordModal = false;
@@ -237,8 +232,6 @@ export default {
           );
           this.verificationLoading = false;
           this.showPasswordModal = false;
-          console.log("Password Changed Successfully:", response.data);
-          console.log(userId);
           this.showModal = true;
 
           // After 10 seconds, hide the modal and navigate to /dashboard/Market

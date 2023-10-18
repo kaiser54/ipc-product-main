@@ -124,12 +124,12 @@ export default {
     // this.loading = true;
 
     this.getOrders();
-    console.log(this.tableData);
-    console.log(this.tableDataClone);
+    (this.tableData);
+    (this.tableDataClone);
     this.tableData.forEach((data) => {
-      console.log("data Status:", data.status);
+      ("data Status:", data.status);
     });
-    console.log("tableDataMobile", this.tableDataClone);
+    ("tableDataMobile", this.tableDataClone);
   },
   created() {
     if (this.$route.path === "/dashboard") {
@@ -186,11 +186,11 @@ export default {
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
         this.tableDataClone = this.tableData;
-        console.log(this.tableData);
-        console.log(this.tableDataClone);
+        (this.tableData);
+        (this.tableDataClone);
         this.tableDatas.forEach((order) => {
           this.filteredStatus = order.status;
-          console.log("Order Status:", this.filteredStatus);
+          ("Order Status:", this.filteredStatus);
         });
         
         this.loading = false;
@@ -206,7 +206,7 @@ export default {
 
     filterTableDataByStatus(status) {
       this.status = status.status;
-      console.log("Selected status:", this.status);
+      ("Selected status:", this.status);
       if (status.status === "All") {
         this.tableData = this.tableDataClone;
       } else if (status.status === "Completed") {
@@ -257,9 +257,9 @@ export default {
           product.date >= dateData.startDate && product.date <= dateData.endDate
         );
       });
-      // console.log(dateData)
-      // console.log(dateData.startDate)
-      // console.log(dateData.endDate)
+      // (dateData)
+      // (dateData.startDate)
+      // (dateData.endDate)
     },
   },
 };
@@ -323,7 +323,7 @@ export default {
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

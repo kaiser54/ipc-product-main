@@ -22,13 +22,13 @@ export default {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
       // state.cart.push(cartItem);
-      console.log("mutant cart", state.cart);
+      ("mutant cart", state.cart);
     },
 
     ADD_TO_CART_ALERT(state, arg) {
       state.cartAlert = arg;
       // state.cart.push(cartItem);
-      console.log("mutant cart", state.cart);
+      ("mutant cart", state.cart);
     },
     UPDATE_CARTITEM({ cart }, { index, product }) {
       cart[index] = product;
@@ -82,7 +82,7 @@ export default {
 
         const response = await axios.get(`${DEV_URL}/cart/${customerId}`);
 
-        // console.log(response);
+        // (response);
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
         }
@@ -91,7 +91,7 @@ export default {
 
         commit("CLEAR_CART");
 
-        console.log("cart :", cart);
+        ("cart :", cart);
 
         // Handle the response data as needed
         commit("ADD_TO_CART", cart);
@@ -120,7 +120,7 @@ export default {
           customerId: customerId,
         };
 
-        console.log("data sending to backend", data);
+        ("data sending to backend", data);
 
         const headers = {
           "Content-Type": "application/json",
@@ -138,9 +138,9 @@ export default {
           commit("ADD_TO_CART_ALERT", false);
         }
 
-        console.log(" response data: ", response);
+        (" response data: ", response);
 
-        console.log(" response cartItem: ", cartItem);
+        (" response cartItem: ", cartItem);
 
         const { cart } = state;
 
@@ -156,7 +156,7 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-        console.log(" response indexOfCartItem: ", indexOfCartItem);
+        (" response indexOfCartItem: ", indexOfCartItem);
 
         // if (Object.keys(findItem).length) {
         //   commit("UPDATE_CARTITEM_QUANTITY", {index: indexOfCartItem, quantity: cartItem.quantity})
@@ -328,8 +328,8 @@ export default {
           body: state.checkout,
         });
 
-        console.log(state.checkout);
-        console.log(response);
+        (state.checkout);
+        (response);
 
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
@@ -347,10 +347,6 @@ export default {
       try {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
-        console.log("Data sending to backend", arg);
-
-        const { productId, _id } = arg;
-
 
         const headers = {
           "Content-Type": "application/json",
@@ -358,7 +354,7 @@ export default {
 
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
-          `${DEV_URL}/cart/delete-item/${_id}`, // Use productId as :id parameter in the URL
+          `${DEV_URL}/cart/${productId}`, // Use productId as :id parameter in the URL
           {
             headers: headers,
           }
@@ -370,7 +366,7 @@ export default {
           commit("ADD_TO_CART_ALERT", false);
         }
 
-        console.log("Response status:", response.status);
+        ("Response status:", response.status);
 
         if (response.status !== 204) {
           console.error(

@@ -105,20 +105,20 @@ button.default {
 button.warning {
   color: var(--warning-w400, #b38820);
   background: var(--warning-w50, #fff9ea);
-  border: 1px solid var(--warning-w75, #FFE6A9);
+  /* border: 1px solid var(--warning-w75, #FFE6A9); */
 }
 button.positive {
-  border: 1px solid var(--positive-p75, #a4de9b);
-  background: var(--positive-p50, #e9f7e7);
-  color: var(--positive-p400, #167a08);
+  /* border: 1px solid var(--positive-p75, #a4de9b); */
+  background: var(--positive-p50, #E6F8EF);
+  color: var(--positive-p400, #057E45);
 }
 button.info {
   color: var(--primary-p400, #00067d);
   border: 1px solid var(--primary-p75, #969ae0);
-  background: var(--primary-p50, #e6e6f7);
+  /* background: var(--primary-p50, #e6e6f7); */
 }
 button.negative {
-border: 1px solid var(--negative-n75, #FFAFA9);
+/* border: 1px solid var(--negative-n75, #FFAFA9); */
 background: var(--negative-n50, #FFEBEA);
 color: var(--negative-n400, #B3291F);
 }

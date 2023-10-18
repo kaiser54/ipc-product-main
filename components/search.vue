@@ -104,7 +104,7 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 16px;
+  gap: 8px;
 
   width: 100%;
   /* height: 48px; */
@@ -129,6 +129,9 @@ export default {
 .search-bar-input .input-search {
   width: 100%;
   padding-left: 52px;
+}
+.input-search{
+  border-radius: 100px;
 }
 .search-bar button {
   outline: none;

@@ -61,10 +61,10 @@ export default {
     validatePhoneNumber() {
     //   if (this.myValue.startsWith('0') && this.myValue.length === 11) {
       if (/^0\d{10}$/.test(this.myValue)) {
-        console.log('Valid phone number');
+      
         this.showOtp = true;
       } else {
-        console.log('Invalid phone number');
+      
       }
     }
   }

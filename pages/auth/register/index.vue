@@ -3,7 +3,9 @@
     <div class="content">
       <div class="container">
         <div class="content-box">
-          <h2 class="h2-medium header-text">How would you like to join IPC?</h2>
+          <div class="text">
+            <h2 class="h3-medium header-text">How would you like to join IPC?</h2>
+          </div>
           <div class="content-select">
             <div
               class="list-select"
@@ -146,9 +148,21 @@ export default {
   background: var(--grey-grey6);
   border-radius: 24px;
 }
+.text{
+  /* border: 1px solid red; */
+  width: 100%;
+  text-align: center;
+}
+.header-text{
+  color: var(--grey-grey-1, #303237);
 
-.h3-medium {
-  color: var(--grey-grey1);
+/* H2/Heading 2 Small Bold */
+font-family: Switzer;
+font-size: 24px;
+font-style: normal;
+font-weight: 600;
+line-height: 36px; /* 150% */
+letter-spacing: -1px;
 }
 .title-text {
   color: var(--grey-grey-1, #303237);
@@ -181,7 +195,7 @@ svg circle {
 /* Checked styling */
 .selected circle {
   stroke: none;
-  fill: var(--primary-p300);
+  fill: var(--new-primary-p300);
 }
 
 /* .radio-svg {
@@ -211,7 +225,7 @@ button:disabled {
 
 .clicked,
 .list-select:hover {
-  border: 1px solid var(--primary-p300);
+  border: 1px solid var(--new-primary-p300);
 }
 
 .list-select-header {
@@ -240,7 +254,7 @@ button:disabled {
 
   /* Primary/P300 */
 
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 .title-flex {
   display: flex;
@@ -282,7 +296,7 @@ button:disabled {
 
     /* Body Large/Body Large Medium */
     font-family: Switzer;
-    font-size: 16px;
+    font-size: 16zpx;
     font-style: normal;
     font-weight: 500;
     line-height: 24px; /* 150% */
@@ -295,6 +309,22 @@ button:disabled {
     line-height: 24px;
     color: var(--grey-grey3);
   }
+  .text{
+  /* border: 1px solid red; */
+  width: 100%;
+  text-align: left;
+}
+.header-text{
+  color: var(--grey-grey-1, #303237);
+
+/* H2/Heading 2 Small Bold */
+font-family: Switzer;
+font-size: 24px;
+font-style: normal;
+font-weight: 600;
+line-height: 36px; /* 150% */
+letter-spacing: -1px;
+}
 }
 
 @media (max-width: 600px) {

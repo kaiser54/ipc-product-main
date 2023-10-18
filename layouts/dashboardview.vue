@@ -1,20 +1,9 @@
 <template>
   <div>
-    <AlertPrompt
-      ref="alertPrompt"
-      :message="error_msg"
-      :alertType="alertType"
-    />
-    <ModalWelcome
-      v-if="showModal"
-      @cancelModal="removeModal()"
-      @complete-flow="removeModal()"
-    />
-    <Cart @closeCart="showCart=false" :showModal="showCart" v-if="!mobile" />
-    <LayoutNotificationDesktop
-      @openNotification="toggleNotification"
-      v-if="isNotification && !mobile"
-    />
+    <AlertPrompt ref="alertPrompt" :message="error_msg" :alertType="alertType" />
+    <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" />
+    <Cart @closeCart="showCart = false" :showModal="showCart" v-if="!mobile" />
+    <LayoutNotificationDesktop @closeNotify="showNotify = false" :showNotify="showNotify" v-if="!mobile" />
 
     <div class="dashboard-wrapper" v-if="user">
       <section class="section-wrapper">
@@ -22,12 +11,8 @@
           <div class="fixed" v-if="!mobile">
             <div class="solv">
               <!-- side navigation bar -->
-              <LayoutSideNav
-                :user="user"
-                :show-popup="showPopup"
-                @update:showPopup="updateShowPopup"
-                @update:logout="updatelogout"
-              />
+              <LayoutSideNav :user="user" :show-popup="showPopup" @update:showPopup="updateShowPopup"
+                @update:logout="updatelogout" />
             </div>
             <div class="backdrop" v-if="showPopup" @click="closePopup"></div>
           </div>
@@ -38,40 +23,27 @@
         </div>
         <div class="top-fixed" @click="closePopup">
           <section class="dashview">
-            <div
-              class="ipc-top-fixed"
-              :class="{ ProductDetailsPage: isProductDetailsPage }"
-            >
+            <div class="ipc-top-fixed" :class="{ ProductDetailsPage: isProductDetailsPage }">
               <section class="dashboard-top-fixed" v-if="!mobile">
                 <!-- dasboard header that have the welcome, search bar and notify-cart -->
-                <LayoutTopDetails
-                  :user="user"
-                  @openCart="showCart=true"
-                  @openNotification="toggleNotification"
-                />
+                <LayoutTopDetails :user="user" @openCart="showCart = true" @openNotification="toggleNotification" />
               </section>
               <section class="mobile-dashboard-top-fixed" v-else>
                 <!-- dasboard header that have the welcome, search bar and notify-cart for mobile -->
-                <LayoutMobileTopDetails
-                  @redirectToSearchPage="redirectToSearchPageFunc"
-                  @openCart="toggleCart"
-                  :user="user"
-                />
+                <LayoutMobileTopDetails @redirectToSearchPage="redirectToSearchPageFunc" @openCart="toggleCart"
+                  :user="user" />
               </section>
             </div>
             <div class="view-wrapper">
               <section class="view">
                 <div class="" style="padding: 16px">
-                  <promptAlert
-                    @openMail="okModal"
-                    v-if="!verifiedEmail && $route.name === 'dashboard-market'"
-                  />
+                  <promptAlert @openMail="okModal" v-if="!verifiedEmail && $route.name === 'dashboard-market'" />
                 </div>
                 <div class="page-wrapper nuxt-page-here">
                   <div class="page-container">
                     <transition name="newPage" mode="out-in">
-                    <nuxt />
-                  </transition>
+                      <nuxt />
+                    </transition>
                   </div>
                 </div>
               </section>
@@ -81,34 +53,16 @@
       </section>
     </div>
     <transition name="modal-fade">
-      <popupModal
-        v-if="logout"
-        animate="animate__zoomIn"
-        title="Log out of IPC?"
+      <popupModal v-if="logout" animate="animate__zoomIn" title="Log out of IPC?"
         snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
-        buttonText="Cancel"
-        buttonText2="Log out"
-        buttonClass="neutral-btn"
-        buttonClass2="negative-btn"
-        @closeModal="closeLogoutUser"
-        @okModal="logOutUser"
-        @closeModalBG="closeLogoutUserBG"
-      />
+        buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
+        @closeModal="closeLogoutUser" @okModal="logOutUser" @closeModalBG="closeLogoutUserBG" />
     </transition>
     <transition name="modal-fade">
-      <popupModal
-        v-if="checkMail"
-        :animate="animate"
-        title="Check your email address"
+      <popupModal v-if="checkMail" :animate="animate" title="Check your email address"
         snippet="We have sent a secured reset link to your email. Click on the link to verify your email."
-        buttonText="Got it"
-        buttonText2="Resend link"
-        buttonClass="neutral-btn"
-        buttonClass2="primary-btn"
-        @okModal="okModal"
-        @closeModal="handleOpenMail"
-        @closeModalBG="handleOpenMail"
-      />
+        buttonText="Got it" buttonText2="Resend link" buttonClass="neutral-btn" buttonClass2="primary-btn"
+        @okModal="okModal" @closeModal="handleOpenMail" @closeModalBG="handleOpenMail" />
     </transition>
   </div>
 </template>
@@ -133,13 +87,14 @@ export default {
       alertType: "",
       verifiedEmail: false,
       animate: null,
+      showNotify: false,
     };
   },
   computed: {
     ...mapState("cart", ["cartAlert"]),
     isProductDetailsPage() {
       // Check if the current route is a product details page
-      console.log(this.$route.name);
+     
       return this.$route.name === "dashboard-market-product";
     },
   },
@@ -162,16 +117,15 @@ export default {
           // User data is available, log it
           this.user = JSON.parse(userData);
           this.verifiedEmail = this.user.verified;
-          console.log("User data in localStorage:", JSON.parse(userData));
+          
         } else {
           // User data is not found in localStorage
           this.$router.push("/auth/login");
-          console.log("User data not found in localStorage.");
+         
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
       }
     }
   },
@@ -188,21 +142,20 @@ export default {
       this.$router.push("/auth/login");
     },
     toggleCart() {
-        this.showCart = true;
+      this.showCart = true;
       if (this.mobile) {
         this.$router.push("/dashboard/market/cart");
       } else {
         this.showCart = true;
         this.isCart = !this.isCart;
       }
-      console.log("cart clicked");
     },
     toggleNotification() {
-      this.isNotification = !this.isNotification;
+      this.showNotify = true
       if (this.mobile) {
         this.$router.push("/dashboard/market/notifications");
       }
-      console.log("notification clicked");
+      
     },
     updateShowPopup(value) {
       this.showPopup = value;
@@ -247,8 +200,7 @@ export default {
             email: userEmail,
           }
         );
-        console.log("Email sent successfully:", response.data);
-        console.log(userEmail);
+        
         return { userEmail };
       } catch (error) {
         console.error("Error sending email:", error);
@@ -379,12 +331,14 @@ section.view {
 }
 
 @media (max-width: 950px) {
+
   .top-details,
   .view-wrapper,
   section.view {
     max-width: 100%;
     position: relative;
   }
+
   .nuxt-page-here {
     display: flex;
     flex-direction: column;
@@ -393,6 +347,7 @@ section.view {
     padding-bottom: 20px;
     justify-content: center;
   }
+
   .view-wrapper {
     overflow-y: visible;
     height: 100%;

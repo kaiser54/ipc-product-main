@@ -131,7 +131,7 @@
         @incrementQuantityEvent="incrementQuantity"
         @decrementQuantityEvent="decrementQuantity"
       />
-      <div class="category-list">
+      <!-- <div class="category-list">
         <div class="categories">
           <CategoryCards Header="Recommended for you" />
         </div>
@@ -141,7 +141,7 @@
         <div class="categories">
           <CategoryCards Header="You might also like this" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
