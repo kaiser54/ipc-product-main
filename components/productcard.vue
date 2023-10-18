@@ -382,7 +382,9 @@ a {
   position: relative;
   /* Establish a positioning context for the child image */
 }
-
+.btn:hover{
+  color: white;
+}
 .image-container img {
   width: 100%;
   /* Make the image fill the container */

@@ -354,6 +354,7 @@ button {
 }
 .addtocart-btn-small:hover{
   background-color: var(--new-primary-p500);
+  color: var(--white);
 }
 .addtocart-btn-small:active{
   background-color: var(--new-primary-p500);
