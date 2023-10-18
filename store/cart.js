@@ -349,7 +349,7 @@ export default {
         commit("ADD_TO_CART_ALERT", null);
         console.log("Data sending to backend", arg);
 
-        const { _id } = arg;
+        const { productId, _id } = arg;
 
 
         const headers = {
