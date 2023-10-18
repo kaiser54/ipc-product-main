@@ -156,8 +156,10 @@ export default {
                     title: "Track your orders",
                     image: require('~/assets/images/single-bulk-order.png'),
                     mobileImage: require('~/assets/images/mobilesingle-bulk-order.png'),
-                    svg: require('~/assets/images/track-order.svg'),
-                    mobileSvg: require('~/assets/images/track-order-mobile.svg'),
+                    // svg: require('~/assets/images/track-order.svg'),
+                    svg: require('~/assets/images/single-bulk-order.png'),
+                    mobileSvg: require('~/assets/images/mobilesingle-bulk-order.png'),
+                    // mobileSvg: require('~/assets/images/track-order-mobile.svg'),
                     description: "When you buy on IPC, either single or bulk orders, you get to track your order from processing to delivery."
                 },
                 {

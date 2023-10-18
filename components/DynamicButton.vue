@@ -102,15 +102,15 @@ button.small {
 }
 button.primary {
   color: var(--white, #fff);
-  background: var(--primary-p300, #0009b3);
+  background: var(--new-primary-p300);
 }
 button.primary:hover {
   color: var(--white, #fff);
-  background-color: var(--primary-p400);
+  background-color: var(--new-primary-p500);
 }
 button.primary:focus,
 button.primary:active {
-  background-color: var(--primary-p500);
+  background-color: var(--new-primary-p500);
 }
 button.primary:disabled {
   background-color: var(--primary-p75);

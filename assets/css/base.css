@@ -353,11 +353,12 @@ button {
   border: 1px solid var(--new-primary-p300);
 }
 .addtocart-btn-small:hover{
-  background-color: var(--new-primary-p500);
-  color: var(--white);
+  background: var(--new-primary-p500);
+  color: white;
 }
 .addtocart-btn-small:active{
   background-color: var(--new-primary-p500);
+  color: white;
 }
 
 

@@ -567,7 +567,7 @@ p.price {
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--new-primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

@@ -382,8 +382,8 @@ a {
   position: relative;
   /* Establish a positioning context for the child image */
 }
-.btn:hover{
-  color: white;
+.addtocart-btn-small:hover{
+  color:white;
 }
 .image-container img {
   width: 100%;
@@ -452,6 +452,9 @@ a {
 }
 .btn svg{
   fill: #19B820;
+}
+.btn svg:hover{
+  color: white;
 }
 button p {
   font-weight: 500;
