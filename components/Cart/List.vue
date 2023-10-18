@@ -131,9 +131,9 @@ export default {
     },
     removeItem() {
       this.loader = true;
-      const { customerId, productId, _id } = this.items;
+      const { _id } = this.items;
       this.removeFromCart({
-        customerId, productId, _id
+         _id
       });
     },
   },

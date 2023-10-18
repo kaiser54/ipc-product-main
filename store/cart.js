@@ -349,7 +349,7 @@ export default {
         commit("ADD_TO_CART_ALERT", null);
         console.log("Data sending to backend", arg);
 
-        const { customerId, productId, _id } = arg;
+        const { _id } = arg;
 
 
         const headers = {
@@ -359,9 +359,6 @@ export default {
         // Send a DELETE request to remove the product from the cart on the server
         const response = await axios.delete(
           `${DEV_URL}/cart/delete-item/${_id}`, // Use productId as :id parameter in the URL
-          {
-            customerId,
-          },
           {
             headers: headers,
           }
