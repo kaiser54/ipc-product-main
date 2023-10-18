@@ -323,7 +323,7 @@ export default {
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

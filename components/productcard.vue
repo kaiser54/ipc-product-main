@@ -65,26 +65,16 @@
     <!-- add to cart button  -->
 
     <button
-      class="btn secondary-btn-small"
+      class="btn addtocart-btn-small"
       @click="addProductToCart"
       v-if="!isInCart"
     >
-      <svg
-        v-if="!loader"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="16"
-        viewBox="0 0 17 16"
-        fill="none"
-      >
-        <path
-          d="M3.83325 7.99992H13.1666M8.49992 3.33325V12.6666V3.33325Z"
-          stroke="#0009B3"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="add-plus">
+<path id="Vector" d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z" stroke="#19B820" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+
       <p v-if="!loader">Add to cart</p>
       <span class="loader" v-if="loader"></span>
     </button>
@@ -365,7 +355,7 @@ a {
 
   /* Grey/Grey4 */
 
-  border: 1px solid var(--grey-grey4);
+  border: 1px solid var(--new-primary-p300);
   border-radius: 100px;
   z-index: 1;
 }
@@ -458,7 +448,9 @@ a {
 
   color: var(--grey-grey3);
 }
-
+.btn svg{
+  fill: #19B820;
+}
 button p {
   font-weight: 500;
   font-size: 12px;
@@ -467,7 +459,7 @@ button p {
 
   /* Primary/P300 */
 
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 
 .counter-btn {

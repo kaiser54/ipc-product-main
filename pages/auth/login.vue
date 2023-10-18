@@ -204,6 +204,6 @@ export default {
 }
 
 .signup-link a {
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 </style>

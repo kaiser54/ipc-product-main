@@ -385,7 +385,7 @@ export default {
 
 <style scoped>
 .main {
-  /* margin-top: 24px; */
+  margin-top: 24px;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
@@ -458,6 +458,7 @@ export default {
 }
 
 .user-form-data {
+  /* margin-top:50px; */
   /* max-width: 833px; */
   max-width: 491px;
   width: 100%;

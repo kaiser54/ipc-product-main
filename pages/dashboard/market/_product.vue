@@ -678,11 +678,11 @@ export default {
 }
 
 .product-details-brand span {
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 
 .counter-btn .circle {
-  background: var(--primary-p300);
+  background: var(--new-primary-p300);
 }
 
 .counter-btn .circle svg path {
@@ -781,7 +781,7 @@ p.product-details-snippet {
 }
 
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

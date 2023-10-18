@@ -195,7 +195,7 @@ svg circle {
 /* Checked styling */
 .selected circle {
   stroke: none;
-  fill: var(--primary-p300);
+  fill: var(--new-primary-p300);
 }
 
 /* .radio-svg {
@@ -225,7 +225,7 @@ button:disabled {
 
 .clicked,
 .list-select:hover {
-  border: 1px solid var(--primary-p300);
+  border: 1px solid var(--new-primary-p300);
 }
 
 .list-select-header {
@@ -254,7 +254,7 @@ button:disabled {
 
   /* Primary/P300 */
 
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 .title-flex {
   display: flex;

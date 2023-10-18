@@ -303,6 +303,7 @@ p {
 </style>
 
 <style scoped>
+
 .individual-form {
   display: flex;
   flex-direction: column;
@@ -367,5 +368,11 @@ input.no-arrow::-webkit-inner-spin-button {
 input.no-arrow::-moz-number-spin-box {
   -moz-appearance: none;
   margin: 0;
+}
+.pass-link a{
+  color: var(--new-primary-p300);
+}
+.tandc a{
+  color: var(--new-primary-p300)
 }
 </style>

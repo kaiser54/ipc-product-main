@@ -73,28 +73,29 @@ export default {
     background: var(--grey-grey6);
     /* Grey/Grey5 */
 
+    /* border: 2px solid var(--grey-grey5); */
     border: 2px solid var(--grey-grey5);
     border-radius: 100px;
 }
 
 
 .circles .div.active {
-    background: var(--primary-p50);
-    border: 2px solid var(--primary-p75);
+    background: var(--new-primary-p300);
+    border: 2px solid var(--new-primary-p300);
 }
 
 .circles .div svg {
-    stroke: #BDC0CE;
+    stroke: var(--new-primary-p300);
 }
 
 .circles .div.active svg {
-    stroke: var(--primary-p300);
+    stroke: white;
 }
 
 
 .circles .div.done {
-    background: var(--primary-p300);
-    border: 2px solid var(--primary-p300);
+    background: var(--new-primary-p300);
+    border: 2px solid var(--new-primary-p300);
 }
 
 .circles .div.done svg {
@@ -112,12 +113,12 @@ export default {
 
     /* Grey/Grey4 */
 
-    color: var(--grey-grey4);
+    color: var(--new-primary-p300);
 
 }
 
 .circles .active .label {
-    color: var(--primary-p300);
+    color: var(--new-primary-p300);
 }
 
 .progress1 {
@@ -125,7 +126,7 @@ export default {
     left: 2px;
     z-index: -1;
     width: 99%;
-    border: 2px solid var(--primary-p300);
+    border: 2px solid var(--new-primary-p300);
     height: 0;
     transition: width 0.3s ease-in-out;
 }
@@ -135,7 +136,7 @@ export default {
     left: 2px;
     z-index: -2;
     width: 99%;
-    border: 2px solid var(--primary-p75);
+    border: 2px solid var(--new-primary-p300);
     height: 0;
     transition: width 0.3s ease-in-out;
 }
