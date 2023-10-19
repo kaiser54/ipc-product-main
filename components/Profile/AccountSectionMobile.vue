@@ -74,7 +74,7 @@
       <div class="verified__svg">
         <div class="logic__tag">
           <div class="pending tag" v-if="!isVerified">Pending</div>
-          <div class="verified tag" v-else>Verified</div>
+          <div class="verified tag" v-else-if="isVerified">Verified</div>
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +193,33 @@ export default {
       isVerified: false,
     };
   },
-  computed: {},
+  computed: {
+
+  },
+  mounted(){
+    const userData = localStorage.getItem("user");
+        if (userData) {
+          this.user = JSON.parse(userData);
+          localStorage.setItem("userId", this.user._id);
+          localStorage.setItem("userEmail", this.user.email);
+          
+        } else {
+        }
+    this.getUserDetails()
+  },
+  methods:{
+    async getUserDetails(){
+      try{
+        const response = await this.$axios.get(`/business-customers/${this.user._id}`)
+        this.userProfile = response.data.data.customer
+        this.userProfileStatus = response.data.data.customer.verified
+        this.isVerified = this.userProfileStatus
+      }catch (error) {
+        console.error("Error fetching data", error);
+        return { responseData: null };
+      }
+    },
+  }
 };
 </script>
   

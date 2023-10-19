@@ -15,6 +15,10 @@
   --primary-p400: #00067d;
   --primary-p500: #00056d;
 
+  --new-primary-p500: #0F7014; 
+  --new-primary-p300: #19B820;
+
+
   --neutral-n300-headers: #00044b;
   --neutral-n400: #000335;
   --neutral-n500: #00022e;
@@ -42,21 +46,30 @@
   --negative-n400: #b3291f;
   --negative-n500: #9c241b;
 
-  --positive-p50: #e9f7e7;
+  /* --positive-p50: #e9f7e7; */
+  --positive-p50: #E6F8EF;
   --positive-p75: #a4de9b;
-  --positive-p100: #7ed171;
+  --positive-p100: #6FD4A5;
+  /* --positive-p100: #7ed171; */
   --positive-p200: #46bd34;
-  --positive-p300: #20af0b;
-  --positive-p400: #167a08;
+  /* --positive-p300: #20af0b; */
+  --positive-p300: #07B463;
+  /* --positive-p400: #167a08; */
+  --positive-p400: #057E45;
   --positive-p500: #146b07;
 
-  --warning-w50: #fff9ea;
+  /* --warning-w50: #fff9ea; */
+  --warning-w50: #FBEEE6;
   --warning-w75: #ffe6a9;
   --warning-w100: #ffdc86;
   --warning-w200: #ffcc52;
   --warning-w300: #ffc22e;
-  --warning-w400: #b38820;
+  /* --warning-w400: #b38820; */
+  --warning-w400: #973E00;
   --warning-w500: #9c761c;
+
+
+  --supporting-green-s-300: #09420C;
 }
 
 /* text styles from ipc typography system */
@@ -246,7 +259,7 @@ button {
 .primary-btn {
   padding: 16px 24px;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 
@@ -255,7 +268,8 @@ button {
   height: 48px;
 
   color: var(--white);
-  background-color: var(--primary-p300);
+  /* background-color: var(--primary-p300); */
+  background-color: var( --new-primary-p300);
 }
 
 .primary-btn-small {
@@ -276,17 +290,17 @@ button {
 
 .primary-btn:hover,
 .primary-btn-small:hover {
-  background-color: var(--primary-p400);
+  background-color: var(--new-primary-p500);
 }
 
 .primary-btn:active,
 .primary-btn:focus {
-  background-color: var(--primary-p500);
+  background-color: var(--new-primary-p500);
 }
 
 .primary-btn:disabled,
 .primary-btn-small:disabled {
-  background-color: var(--primary-p75);
+  background-color: var(--grey-grey-4);
 }
 
 /* styles for the secondary buutton */
@@ -321,6 +335,32 @@ button {
   background-color: var(--white);
   border: 1px solid var(--primary-p300);
 }
+.addtocart-btn-small{
+  padding: 8px 12px;
+  gap: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+
+  height: 32px;
+  border-radius: 100px;
+
+  /* identical to box height, or 150% */
+  letter-spacing: 0.01em;
+
+  color: var(--grey-grey1);
+  background-color: var(--grey-grey6);
+  border: 1px solid var(--grey-grey5);
+}
+.addtocart-btn-small:hover{
+  background: var(--grey-grey5);
+  color: var(--grey-grey1) !important;
+}
+.addtocart-btn-small:active{
+  background-color: var(--grey-grey5);
+  color: var(--grey-grey1);
+}
+
 
 .secondary-btn:hover,
 .secondary-btn-small:hover {
@@ -352,7 +392,8 @@ button {
   outline: 0;
   border: none;
 
-  color: var(--primary-p300);
+  /* color: var(--primary-p300); */
+  color: var( --new-primary-p300);
 }
 
 .ghost-btn-small {
@@ -374,7 +415,7 @@ button {
 
 .ghost-btn:hover,
 .ghost-btn-small:hover {
-  color: var(--primary-p400);
+  color: var(--new-primary-p500);
 }
 
 .ghost-btn:active,
@@ -557,7 +598,7 @@ button {
 
 .input:active,
 .input:focus {
-  border-color: var(--primary-p300);
+  border-color: var(--new-primary-p300);
 }
 
 .input:disabled {
@@ -604,7 +645,7 @@ button {
   padding: 16px 24px;
 
   /* width: 100%; */
-  height: 56px;
+  height: 48px;
   border-radius: 100px !important;
 
   /* transition: all 0.2s ease-in; */
@@ -1052,7 +1093,7 @@ label.label {
 .loader {
   width: 20px;
   height: 20px;
-  border: 2px solid #0009b3;
+  border: 2px solid var(--new-primary-p300);
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

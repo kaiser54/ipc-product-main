@@ -1,8 +1,11 @@
 <template>
   <div class="view-page goTop">
     <div class="title-header">
-      <goback />
+      <div class="category">
+        <goback />
       <!-- <Breadcrumb :route="$route" /> -->
+      <!-- <p class="top">Categories > <span>{{ this.searchQuery }}</span></p>  -->
+      </div>
       <h2 class="h2-medium header-text">{{ this.searchQuery }}</h2>
     </div>
     <LoaderComponent v-if="loading" />
@@ -66,6 +69,22 @@ export default {
 </script>
 
 <style scoped>
+.category{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.top p{
+  color: var(--grey-grey-2, #565C69);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
+}
+.top span{
+  color: var(--new-primary-p300);
+}
 @media (min-width: 950px) {
   .webskeleton {
     display: block;
@@ -90,7 +109,7 @@ export default {
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

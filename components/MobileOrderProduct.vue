@@ -107,27 +107,23 @@ export default {
     this.orderId = this.$route.params.trackOrder;
     try {
       const response = await this.$axios.$get(`/orders/${this.orderId}`);
-      console.log(response.data);
+   
       this.order = response?.data?.order;
       this.products = this.order.products;
-      console.log(this.products);
-      console.log(this.order.status);
       this.status = this.order.status;
       const level = this.listSelect.findIndex((s) =>
         s.title.toLowerCase().includes(this.status.toLowerCase())
       );
       this.$emit("set-level", { level, status: this.status });
-      console.log(level);
+    
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);
     }
-    // console.log(this.currentPage);
   },
   methods: {
     formatPriceWithCommas,
     getProductImages(images) {
-      console.log(images[0].url);
       // return images[0].url
       //   const image = images?.map((img) => {
       // // return img[0].url

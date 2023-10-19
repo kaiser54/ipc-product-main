@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       checkMail: false,
       inCart: false,
       animate: null,
@@ -50,17 +50,17 @@ export default {
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
-      console.log("User data in localStorage:", JSON.parse(userData));
+      ("User data in localStorage:", JSON.parse(userData));
       localStorage.setItem("userId", this.user._id);
       localStorage.setItem("userEmail", this.user.email);
       localStorage.setItem("userVerified", this.user.verified);
     } else {
-      console.log("User data not found in localStorage.");
+      ("User data not found in localStorage.");
     }
     this.email = localStorage.getItem("userEmail");
     this.hiddenMail = this.maskEmail(this.email);
-    console.log(this.email);
-    console.log(this.hiddenMail);
+    (this.email);
+    (this.hiddenMail);
     this.getUserDetails();
   },
   computed: {
@@ -108,7 +108,7 @@ export default {
           }
         );
         this.verificationLoading = false;
-        console.log("Token response", response);
+        ("Token response", response);
         localStorage.setItem("verified", response.data.status);
         localStorage.removeItem("user");
         localStorage.setItem("user", JSON.stringify(response.data.customer));
@@ -117,12 +117,12 @@ export default {
           this.user.verified = true;
           localStorage.setItem("userVerified", true);
           this.userProfileStatus = true;
-          console.log(response.data.status);
-          console.log("User", this.user);
-          console.log("userProfile", this.userProfileStatus);
+          (response.data.status);
+          ("User", this.user);
+          ("userProfile", this.userProfileStatus);
         }
         const getVerified = localStorage.getItem("verified");
-        console.log(getVerified);
+        (getVerified);
         this.showModal = true;
         // After 10 seconds, hide the modal and navigate to /dashboard/Market
         setTimeout(() => {
@@ -160,7 +160,7 @@ export default {
         );
         this.userProfile = response.data.data.customer;
         this.userProfileStatus = response.data.data.customer.verified;
-        console.log(this.userProfile);
+        (this.userProfile);
       } catch (error) {
         console.error("Error fetching data", error);
         return { responseData: null };
@@ -168,7 +168,7 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params);
+    (this.$route.params);
     this.verifyEmail();
   },
 

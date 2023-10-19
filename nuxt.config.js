@@ -5,7 +5,7 @@ export default {
   target: "server",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "independence_purchasing_company",
+    title: "Gosource",
     htmlAttrs: {
       lang: "en",
     },

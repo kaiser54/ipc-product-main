@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       // api: process.env.BASE_URL,
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       checkMail: false,
       inCart: false,
       animate: null,
@@ -128,12 +128,12 @@ export default {
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
-      console.log("User data in localStorage:", JSON.parse(userData));
-      console.log("User:", this.user.verified);
+      ("User data in localStorage:", JSON.parse(userData));
+      ("User:", this.user.verified);
       localStorage.setItem("userId", this.user._id);
       localStorage.setItem("userEmail", this.user.email);
     } else {
-      console.log("User data not found in localStorage.");
+      ("User data not found in localStorage.");
     }
     this.getAllProduct();
     // this.getUserDetails()

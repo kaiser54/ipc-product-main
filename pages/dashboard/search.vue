@@ -76,7 +76,7 @@ export default {
   methods: {
     ...mapActions("product", ["fetchAllProducts"]),
     redirected() {
-  console.log("Redirected to /dashboard/market");
+  ("Redirected to /dashboard/market");
   this.$router.go(-1);
   EventBus.$emit('clearInput')
 }

@@ -116,19 +116,7 @@ export default {
       ],
     };
   },
-  async created() {
-    // const userId = localStorage.getItem("userId");
-    // try {
-    //   const response = await this.$axios.get(`/orders/customer/${userId}`);
-    //   this.order = response?.data?.data?.orders;
-    //   console.log(this.order);
-    //   this.products = response?.data?.data?.orders[0]?.products;
-    //   console.log(this.products);
-    //   this.loading = false;
-    // } catch (error) {
-    //   console.error("Error fetching order details:", error);
-    // }
-  },
+
   methods: {
     formatPriceWithCommas,
     truncateId(id, maxLength) {
@@ -220,15 +208,13 @@ export default {
 
         // Log the chosen products
         if (index < 3) {
-          console.log(`Chosen Product ${index + 1}:`, product);
+          // (`Chosen Product ${index + 1}:`, product);
         }
 
         // Return the first image URL
         return productImages ? productImages[0] : product.product.images[0];
       });
 
-      // Log the chosen images to the console
-      console.log("Chosen Images:", images);
 
       return images;
     },
@@ -241,8 +227,6 @@ export default {
             // Use product.product to access the nested product object
             const { discountPrice, totalPrice: productTotalPrice } =
               product.product;
-            console.log(totalPrice);
-            console.log(productTotalPrice);
             return totalPrice + (discountPrice || productTotalPrice || 0);
           }
           return totalPrice;

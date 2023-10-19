@@ -308,7 +308,7 @@
         </nuxt-link>
       </div>
     </div>
-    <div class="category-list">
+    <!-- <div class="category-list">
       <div class="categories">
         <CategoryCards Header="Recommended for you" />
       </div>
@@ -318,7 +318,7 @@
       <div class="categories">
         <CategoryCards Header="You might also like this" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -331,7 +331,7 @@ export default {
   data() {
     return {
       user: null,
-      pageTitle: "IPC | cart",
+      pageTitle: "Gosource | cart",
       mobile: false,
     };
   },
@@ -363,7 +363,7 @@ export default {
       this.increaseItem(e);
     },
     counterMinus(e) {
-      console.log(e);
+      (e);
       this.reduceQuantity(e);
     },
     ...mapActions("cart", [
@@ -566,7 +566,7 @@ p.price {
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--supporting-green-s-300);
 }
 
 .nuxt-link-active .desktop-nav p {

@@ -99,7 +99,7 @@
 //         context.commit("SET_CUSTOMER", res?.data?.data?.customer);
 //       }
 //     } catch (err) {
-//       console.log(err);
+//       (err);
 //     }
 //   },
 
@@ -113,7 +113,7 @@
 //         });
 //       }
 //     } catch (err) {
-//       console.log(err);
+//       (err);
 //     }
 //   },
 
@@ -138,7 +138,7 @@
 //       );
 
 //       if (response.ok) {
-//         console.log(response);
+//         (response);
 //         const user = await response.json();
 //         commit("setUser", user);
 //         commit("setError", null);
@@ -170,7 +170,7 @@
 //       );
 
 //       if (response.ok) {
-//         console.log(response);
+//         (response);
 //         const user = await response.json();
 //         commit("setUser", user);
 //         commit("setError", null);
@@ -205,7 +205,7 @@
 
 //       context.commit("ADD_PRODUCTS", resp?.data?.products);
 //     } catch (err) {
-//       console.log(err);
+//       (err);
 //     }
 //   },
 // };

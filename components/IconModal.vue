@@ -37,6 +37,6 @@ gap: 4px;
 }
 
 .active {
-  background-color: #0009B3;
+  background-color:var(--new-primary-p300);
 }
 </style>
