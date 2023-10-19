@@ -4,7 +4,7 @@
       <div class="category">
         <goback />
       <!-- <Breadcrumb :route="$route" /> -->
-      <p class="top">Categories > <span>{{ this.searchQuery }}</span></p>
+      <!-- <p class="top">Categories > <span>{{ this.searchQuery }}</span></p>  -->
       </div>
       <h2 class="h2-medium header-text">{{ this.searchQuery }}</h2>
     </div>

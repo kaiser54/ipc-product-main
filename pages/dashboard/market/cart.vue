@@ -333,7 +333,7 @@ export default {
   data() {
     return {
       user: null,
-      pageTitle: "IPC | cart",
+      pageTitle: "Gosource | cart",
       mobile: false,
     };
   },

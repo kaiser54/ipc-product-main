@@ -56,7 +56,7 @@ export default {
             hiddenMail: "",
             isConfirm: false,
             emailErrorMessage: "",
-            pageTitle: "IPC | Reset Password",
+            pageTitle: "Gosource | Reset Password",
             confirmation: false,
             Notconfirmed: false,
             verificationLoading: false,

@@ -82,7 +82,7 @@ export default {
   },
   data() {
     return {
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       notifications: [
        
       ],

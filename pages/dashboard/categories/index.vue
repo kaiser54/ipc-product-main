@@ -36,7 +36,7 @@ export default {
   layout: "dashboardview",
   data() {
     return {
-      pageTitle: "IPC | Categories",
+      pageTitle: "Gosource | Categories",
       categories: [],
       loading: true,
     };

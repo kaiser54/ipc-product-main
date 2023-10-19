@@ -97,7 +97,7 @@
             v-if="!userHeaderComponent || !CheckAddress"
           >
             <div class="user__details__head">
-              <p>ABOUT IPC</p>
+              <p>ABOUT Gosource </p>
             </div>
             <ProfileFAQSectionMobile />
           </div>
@@ -134,7 +134,7 @@
       <popupModal
         v-if="isLogout"
         :animate="animate"
-        title="Log out of IPC?"
+        title="Log out of Gosource ?"
         snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
         buttonText="Cancel"
         buttonText2="Log out"
@@ -166,7 +166,7 @@ export default {
   data() {
     return {
       user: null,
-      pageTitle: "IPC | Profile",
+      pageTitle: "Gosource | Profile",
       activetab: true,
       mobile: false,
       isVerifyMail: false,

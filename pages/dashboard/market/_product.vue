@@ -357,7 +357,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       mobile: false,
       productId: null,
       productTitle: null,
@@ -510,6 +510,7 @@ export default {
 </script>
 
 <style scoped>
+
 @media (max-width: 950px) {
   .user-details-component {
     height: auto;

@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       trackLevel: {},
-      pageTitle: "IPC | Track orders",
+      pageTitle: "Gosource | Track orders",
       selectedIndex: 2,
       showUserInfoModal: false,
       verificationLoading: true,

@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       // api: process.env.BASE_URL,
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       checkMail: false,
       inCart: false,
       animate: null,

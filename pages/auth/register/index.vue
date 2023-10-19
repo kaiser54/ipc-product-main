@@ -4,7 +4,7 @@
       <div class="container">
         <div class="content-box">
           <div class="text">
-            <h2 class="h3-medium header-text">How would you like to join IPC?</h2>
+            <h2 class="h3-medium header-text">How would you like to join Gosource ?</h2>
           </div>
           <div class="content-select">
             <div
@@ -84,21 +84,21 @@ export default {
     return {
       email: "",
       invalidEmail: false,
-      pageTitle: "IPC | Register",
+      pageTitle: "Gosource | Register",
       selectedItem: "business",
       indexOfCardWithComponent: 1,
       listSelect: [
         {
           title: "As a Business",
           snippet:
-            "Sign up and join IPC today as a business and enjoy great benefits.",
+            "Sign up and join Gosource  today as a business and enjoy great benefits.",
           value: "business",
           route: "/auth/register/sign-up/business",
         },
         {
           title: "As an Individual",
           snippet:
-            "Purchase your food & kitchen items today at IPC with discounted prices.",
+            "Purchase your food & kitchen items today at Gosource  with discounted prices.",
           value: "individual",
           route: "/auth/register/sign-up/individual",
         },

@@ -406,7 +406,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
-      pageTitle: "IPC | Track orders",
+      pageTitle: "Gosource | Track orders",
       duplicateCount: 10, // Specify the number of times to duplicate the component
       selectedIndex: 2,
       loading: true,

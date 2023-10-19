@@ -47,7 +47,7 @@ export default {
             rePasswordErrorMessage: "",
             showPassword: true,
             showRePassword: true,
-            pageTitle: "IPC | Forgot Password"
+            pageTitle: "Gosource | Forgot Password"
         };
     },
     head() {

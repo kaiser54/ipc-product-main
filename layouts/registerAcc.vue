@@ -52,7 +52,7 @@
               justify-content: center;
               align-items: center;
               gap: 10px;
-              font-family: Inter;
+              /* font-family: Inter; */
               font-size: 10px;
               font-style: normal;
               font-weight: 500;
@@ -105,12 +105,12 @@ export default {
         {
           title: "Track your order in steps",
           snippet:
-            "Have the ability to track your order at every stage from processing to delivering on IPC",
+            "Have the ability to track your order at every stage from processing to delivering on Gosource ",
         },
         {
           title: "Buy now, pay later",
           snippet:
-            "At IPC, we are offering a credit facility that allows you to make purchase and make payments later within 7 days",
+            "At Gosource , we are offering a credit facility that allows you to make purchase and make payments later within 7 days",
         },
       ],
     };

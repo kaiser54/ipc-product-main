@@ -348,17 +348,17 @@ button {
   /* identical to box height, or 150% */
   letter-spacing: 0.01em;
 
-  color: var(--new-primary-p300);
-  background-color: var(--white);
-  border: 1px solid var(--new-primary-p300);
+  color: var(--grey-grey1);
+  background-color: var(--grey-grey6);
+  border: 1px solid var(--grey-grey5);
 }
 .addtocart-btn-small:hover{
-  background: var(--new-primary-p500);
-  color: white;
+  background: var(--grey-grey5);
+  color: var(--grey-grey1) !important;
 }
 .addtocart-btn-small:active{
-  background-color: var(--new-primary-p500);
-  color: white;
+  background-color: var(--grey-grey5);
+  color: var(--grey-grey1);
 }
 
 
@@ -598,7 +598,7 @@ button {
 
 .input:active,
 .input:focus {
-  border-color: var(--primary-p300);
+  border-color: var(--new-primary-p300);
 }
 
 .input:disabled {

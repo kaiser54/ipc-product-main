@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       verificationLoading: true,
-      pageTitle: "IPC | History",
+      pageTitle: "Gosource | History",
       mobile: false,
       loading: false,
       tableHeaders: [

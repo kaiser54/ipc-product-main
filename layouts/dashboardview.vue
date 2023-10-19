@@ -53,7 +53,7 @@
       </section>
     </div>
     <transition name="modal-fade">
-      <popupModal v-if="logout" animate="animate__zoomIn" title="Log out of IPC?"
+      <popupModal v-if="logout" animate="animate__zoomIn" title="Log out of Gosource ?"
         snippet="It is so sad to see you want to log out at this time. You can always log back in at any time."
         buttonText="Cancel" buttonText2="Log out" buttonClass="neutral-btn" buttonClass2="negative-btn"
         @closeModal="closeLogoutUser" @okModal="logOutUser" @closeModalBG="closeLogoutUserBG" />

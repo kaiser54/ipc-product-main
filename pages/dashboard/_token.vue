@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       checkMail: false,
       inCart: false,
       animate: null,

@@ -69,9 +69,9 @@
       @click="addProductToCart"
       v-if="!isInCart"
     >
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg v-if="!loader" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="add-plus">
-<path id="Vector" d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z" stroke="#19B820" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>
 
@@ -450,23 +450,37 @@ a {
 
   color: var(--grey-grey3);
 }
-.btn svg{
-  fill: #19B820;
-}
-.btn svg:hover{
-  color: white;
-}
+
 button p {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px; /* 100% */
   /* identical to box height, or 150% */
 
   /* Primary/P300 */
 
-  color: var(--new-primary-p300);
+  color: var(--grey-grey1);
 }
-
+button:hover p{
+  color: var(--grey-grey1);
+}
+button svg{
+  stroke: var(--grey-grey1);
+}
+button:hover svg{
+  stroke: var(--grey-grey1);
+}
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--grey-grey1);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 .counter-btn {
   position: relative;
   display: flex;
@@ -482,13 +496,16 @@ button p {
   position: relative;
   /* Primary/P75 */
 
-  border: 1px solid var(--primary-p75);
+  border: 1px solid var(--grey-grey6);
+  background: var(--grey-grey6);
   width: 40px;
   height: 40px;
   top: 0;
   left: 0;
 }
-
+.counter-btn:hover .circle:hover{
+  background: var(--grey-grey5);
+}
 .counter {
   font-weight: 500;
   font-size: 16px;

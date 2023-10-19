@@ -46,7 +46,7 @@
               justify-content: center;
               align-items: center;
               gap: 10px;
-              font-family: Inter;
+              /* font-family: Inter; */
               font-size: 10px;
               font-style: normal;
               font-weight: 500;
