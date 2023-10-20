@@ -225,7 +225,8 @@ export default {
     },
     async lastStep() {
       this.spinner = true;
-      this.payWithPaystack();
+      // this.payWithPaystack();
+      this.submitForm();
       // try {
       // Prepare data
       // const data = {
@@ -286,48 +287,48 @@ export default {
       handler.openIframe();
     },
 
-    async verifyPayment() {
-      console.log("Verifying payment");
-      console.log("this.ref:", this.ref);
+    // async verifyPayment() {
+    //   console.log("Verifying payment");
+    //   console.log("this.ref:", this.ref);
 
-      try {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+    //   try {
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
 
-        const raw = JSON.stringify({
-          reference: this.ref,
-        });
+    //     const raw = JSON.stringify({
+    //       reference: this.ref,
+    //     });
 
-        const requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+    //     const requestOptions = {
+    //       method: "POST",
+    //       headers: myHeaders,
+    //       body: raw,
+    //       redirect: "follow",
+    //     };
 
-        const response = await fetch(
-          `${DEV_URL}/paystack/verify/`,
-          requestOptions
-        );
+    //     const response = await fetch(
+    //       `${DEV_URL}/paystack/verify/`,
+    //       requestOptions
+    //     );
 
-        if (response.ok) {
-          const result = await response.json();
-          console.log("Verification result:", result);
+    //     if (response.ok) {
+    //       const result = await response.json();
+    //       console.log("Verification result:", result);
 
-          if (result.status === "success") {
-            console.log("Payment verification successful!");
-            this.submitForm();
-            return; // Exit the retry loop
-          }
-        }
+    //       if (result.status === "success") {
+    //         console.log("Payment verification successful!");
+    //         this.submitForm();
+    //         return; // Exit the retry loop
+    //       }
+    //     }
 
-        // Payment is not successful, so retry the verification after a delay (1 second)
-        setTimeout(this.verifyPayment, 1000);
-      } catch (error) {
-        console.error("Error:", error);
-        // Handle any errors that occur during the verification process
-      }
-    },
+    //     // Payment is not successful, so retry the verification after a delay (1 second)
+    //     setTimeout(this.verifyPayment, 1000);
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //     // Handle any errors that occur during the verification process
+    //   }
+    // },
 
     step1() {
       this.currentStep = 1;
@@ -338,6 +339,7 @@ export default {
       this.spinner = true;
       this.submittedData.reference = this.ref;
       console.log("submit data:", this.submittedData);
+      alert("hello");
 
       try {
         const headers = {
@@ -345,7 +347,7 @@ export default {
         };
 
         const response = await axios.post(
-          `${DEV_URL}/orders/`,
+          `${DEV_URL}/orders`,
           this.submittedData,
           {
             headers: headers,
@@ -354,7 +356,7 @@ export default {
 
         console.log("Response from the backend:", response);
 
-        if (response.data.status === "success") {
+        if (response.status === 201 || response.status === 200) {
           this.isPaid = true;
           window.startConfetti();
         } else {
