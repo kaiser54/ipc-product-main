@@ -57,8 +57,8 @@ export default {
     SET_LOADING(state, cartLoading) {
       state.cartLoading = cartLoading;
     },
-    REMOVE_FROM_CART(state, productId) {
-      state.cart = state.cart.filter((item) => item.product._id !== productId);
+    REMOVE_FROM_CART(state, _id) {
+      state.cart = state.cart.filter(c => c._id !== _id);
     },
     CLEAR_CART(state) {
       state.cart = [];
@@ -259,7 +259,7 @@ export default {
       }
     },
 
-    async reduceQuantity({ commit, state }, product) {
+    async reduceQuantity({ commit, state }, e) {
       try {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
@@ -270,7 +270,7 @@ export default {
 
         // Send a DELETE request to your server to reduce the quantity
         const response = await axios.delete(
-          `${DEV_URL}/cart/${product._id}`,
+          `${DEV_URL}/cart/${e}`,
           {
             headers: headers,
           }
@@ -280,7 +280,7 @@ export default {
 
         if (response.status === 204) {
           const indexOfCartItem = state.cart.findIndex(
-            (c) => c.productId === product._id
+            (c) => c._id === e
           );
 
           commit("ADD_TO_CART_ALERT", "removed");
@@ -311,6 +311,7 @@ export default {
         commit("SET_LOADING", false);
       }
     },
+
     async chechout({ commit }, product) {
       try {
         commit("SET_LOADING", true);
@@ -349,7 +350,7 @@ export default {
         commit("ADD_TO_CART_ALERT", null);
         console.log("Data sending to backend", arg);
 
-        const { productId, _id } = arg;
+        const { _id } = arg;
 
 
         const headers = {
@@ -366,6 +367,7 @@ export default {
 
         if (response.status === 204) {
           commit("ADD_TO_CART_ALERT", "deleted");
+          commit("REMOVE_FROM_CART", _id);
         } else {
           commit("ADD_TO_CART_ALERT", false);
         }
@@ -381,7 +383,7 @@ export default {
         }
 
         // Handle the successful removal by updating the Vuex store
-        commit("REMOVE_FROM_CART", productId);
+        commit("REMOVE_FROM_CART", _id);
         commit("SET_LOADING", false);
         commit("SET_ERROR", null);
       } catch (error) {

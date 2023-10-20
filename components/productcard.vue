@@ -150,6 +150,7 @@ export default {
       // productId: this.product && this.product._id ? this.product._id : "",
       favoriteId: null,
       liked: this.isLiked ? this.isLiked : null,
+      cartId: "",
     };
   },
   props: {
@@ -190,6 +191,7 @@ export default {
         );
 
         if (cartItem) {
+          this.cartId = cartItem._id;
           return cartItem.quantity;
         } else {
           return 0;
@@ -209,8 +211,9 @@ export default {
       });
     },
     increaseQuantity() {
+      console.log("this.cartid", this.cartId)
       const e = {
-        productId: this.product._id,
+        productId: this.cartId,
       };
       this.loader = true;
       this.increaseItem(e).then(() => {
@@ -220,7 +223,7 @@ export default {
     decrementQuantity() {
       if (this.getProductQuantity > 1) {
         this.loader = true;
-        this.reduceQuantity(this.product).then(() => {
+        this.reduceQuantity(this.cartId).then(() => {
           this.loader = false;
         });
       }

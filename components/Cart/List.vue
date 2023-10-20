@@ -115,26 +115,35 @@ export default {
     ...mapState("cart", ["cartLoading"]),
   },
   methods: {
-    ...mapActions("cart", ["removeFromCart"]),
+    ...mapActions("cart", [
+      "addToCart",
+      "increaseItem",
+      "reduceQuantity",
+      "removeFromCart",
+    ]),
     formatPriceWithCommas,
     IncreaseQuantity() {
       this.loader = true;
-      this.$emit("counterPlus", this.items);
+      console.log("items", this.items._id);
+      const e = {
+        productId: this.items._id,
+      };
+      this.$emit("counterPlus", e);
     },
     decreaseQuantity() {
       if (this.items.quantity > 1) {
         this.loader = true;
-        this.$emit("counterMinus", this.items.product);
+        this.$emit("counterMinus", this.items._id);
       } else {
         // this.removeFromCart(this.items.product._id);
       }
     },
     removeItem() {
       this.loader = true;
-      const { productId, _id } = this.items;
-      this.removeFromCart({
-        productId, _id
-      });
+      const e = {
+        _id: this.items._id,
+      };
+      this.removeFromCart(e);
     },
   },
   watch: {
