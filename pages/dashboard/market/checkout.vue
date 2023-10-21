@@ -225,8 +225,8 @@ export default {
     },
     async lastStep() {
       this.spinner = true;
-      // this.payWithPaystack();
-      this.submitForm();
+      this.payWithPaystack();
+      // this.submitForm();
       // try {
       // Prepare data
       // const data = {
