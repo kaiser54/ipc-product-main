@@ -56,7 +56,7 @@ export default {
             hiddenMail: "",
             isConfirm: false,
             emailErrorMessage: "",
-            pageTitle: "IPC | Reset Password",
+            pageTitle: "Gosource | Reset Password",
             confirmation: false,
             Notconfirmed: false,
             verificationLoading: false,
@@ -146,7 +146,7 @@ export default {
                     email: this.email
                 });
                 this.verificationLoading = false
-                console.log('Email sent successfully', response.data);
+                ('Email sent successfully', response.data);
                 this.confirmation = true
                 
                

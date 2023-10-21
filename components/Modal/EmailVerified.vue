@@ -14,7 +14,7 @@
                     </div>
             <div class="desktop-modal-text">
             <p>Hello, your email has been verified successfully,
-                 Continue shopping on IPC with ease ✨</p>
+                 Continue shopping on Gosource  with ease ✨</p>
             </div>
           </div>
           <div class="desktop-modal-bottom">
@@ -42,11 +42,9 @@
     methods:{
         setDismissModal() {
             this.$emit("cancelModal");
-            console.log("try");
         },
         routeToMarket(){
             this.$emit("routeToMarket")
-            console.log('pushed')
         }
     }
 }

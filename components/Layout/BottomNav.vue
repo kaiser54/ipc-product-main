@@ -116,9 +116,6 @@ export default {
       // Get the last segment (the part after the last slash)
       const lastSegment = pathSegments[pathSegments.length - 1];
 
-      // Log the last segment to the console
-      console.log(lastSegment); // This will log the last segment of the current route
-
       // Update the pageName data property
       this.pageName = lastSegment;
     },
@@ -218,25 +215,25 @@ export default {
 
 
 .nuxt-link-exact-active .mobile-nav p {
-  color: var(--primary-p300);
+  color: var( --new-primary-p300);
 }
 
 .nuxt-link-exact-active .mobile-nav svg {
-  stroke: var(--primary-p300);
+  stroke: var( --new-primary-p300);
 }
 
 .nuxt-link-exact-active .mobile-nav .mobile-nav-content svg path {
-  stroke: var(--primary-p300) !important;
+  stroke: var( --new-primary-p300) !important;
 }
 .nuxt-link-active .mobile-nav p {
-  color: var(--primary-p300);
+  color: var( --new-primary-p300);
 }
 
 .nuxt-link-active .mobile-nav svg {
-  stroke: var(--primary-p300);
+  stroke: var( --new-primary-p300);
 }
 
 .nuxt-link-active .mobile-nav .mobile-nav-content svg path {
-  stroke: var(--primary-p300) !important;
+  stroke: var( --new-primary-p300) !important;
 }
 </style>

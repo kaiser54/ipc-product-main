@@ -406,7 +406,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
-      pageTitle: "IPC | Track orders",
+      pageTitle: "Gosource | Track orders",
       duplicateCount: 10, // Specify the number of times to duplicate the component
       selectedIndex: 2,
       loading: true,
@@ -441,9 +441,9 @@ export default {
     try {
       const response = await this.$axios.get(`/orders/customer/${userId}`);
       this.order = response?.data?.data?.orders;
-      console.log(this.order);
+      (this.order);
       this.products = response?.data?.data?.orders?.products;
-      console.log(this.products);
+      (this.products);
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);
@@ -479,9 +479,9 @@ export default {
         const response = await this.$axios.get(`/orders/customer/${userId}`);
         this.loading = false;
         this.order = response?.data?.data?.orders;
-        console.log(this.order);
+        (this.order);
         this.products = response?.data?.data?.orders[0]?.products;
-        console.log(this.products);
+        (this.products);
         this.loading = false;
       } catch (error) {
         this.loading = true;

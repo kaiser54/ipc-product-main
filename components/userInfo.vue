@@ -102,9 +102,7 @@ export default {
       return (this.currentStep - 1) * 49.5;
     },
   },
-  mounted() {
-    console.log("the day", this.data);
-  },
+
   methods: {
     formatPriceWithCommas,
     getTotalProductPrice(products) {

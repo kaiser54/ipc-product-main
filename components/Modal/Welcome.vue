@@ -137,7 +137,7 @@ export default {
 
             contents: [
                 {
-                    title: "Hello, welcome to IPC",
+                    title: "Hello, welcome to Gosource ",
                     image: require('~/assets/images/cutting-edge.png'),
                     mobileImage: require('~/assets/images/mobilecutting-edge.png'),
                     svg: require('~/assets/images/Welcome-IPC.svg'),
@@ -156,9 +156,11 @@ export default {
                     title: "Track your orders",
                     image: require('~/assets/images/single-bulk-order.png'),
                     mobileImage: require('~/assets/images/mobilesingle-bulk-order.png'),
-                    svg: require('~/assets/images/track-order.svg'),
-                    mobileSvg: require('~/assets/images/track-order-mobile.svg'),
-                    description: "When you buy on IPC, either single or bulk orders, you get to track your order from processing to delivery."
+                    // svg: require('~/assets/images/track-order.svg'),
+                    svg: require('~/assets/images/single-bulk-order.png'),
+                    mobileSvg: require('~/assets/images/mobilesingle-bulk-order.png'),
+                    // mobileSvg: require('~/assets/images/track-order-mobile.svg'),
+                    description: "When you buy on Gosource , either single or bulk orders, you get to track your order from processing to delivery."
                 },
                 {
                     title: "Seamless payment options",
@@ -166,7 +168,7 @@ export default {
                     mobileImage: require('~/assets/images/mobileseamless-payment.png'),
                     svg: require('~/assets/images/seamless-payment.svg'),
                     mobileSvg: require('~/assets/images/seamless-payment-mobile.svg'),
-                    description: "Different seamless payment options for you on IPC to make your checkout experience a smooth one."
+                    description: "Different seamless payment options for you on Gosource  to make your checkout experience a smooth one."
                 },
                 {
                     title: "Refer and earn cash",
@@ -174,7 +176,7 @@ export default {
                     mobileImage: require('~/assets/images/mobilerefer-friend.png'),
                     svg: require('~/assets/images/refer-cash.svg'),
                     mobileSvg:require('~/assets/images/refer-cash-mobile.svg'),
-                    description: "Get up to ₦1,000 by referring your friends and family to buy and procure food and other items on IPC."
+                    description: "Get up to ₦1,000 by referring your friends and family to buy and procure food and other items on Gosource ."
                 },
             ]
 
@@ -183,11 +185,11 @@ export default {
     methods: {
         showmode() {
             this.showModal = false
-            console.log('paged')
+           
         },
         setDismissModal() {
             this.$emit("cancelModal");
-            console.log("try");
+            
         },
         nextTab() {
             this.$emit("nextTab");
@@ -196,7 +198,7 @@ export default {
             return this.isMobile ? content.mobileImage : content.image;
         },
         move(dir, id) {
-            console.log(dir)
+          
             const feedbackBoxWidth = document.getElementById(id);
             if (dir === "+ve") {
                 if (id === "modal-slides-ctn") {
@@ -208,11 +210,10 @@ export default {
                 const maxScrollLeft =
                     feedbackBoxWidth.scrollWidth - feedbackBoxWidth.clientWidth;
                 feedbackBoxWidth.scrollLeft += feedbackBoxWidth.clientWidth;
-                console.log(feedbackBoxWidth.scrollLeft)
+              
                 if (maxScrollLeft - feedbackBoxWidth.scrollLeft < 100) {
                     this.maxRight = true;
                     this.$emit('complete-flow')
-                    // console.log('completed')
                 } else {
                     this.maxRight = false;
 

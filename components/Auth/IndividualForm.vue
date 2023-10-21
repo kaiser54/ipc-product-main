@@ -230,8 +230,7 @@ export default {
           credentials
         );
         if (success) {
-          
-        console.log(credentials)
+
           // Redirect to the home page or do any other necessary actions
           this.$router.push("/dashboard/market");
         } else {

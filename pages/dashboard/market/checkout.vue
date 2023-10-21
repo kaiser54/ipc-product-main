@@ -36,27 +36,23 @@
         <!-- ----------------------- -->
 
         <div class="user-form-data">
-          <transition name="slide" appear>
-            <CheckoutAddress
-              v-show="currentStep === 1"
-              @customEvent="handleFormSubmission"
-            />
-          </transition>
-          <transition name="slide" appear>
-            <CheckoutOrderSummary
-              v-show="currentStep === 2 && submittedData"
-              @customEvent="nextStep"
-              @step1="step1"
-              :data="submittedData"
-            />
-          </transition>
-          <transition name="slide" appear>
-            <CheckoutPayment
-              v-show="currentStep === 3 && submittedData"
-              @lastStep="lastStep"
-              :data="submittedData"
-            />
-          </transition>
+          <CheckoutAddress
+            v-show="currentStep === 1"
+            @customEvent="handleFormSubmission"
+          />
+
+          <CheckoutOrderSummary
+            v-show="currentStep === 2 && submittedData"
+            @customEvent="nextStep"
+            @step1="step1"
+            :data="submittedData"
+          />
+
+          <CheckoutPayment
+            v-show="currentStep === 3 && submittedData"
+            @lastStep="lastStep"
+            :data="submittedData"
+          />
         </div>
         <div class="__order__data" v-if="!mobile">
           <div class="order-title">
@@ -115,7 +111,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$config.PAYSTACK_PUBLIC_KEY);
+    this.$config.PAYSTACK_PUBLIC_KEY;
   },
   async mounted() {
     // payStack
@@ -148,16 +144,16 @@ export default {
           this.user = JSON.parse(userData);
           // this.ref = `${this.user._id}-${new Date()}`; //invalid reference
           this.ref = this.reference;
-          console.log("ref", this.ref);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          "ref", this.ref;
+          "User data in localStorage:", JSON.parse(userData);
         } else {
           // User data is not found in localStorage
-          console.log("User data not found in localStorage.");
+          ("User data not found in localStorage.");
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
+        ("LocalStorage is not available in this environment.");
       }
     }
     this.spinner = false;
@@ -208,7 +204,7 @@ export default {
     },
     handleFormSubmission(data) {
       this.submittedData = data;
-      console.log(data);
+      data;
       if (this.currentStep < 3) {
         this.currentStep++;
       }
@@ -238,7 +234,7 @@ export default {
       //   callback_url: "https://app.ipc-africa.com/dashboard/market/checkout",
       // };
 
-      // console.log("Submit data:", data);
+      // ("Submit data:", data);
 
       // Send POST request to initialize payment
       // const response = await axios.post(
@@ -248,8 +244,8 @@ export default {
 
       // this.ref = response.data.data.data.reference;
 
-      // console.log("Payment initialization response:", response.data);
-      // console.log(
+      // ("Payment initialization response:", response.data);
+      // (
       //   "Payment reference response:",
       //   response.data.data.data.reference
       // );
@@ -332,7 +328,7 @@ export default {
 
     step1() {
       this.currentStep = 1;
-      console.log("clicked");
+      ("clicked");
     },
 
     async submitForm() {
@@ -354,13 +350,13 @@ export default {
           }
         );
 
-        console.log("Response from the backend:", response);
+        "Response from the backend:", response;
 
         if (response.status === 201 || response.status === 200) {
           this.isPaid = true;
           window.startConfetti();
         } else {
-          console.log(response);
+          response;
           throw new Error("Failed to create an order.");
         }
       } catch (error) {
@@ -387,7 +383,7 @@ export default {
 
 <style scoped>
 .main {
-  /* margin-top: 24px; */
+  margin-top: 24px;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
@@ -460,6 +456,7 @@ export default {
 }
 
 .user-form-data {
+  /* margin-top:50px; */
   /* max-width: 833px; */
   max-width: 491px;
   width: 100%;
@@ -472,7 +469,7 @@ export default {
   z-index: 9;
   width: 100%;
   padding-bottom: 24px;
-  top: 98.39px;
+  top: 72px;
   /* height: 90px;*/
 }
 
@@ -611,27 +608,5 @@ export default {
     max-width: 90%;
     margin-inline: auto;
   }
-}
-
-
-.fade-enter-active,
-.fade-leave-active {
- transition: opacity .5s;
-}
-
-.fade-enter,
-.fade-leave-to {
- opacity: 0;
-}
-
-.slide-enter-active,
-.slide-leave-active {
- transition: transform .5s;
-}
-
-.slide-enter,
-.slide-leave-to {
- transform: translateX(100vw);
- opacity: 0.3;
 }
 </style>

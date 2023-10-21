@@ -50,7 +50,7 @@ export default {
   // Other component properties and methods
   data() {
     return {
-      pageTitle: "IPC | Market",
+      pageTitle: "Gosource | Market",
       notifications: [
  
       ],

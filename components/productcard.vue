@@ -65,26 +65,16 @@
     <!-- add to cart button  -->
 
     <button
-      class="btn secondary-btn-small"
+      class="btn addtocart-btn-small"
       @click="addProductToCart"
       v-if="!isInCart"
     >
-      <svg
-        v-if="!loader"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="16"
-        viewBox="0 0 17 16"
-        fill="none"
-      >
-        <path
-          d="M3.83325 7.99992H13.1666M8.49992 3.33325V12.6666V3.33325Z"
-          stroke="#0009B3"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+    <svg v-if="!loader" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="add-plus">
+<path id="Vector" d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
+
       <p v-if="!loader">Add to cart</p>
       <span class="loader" v-if="loader"></span>
     </button>
@@ -170,8 +160,8 @@ export default {
         const productIdToCheck = this.productId;
         return this.favorites.some((favorite) => {
           const favoriteProductId = favorite.productId;
-          console.log("Favorite Product ID:", favoriteProductId);
-          console.log("Target Product ID:", productIdToCheck);
+          // ("Favorite Product ID:", favoriteProductId);
+          // ("Target Product ID:", productIdToCheck);
           this.favoriteId = favoriteProductId ? favoriteProductId : null;
           return favoriteProductId === productIdToCheck;
         });
@@ -254,11 +244,11 @@ export default {
               redirect: "follow",
             });
 
-            console.log(this.favoriteId);
-            console.log(JSON.stringify(payload));
+            // (this.favoriteId);
+            // (JSON.stringify(payload));
 
             if (res.ok) {
-              console.log("Product removed from favorites successfully.");
+              // ("Product removed from favorites successfully.");
               // Remove the favorite ID from your component's data
               this.favoriteId = null;
             } else {
@@ -272,13 +262,13 @@ export default {
               headers: { "Content-Type": "application/json" },
             });
 
-            console.log(this.favoriteId);
-            console.log(JSON.stringify(payload));
+            // (this.favoriteId);
+            // (JSON.stringify(payload));
 
             if (res.ok) {
               const responseData = await res.json();
-              console.log("Product added to favorites successfully.");
-              console.log("Product added to favorites .", responseData);
+              // ("Product added to favorites successfully.");
+              // ("Product added to favorites .", responseData);
               this.liked = true;
               // Store the favorite ID in your component's data
               this.favoriteId = responseData.favoriteId;
@@ -368,7 +358,7 @@ a {
 
   /* Grey/Grey4 */
 
-  border: 1px solid var(--grey-grey4);
+  border: 1px solid var(--new-primary-p300);
   border-radius: 100px;
   z-index: 1;
 }
@@ -395,7 +385,9 @@ a {
   position: relative;
   /* Establish a positioning context for the child image */
 }
-
+.addtocart-btn-small:hover{
+  color:white;
+}
 .image-container img {
   width: 100%;
   /* Make the image fill the container */
@@ -463,16 +455,35 @@ a {
 }
 
 button p {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px; /* 100% */
   /* identical to box height, or 150% */
 
   /* Primary/P300 */
 
-  color: var(--primary-p300);
+  color: var(--grey-grey1);
 }
-
+button:hover p{
+  color: var(--grey-grey1);
+}
+button svg{
+  stroke: var(--grey-grey1);
+}
+button:hover svg{
+  stroke: var(--grey-grey1);
+}
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--grey-grey1);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 .counter-btn {
   position: relative;
   display: flex;
@@ -488,13 +499,16 @@ button p {
   position: relative;
   /* Primary/P75 */
 
-  border: 1px solid var(--primary-p75);
+  border: 1px solid var(--grey-grey6);
+  background: var(--grey-grey6);
   width: 40px;
   height: 40px;
   top: 0;
   left: 0;
 }
-
+.counter-btn:hover .circle:hover{
+  background: var(--grey-grey5);
+}
 .counter {
   font-weight: 500;
   font-size: 16px;

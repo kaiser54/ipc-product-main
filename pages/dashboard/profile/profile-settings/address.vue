@@ -158,18 +158,18 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          ("User data in localStorage:", JSON.parse(userData));
           this.address = this.user?.address?.streetAddress || "";
           this.state = this.user?.address?.state || "";
           this.LGA = this.user?.address?.lga || "";
         } else {
           // User data is not found in localStorage
-          console.log("User data not found in localStorage.");
+          ("User data not found in localStorage.");
         }
       } else {
         // Local Storage is not available in this environment
         // You can handle this situation accordingly
-        console.log("LocalStorage is not available in this environment.");
+        ("LocalStorage is not available in this environment.");
       }
     }
 
@@ -201,11 +201,11 @@ export default {
         }
 
         // this.user = response.data.data.customer;
-        console.log("e :", address);
-        console.log("backend :", response);
-        console.log("user :", this.user);
+        ("e :", address);
+        ("backend :", response);
+        ("user :", this.user);
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
     async fetchAddress() {
@@ -223,10 +223,10 @@ export default {
           this.streetAddress = this.address?.streetAddress || "";
           this.state = this.address?.state || "";
           this.LGA = this.address?.lga || "";
-          console.log("response", response);
-          console.log("address", addresses);
-          console.log("streetAddress", this.address?.streetAddress);
-          console.log("_id", this.user._id);
+          ("response", response);
+          ("address", addresses);
+          ("streetAddress", this.address?.streetAddress);
+          ("_id", this.user._id);
         })
         .catch((error) => {
           // Handle any errors here

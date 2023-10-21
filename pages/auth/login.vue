@@ -58,7 +58,7 @@
           </div>
           <div class="signup-link">
             <p>
-              Are you new to IPC?<nuxt-link to="/auth/register">
+              Are you new to Gosource ?<nuxt-link to="/auth/register">
                 Create an account</nuxt-link
               >
             </p>
@@ -88,7 +88,7 @@ export default {
 
       alertType: "error",
 
-      pageTitle: "IPC | Login",
+      pageTitle: "Gosource | Login",
     };
   },
   head() {
@@ -204,6 +204,6 @@ export default {
 }
 
 .signup-link a {
-  color: var(--primary-p300);
+  color: var(--new-primary-p300);
 }
 </style>
