@@ -100,39 +100,33 @@
         <nuxt-link to="/dashboard/track_orders">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.64258 6.20117L10.0009 10.4595L17.3092 6.22617" stroke="#565C69" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M10 18.0095V10.4512" stroke="#565C69" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                >
                 <path
-                  d="M8.27552 2.06804L3.82552 4.53471C2.81719 5.09304 1.99219 6.49304 1.99219 7.64304V12.3514C1.99219 13.5014 2.81719 14.9014 3.82552 15.4597L8.27552 17.9347C9.22552 18.4597 10.7839 18.4597 11.7339 17.9347L16.1839 15.4597C17.1922 14.9014 18.0172 13.5014 18.0172 12.3514V7.64304C18.0172 6.49304 17.1922 5.09304 16.1839 4.53471L11.7339 2.05971C10.7755 1.53471 9.22552 1.53471 8.27552 2.06804Z"
-                  stroke="#565C69" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  d="M16.8416 6.51711L10.4249 10.2338C10.1666 10.3838 9.8416 10.3838 9.57494 10.2338L3.15827 6.51711C2.69993 6.25044 2.58327 5.62544 2.93327 5.23377C3.17493 4.95877 3.44993 4.73377 3.7416 4.57544L8.25827 2.07544C9.22494 1.53377 10.7916 1.53377 11.7583 2.07544L16.2749 4.57544C16.5666 4.73377 16.8416 4.96711 17.0833 5.23377C17.4166 5.62544 17.2999 6.25044 16.8416 6.51711Z"
+                  fill="white" />
+                <path
+                  d="M9.52507 11.7838V17.4671C9.52507 18.1005 8.8834 18.5171 8.31673 18.2421C6.60006 17.4005 3.7084 15.8255 3.7084 15.8255C2.69173 15.2505 1.8584 13.8005 1.8584 12.6088V8.3088C1.8584 7.65047 2.55007 7.2338 3.11673 7.5588L9.1084 11.0338C9.3584 11.1921 9.52507 11.4755 9.52507 11.7838Z"
+                  fill="white" />
+                <path
+                  d="M10.4751 11.7838V17.4671C10.4751 18.1005 11.1168 18.5171 11.6834 18.2421C13.4001 17.4005 16.2918 15.8255 16.2918 15.8255C17.3084 15.2505 18.1418 13.8005 18.1418 12.6088V8.3088C18.1418 7.65047 17.4501 7.2338 16.8834 7.5588L10.8918 11.0338C10.6418 11.1921 10.4751 11.4755 10.4751 11.7838Z"
+                  fill="white" />
               </svg>
 
               <p>Track orders</p>
             </div>
           </div>
         </nuxt-link>
-        <nuxt-link to="/dashboard/history">
+        <nuxt-link to="/dashboard/history" >
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.66602 1.66797V4.16797" stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M13.334 1.66797V4.16797" stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M5.83398 9.16797H12.5007" stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M5.83398 12.501H10.0007" stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10"
-                  stroke-linecap="round" stroke-linejoin="round" />
-                <path
-                  d="M12.5 18.3346H7.5C3.33333 18.3346 2.5 16.618 2.5 13.1846V8.04297C2.5 4.1263 3.89167 3.0763 6.66667 2.91797H13.3333C16.1083 3.06797 17.5 4.1263 17.5 8.04297V13.3346"
-                  stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                  stroke-linejoin="round" />
-                <path d="M17.5 13.334L12.5 18.334V15.834C12.5 14.1673 13.3333 13.334 15 13.334H17.5Z" stroke="#565C69"
-                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M6.90845 5.24211C6.55845 5.24211 6.28345 4.95878 6.28345 4.61711V2.29211C6.28345 1.95045 6.55845 1.66711 6.90845 1.66711C7.25845 1.66711 7.53345 1.95045 7.53345 2.29211V4.60878C7.53345 4.95878 7.25845 5.24211 6.90845 5.24211Z" fill="white"/>
+  <path d="M13.0916 5.24211C12.7416 5.24211 12.4666 4.95878 12.4666 4.61711V2.29211C12.4666 1.94211 12.7499 1.66711 13.0916 1.66711C13.4416 1.66711 13.7166 1.95045 13.7166 2.29211V4.60878C13.7166 4.95878 13.4416 5.24211 13.0916 5.24211Z" fill="white"/>
+  <path d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" fill="white"/>
+  <path d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" fill="white"/>
+  <path d="M16.3083 3.75045C15.7583 3.34211 14.9666 3.73378 14.9666 4.42545V4.50878C14.9666 5.48378 14.2666 6.38378 13.2916 6.48378C12.1666 6.60045 11.2166 5.71711 11.2166 4.61711V3.75045C11.2166 3.29211 10.8416 2.91711 10.3833 2.91711H9.61659C9.15825 2.91711 8.78325 3.29211 8.78325 3.75045V4.50878C8.78325 5.24211 8.39159 5.92545 7.78325 6.25878C7.74992 6.28378 7.71659 6.30045 7.68325 6.31711C7.67492 6.31711 7.67492 6.32545 7.66658 6.32545C7.60825 6.35045 7.54992 6.37545 7.48325 6.40045C7.46658 6.40878 7.44992 6.40878 7.43325 6.41711C7.33325 6.45045 7.22492 6.47545 7.10825 6.48378H7.09992C6.97492 6.50045 6.84159 6.50045 6.71659 6.48378H6.70825C6.59159 6.47545 6.48325 6.45045 6.38325 6.41711C6.29992 6.39211 6.21659 6.35878 6.13325 6.31711C5.48325 6.02545 5.03325 5.37545 5.03325 4.61711V4.42545C5.03325 3.78378 4.34992 3.40045 3.80825 3.67545C3.79992 3.68378 3.79159 3.68378 3.78325 3.69211H3.77492C3.71659 3.73378 3.66659 3.77545 3.60825 3.81711C3.51659 3.89211 3.42492 3.96711 3.34159 4.05045C3.28325 4.10878 3.22492 4.16711 3.17492 4.22545C3.10825 4.29211 3.04992 4.35878 2.99159 4.43378C2.94992 4.48378 2.89992 4.53378 2.86659 4.59211C2.82492 4.64211 2.79159 4.70045 2.75825 4.75045C2.74992 4.75878 2.74159 4.76711 2.73325 4.78378C2.65825 4.89211 2.59159 5.01711 2.53325 5.13378C2.51659 5.15045 2.50825 5.15878 2.50825 5.17545C2.45825 5.27545 2.40825 5.37545 2.37492 5.48378C2.34992 5.52545 2.34159 5.55878 2.32492 5.60045C2.30825 5.63378 2.29992 5.67545 2.28325 5.70878C2.25825 5.79211 2.23325 5.88378 2.20825 5.97545C2.17492 6.09211 2.14992 6.21711 2.13325 6.34211C2.11659 6.43378 2.10825 6.52545 2.09992 6.62545C2.09159 6.74211 2.08325 6.85878 2.08325 6.97545V14.2754C2.08325 16.5171 3.89992 18.3338 6.14158 18.3338H10.1583C10.6166 18.3338 10.9916 17.9588 10.9916 17.5004V14.8838C10.9916 12.9671 12.5833 11.4088 14.5416 11.4088C14.9833 11.4004 16.0583 11.4004 17.0833 11.4004C17.5416 11.4004 17.9166 11.0254 17.9166 10.5671V6.97545C17.9166 5.65045 17.2833 4.49211 16.3083 3.75045ZM9.27492 13.2588C9.19992 13.5088 8.96659 13.6838 8.69159 13.6838H5.65825C5.61659 13.6838 5.58325 13.6838 5.54992 13.6671C5.24992 13.6254 5.03325 13.3671 5.03325 13.0588C5.03325 12.7088 5.30825 12.4254 5.65825 12.4254H8.69159C9.03325 12.4254 9.31659 12.7088 9.31659 13.0588C9.31659 13.1254 9.30825 13.2004 9.27492 13.2588ZM11.5916 10.1671C11.5166 10.4171 11.2833 10.5921 11.0083 10.5921H5.65825C5.61659 10.5921 5.58325 10.5921 5.54992 10.5754C5.24992 10.5338 5.03325 10.2754 5.03325 9.96711C5.03325 9.61711 5.30825 9.33378 5.65825 9.33378H11.0083C11.3583 9.33378 11.6333 9.61711 11.6333 9.96711C11.6333 10.0338 11.6249 10.1088 11.5916 10.1671Z" fill="white"/>
+</svg>
 
               <p>History</p>
             </div>
@@ -200,14 +194,20 @@
           <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
-                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M12 18.2744V18.25" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+                    d="M14.1666 15.3584H10.8333L7.12495 17.825C6.57495 18.1917 5.83329 17.8001 5.83329 17.1334V15.3584C3.33329 15.3584 1.66663 13.6917 1.66663 11.1917V6.19169C1.66663 3.69169 3.33329 2.02502 5.83329 2.02502H14.1666C16.6666 2.02502 18.3333 3.69169 18.3333 6.19169V11.1917C18.3333 13.6917 16.6666 15.3584 14.1666 15.3584Z"
+                    fill="white" stroke="#565C69" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                     stroke-linejoin="round" />
-                  <path d="M12 14.5C14 13.5 16 12.2091 16 10C16 7.79086 14.2091 6 12 6C9.79086 6 8 7.79086 8 10"
-                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M10 9.46668V9.29171C10 8.72504 10.35 8.42503 10.7 8.18336C11.0417 7.95003 11.3833 7.65004 11.3833 7.10004C11.3833 6.33337 10.7667 5.71667 10 5.71667C9.23334 5.71667 8.6167 6.33337 8.6167 7.10004"
+                    fill="white" />
+                  <path
+                    d="M10 9.46668V9.29171C10 8.72504 10.35 8.42503 10.7 8.18336C11.0417 7.95003 11.3833 7.65004 11.3833 7.10004C11.3833 6.33337 10.7667 5.71667 10 5.71667C9.23334 5.71667 8.6167 6.33337 8.6167 7.10004"
+                    stroke="#565C69" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99629 11.4583H10.0038H9.99629Z" fill="white" />
+                  <path d="M9.99629 11.4583H10.0038" stroke="#565C69" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
                 </svg>
                 <p>FAQs</p>
               </div>
@@ -216,15 +216,19 @@
           <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M6.66663 1.66663V4.16663" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M13.3334 1.66663V4.16663" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
+                    stroke-linecap="round" stroke-linejoin="round" />
                   <path
-                    d="M6 22H18C19.1046 22 20 21.1046 20 20V9.82843C20 9.29799 19.7893 8.78929 19.4142 8.41421L13.5858 2.58579C13.2107 2.21071 12.702 2 12.1716 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22Z"
-                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M13 2.5V9H19" stroke="#565C69" stroke-width="2" stroke-linecap="round"
+                    d="M17.5 7.08329V14.1666C17.5 16.6666 16.25 18.3333 13.3333 18.3333H6.66667C3.75 18.3333 2.5 16.6666 2.5 14.1666V7.08329C2.5 4.58329 3.75 2.91663 6.66667 2.91663H13.3333C16.25 2.91663 17.5 4.58329 17.5 7.08329Z"
+                    stroke="#344054" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                     stroke-linejoin="round" />
-                  <path d="M8 17H15" stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M8 13H15" stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M8 9H9" stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6.66663 9.16663H13.3333" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6.66663 13.3334H9.99996" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
+                    stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <p>Terms and Privacy</p>
               </div>
@@ -233,10 +237,17 @@
           <nuxt-link to="https://ipc-africa.com/">
             <div class="desktop-nav">
               <div class="nav-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
-                    d="M3.51089 2L7.15002 2.13169C7.91653 2.15942 8.59676 2.64346 8.89053 3.3702L9.96656 6.03213C10.217 6.65159 10.1496 7.35837 9.78693 7.91634L8.40831 10.0375C9.22454 11.2096 11.4447 13.9558 13.7955 15.5633L15.5484 14.4845C15.9939 14.2103 16.5273 14.1289 17.0314 14.2581L20.5161 15.1517C21.4429 15.3894 22.0674 16.2782 21.9942 17.2552L21.7705 20.2385C21.6919 21.2854 20.8351 22.1069 19.818 21.9887C6.39245 20.4276 -1.48056 1.99997 3.51089 2Z"
-                    stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    d="M15 15.7165H14.3667C13.7 15.7165 13.0667 15.9748 12.6 16.4414L11.175 17.8498C10.525 18.4915 9.46667 18.4915 8.81667 17.8498L7.39166 16.4414C6.925 15.9748 6.28333 15.7165 5.625 15.7165H5C3.61667 15.7165 2.5 14.6081 2.5 13.2415V4.14978C2.5 2.78311 3.61667 1.6748 5 1.6748H15C16.3833 1.6748 17.5 2.78311 17.5 4.14978V13.2415C17.5 14.5998 16.3833 15.7165 15 15.7165Z"
+                    stroke="#344054" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path
+                    d="M5.83337 7.63336C5.83337 6.85836 6.46671 6.22498 7.24171 6.22498C8.01671 6.22498 8.65004 6.85836 8.65004 7.63336C8.65004 9.20003 6.42504 9.36669 5.93337 10.8584C5.83337 11.1667 6.0917 11.475 6.4167 11.475H8.65004"
+                    stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M13.3667 11.4667V6.70838C13.3667 6.49171 13.225 6.3 13.0167 6.24166C12.8084 6.18333 12.5834 6.26666 12.4667 6.45C11.8667 7.41666 11.2167 8.51667 10.65 9.48334C10.5584 9.64167 10.5584 9.85001 10.65 10.0083C10.7417 10.1667 10.9167 10.2666 11.1084 10.2666H14.1667"
+                    stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <p>Customer support</p>
               </div>
@@ -245,11 +256,15 @@
           <a class="cursor" @click="logoutUser">
             <div class="desktop-nav">
               <div class="nav-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12H15" stroke="#FF3B2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M8 7L3 12L8 17" stroke="#FF3B2D" stroke-width="2" stroke-linecap="round"
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M14.5333 12.1833L16.6667 10.05L14.5333 7.91663" stroke="#D42620" stroke-width="1.5"
+                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M8.1333 10.05H16.6083" stroke="#D42620" stroke-width="1.5" stroke-miterlimit="10"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M9.79997 16.6667C6.11663 16.6667 3.1333 14.1667 3.1333 10C3.1333 5.83337 6.11663 3.33337 9.79997 3.33337"
+                    stroke="#D42620" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
                     stroke-linejoin="round" />
-                  <path d="M21 3V21" stroke="#FF3B2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <p class="logout cursor">Log out</p>
               </div>
@@ -506,12 +521,15 @@ export default {
 }
 
 .nuxt-link-exact-active .desktop-nav svg {
-  stroke: #fff;
+  fill: #fff;
+}
+.nuxt-link-exact-active .desktop-nav svg path {
+  fill: #fff;
+  stroke: 565C69;
+
 }
 
-.nuxt-link-exact-active .desktop-nav .nav-content svg path {
-  stroke: #fff !important;
-}
+
 
 .nuxt-link-exact-active .desktop-nav .nav-content .badge {
   background: #fff !important;
