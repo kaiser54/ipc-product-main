@@ -376,6 +376,7 @@ export default {
 
 .nav-content p {
   font-weight: 500;
+  color: var(--grey-grey2);
 }
 
 .popup {

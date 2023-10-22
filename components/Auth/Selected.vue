@@ -56,7 +56,7 @@ export default {
   max-width: 410px;
   display: flex;
   gap: 10px;
-  font-family: var(--primary-font);
+  font-family: var(--new-primary-font);
 }
 .selected-icon svg {
   width: 32px;

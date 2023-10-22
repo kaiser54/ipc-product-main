@@ -340,7 +340,7 @@ p.snippet {
 input[type="date"] {
   color: var(--grey-grey-1, #303237);
   font-size: 10.5px;
-  font-family: DM Sans;
+  fornt-family : var(--new-primary-font);
   text-transform: uppercase;
   font-weight: 500;
   line-height: 18px;

@@ -247,7 +247,7 @@ p.header {
 
   /* Body Large/Body Large Medium */
   font-size: 16px;
-  font-family: DM Sans;
+  fornt-family : var(--new-primary-font);
   font-weight: 500;
   line-height: 24px;
 }
@@ -303,7 +303,7 @@ p.header {
 }
 
 label {
-  font-family: "DM Sans";
+  font-family: var(--new-primary-font);
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

@@ -78,7 +78,7 @@
          text-align: center;
  
          /* H2/Heading 2 Small Medium */
-         font-family: Switzer;
+         font-family: var(--new-primary-font);
          font-size: 24px;
          font-style: normal;
          font-weight: 500;
@@ -90,7 +90,7 @@
          text-align: center;
  
          /* Body Large/Body Large Regular */
-         font-family: Switzer;
+         font-family: var(--new-primary-font);
          font-size: 16px;
          font-style: normal;
          font-weight: 400;

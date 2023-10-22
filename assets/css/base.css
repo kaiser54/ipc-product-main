@@ -74,7 +74,7 @@
 
 /* text styles from ipc typography system */
 :root {
-  --primary-font: "Switzer", "DM Sans", "Inter", Arial, Helvetica, sans-serif;
+  --new-primary-font:'Inter', sans-serif;
   --font-Extralight: "GeneralSans-Extralight";
   --font-ExtralightItalic: "GeneralSans-ExtralightItalic";
   --font-Light: "GeneralSans-Light";
@@ -111,7 +111,7 @@
 } */
 
 h1 {
-  font-family: var(--primary-font);
+  font-family: var(--new-primary-font);
   font-style: normal;
   font-size: 48px;
   line-height: 62px;
@@ -149,7 +149,7 @@ h1 {
 }
 
 h2 {
-  font-family: var(--primary-font);
+  font-family: var(--new-primary-font);
   font-style: normal;
   font-size: 34px;
   line-height: 44px;
@@ -187,7 +187,7 @@ h2 {
 }
 
 h3 {
-  font-family: "Switzer";
+  font-family: var(--new-primary-font);
   font-style: normal;
   font-size: 24px;
   line-height: 36px;
@@ -251,7 +251,7 @@ button {
 
   transition: 0.3s;
 
-  font-family: var(--primary-font);
+  font-family: var(--new-primary-font);
 }
 
 /* styles for the primary buutton */
