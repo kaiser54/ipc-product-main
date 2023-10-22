@@ -6,7 +6,7 @@
         modalName="Profile"
       />
     </div>
-    <transition name="newPage">
+    <transition name="newPage" mode="out-in">
       <nuxt />
     </transition>
   </div>
@@ -27,5 +27,19 @@ export default {
 <style scoped>
 .component-header {
   z-index: 2;
+}
+.newPage-enter-active,
+.newPage-leave-active {
+    transition: opacity 1s;
+}
+
+.newPage-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.newPage-leave-to {
+    opacity: 1;
+    transform: translateX(100%);
 }
 </style>

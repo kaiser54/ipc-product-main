@@ -392,7 +392,7 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
-          console.log("User data in localStorage:", JSON.parse(userData));
+          // console.log("User data in localStorage:", JSON.parse(userData));
           this.userID = this.user?._id;
           if (this.userID) {
             this.fetchUser();
@@ -512,7 +512,7 @@ export default {
         // sending the address to the backend end
 
         if (this.userID) {
-          console.log(`${DEV_URL}/business-customers/${this.userID}`);
+          // console.log(`${DEV_URL}/business-customers/${this.userID}`);
           const response = await axios.get(
             `${DEV_URL}/business-customers/${this.user._id}`,
             {
