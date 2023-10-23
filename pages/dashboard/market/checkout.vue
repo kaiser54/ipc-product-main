@@ -112,6 +112,7 @@ export default {
   },
   created() {
     this.$config.PAYSTACK_PUBLIC_KEY;
+    console.log(this.$config.PAYSTACK_PUBLIC_KEY)
   },
   async mounted() {
     // payStack
