@@ -76,12 +76,15 @@
 
             <div class="lga __width100">
               <label for="lgas">Select LGA</label>
-              <select class="input" id="lgas" v-model="selectedLGA">
+              <select class="input" :class="{ 'input-error': invalidLGA }" id="lgas" v-model="selectedLGA">
                 <option value="" selected>Please select a LGA</option>
                 <option v-for="(lga, index) in lgas" :key="index" :value="lga">
                   {{ lga.name }}
                 </option>
               </select>
+              <div v-if="invalidLGA" class="error">
+                <p>{{ errLGAmsg }}</p>
+              </div>
             </div>
           </div>
           <div class="submit-reset">
@@ -130,6 +133,9 @@ export default {
       // for picking states and local government
       selectedState: "Lagos",
       selectedLGA: "",
+      errLGAmsg: "",
+      invalidLGA: false,
+      // ..........................
       coordinate: "",
       selectedCity: "",
       statesAndLGAs: {},
@@ -183,10 +189,56 @@ export default {
   },
   async mounted() {
     this.loadUser();
-
   },
   methods: {
     ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
+    validateForm() {
+      let isValid = true;
+
+      // Validate first name
+      if (!this.FirstName) {
+        this.invalidName = true;
+        this.FNErrorMessage = "First name is required";
+        isValid = false;
+      } else {
+        this.invalidName = false;
+        this.FNErrorMessage = "";
+      }
+
+      // Validate last name
+      if (!this.lastName) {
+        this.invalidLastName = true;
+        this.LNErrorMessage = "Last name is required";
+        isValid = false;
+      } else {
+        this.invalidLastName = false;
+        this.LNErrorMessage = "";
+      }
+
+      // Validate address
+      if (!this.address) {
+        this.invalidAddress = true;
+        this.addressErrorMessage = "Address is required";
+        isValid = false;
+      } else {
+        this.invalidAddress = false;
+        this.addressErrorMessage = "";
+      }
+
+      // Validate LGA
+      if (!this.selectedLGA) {
+        this.invalidLGA = true;
+        this.errLGAmsg = "Please select a local government";
+        isValid = false;
+      } else {
+        this.invalidLGA = false;
+        this.errLGAmsg = "";
+      }
+
+      // You can add more validation rules for other fields here
+
+      return isValid;
+    },
     async loadUser() {
       try {
         let user = null;
@@ -194,15 +246,13 @@ export default {
           user = JSON.parse(localStorage.getItem("user")) || null;
         }
 
-
         if (user) {
           this.customerId = user._id;
           this.FirstName = user.firstName;
           this.lastName = user.lastName;
           this.phoneNumbers = user.phoneNumbers[0];
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     },
 
     handleAddNumber(newPhoneNumber) {
@@ -231,36 +281,38 @@ export default {
       this.selectedCity = ""; // Reset selected city when changing the state
     },
     submitForm() {
-      this.getDeliveryFee({
-        distance: this.distance,
-      });
-      const address = {
-        streetAddress: this.address,
-        directions: this.Directions,
-        state: this.selectedState,
-        lga: this.selectedLGA.name,
-        // customerId: this.customerId,
-      };
-      const data = {
-        customerId: this.customerId,
-        firstName: this.FirstName,
-        lastName: this.lastName,
-        address: address,
-        directions: this.Directions,
-        // phoneNumbers: this.phoneNumbers,
-        phoneNumbers: [this.phoneNumbers],
-        state: this.selectedState,
-        LGA: this.selectedLGA.name,
-        products: this.cart,
-        totalPrice: this.cartFullPrice,
-        deliveryFee: this.deliveryFee,
-        subtotalPrice: this.cartTotalPrice,
-      };
-      this.$emit("customEvent", data);
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth", // Optional: Add smooth scrolling effect
-      });
+      if (this.validateForm()) {
+        this.getDeliveryFee({
+          distance: this.distance,
+        });
+        const address = {
+          streetAddress: this.address,
+          directions: this.Directions,
+          state: this.selectedState,
+          lga: this.selectedLGA.name,
+          // customerId: this.customerId,
+        };
+        const data = {
+          customerId: this.customerId,
+          firstName: this.FirstName,
+          lastName: this.lastName,
+          address: address,
+          directions: this.Directions,
+          // phoneNumbers: this.phoneNumbers,
+          phoneNumbers: [this.phoneNumbers],
+          state: this.selectedState,
+          LGA: this.selectedLGA.name,
+          products: this.cart,
+          totalPrice: this.cartFullPrice,
+          deliveryFee: this.deliveryFee,
+          subtotalPrice: this.cartTotalPrice,
+        };
+        this.$emit("customEvent", data);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Optional: Add smooth scrolling effect
+        });
+      }
     },
   },
 };
