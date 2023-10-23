@@ -76,7 +76,12 @@
 
             <div class="lga __width100">
               <label for="lgas">Select LGA</label>
-              <select class="input" :class="{ 'input-error': invalidLGA }" id="lgas" v-model="selectedLGA">
+              <select
+                class="input"
+                :class="{ 'input-error': invalidLGA }"
+                id="lgas"
+                v-model="selectedLGA"
+              >
                 <option value="" selected>Please select a LGA</option>
                 <option v-for="(lga, index) in lgas" :key="index" :value="lga">
                   {{ lga.name }}
@@ -192,6 +197,10 @@ export default {
   },
   methods: {
     ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
+    clearInputError(err, msg) {
+      err = false;
+      msg = "";
+    },
     validateForm() {
       let isValid = true;
 
@@ -214,6 +223,15 @@ export default {
         this.invalidLastName = false;
         this.LNErrorMessage = "";
       }
+      // Validate phone number
+      if (!this.phoneNumbers) {
+        this.invalidNumber = true;
+        this.PNErrorMessage = "Phone number is required";
+        isValid = false;
+      } else {
+        this.invalidNumber = false;
+        this.PNErrorMessage = "";
+      }
 
       // Validate address
       if (!this.address) {
@@ -228,7 +246,7 @@ export default {
       // Validate LGA
       if (!this.selectedLGA) {
         this.invalidLGA = true;
-        this.errLGAmsg = "Please select a local government";
+        this.errLGAmsg = "Local government is required";
         isValid = false;
       } else {
         this.invalidLGA = false;
