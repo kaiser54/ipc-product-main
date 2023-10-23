@@ -15,6 +15,7 @@
                 :required="true"
                 :invalid="invalidName"
                 :errorMessage="FNErrorMessage"
+                @input="clearInputError('FirstName')"
               />
 
               <InputOne
@@ -26,6 +27,7 @@
                 :required="true"
                 :invalid="invalidLastName"
                 :errorMessage="LNErrorMessage"
+                @input="clearInputError('lastName')"
               />
             </div>
             <!-- <ClickAddNum
@@ -46,6 +48,7 @@
               :required="true"
               :invalid="invalidNumber"
               :errorMessage="PNErrorMessage"
+                @input="clearInputError('phoneNumbers')"
             />
             <InputOne
               id="address"
@@ -56,6 +59,7 @@
               :required="true"
               :invalid="invalidAddress"
               :errorMessage="addressErrorMessage"
+                @input="clearInputError('address')"
             />
             <InputOne
               id="Directions"
@@ -81,6 +85,7 @@
                 :class="{ 'input-error': invalidLGA }"
                 id="lgas"
                 v-model="selectedLGA"
+                @input="clearInputError('selectedLGA')"
               >
                 <option value="" selected>Please select a LGA</option>
                 <option v-for="(lga, index) in lgas" :key="index" :value="lga">
@@ -197,9 +202,29 @@ export default {
   },
   methods: {
     ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
-    clearInputError(err, msg) {
-      err = false;
-      msg = "";
+    clearInputError(fieldName) {
+      // Clear the error for the specified field
+      this[fieldName] = ''; // Clear the field value
+      if (fieldName === 'FirstName') {
+        this.invalidName = false;
+        this.FNErrorMessage = '';
+      }
+      else if (fieldName === 'lastName') {
+        this.invalidLastName = false;
+        this.LNErrorMessage = '';
+      }
+      else if (fieldName === 'phoneNumbers') {
+        this.invalidNumber = false;
+        this.PNErrorMessage = '';
+      }
+      else if (fieldName === 'address') {
+        this.invalidAddress = false;
+        this.addressErrorMessage = '';
+      }
+      else if (fieldName === 'selectedLGA') {
+        this.invalidLGA = false;
+        this.errLGAmsg = '';
+      }
     },
     validateForm() {
       let isValid = true;
