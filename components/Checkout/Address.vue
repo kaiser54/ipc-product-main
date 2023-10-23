@@ -248,7 +248,7 @@ export default {
         address: address,
         directions: this.Directions,
         // phoneNumbers: this.phoneNumbers,
-        phoneNumbers: ["08039137005"],
+        phoneNumbers: [this.phoneNumbers],
         state: this.selectedState,
         LGA: this.selectedLGA.name,
         products: this.cart,

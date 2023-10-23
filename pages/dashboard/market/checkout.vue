@@ -265,8 +265,7 @@ export default {
     payWithPaystack() {
       this.spinner = true;
       const handler = PaystackPop.setup({
-        // key: process.env.PAYSTACK_PUBLIC_KEY, // Replace with your public key
-        key: this.$config.PAYSTACK_PUBLIC_KEY, // Replace with your public key
+        key: this.$config.PAYSTACK_PUBLIC_KEY,
         email: this.submittedData?.email,
         amount: this.nairaToKobo(this.submittedData?.totalPrice),
         // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
