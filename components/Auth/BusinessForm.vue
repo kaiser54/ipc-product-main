@@ -369,7 +369,9 @@ input.no-arrow::-moz-number-spin-box {
   -moz-appearance: none;
   margin: 0;
 }
-.pass-link a{
+.pass-link p a,
+.pass-link p a:visited
+{
   color: var(--new-primary-p300);
 }
 .tandc a{

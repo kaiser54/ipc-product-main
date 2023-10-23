@@ -265,17 +265,17 @@ export default {
       this.spinner = true;
       const handler = PaystackPop.setup({
         // key: process.env.PAYSTACK_PUBLIC_KEY, // Replace with your public key
-        key: "pk_test_3319daf09404682ea805ac89a163ff5499a14d03", // Replace with your public key
+        key: this.$config.PAYSTACK_PUBLIC_KEY, // Replace with your public key
         email: this.submittedData?.email,
         amount: this.nairaToKobo(this.submittedData?.totalPrice),
         // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
         ref: this.ref, // Generate a pseudo-unique reference
         onClose: () => {
-          alert("Window closed.");
+          // alert("Window closed.");
         },
         callback: (response) => {
           const message = "Payment complete! Reference: " + response.reference;
-          alert(message);
+          // alert(message);
           this.submitForm();
         },
       });
@@ -334,8 +334,8 @@ export default {
     async submitForm() {
       this.spinner = true;
       this.submittedData.reference = this.ref;
-      console.log("submit data:", this.submittedData);
-      alert("hello");
+      // console.log("submit data:", this.submittedData);
+      // alert("hello");
 
       try {
         const headers = {

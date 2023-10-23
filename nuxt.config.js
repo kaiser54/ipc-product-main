@@ -63,10 +63,10 @@ export default {
     },
   },
   publicRuntimeConfig: {
-    PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_PUBLIC_KEY
+    PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_SECRET_KEY
   },
   privateRuntimeConfig: {
-    PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_PUBLIC_KEY
+    PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_SECRET_KEY
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

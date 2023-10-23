@@ -124,7 +124,7 @@ export default {
     formatPriceWithCommas,
     IncreaseQuantity() {
       this.loader = true;
-      console.log("items", this.items._id);
+      // console.log("items", this.items._id);
       const e = {
         productId: this.items._id,
       };
