@@ -79,7 +79,7 @@
   
 <script>
 export default {
-  props: ['data'],
+  props: ["data"],
   data() {
     return {
       selectedItem: "",
@@ -92,14 +92,14 @@ export default {
           route: "/business",
           images: ["paystack.png"],
         },
-        {
-          title: "Pay on delivery",
-          snippet:
-            "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
-          value: "CASH",
-          route: "/individual",
-          images: [],
-        },
+        // {
+        //   title: "Pay on delivery",
+        //   snippet:
+        //     "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
+        //   value: "CASH",
+        //   route: "/individual",
+        //   images: [],
+        // },
       ],
     };
   },
@@ -114,7 +114,6 @@ export default {
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
       });
- 
     },
   },
 };
@@ -168,7 +167,7 @@ button:disabled {
 }
 
 .clicked svg rect {
-  stroke: #0009b3 !important;
+  stroke: var( --new-primary-p300) !important;
 }
 
 .list-select-header {
