@@ -204,7 +204,7 @@ export default {
     ...mapActions("cart", ["getDistanceFromLatLonInKm", "getDeliveryFee"]),
     clearInputError(fieldName) {
       // Clear the error for the specified field
-      this[fieldName] = ''; // Clear the field value
+      // this[fieldName] = ''; // Clear the field value
       if (fieldName === 'FirstName') {
         this.invalidName = false;
         this.FNErrorMessage = '';
