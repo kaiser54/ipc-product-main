@@ -35,7 +35,7 @@ border: 1px solid #A4DE9B;
 border-radius: 100px;
 }
 .tags p {
-    font-family: 'DM Sans';
+    font-family: var(--new-primary-font);
 font-style: normal;
 font-weight: 400;
 font-size: 12px;

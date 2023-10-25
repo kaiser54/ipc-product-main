@@ -269,11 +269,8 @@ p.snippet {
 }
 
 .tab.clicked {
-  /* Accent/A75 */
-  background: var(--accent-a75);
-  /* Accent/A200 */
-
-  border: 1px solid var(--accent-a200);
+  background: var(--secondary-s50);
+  border: 1px solid var(--secondary-s300);
 }
 
 .button-grp {

@@ -116,11 +116,57 @@ line-height: 24px; /* 150% */
   color: #fff;
 }
 
-.nuxt-link-active .desktop-nav svg {
-  stroke: #fff;
+.first{
+  fill:white;
 }
-
-.nuxt-link-active .desktop-nav .nav-content svg path {
-  stroke: #fff !important;
+.second{
+  fill:white;
+}
+.forth {
+  fill: none;
+}
+.fifth{
+  fill: none;
+}
+.fifth path{
+  stroke: #565C69;
+}
+.forth path{
+  stroke: #344054;
+  fill: none;
+}
+.third path{
+  fill: white;
+}
+.second path{
+  stroke: #565C69;
+}
+.nuxt-link-exact-active .desktop-nav .first {
+  fill: white;
+  stroke: none;
+}
+.nuxt-link-exact-active .desktop-nav .second {
+  fill: white;
+}
+.nuxt-link-exact-active .desktop-nav .second path {
+  fill: white;
+  stroke: white;
+}
+.nuxt-link-exact-active .desktop-nav .third path {
+  fill: white;
+  stroke: none;
+}
+.nuxt-link-exact-active .desktop-nav .forth path {
+  stroke: none;
+  fill: #fff;
+  /* stroke: #344054; */
+}
+.nuxt-link-exact-active .desktop-nav .fifth path {
+  fill: #fff;
+  stroke: none;
+}
+.nuxt-link-exact-active .desktop-nav .fifth path .try {
+  fill: #fff;
+  stroke: #fff;
 }
 </style>

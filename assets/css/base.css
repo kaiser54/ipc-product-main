@@ -18,17 +18,32 @@
   --new-primary-p500: #0F7014; 
   --new-primary-p300: #19B820;
 
+  --secondary-s50 : #FCECE9;
+  --secondary-s75 : #F4B1A4;
+  --secondary-s100 : #F0917E;
+  --secondary-s200 : #E96146;
+  --secondary-s300 : #E54120;
+  --secondary-s400 : #A02E16;
+  --secondary-s500 : #8C2814;
+
 
   --neutral-n300-headers: #00044b;
   --neutral-n400: #000335;
   --neutral-n500: #00022e;
 
-  --grey-grey6: #f4f5f8;
-  --grey-grey5: #e5e7ef;
-  --grey-grey4: #bdc0ce;
-  --grey-grey3: #7e8494;
-  --grey-grey2: #565c69;
-  --grey-grey1: #303237;
+  --grey-grey6: #F7F9FC;
+  /* --grey-grey6: #f4f5f8; */
+  --grey-grey5: #F0F2F5;
+  /* --grey-grey5: #e5e7ef; */
+  --grey-grey4: #D0D5DD;
+  /* --grey-grey4: #bdc0ce; */
+  --grey-grey3: #667185;
+  /* --grey-grey3: #7e8494; */
+  --grey-grey2: #344054;
+  /* --grey-grey2: #565c69; */
+  --grey-grey1: #101928;
+  /* --grey-grey1: #303237; */
+  
 
   --accent-a50: #fffae6;
   --accent-a75: #ffea96;

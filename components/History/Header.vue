@@ -134,10 +134,10 @@ export default {
 
 .tab.clicked {
   /* Accent/A75 */
-  background: var(--accent-a75);
+  background: var(--secondary-s50);
   /* Accent/A200 */
 
-  border: 1px solid var(--accent-a200);
+  border: 1px solid var(--secondary-s300);
 }
 
 button {

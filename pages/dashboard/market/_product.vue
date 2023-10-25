@@ -789,13 +789,13 @@ p.product-details-snippet {
   color: #fff;
 }
 
-.nuxt-link-active .desktop-nav svg {
+/* .nuxt-link-active .desktop-nav svg {
   stroke: #fff;
 }
 
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
-}
+} */
 
 @media (min-width: 950px) {
   .goTop {
