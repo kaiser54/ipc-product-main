@@ -112,6 +112,18 @@
 
 <script>
 export default {
+  head() {
+    return {
+      script: [
+        {
+          src: "https://embed.tawk.to/653a1516f2439e1631e88e4d/1hdle4ojj",
+          async: true,
+          charset: "UTF-8",
+          crossorigin: "anonymous",
+        },
+      ],
+    };
+  },
   data() {
     return {
       indexOfCardWithComponent: 3,
