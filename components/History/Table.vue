@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="item in tableData" :key="item.id" @click="toHistoryDetails(item._id)">
           <td style="display: flex; align-items: center; gap: 5px">
-            <div class="img" v-for="image in getProductImages(item.products)" :key="image.id">
+            <div class="img" v-for="(image, index) in getProductImages(item.products)" :key="index">
               <!-- {{ image.url }} -->
               <img :src="image.url" alt="product Image" />
             </div>

@@ -279,13 +279,15 @@ a {
 }
 
 .image {
-  width: 64px;
-  height: fit-content;
-
-  /* Grey/Grey6 */
-
-  background: var(--grey-grey6);
+  max-width: 64px;
+  width: 100%;
+  height: auto;
+  max-height: 64px;
   border-radius: 1.70667px;
+}
+
+.image img {
+  height: 100%;
 }
 
 .order-product-details {
