@@ -165,7 +165,6 @@ export default {
       try {
         const response = await this.$axios.$get(`/orders/${this.orderId}`);
         this.verificationLoading = false
-        ("orderDetails:", response.data.order);
         this.orderDetails = response?.data?.order;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
