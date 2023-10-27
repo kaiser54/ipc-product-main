@@ -3,7 +3,11 @@
     <LoaderSpin v-if="spinner" />
 
     <!-- Order on the way message -->
-    <CheckoutOnTheWayMsg v-show="isPaid" :data="submittedData" />
+    <CheckoutOnTheWayMsg
+      v-show="isPaid"
+      :data="submittedData"
+      @showInvoice="generateAndDownloadPDF"
+    />
     <!-- ------------------------ -->
 
     <div v-show="!isPaid" class="checkout-wrapper">
@@ -87,11 +91,22 @@
         </div>
       </div>
     </div>
+    <div class="invoice">
+      <Invoice
+        v-if="currentStep === 3 && isPaid"
+        :customer="submittedData"
+        :orders="invoiceData"
+        :user="user"
+        ref="myComponent"
+        id="componentToSave"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 // import paystack from "vue-paystack";
+import jsPDF from "jspdf";
 import axios from "axios";
 import { DEV_URL } from "@/plugins/api";
 import { formatPriceWithCommas } from "~/static/formatPrice";
@@ -108,10 +123,11 @@ export default {
       mobile: false,
       submittedData: null,
       ref: "",
+      invoiceData: null,
     };
   },
   created() {
-    this.$config.PAYSTACK_PUBLIC_KEY;
+    // this.$config.PAYSTACK_PUBLIC_KEY;
   },
   async mounted() {
     // payStack
@@ -142,10 +158,6 @@ export default {
         if (userData) {
           // User data is available, log it
           this.user = JSON.parse(userData);
-          // this.ref = `${this.user._id}-${new Date()}`; //invalid reference
-          this.ref = this.reference;
-          "ref", this.ref;
-          "User data in localStorage:", JSON.parse(userData);
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -262,9 +274,11 @@ export default {
     },
 
     payWithPaystack() {
+      this.ref = this.reference;
       this.spinner = true;
       const handler = PaystackPop.setup({
-        key: this.$config.PAYSTACK_PUBLIC_KEY,
+        // key: this.$config.PAYSTACK_PUBLIC_KEY,
+        key: "pk_test_3319daf09404682ea805ac89a163ff5499a14d03",
         email: this.submittedData?.email,
         amount: this.nairaToKobo(this.submittedData?.totalPrice),
         // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
@@ -333,7 +347,6 @@ export default {
     async submitForm() {
       this.spinner = true;
       this.submittedData.reference = this.ref;
-      // console.log("submit data:", this.submittedData);
       // alert("hello");
 
       try {
@@ -348,12 +361,12 @@ export default {
             headers: headers,
           }
         );
-
-        "Response from the backend:", response;
-
+        
         if (response.status === 201 || response.status === 200) {
+          this.invoiceData = response.data.data
           this.isPaid = true;
           window.startConfetti();
+          // this.generateAndDownloadPDF();
         } else {
           response;
           throw new Error("Failed to create an order.");
@@ -375,6 +388,23 @@ export default {
     },
     modifyCart() {
       this.$router.push("/dashboard/market/cart");
+    },
+    async generateAndDownloadPDF() {
+      var doc = new jsPDF();
+
+      // Wait for the document to be fully loaded before generating the PDF
+      doc.html(document.querySelector("#componentToSave"), {
+        callback: function (pdf) {
+          // Save the PDF with the desired filename
+          pdf.save("Invoice_gosource.pdf");
+        },
+        margin: 5,
+        autoPaging: "text",
+        x: 0,
+        y: 0,
+        width: 190,
+        windowWidth: 675,
+      });
     },
   },
 };
@@ -594,6 +624,12 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+.invoice {
+  position: absolute;
+  left: 95%;
+  height: 0vh;
+    overflow: hidden;
 }
 
 @media (max-width: 950px) {

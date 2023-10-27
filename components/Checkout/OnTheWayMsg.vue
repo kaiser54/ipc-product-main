@@ -13,11 +13,34 @@
         </div>
       </div>
       <div class="btn__group">
-        <nuxt-link to="/dashboard/market">
-          <button class="btn secondary-btn">Go to market</button>
-        </nuxt-link>
+        <button class="btn primary-btn" @click="$emit('showInvoice')">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M15.0581 12.0312L9.99974 17.0896L4.94141 12.0312"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M10 2.92578V16.9508"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg
+          >Download Invoice
+        </button>
         <nuxt-link to="/dashboard/track_orders">
-          <button class="btn primary-btn">Track order</button>
+          <button class="btn secondary-btn">Track orders</button>
         </nuxt-link>
       </div>
     </div>
@@ -26,7 +49,7 @@
 
 <script>
 export default {
-  props: ['data']
+  props: ["data"],
 };
 </script>
 
