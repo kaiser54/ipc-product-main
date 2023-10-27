@@ -277,8 +277,7 @@ export default {
       this.ref = this.reference;
       this.spinner = true;
       const handler = PaystackPop.setup({
-        // key: this.$config.PAYSTACK_PUBLIC_KEY,
-        key: "pk_test_3319daf09404682ea805ac89a163ff5499a14d03",
+        key: this.$config.PAYSTACK_PUBLIC_KEY,
         email: this.submittedData?.email,
         amount: this.nairaToKobo(this.submittedData?.totalPrice),
         // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
@@ -361,7 +360,7 @@ export default {
             headers: headers,
           }
         );
-        
+
         if (response.status === 201 || response.status === 200) {
           this.invoiceData = response.data.data
           this.isPaid = true;
