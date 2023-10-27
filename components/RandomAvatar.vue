@@ -1,5 +1,5 @@
 <template>
-  <div class="random-avatar" :class="buttonClasses" :style="avatarStyle">
+  <div class="random-avatar" :class="buttonClasses" >
     {{ initials }}
   </div>
 </template>
@@ -23,14 +23,14 @@ export default {
         firstName.charAt(0).toUpperCase()
       );
     },
-    avatarStyle() {
-      const fontColor = [179, 143, 0];
-      const backgroundColor = `rgba(${fontColor.join(",")}, 0.3)`;
-      return {
-        color: `rgb(${fontColor.join(",")})`,
-        backgroundColor,
-      };
-    },
+    // avatarStyle() {
+    //   const fontColor = [179, 143, 0];
+    //   const backgroundColor = `rgba(${fontColor.join(",")}, 0.3)`;
+    //   return {
+    //     color: `rgb(${fontColor.join(",")})`,
+    //     backgroundColor,
+    //   };
+    // },
     buttonClasses() {
       return {
         // Button size
@@ -67,6 +67,8 @@ export default {
   letter-spacing: -0.2px;
   border-radius: 50%;
   /* color: rgb(179, 143, 0); */
+  background: var(--orange-orange-500, #E54120);
+
 }
 
 .random-avatar.big {
