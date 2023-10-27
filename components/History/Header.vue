@@ -127,6 +127,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 40px;
   padding: 0px;
   gap: 16px;
   position: relative;

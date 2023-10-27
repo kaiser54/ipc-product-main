@@ -1,3 +1,34 @@
+@font-face {
+  font-family: "GraphikMedium";
+  src: url("../fonts/Graphik-Font-Family/GraphikMedium.otf");
+
+}
+
+@font-face {
+  font-family: "GraphikBold";
+  src: url("../fonts/Graphik-Font-Family/GraphikBold.otf");
+}
+
+@font-face {
+  font-family: "GraphikLight";
+  src: url("../fonts/Graphik-Font-Family/GraphikLight.otf");
+}
+
+@font-face {
+  font-family: "GraphikExtraLight";
+  src: url("../fonts/Graphik-Font-Family/GraphikExtralight.otf");
+}
+
+@font-face {
+  font-family: "GraphikRegular";
+  src: url("../fonts/Graphik-Font-Family/GraphikRegular.otf");
+}
+
+@font-face {
+  font-family: "GraphikSemibold";
+  src: url("../fonts/Graphik-Font-Family/GraphikSemibold.otf");
+}
+
 :root {
   --animate-duration: 150ms !important;
   --animate-delay: 0.2s !important;
@@ -7,7 +38,8 @@
 :root {
   --white: #fff;
 
-  --primary-p50: #e6e6f7;
+  --primary-p25: #F1FBF2;
+  --primary-p50: #E8F8E9;
   --primary-p75: #969ae0;
   --primary-p100: #6b70d3;
   --primary-p200: #2b33c0;
@@ -57,9 +89,9 @@
   --negative-n75: #ffafa9;
   --negative-n100: #ff8d85;
   --negative-n200: #ff5c51;
-  --negative-n300: #ff3b2d;
-  --negative-n400: #b3291f;
-  --negative-n500: #9c241b;
+  --negative-n300: #D42620;
+  --negative-n400: #941B16;
+  --negative-n500: #811714;
 
   /* --positive-p50: #e9f7e7; */
   --positive-p50: #E6F8EF;
@@ -90,6 +122,11 @@
 /* text styles from ipc typography system */
 :root {
   --new-primary-font:'Inter', sans-serif;
+  --graphikMedium: "GraphikMedium", sans-serif;
+  --graphikRegular: "GraphikRegular", sans-serif;
+  --graphikLight: "GraphikLight", sans-serif;
+  --graphikBold: "GraphikBold", sans-serif;
+  --graphikSemibold: "GraphikSemibold", sans-serif;
   --font-Extralight: "GeneralSans-Extralight";
   --font-ExtralightItalic: "GeneralSans-ExtralightItalic";
   --font-Light: "GeneralSans-Light";
@@ -266,7 +303,7 @@ button {
 
   transition: 0.3s;
 
-  font-family: var(--new-primary-font);
+  font-family: var(--graphikSemibold) ;
 }
 
 /* styles for the primary buutton */
@@ -275,10 +312,8 @@ button {
   padding: 16px 24px;
   gap: 8px;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-
-
+  font-size: 18px;
+  line-height: 18px;
 
   height: 48px;
 
@@ -291,8 +326,8 @@ button {
   padding: 8px 12px;
   gap: 8px;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 14px;
 
   height: 32px;
 

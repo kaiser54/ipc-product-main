@@ -266,10 +266,10 @@
     <section class="dashboard-profile">
       <div class="profile-content">
         <div class="avatar">
-          <RandomAvatar :name="`${user?.firstName} ${user?.lastName}`" />
+          <RandomAvatar :name="`${user?.firstName}`" />
         </div>
         <div class="profile-details">
-          <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
+          <p class="name">{{ user.firstName.toLowerCase() }} {{ initials}}.</p>
           <p class="email truncate">{{ user.email }}</p>
         </div>
       </div>
@@ -279,6 +279,7 @@
 
 <script>
 export default {
+
   props: {
     showPopup: {
       type: Boolean,
@@ -290,6 +291,14 @@ export default {
     },
   },
   computed: {
+    initials() {
+      const [lastName] = this.user.lastName.trim().split(" ");
+      return (
+        lastName.charAt(0).toLowerCase()
+        
+      );
+      
+    },
   },
   methods: {
     togglePopup() {
@@ -298,6 +307,7 @@ export default {
     logoutUser() {
       this.$emit("update:logout", !this.logout);
     },
+ 
   },
 };
 </script>
@@ -423,7 +433,7 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 16px;
+  gap: 8px;
 
   max-width: 205px;
 }
@@ -457,10 +467,10 @@ export default {
 
 .profile-details .name {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   /* identical to box height, or 150% */
-
+  font-family: var(--graphikSemibold) ;
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
@@ -468,10 +478,10 @@ export default {
 
 .profile-details .email {
   font-weight: 400;
-  font-size: 12px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 21px;
   /* identical to box height, or 200% */
-
+  font-family: Inter;
   /* Grey/Grey3 */
 
   color: var(--grey-grey3);
