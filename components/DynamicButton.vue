@@ -83,9 +83,9 @@ button.standard {
   gap: 8px;
   flex-shrink: 0;
 
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 18px;
 }
 button.small {
   display: flex;
@@ -96,9 +96,9 @@ button.small {
   gap: 8px;
   flex-shrink: 0;
 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 14px;
 }
 button.primary {
   color: var(--white, #fff);
@@ -113,68 +113,73 @@ button.primary:active {
   background-color: var(--new-primary-p500);
 }
 button.primary:disabled {
-  background-color: var(--primary-p75);
+  background-color: var( --grey-grey4);
 }
 button.secondary {
-  color: var(--primary-p-300, #0009b3);
-  border: 1px solid var(--primary-p75, #969ae0);
+  color: var(--primary-p300);
+  background-color: transparent;
 }
 button.secondary:hover {
-  background-color: var(--primary-p50);
+  background-color: var(--primary-p25);
+  color: var(--primary-p300);
 }
 button.secondary:active,
 button.secondary:focus {
-  background-color: var(--primary-p75);
+  background-color: var(--primary-p50);
+  color: var(--primary-p300);
 }
 
 button.secondary:disabled {
-  border-color: var(--primary-p100);
-  color: var(--primary-p100);
-  background-color: var(--white);
+  color: var(--grey-grey4);
+  background-color: transparent;
 }
 button.ghost {
-  color: var(--primary-p-300, #0009b3);
+  color: var(--grey-grey1);
+  background-color: transparent;
 }
 button.ghost:hover {
-  color: var(--primary-p400);
+  color: var(--grey-grey1);
+  background-color: var(--grey-grey6);
 }
 button.ghost:active,
 button.ghost:focus {
-  color: var(--primary-p500);
+  color: var(--grey-grey1);
+  background-color: var(--grey-grey5);
 }
 
 button.ghost:disabled {
-  color: var(--primary-p100);
+  color: var(--grey-grey4);
+  background-color: white;
+  border: 1px solid var(--grey-grey6);
 }
 
 button.neutral {
-  color: var(--grey-grey-1, #303237);
-  border: 1px solid var(--grey-grey4, #bdc0ce);
-  background: var(--white, #fff);
+  color: var(--grey-grey1);
+  border: 1px solid var(--grey-grey5);
+  background: var(--white);
   /* Neutral Button shadow */
-  box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.1),
-    0px 2px 0px 0px rgba(234, 234, 234, 0.25) inset;
+  /* box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.1),
+    0px 2px 0px 0px rgba(234, 234, 234, 0.25) inset; */
+  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.10);
 }
 
 button.neutral:hover {
   background-color: var(--grey-grey6);
-  border: 1px solid var(--grey-grey6);
 }
 
 button.neutral:active,
 button.neutral:focus {
   background-color: var(--grey-grey5);
-  border: 1px solid var(--grey-grey5);
 }
 
 button.neutral:disabled {
   color: var(--grey-grey4);
   background-color: var(--white);
-  border: 1px solid var(--grey-grey4);
+  border: 1px solid var(--grey-grey6);
 }
 button.negative {
   color: var(--white, #fff);
-  background: var(--negative-n-300, #ff3b2d);
+  background: var(--negative-n300);
 }
 button.negative:hover {
   background-color: var(--negative-n400);
@@ -186,7 +191,7 @@ button.negative:focus {
 }
 
 button.negative:disabled {
-  background-color: var(--negative-n75);
+  background-color: var(--grey-grey4);
 }
 button.icon-right {
   flex-direction: row;

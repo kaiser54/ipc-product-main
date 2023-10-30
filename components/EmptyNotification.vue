@@ -65,7 +65,7 @@
         color: var(--grey-grey-1-base, #303237);
 
 /* H3/Heading 3 Small Medium */
-font-family: Switzer;
+font-family: var(--new-primary-font);
 font-size: 20px;
 font-style: normal;
 font-weight: 500;
@@ -77,7 +77,7 @@ letter-spacing: -0.5px;
 text-align: center;
 width: 253px;
 /* Body Small/Body Small Regular */
-font-family: Switzer;
+font-family: var(--new-primary-font);
 font-size: 14px;
 font-style: normal;
 font-weight: 400;

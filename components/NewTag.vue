@@ -60,7 +60,7 @@
   }
   
   .tag-container span {
-    font-family: var(--primary-font);
+    font-family: var(--new-primary-font);
     padding: 0px;
     margin: 0px;
   }

@@ -196,7 +196,8 @@
               @click="addProductToCart"
               v-if="!isInCart"
             >
-              Add to cart
+            <p v-if="!loader" class="btn primary-btn" >Add to cart</p>
+              <span class="loader" v-if="loader"></span>
             </button>
 
             <!-- -------------------------------- -->
@@ -228,7 +229,7 @@
               </div>
               <span class="loader" v-if="cartLoading"></span>
 
-              <button @click="addProductToCart" class="circle">
+              <button @click="increaseQuantity" class="circle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -291,7 +292,7 @@
         </div>
         <span class="loader" v-if="cartLoading"></span>
 
-        <button @click="addProductToCart" class="circle">
+        <button @click="increaseQuantity" class="circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -359,7 +360,7 @@ export default {
     return {
       pageTitle: "Gosource | Market",
       mobile: false,
-      productId: null,
+      productId: this.product ? this.product._id : "",
       productTitle: null,
       fakeProduct: {},
       productDetails: {},
@@ -369,6 +370,8 @@ export default {
       loading: true,
       isLiked: false,
       loader: false,
+      cartId: "",
+      quantity: 0,
     };
   },
   head() {
@@ -387,13 +390,16 @@ export default {
     },
     getProductQuantity() {
       if (this.isInCart) {
-        ("In cart:", this.isInCart);
-        ("Cart:", this.cart);
         const cartItem = this.cart.find(
-          (item) => item.product._id === this.currentPage
+          (c) => c.productId === this.product._id
         );
-        ("CartItem:", cartItem);
-        return cartItem ? cartItem.quantity : 0;
+
+        if (cartItem) {
+          this.cartId = cartItem._id;
+          return cartItem.quantity;
+        } else {
+          return 0;
+        }
       } else {
         return 0;
       }
@@ -486,19 +492,29 @@ export default {
       this.productImage = index;
     },
     addProductToCart() {
+      this.loader = true;
+      this.addToCart(this.product).then(() => {
+        this.loader = false;
+      });
+      console.log('yo')
+    },
+    increaseQuantity() {
+      // console.log("this.cartid", this.cartId)
       const e = {
-        productId: this.productDetails._id,
+        productId: this.cartId,
       };
-      this.loader = true; // Show the loader when adding to cart
+      this.loader = true;
       this.increaseItem(e).then(() => {
-        this.loader = false; // Hide the loader after adding to cart
+        this.loader = false;
       });
     },
     decrementQuantity() {
-      this.loader = true; // Show the loader when adding to cart
-      this.reduceQuantity(this.productDetails).then(() => {
-        this.loader = false; // Hide the loader after adding to cart
-      });
+      if (this.getProductQuantity > 1) {
+        this.loader = true;
+        this.reduceQuantity(this.cartId).then(() => {
+          this.loader = false;
+        });
+      }
     },
     toggleLike() {
       // Method logic goes here
@@ -510,7 +526,16 @@ export default {
 </script>
 
 <style scoped>
-
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--#07B463);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 @media (max-width: 950px) {
   .user-details-component {
     height: auto;
@@ -789,13 +814,13 @@ p.product-details-snippet {
   color: #fff;
 }
 
-.nuxt-link-active .desktop-nav svg {
+/* .nuxt-link-active .desktop-nav svg {
   stroke: #fff;
 }
 
 .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
-}
+} */
 
 @media (min-width: 950px) {
   .goTop {

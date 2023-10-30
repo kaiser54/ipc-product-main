@@ -185,7 +185,7 @@ export default {
   width: 100%;
 }
 label {
-  font-family: "DM Sans";
+  font-family: var(--new-primary-font);
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

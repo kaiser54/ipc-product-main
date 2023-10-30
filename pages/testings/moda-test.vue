@@ -35,7 +35,7 @@ export default {
 }
 
 body {
-  font-family: "montserrat", sans-serif;
+  font-family: var(--new-primary-font);
 }
 
 #app {

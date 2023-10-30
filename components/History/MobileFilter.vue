@@ -276,13 +276,10 @@ p.snippet {
 }
 
 .tab.clicked {
-  /* Accent/A75 */
-  background: var(--accent-a75);
-  /* Accent/A200 */
+  background: var(--secondary-s50);
 
-  border: 1px solid var(--accent-a200);
+  border: 1px solid var(--secondary-s300);
 }
-
 .button-grp {
   display: flex;
   flex-direction: row;
@@ -347,7 +344,7 @@ p.snippet {
 input[type="date"] {
   color: var(--grey-grey-1, #303237);
   font-size: 10.5px;
-  font-family: DM Sans;
+  fornt-family : var(--new-primary-font);
   text-transform: uppercase;
   font-weight: 500;
   line-height: 18px;
