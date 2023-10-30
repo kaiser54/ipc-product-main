@@ -431,6 +431,7 @@ a {
 
   .image {
     width: 43px;
+    max-height: 43px;
   }
   .order-content .title {
     max-width: 150px;
