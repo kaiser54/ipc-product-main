@@ -259,7 +259,7 @@ p.header {
 
   /* Body Large/Body Large Medium */
   font-size: 16px;
-  fornt-family : var(--new-primary-font);
+  font-family : var(--new-primary-font);
   font-weight: 500;
   line-height: 24px;
 }
