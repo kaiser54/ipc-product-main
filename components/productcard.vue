@@ -45,7 +45,7 @@
 
       <div class="productcard-details">
         <div class="productcard-name text-container">
-          <p>{{ product.name }} | {{ product.unit }}</p>
+          <p>{{ product.name }}  {{ product.unit || "" }}</p>
         </div>
         <div class="productcard-price">
           <p>
