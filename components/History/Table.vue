@@ -13,7 +13,7 @@
           <td style="display: flex; align-items: center; gap: 5px">
             <div class="img" v-for="(image, index) in getProductImages(item.products)" :key="index">
               <!-- {{ image.url }} -->
-              <img :src="image.url" alt="product Image" />
+              <img :src="image?.url" alt="product Image" />
             </div>
             <span class="product-name">{{
               getProductNames(item.products)
@@ -23,7 +23,7 @@
           <td>{{ truncateId(item._id, 7) }}</td>
           <td>{{ calculateTotalProductQuantity(item.products) }}</td>
           <td><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item.products)) }}</td>
-          <td style="text-align: -webkit-right">
+          <td style="text-align: -webkit-center">
             <DynamicTags
                 :tagText="item.status"
                 size="small"
@@ -140,17 +140,17 @@ export default {
 
         // Log the chosen products
         if (index < 3) {
-         
+          // (`Chosen Product ${index + 1}:`, product);
         }
 
         // Return the first image URL
         return productImages ? productImages[0] : product.product.images[0];
       });
 
-    
 
       return images;
     },
+
     calculateTotalProductQuantity(products) {
       if (Array.isArray(products) && products.length > 0) {
         // Sum the quantities of all products in the order
@@ -213,11 +213,15 @@ calculateTotalOrderPrice(products) {
 </script>
   
 <style scoped>
+
+ 
+
 table,
 th,
 td {
   border: none;
   border-collapse: collapse;
+
 }
 
 th,
@@ -227,6 +231,7 @@ td {
   padding-left: 30px;
   /* padding-right: 40px; */
   text-align: left;
+
 }
 
 th,
@@ -237,6 +242,7 @@ td {
 tr {
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+ 
 }
 
 tr:hover {

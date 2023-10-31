@@ -22,7 +22,14 @@
           <div class="order">Order id: {{ truncateId(item?._id, 7) }}</div>
         </div>
       </div>
-      <div class="price"><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item?.products)) }}</div>
+      <div class="tagged">
+        <div class="price"><span class="naira">₦</span> {{ formatPriceWithCommas(calculateTotalOrderPrice(item?.products)) }}</div>
+      <DynamicTags
+                :tagText="item.status"
+                size="micro"
+                :type="getTagType(item.status)"
+              />
+      </div>
     </div>
   </div>
 </template>
@@ -47,6 +54,23 @@ export default {
         "Status",
       ],
       tableDatas: [],
+      listSelect: [
+        {
+          title: "Order procesing",
+          type: "warning",
+          size: "small",
+        },
+        {
+          title: "Shipped",
+          type: "info",
+          size: "small",
+        },
+        {
+          title: "Delivered",
+          type: "positive",
+          size: "small",
+        },
+      ],
     };
   },
   methods: {
@@ -105,7 +129,17 @@ export default {
 
       return images;
     },
-
+    getTagType(status) {
+      if (status === "PROCESSING") {
+        return "warning";
+      } else if (status === "SHIPPED") {
+        return "info";
+      } else if (status === "DELIVERED") {
+        return "positive";
+      } else {
+        return ""; // Handle any other cases if needed
+      }
+    },
     getProductNames(products) {
       if (products.length === 0) {
         return "No products";
@@ -205,13 +239,24 @@ export default {
 }
 
 .price {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
   line-height: 21px;
+  font-style: normal;
+  font-family: var(--new-primary-font);
   /* identical to box height, or 150% */
 
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
+}
+.tagged{
+  /* border: 1px solid red; */
+  height: fit-content;
+  display: flex;
+  justify-content:center ;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 4px;
 }
 </style>

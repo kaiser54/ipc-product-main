@@ -38,6 +38,7 @@ export default {
       return {
         // Button size
         small: this.size === "small",
+        micro: this.size === "micro",
         standard: this.size === "standard",
         // Button type
         info: this.type === "info",
@@ -65,6 +66,22 @@ button {
   transition: 0.3s;
   width: auto;
 }
+button.micro {
+  display: inline-flex;
+  height: 18px;
+  padding: 4px 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  /* Body Micro/Body Micro Regular */
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px; /* 150% */
+}
 button.small {
   display: inline-flex;
   height: 24px;
@@ -78,7 +95,7 @@ button.small {
   /* Body Micro/Body Micro Regular */
   font-size: 12px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 18px; /* 150% */
 }
 button.standard {

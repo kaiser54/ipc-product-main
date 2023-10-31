@@ -242,10 +242,18 @@ export default {
 
   /* Grey/Grey4 */
 
-  border: 1px solid #bdc0ce;
+  background: var(--grey-grey6);
   border-radius: 100px;
 }
-
+.circle:hover{
+  background: var(--grey-grey6);
+}
+.circle:disabled{
+  border: 1px solid var(--grey-grey6);
+}
+.circle:active, .circle:focus{
+  background: var(--grey-grey5);
+}
 .snippet-tab {
   display: flex;
   flex-direction: column;

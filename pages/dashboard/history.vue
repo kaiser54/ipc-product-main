@@ -183,6 +183,7 @@ export default {
         const response = await this.$axios.get(`/orders/customer/${userId}`);
         this.verificationLoading = false;
         this.tableDatas = response?.data?.data?.orders;
+        console.log("tableData", this.tableDatas)
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
         this.tableDataClone = this.tableData;
