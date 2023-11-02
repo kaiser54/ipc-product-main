@@ -139,7 +139,7 @@ export default {
     gap: 4px;
     flex-direction: column;
     /* border: 1px solid red; */
-    height: 66%;
+    height: 6%;
 }
 
 .circle {
