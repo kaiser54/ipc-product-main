@@ -81,7 +81,8 @@ export default {
 .datepicker-toggle-button {
   max-width: 160px;
   height: 48px;
-
+  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.10);
+  padding: 16px;
   /* White */
 
   background: var(--white);
