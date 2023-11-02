@@ -66,7 +66,7 @@
         >
       </div>
       <div class="client-frame">
-        <span>service charge</span
+        <span>Service charge</span
         ><span class="bold"
           >₦ {{ formatPriceWithCommas(serviceCharge) }}</span
         >
