@@ -45,7 +45,7 @@
 
       <div class="productcard-details">
         <div class="productcard-name text-container">
-          <p>{{ product.name }}  {{ product.unit || "" }}</p>
+          <p>{{ product.name }} {{ displayUnit }}</p>
         </div>
         <div class="productcard-price">
           <p>
@@ -155,6 +155,13 @@ export default {
   },
   computed: {
     ...mapState("cart", ["favorites", "cartLoading", "cart"]),
+    displayUnit() {
+      if (this.product.unit === undefined || this.product.unit === "undefined") {
+        return '';
+      } else {
+        return this.product.unit;
+      }
+    },
     isLiked: {
       get() {
         const productIdToCheck = this.productId;

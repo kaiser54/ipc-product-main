@@ -80,7 +80,7 @@
 
           <div class="product-details-title">
             <h3 class="h3-small-medium">
-              {{ productDetails?.name }}
+              {{ productDetails?.name }} {{ displayUnit }}
             </h3>
             <p class="product-details-brand">
               Brand: <span>{{ productDetails?.brand }}</span>
@@ -146,7 +146,7 @@
               <!-- product title, brand name and like button -->
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
-                  {{ productDetails?.name }}
+                  {{ productDetails?.name }}  {{ displayUnit }}
                 </h3>
                 <p class="product-details-brand">
                   Brand: <span>{{ productDetails?.brand }}</span>
@@ -387,6 +387,14 @@ export default {
       return this.cart.some(
         (cartItem) => cartItem.product._id === this.currentPage
       );
+      
+    },
+    displayUnit() {
+      if (this.productDetails.unit === undefined || this.productDetails.unit === "undefined") {
+        return '';
+      } else {
+        return this.productDetails.unit;
+      }
     },
     getProductQuantity() {
       if (this.isInCart) {
