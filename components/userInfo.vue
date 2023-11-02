@@ -65,6 +65,12 @@
           >₦ {{ formatPriceWithCommas(data.deliveryFee) }}</span
         >
       </div>
+      <div class="client-frame">
+        <span>service charge</span
+        ><span class="bold"
+          >₦ {{ formatPriceWithCommas(serviceCharge) }}</span
+        >
+      </div>
       <div class="client-frame total">
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
         <span>Total</span
@@ -96,7 +102,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
+    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice", "serviceCharge"]),
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
