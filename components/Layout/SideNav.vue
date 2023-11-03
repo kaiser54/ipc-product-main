@@ -46,7 +46,6 @@
               justify-content: center;
               align-items: center;
               gap: 10px;
-              /* font-family: Inter; */
               font-size: 10px;
               font-style: normal;
               font-weight: 500;
@@ -481,7 +480,7 @@ export default {
   font-size: 14px;
   line-height: 21px;
   /* identical to box height, or 200% */
-  font-family: Inter;
+  font-family: var(--new-primary-font);
   /* Grey/Grey3 */
 
   color: var(--grey-grey3);
