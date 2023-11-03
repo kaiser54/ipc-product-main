@@ -137,6 +137,12 @@
               # {{ formatPriceWithCommas(orders?.order?.deliveryFee || 0) }}
             </p>
           </div>
+          <div class="flex items-center justify-between">
+            <p class="text-[#565C69] text-xs">Service charge</p>
+            <p class="text-sm text-[#303237] font-medium td-img">
+              # {{ formatPriceWithCommas(orders?.order?.serviceCharge || 0) }}
+            </p>
+          </div>
         </div>
         <div
           class="border-b border-b-[#E5E7EF] flex items-center justify-between py-5"

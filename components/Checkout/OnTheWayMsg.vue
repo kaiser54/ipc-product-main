@@ -62,7 +62,7 @@ export default {
   padding: 0px;
   gap: 32px;
 
-  max-width: 446px;
+  max-width: 476px;
   width: 100%;
   margin-inline: auto;
 }

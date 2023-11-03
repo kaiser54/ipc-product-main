@@ -389,6 +389,7 @@ export default {
 <style scoped>
 .empty-state {
   margin-top: -100px;
+  margin-inline: auto;
 }
 a {
   width: 100%;
