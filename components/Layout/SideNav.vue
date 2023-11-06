@@ -164,7 +164,7 @@
 
         <div class="popup" v-if="showPopup" ref="popup" @click="togglePopup">
            <nuxt-link to="/dashboard/saved-items">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
   <path d="M13.3333 7.49168V16.9584C13.3333 18.1667 12.4666 18.675 11.4083 18.0917L8.1333 16.2667C7.7833 16.075 7.21662 16.075 6.86662 16.2667L3.59162 18.0917C2.53329 18.675 1.66663 18.1667 1.66663 16.9584V7.49168C1.66663 6.06668 2.83328 4.90002 4.25828 4.90002H10.7416C12.1666 4.90002 13.3333 6.06668 13.3333 7.49168Z" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -174,14 +174,14 @@
 </svg>
                 <p>Saved items</p> 
 
-         <!-- <div class="badge" v-if="savedItem.length > 0">
+      <!-- <div class="badge" v-if="savedItem.length > 0">
                   <p>{{ getCartLength }}</p>
                 </div>  -->
           </div>
             </div>
           </nuxt-link> 
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -203,7 +203,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M6.66663 1.66663V4.16663" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
@@ -224,7 +224,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -243,7 +243,7 @@
             </div>
           </nuxt-link>
           <a class="cursor" @click="logoutUser">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M14.5333 12.1833L16.6667 10.05L14.5333 7.91663" stroke="#D42620" stroke-width="1.5"
@@ -384,17 +384,15 @@ export default {
   align-items: flex-start;
   gap: 4px;
   padding: 16px 0px;
-
   position: absolute;
   width: 278px;
   /* height: 168px; */
   left: 0px;
   top: 255px;
   background: var(--white);
-  box-shadow: 0px 1px 12px 0px rgba(0, 6, 125, 0.20);
-
-  filter: drop-shadow(0px 1px 12px rgba(0, 6, 125, 0.2));
+  box-shadow: 0px 20px 24px 0px rgba(71, 83, 103, 0.15);
   border-radius: 16px;
+  border: 1px solid var(--grey-grey5);
   z-index: 12;
 }
 
@@ -406,11 +404,12 @@ export default {
   cursor: pointer;
 }
 
-.popup .ddesktop-nav:hover {
-  background: var(--grey-grey2)
+.popup .pop-desktop-nav:hover {
+  background: var(--grey-grey6);
+  border-radius:0px;
 }
 
-.popup .desktop-nav {
+.popup .pop-desktop-nav {
   border-radius: 0px;
 }
 

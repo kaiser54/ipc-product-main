@@ -406,13 +406,13 @@ a {
 }
 
 .productcard-details {
+  min-height:76px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
   padding: 0px;
   gap: 4px;
-
+  /* justify-content: space-between; */
   width: 100%;
   /* max-width: 206px; */
   /* height: 76px; */
