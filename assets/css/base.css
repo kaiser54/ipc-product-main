@@ -583,7 +583,7 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 16px;
+  padding: 16px;
   gap: 8px;
   outline: none;
 
@@ -591,12 +591,10 @@ button {
   width: 100%;
 
   /* White */
-
   background: var(--white);
-  /* Grey/Grey4 */
-
-  border: 1px solid var(--grey-grey4);
-  border-radius: 8px;
+  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.05);
+  border: 1px solid var(--grey-grey5);
+  border-radius: 12px;
 }
 
 .input-search {
@@ -614,9 +612,8 @@ button {
   height: 48px;
 
   /* Grey/Grey6 */
-
   background: var(--grey-grey6);
-  border-radius: 8px;
+  border-radius: 100px;
   transition: all 0.2s ease-in;
 }
 
@@ -643,18 +640,23 @@ button {
 }
 
 .input:hover {
-  border-color: var(--grey-grey3);
+  border-color: var(--new-primary-p300);
 }
 
 .input:active,
 .input:focus {
   border-color: var(--new-primary-p300);
+  background-color: var(--white);
+  box-shadow: 0px 0px 0px 2px #E8F8E9;
+
+
 }
 
 .input:disabled {
   background: var(--grey-grey5);
-  border-color: var(--grey-grey5);
-  border-radius: 4px;
+  /* border-color: var(--grey-grey5); */
+  border-radius: 12px;
+
 }
 
 .input-error {
@@ -662,7 +664,7 @@ button {
   /* Negative/N300 */
 
   border: 1px solid var(--negative-n300);
-  border-radius: 4px;
+  border-radius: 12px;
 }
 
 .error {
