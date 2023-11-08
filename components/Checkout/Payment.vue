@@ -7,7 +7,7 @@
         :class="{ clicked: selectedItem === item.value }"
         v-for="(item, index) in listSelect"
         :key="index"
-        @click="selectItem(item.value)"
+        @click="selectItem(item)"
       >
         <label>
           <input
@@ -44,16 +44,16 @@
         <div class="list-select-header">
           <div class="img__title">
             <p class="title">{{ item.title }}</p>
-            <div class="img" v-if="item.images.length > 0">
+            <!-- <div class="img" v-if="item.images.length > 0">
               <img
                 :src="`/${image}`"
                 alt=""
                 v-for="(image, index) in item.images"
                 :key="index"
               />
-            </div>
+            </div> -->
           </div>
-          <p class="snippet">{{ item.snippet }}</p>
+          <!-- <p class="snippet">{{ item.snippet }}</p> -->
         </div>
       </div>
     </div>
@@ -63,8 +63,11 @@
       </template>
       <template v-slot:delivery>
         <div class="delivery__time">
-          <div class="delivery">Estimated delivery time</div>
-          <div class="time">24hours</div>
+          <div class="delivery">
+            Your items will be delivered to you in 24hours. If there will be any
+            delay in some order items, we’ll contact you immediately
+          </div>
+          <!-- <div class="time">24hours</div> -->
         </div>
       </template>
     </userInfo>
@@ -86,30 +89,24 @@ export default {
       listSelect: [
         {
           title: "Pay with Card / USSD / Transfer",
-          snippet:
-            "Our secure payment gateway enables you to conveniently pay for your purchases using your credit or debit card.",
           value: "CARD",
           route: "/business",
-          images: ["paystack.png"],
         },
-        // {
-        //   title: "Pay on delivery",
-        //   snippet:
-        //     "Kindly take note that payment must be made prior to opening your package. Once the seal is broken, returns will only be accepted in the event that the item is damaged, defective, or contains missing parts.",
-        //   value: "CASH",
-        //   route: "/individual",
-        //   images: [],
-        // },
+        {
+          title: "Purchase on credit",
+          value: "CREDIT",
+          route: "/individual",
+        },
       ],
     };
   },
   methods: {
-    selectItem(value) {
-      this.selectedItem = value;
+    selectItem(item) {
+      this.selectedItem = item.value;
+      this.data.paymentMethod = item.value
     },
     submitForm() {
-      this.$emit("lastStep");
-      this.$set(this.data, "paymentMethod", this.selectedItem); // Add the number to the object
+      this.$emit("lastStep", this.data);
       window.scrollTo({
         top: 0,
         behavior: "smooth", // Optional: Add smooth scrolling effect
@@ -135,17 +132,18 @@ export default {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  width: 100%;
 }
 
 .list-select {
   cursor: default;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px;
   gap: 16px;
   max-width: 491px;
-  min-height: 127px;
+  /* min-height: 127px; */
 
   /* White */
 
@@ -154,6 +152,11 @@ export default {
 
   border: 1px solid var(--grey-grey4);
   border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.list-select label {
+  margin-bottom: 0 !important;
 }
 
 button:disabled {
@@ -162,12 +165,13 @@ button:disabled {
 
 .clicked,
 .list-select:hover {
-  background: var(--accent-a50);
-  border: 1px solid var(--accent-a75);
+  border-radius: 12px;
+  border: 1px solid var(--primary-p-300-base, #19b820);
+  background: var(--primary-p-25, #f1fbf2);
 }
 
 .clicked svg rect {
-  stroke: var( --new-primary-p300) !important;
+  stroke: #19b820 !important;
 }
 
 .list-select-header {
@@ -235,6 +239,16 @@ svg circle {
 }
 .bottom {
   margin-bottom: 70px;
+}
+.delivery__time {
+    display: flex;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 12px;
+    border-radius: 12px;
+    background: #fbeee6;
+    background: var(--warning-w-50, #fbeee6);
+    border: none;
 }
 @media (max-width: 950px) {
   .list-select {

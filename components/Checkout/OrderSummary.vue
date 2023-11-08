@@ -9,8 +9,12 @@
       </template>
       <template v-slot:delivery>
         <div class="delivery__time">
-          <div class="delivery">Estimated delivery time</div>
-          <div class="time">24hours</div>
+          <div class="delivery">
+            Your items will be delivered to you in 24hours. If there will be any
+            delay in some order items, we’ll contact you immediately
+          </div>
+          <!-- <div class="delivery">Estimated delivery time</div> -->
+          <!-- <div class="time">24hours</div> -->
         </div>
       </template>
       <template v-slot:email>
@@ -120,7 +124,7 @@
     
   <script>
 export default {
-  props: ['data'],
+  props: ["data"],
   data() {
     return {
       email: "",
@@ -152,7 +156,6 @@ export default {
       }
     },
   },
-
 };
 </script>
   
@@ -160,5 +163,23 @@ export default {
 <style scoped>
 .bottom {
   margin-bottom: 70px;
+}
+
+.delivery__time {
+  display: flex;
+  padding: 16px;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 12px;
+  background: var(--warning-w-50, #fbeee6);
+  border: none;
+}
+.delivery__time .delivery {
+  color: var(--grey-grey-1-base, #101928);
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px; /* 150% */
 }
 </style>

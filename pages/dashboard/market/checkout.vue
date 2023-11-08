@@ -82,7 +82,7 @@
                 ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
               </p>
             </div>
-            <div class="__price">
+            <div class="__price" style="display: none">
               <p class="total">Total</p>
               <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
             </div>
@@ -232,12 +232,17 @@ export default {
         this.currentStep--;
       }
     },
-    async lastStep() {
+    async lastStep(data) {
       this.spinner = true;
-      this.payWithPaystack();
+      if (data.paymentMethod === "CARD") {
+        this.payWithPaystack(data);
+      } else {
+        this.ref = "PAYMENT IS MADE ON CREDIT"
+        this.submitForm(data);
+      }
     },
 
-    payWithPaystack() {
+    payWithPaystack(data) {
       this.ref = this.reference;
       this.spinner = true;
       const handler = PaystackPop.setup({
@@ -252,7 +257,7 @@ export default {
         callback: (response) => {
           const message = "Payment complete! Reference: " + response.reference;
           // alert(message);
-          this.submitForm();
+          this.submitForm(data);
         },
       });
       this.spinner = false;
@@ -264,11 +269,11 @@ export default {
       ("clicked");
     },
 
-    async submitForm() {
+    async submitForm(data) {
       this.spinner = true;
-      this.submittedData.reference = this.ref;
-      this.submittedData.serviceCharge = this.serviceCharge;
-      // alert("hello");
+      data.reference = this.ref;
+      data.serviceCharge = this.serviceCharge;
+      console.log(data);
 
       try {
         const headers = {
