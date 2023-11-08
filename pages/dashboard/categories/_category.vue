@@ -109,11 +109,11 @@ line-height: 24px; /* 150% */
 
 <style>
 .nuxt-link-active .desktop-nav {
-  background: var(--supporting-green-s-300);
+  background: var(--primary-p50) !important;
 }
 
 .nuxt-link-active .desktop-nav p {
-  color: #fff;
+  color: var(--supporting-green-s-300);
 }
 
 .first{

@@ -1,141 +1,60 @@
 <template>
   <div class="user__details__head__group">
-    <div
-      class="user__details__head__address udhs"
-      @click="$router.push('/dashboard/profile/profile-settings/address')"
-    >
+    <div class="user__details__head__address udhs" @click="$router.push('/dashboard/profile/profile-settings/address')">
       <div class="udh__svg__group">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
-            d="M6.03239 15.2873L12 22L17.9676 15.2873C22.5446 10.1388 18.8893 2 12 2C5.11068 2 1.45538 10.1388 6.03239 15.2873Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            d="M11.9999 13.43C13.723 13.43 15.1199 12.0331 15.1199 10.31C15.1199 8.58687 13.723 7.19 11.9999 7.19C10.2768 7.19 8.87988 8.58687 8.87988 10.31C8.87988 12.0331 10.2768 13.43 11.9999 13.43Z"
+            stroke="#344054" stroke-width="1.5" />
           <path
-            d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            d="M3.61995 8.49C5.58995 -0.169998 18.42 -0.159997 20.38 8.5C21.53 13.58 18.37 17.88 15.6 20.54C13.59 22.48 10.41 22.48 8.38995 20.54C5.62995 17.88 2.46995 13.57 3.61995 8.49Z"
+            stroke="#344054" stroke-width="1.5" />
         </svg>
         <p>Address details</p>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
-        <path
-          d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
-          stroke="#BDC0CE"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654" stroke="#BDC0CE" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
       </svg>
     </div>
     <div class="user__details__head__address udhs" @click="$emit('openMail')">
       <div class="udh__svg__group">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
-            d="M20 5H4C3.44772 5 3 5.44772 3 6V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V6C21 5.44772 20.5523 5 20 5Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M20 5.5L12 13L4 5.5"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            d="M8.5 19H8C4 19 2 18 2 13V8C2 4 4 2 8 2H16C20 2 22 4 22 8V13C22 17 20 19 16 19H15.5C15.19 19 14.89 19.15 14.7 19.4L13.2 21.4C12.54 22.28 11.46 22.28 10.8 21.4L9.3 19.4C9.14 19.18 8.77 19 8.5 19Z"
+            stroke="#344054" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M7 8H17" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M7 13H13" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <p>Verify email address</p>
       </div>
       <div class="verified__svg">
         <div class="logic__tag">
-          <div class="pending tag" v-if="!isVerified">Pending</div>
-          <div class="verified tag" v-else-if="isVerified">Verified</div>
+          <div class="pending tag-micro" v-if="!isVerified">Pending</div>
+          <div class="verified tag-micro" v-else-if="isVerified">Verified</div>
         </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-        >
-          <path
-            d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
-            stroke="#BDC0CE"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654" stroke="#BDC0CE" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
     </div>
-    <div
-      class="user__details__head__address udhs"
-      @click="$emit('changePassword')"
-    >
+    <div class="user__details__head__address udhs" @click="$emit('changePassword')">
       <div class="udh__svg__group">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M6 10V8C6 4.69 7 2 12 2C17 2 18 4.69 18 8V10" stroke="#344054" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" />
           <path
-            d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M7 11V7C7 4.23857 9.23858 2 12 2C14.7614 2 17 4.23857 17 7V11"
-            stroke="#565C69"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            d="M12 18.5C13.3807 18.5 14.5 17.3807 14.5 16C14.5 14.6193 13.3807 13.5 12 13.5C10.6193 13.5 9.5 14.6193 9.5 16C9.5 17.3807 10.6193 18.5 12 18.5Z"
+            stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M17 22H7C3 22 2 21 2 17V15C2 11 3 10 7 10H17C21 10 22 11 22 15V17C22 21 21 22 17 22Z" stroke="#344054"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <p>Change password</p>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
-        <path
-          d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654"
-          stroke="#BDC0CE"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M6.66675 3.33203L13.3334 9.9987L6.66675 16.6654" stroke="#BDC0CE" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
       </svg>
     </div>
     <!-- <nuxt-link
@@ -185,7 +104,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 import { mapState } from "vuex";
 export default {
   data() {
@@ -196,25 +115,25 @@ export default {
   computed: {
 
   },
-  mounted(){
+  mounted() {
     const userData = localStorage.getItem("user");
-        if (userData) {
-          this.user = JSON.parse(userData);
-          localStorage.setItem("userId", this.user._id);
-          localStorage.setItem("userEmail", this.user.email);
-          
-        } else {
-        }
+    if (userData) {
+      this.user = JSON.parse(userData);
+      localStorage.setItem("userId", this.user._id);
+      localStorage.setItem("userEmail", this.user.email);
+
+    } else {
+    }
     this.getUserDetails()
   },
-  methods:{
-    async getUserDetails(){
-      try{
+  methods: {
+    async getUserDetails() {
+      try {
         const response = await this.$axios.get(`/business-customers/${this.user._id}`)
         this.userProfile = response.data.data.customer
         this.userProfileStatus = response.data.data.customer.verified
         this.isVerified = this.userProfileStatus
-      }catch (error) {
+      } catch (error) {
         console.error("Error fetching data", error);
         return { responseData: null };
       }
@@ -223,7 +142,7 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
 .user__details__head__group {
   display: flex;
   flex-direction: column;
@@ -271,6 +190,7 @@ export default {
 
   color: #303237;
 }
+
 .verified__svg {
   display: flex;
   flex-direction: row;
@@ -278,9 +198,9 @@ export default {
   padding: 0px;
   gap: 8px;
 }
+
 .badge {
   position: inherit;
   margin-left: auto;
-}
-</style>
+}</style>
   

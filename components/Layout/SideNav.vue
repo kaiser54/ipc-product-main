@@ -57,15 +57,21 @@
         <nuxt-link to="/dashboard/market">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg class="first" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- <svg class="first" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path
-                  d="M13.4659 8.33398C13.4659 8.33398 13.3409 9.16732 10.7575 12.5007C8.33252 15.6423 11.8409 18.034 12.2576 18.309C12.2826 18.3257 12.3075 18.3257 12.3409 18.309C12.9075 17.959 19.2159 13.9007 13.4659 8.33398Z"
-                   />
+                  d="M13.4659 8.33398C13.4659 8.33398 13.3409 9.16732 10.7575 12.5007C8.33252 15.6423 11.8409 18.034 12.2576 18.309C12.2826 18.3257 12.3075 18.3257 12.3409 18.309C12.9075 17.959 19.2159 13.9007 13.4659 8.33398Z" />
                 <path
-                  d="M11.4665 6.49269C11.4665 4.57603 10.7165 2.82603 9.96649 1.82603C9.71649 1.57603 9.2998 1.65936 9.21647 1.99269C8.88314 3.24269 7.88314 5.90936 5.46647 9.07603C2.38314 13.076 5.21648 17.4094 8.13315 18.2427C9.71648 18.6594 7.71649 17.4094 7.46649 14.826C7.21649 11.576 11.4665 9.15936 11.4665 6.49269Z"
-                   />
+                  d="M11.4665 6.49269C11.4665 4.57603 10.7165 2.82603 9.96649 1.82603C9.71649 1.57603 9.2998 1.65936 9.21647 1.99269C8.88314 3.24269 7.88314 5.90936 5.46647 9.07603C2.38314 13.076 5.21648 17.4094 8.13315 18.2427C9.71648 18.6594 7.71649 17.4094 7.46649 14.826C7.21649 11.576 11.4665 9.15936 11.4665 6.49269Z" />
+              </svg> -->
+              <svg class="firstSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M13.5 8.33334C13.5 8.33334 13.3333 9.16668 10.8333 12.5C8.41667 15.6667 11.9167 18 12.3333 18.3333H12.4167C12.9167 17.9167 19.25 13.9167 13.5 8.33334Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M11.4999 6.49999C11.4999 4.58332 10.7499 2.83332 9.99992 1.83332C9.74992 1.58332 9.33326 1.66665 9.24992 1.99999C8.91659 3.24999 7.91659 5.91665 5.49992 9.08332C2.41659 13.0833 5.24992 17.4167 8.16659 18.25C9.74992 18.6667 7.74992 17.4167 7.49992 14.8333C7.24992 11.5833 11.4999 9.16665 11.4999 6.49999Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-
               <p>Market</p>
             </div>
           </div>
@@ -73,25 +79,35 @@
         <nuxt-link to="/dashboard/categories">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg class="second" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- <svg class="second" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M14.166 8.33464H15.8327C17.4993 8.33464 18.3327 7.5013 18.3327 5.83464V4.16797C18.3327 2.5013 17.4993 1.66797 15.8327 1.66797H14.166C12.4993 1.66797 11.666 2.5013 11.666 4.16797V5.83464C11.666 7.5013 12.4993 8.33464 14.166 8.33464Z"
-                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 <path
                   d="M4.16602 18.3346H5.83268C7.49935 18.3346 8.33268 17.5013 8.33268 15.8346V14.168C8.33268 12.5013 7.49935 11.668 5.83268 11.668H4.16602C2.49935 11.668 1.66602 12.5013 1.66602 14.168V15.8346C1.66602 17.5013 2.49935 18.3346 4.16602 18.3346Z"
-                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 <path
                   d="M4.99935 8.33464C6.8403 8.33464 8.33268 6.84225 8.33268 5.0013C8.33268 3.16035 6.8403 1.66797 4.99935 1.66797C3.1584 1.66797 1.66602 3.16035 1.66602 5.0013C1.66602 6.84225 3.1584 8.33464 4.99935 8.33464Z"
-                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 <path
                   d="M14.9993 18.3346C16.8403 18.3346 18.3327 16.8423 18.3327 15.0013C18.3327 13.1604 16.8403 11.668 14.9993 11.668C13.1584 11.668 11.666 13.1604 11.666 15.0013C11.666 16.8423 13.1584 18.3346 14.9993 18.3346Z"
-                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                  stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              </svg> -->
+              <svg class="secondSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M4.16675 8.33387H5.83341C7.50008 8.33387 8.33341 7.50054 8.33341 5.83387V4.16721C8.33341 2.50054 7.50008 1.66721 5.83341 1.66721H4.16675C2.50008 1.66721 1.66675 2.50054 1.66675 4.16721V5.83387C1.66675 7.50054 2.50008 8.33387 4.16675 8.33387Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M14.1667 8.33387H15.8334C17.5001 8.33387 18.3334 7.50054 18.3334 5.83387V4.16721C18.3334 2.50054 17.5001 1.66721 15.8334 1.66721H14.1667C12.5001 1.66721 11.6667 2.50054 11.6667 4.16721V5.83387C11.6667 7.50054 12.5001 8.33387 14.1667 8.33387Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M14.1667 18.3339H15.8334C17.5001 18.3339 18.3334 17.5005 18.3334 15.8339V14.1672C18.3334 12.5005 17.5001 11.6672 15.8334 11.6672H14.1667C12.5001 11.6672 11.6667 12.5005 11.6667 14.1672V15.8339C11.6667 17.5005 12.5001 18.3339 14.1667 18.3339Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M4.16675 18.3339H5.83341C7.50008 18.3339 8.33341 17.5005 8.33341 15.8339V14.1672C8.33341 12.5005 7.50008 11.6672 5.83341 11.6672H4.16675C2.50008 11.6672 1.66675 12.5005 1.66675 14.1672V15.8339C1.66675 17.5005 2.50008 18.3339 4.16675 18.3339Z"
+                  stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-
               <p>Categories</p>
             </div>
           </div>
@@ -99,18 +115,23 @@
         <nuxt-link to="/dashboard/track_orders">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg class="third" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <!-- <svg class="third" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                fill="none">
                 <path
-                  d="M16.8416 6.51711L10.4249 10.2338C10.1666 10.3838 9.8416 10.3838 9.57494 10.2338L3.15827 6.51711C2.69993 6.25044 2.58327 5.62544 2.93327 5.23377C3.17493 4.95877 3.44993 4.73377 3.7416 4.57544L8.25827 2.07544C9.22494 1.53377 10.7916 1.53377 11.7583 2.07544L16.2749 4.57544C16.5666 4.73377 16.8416 4.96711 17.0833 5.23377C17.4166 5.62544 17.2999 6.25044 16.8416 6.51711Z"
-                   />
+                  d="M16.8416 6.51711L10.4249 10.2338C10.1666 10.3838 9.8416 10.3838 9.57494 10.2338L3.15827 6.51711C2.69993 6.25044 2.58327 5.62544 2.93327 5.23377C3.17493 4.95877 3.44993 4.73377 3.7416 4.57544L8.25827 2.07544C9.22494 1.53377 10.7916 1.53377 11.7583 2.07544L16.2749 4.57544C16.5666 4.73377 16.8416 4.96711 17.0833 5.23377C17.4166 5.62544 17.2999 6.25044 16.8416 6.51711Z" />
                 <path
-                  d="M9.52507 11.7838V17.4671C9.52507 18.1005 8.8834 18.5171 8.31673 18.2421C6.60006 17.4005 3.7084 15.8255 3.7084 15.8255C2.69173 15.2505 1.8584 13.8005 1.8584 12.6088V8.3088C1.8584 7.65047 2.55007 7.2338 3.11673 7.5588L9.1084 11.0338C9.3584 11.1921 9.52507 11.4755 9.52507 11.7838Z"
-                  />
+                  d="M9.52507 11.7838V17.4671C9.52507 18.1005 8.8834 18.5171 8.31673 18.2421C6.60006 17.4005 3.7084 15.8255 3.7084 15.8255C2.69173 15.2505 1.8584 13.8005 1.8584 12.6088V8.3088C1.8584 7.65047 2.55007 7.2338 3.11673 7.5588L9.1084 11.0338C9.3584 11.1921 9.52507 11.4755 9.52507 11.7838Z" />
                 <path
-                  d="M10.4751 11.7838V17.4671C10.4751 18.1005 11.1168 18.5171 11.6834 18.2421C13.4001 17.4005 16.2918 15.8255 16.2918 15.8255C17.3084 15.2505 18.1418 13.8005 18.1418 12.6088V8.3088C18.1418 7.65047 17.4501 7.2338 16.8834 7.5588L10.8918 11.0338C10.6418 11.1921 10.4751 11.4755 10.4751 11.7838Z"
-                   />
+                  d="M10.4751 11.7838V17.4671C10.4751 18.1005 11.1168 18.5171 11.6834 18.2421C13.4001 17.4005 16.2918 15.8255 16.2918 15.8255C17.3084 15.2505 18.1418 13.8005 18.1418 12.6088V8.3088C18.1418 7.65047 17.4501 7.2338 16.8834 7.5588L10.8918 11.0338C10.6418 11.1921 10.4751 11.4755 10.4751 11.7838Z" />
+              </svg> -->
+              <svg class="thirdSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path d="M2.6416 6.20056L9.99994 10.4589L17.3083 6.22556" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M10 18.0089V10.4506" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M8.27503 2.06722L3.82503 4.53388C2.8167 5.09222 1.9917 6.49222 1.9917 7.64222V12.3505C1.9917 13.5005 2.8167 14.9005 3.82503 15.4589L8.27503 17.9339C9.22503 18.4589 10.7834 18.4589 11.7334 17.9339L16.1834 15.4589C17.1917 14.9005 18.0167 13.5005 18.0167 12.3505V7.64222C18.0167 6.49222 17.1917 5.09222 16.1834 4.53388L11.7334 2.05888C10.775 1.53388 9.22503 1.53388 8.27503 2.06722Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-
               <p>Track orders</p>
             </div>
           </div>
@@ -118,14 +139,26 @@
         <nuxt-link to="/dashboard/history">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg class="forth" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" >
-  <path d="M6.90845 5.24211C6.55845 5.24211 6.28345 4.95878 6.28345 4.61711V2.29211C6.28345 1.95045 6.55845 1.66711 6.90845 1.66711C7.25845 1.66711 7.53345 1.95045 7.53345 2.29211V4.60878C7.53345 4.95878 7.25845 5.24211 6.90845 5.24211Z" />
-  <path d="M13.0916 5.24211C12.7416 5.24211 12.4666 4.95878 12.4666 4.61711V2.29211C12.4666 1.94211 12.7499 1.66711 13.0916 1.66711C13.4416 1.66711 13.7166 1.95045 13.7166 2.29211V4.60878C13.7166 4.95878 13.4416 5.24211 13.0916 5.24211Z" />
-  <path d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" />
-  <path d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" />
-  <path d="M16.3083 3.75045C15.7583 3.34211 14.9666 3.73378 14.9666 4.42545V4.50878C14.9666 5.48378 14.2666 6.38378 13.2916 6.48378C12.1666 6.60045 11.2166 5.71711 11.2166 4.61711V3.75045C11.2166 3.29211 10.8416 2.91711 10.3833 2.91711H9.61659C9.15825 2.91711 8.78325 3.29211 8.78325 3.75045V4.50878C8.78325 5.24211 8.39159 5.92545 7.78325 6.25878C7.74992 6.28378 7.71659 6.30045 7.68325 6.31711C7.67492 6.31711 7.67492 6.32545 7.66658 6.32545C7.60825 6.35045 7.54992 6.37545 7.48325 6.40045C7.46658 6.40878 7.44992 6.40878 7.43325 6.41711C7.33325 6.45045 7.22492 6.47545 7.10825 6.48378H7.09992C6.97492 6.50045 6.84159 6.50045 6.71659 6.48378H6.70825C6.59159 6.47545 6.48325 6.45045 6.38325 6.41711C6.29992 6.39211 6.21659 6.35878 6.13325 6.31711C5.48325 6.02545 5.03325 5.37545 5.03325 4.61711V4.42545C5.03325 3.78378 4.34992 3.40045 3.80825 3.67545C3.79992 3.68378 3.79159 3.68378 3.78325 3.69211H3.77492C3.71659 3.73378 3.66659 3.77545 3.60825 3.81711C3.51659 3.89211 3.42492 3.96711 3.34159 4.05045C3.28325 4.10878 3.22492 4.16711 3.17492 4.22545C3.10825 4.29211 3.04992 4.35878 2.99159 4.43378C2.94992 4.48378 2.89992 4.53378 2.86659 4.59211C2.82492 4.64211 2.79159 4.70045 2.75825 4.75045C2.74992 4.75878 2.74159 4.76711 2.73325 4.78378C2.65825 4.89211 2.59159 5.01711 2.53325 5.13378C2.51659 5.15045 2.50825 5.15878 2.50825 5.17545C2.45825 5.27545 2.40825 5.37545 2.37492 5.48378C2.34992 5.52545 2.34159 5.55878 2.32492 5.60045C2.30825 5.63378 2.29992 5.67545 2.28325 5.70878C2.25825 5.79211 2.23325 5.88378 2.20825 5.97545C2.17492 6.09211 2.14992 6.21711 2.13325 6.34211C2.11659 6.43378 2.10825 6.52545 2.09992 6.62545C2.09159 6.74211 2.08325 6.85878 2.08325 6.97545V14.2754C2.08325 16.5171 3.89992 18.3338 6.14158 18.3338H10.1583C10.6166 18.3338 10.9916 17.9588 10.9916 17.5004V14.8838C10.9916 12.9671 12.5833 11.4088 14.5416 11.4088C14.9833 11.4004 16.0583 11.4004 17.0833 11.4004C17.5416 11.4004 17.9166 11.0254 17.9166 10.5671V6.97545C17.9166 5.65045 17.2833 4.49211 16.3083 3.75045ZM9.27492 13.2588C9.19992 13.5088 8.96659 13.6838 8.69159 13.6838H5.65825C5.61659 13.6838 5.58325 13.6838 5.54992 13.6671C5.24992 13.6254 5.03325 13.3671 5.03325 13.0588C5.03325 12.7088 5.30825 12.4254 5.65825 12.4254H8.69159C9.03325 12.4254 9.31659 12.7088 9.31659 13.0588C9.31659 13.1254 9.30825 13.2004 9.27492 13.2588ZM11.5916 10.1671C11.5166 10.4171 11.2833 10.5921 11.0083 10.5921H5.65825C5.61659 10.5921 5.58325 10.5921 5.54992 10.5754C5.24992 10.5338 5.03325 10.2754 5.03325 9.96711C5.03325 9.61711 5.30825 9.33378 5.65825 9.33378H11.0083C11.3583 9.33378 11.6333 9.61711 11.6333 9.96711C11.6333 10.0338 11.6249 10.1088 11.5916 10.1671Z" fill="white"/>
-</svg>
-
+              <!-- <svg class="forth" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M6.90845 5.24211C6.55845 5.24211 6.28345 4.95878 6.28345 4.61711V2.29211C6.28345 1.95045 6.55845 1.66711 6.90845 1.66711C7.25845 1.66711 7.53345 1.95045 7.53345 2.29211V4.60878C7.53345 4.95878 7.25845 5.24211 6.90845 5.24211Z" />
+                <path
+                  d="M13.0916 5.24211C12.7416 5.24211 12.4666 4.95878 12.4666 4.61711V2.29211C12.4666 1.94211 12.7499 1.66711 13.0916 1.66711C13.4416 1.66711 13.7166 1.95045 13.7166 2.29211V4.60878C13.7166 4.95878 13.4416 5.24211 13.0916 5.24211Z" />
+                <path
+                  d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" />
+                <path
+                  d="M17.9167 13.1838C17.9167 13.3088 17.875 13.4338 17.7667 13.5422C16.5584 14.7588 14.4084 16.9255 13.175 18.1672C13.0667 18.2838 12.925 18.3338 12.7834 18.3338C12.5084 18.3338 12.2417 18.1172 12.2417 17.8005V14.8838C12.2417 13.6672 13.275 12.6588 14.5417 12.6588C15.3334 12.6505 16.4334 12.6505 17.375 12.6505C17.7 12.6505 17.9167 12.9088 17.9167 13.1838Z" />
+                <path
+                  d="M16.3083 3.75045C15.7583 3.34211 14.9666 3.73378 14.9666 4.42545V4.50878C14.9666 5.48378 14.2666 6.38378 13.2916 6.48378C12.1666 6.60045 11.2166 5.71711 11.2166 4.61711V3.75045C11.2166 3.29211 10.8416 2.91711 10.3833 2.91711H9.61659C9.15825 2.91711 8.78325 3.29211 8.78325 3.75045V4.50878C8.78325 5.24211 8.39159 5.92545 7.78325 6.25878C7.74992 6.28378 7.71659 6.30045 7.68325 6.31711C7.67492 6.31711 7.67492 6.32545 7.66658 6.32545C7.60825 6.35045 7.54992 6.37545 7.48325 6.40045C7.46658 6.40878 7.44992 6.40878 7.43325 6.41711C7.33325 6.45045 7.22492 6.47545 7.10825 6.48378H7.09992C6.97492 6.50045 6.84159 6.50045 6.71659 6.48378H6.70825C6.59159 6.47545 6.48325 6.45045 6.38325 6.41711C6.29992 6.39211 6.21659 6.35878 6.13325 6.31711C5.48325 6.02545 5.03325 5.37545 5.03325 4.61711V4.42545C5.03325 3.78378 4.34992 3.40045 3.80825 3.67545C3.79992 3.68378 3.79159 3.68378 3.78325 3.69211H3.77492C3.71659 3.73378 3.66659 3.77545 3.60825 3.81711C3.51659 3.89211 3.42492 3.96711 3.34159 4.05045C3.28325 4.10878 3.22492 4.16711 3.17492 4.22545C3.10825 4.29211 3.04992 4.35878 2.99159 4.43378C2.94992 4.48378 2.89992 4.53378 2.86659 4.59211C2.82492 4.64211 2.79159 4.70045 2.75825 4.75045C2.74992 4.75878 2.74159 4.76711 2.73325 4.78378C2.65825 4.89211 2.59159 5.01711 2.53325 5.13378C2.51659 5.15045 2.50825 5.15878 2.50825 5.17545C2.45825 5.27545 2.40825 5.37545 2.37492 5.48378C2.34992 5.52545 2.34159 5.55878 2.32492 5.60045C2.30825 5.63378 2.29992 5.67545 2.28325 5.70878C2.25825 5.79211 2.23325 5.88378 2.20825 5.97545C2.17492 6.09211 2.14992 6.21711 2.13325 6.34211C2.11659 6.43378 2.10825 6.52545 2.09992 6.62545C2.09159 6.74211 2.08325 6.85878 2.08325 6.97545V14.2754C2.08325 16.5171 3.89992 18.3338 6.14158 18.3338H10.1583C10.6166 18.3338 10.9916 17.9588 10.9916 17.5004V14.8838C10.9916 12.9671 12.5833 11.4088 14.5416 11.4088C14.9833 11.4004 16.0583 11.4004 17.0833 11.4004C17.5416 11.4004 17.9166 11.0254 17.9166 10.5671V6.97545C17.9166 5.65045 17.2833 4.49211 16.3083 3.75045ZM9.27492 13.2588C9.19992 13.5088 8.96659 13.6838 8.69159 13.6838H5.65825C5.61659 13.6838 5.58325 13.6838 5.54992 13.6671C5.24992 13.6254 5.03325 13.3671 5.03325 13.0588C5.03325 12.7088 5.30825 12.4254 5.65825 12.4254H8.69159C9.03325 12.4254 9.31659 12.7088 9.31659 13.0588C9.31659 13.1254 9.30825 13.2004 9.27492 13.2588ZM11.5916 10.1671C11.5166 10.4171 11.2833 10.5921 11.0083 10.5921H5.65825C5.61659 10.5921 5.58325 10.5921 5.54992 10.5754C5.24992 10.5338 5.03325 10.2754 5.03325 9.96711C5.03325 9.61711 5.30825 9.33378 5.65825 9.33378H11.0083C11.3583 9.33378 11.6333 9.61711 11.6333 9.96711C11.6333 10.0338 11.6249 10.1088 11.5916 10.1671Z"
+                  fill="white" />
+              </svg> -->
+              <svg class="forthSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M5.60841 16.4172C6.29175 15.6839 7.33342 15.7422 7.93342 16.5422L8.77508 17.6672C9.45008 18.5589 10.5417 18.5589 11.2167 17.6672L12.0584 16.5422C12.6584 15.7422 13.7001 15.6839 14.3834 16.4172C15.8667 18.0006 17.0751 17.4756 17.0751 15.2589V5.86722C17.0834 2.50889 16.3001 1.66722 13.1501 1.66722H6.85008C3.70008 1.66722 2.91675 2.50889 2.91675 5.86722V15.2506C2.91675 17.4756 4.13341 17.9922 5.60841 16.4172Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.66675 5.83388H13.3334" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7.5 9.16722H12.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
               <p>History</p>
             </div>
           </div>
@@ -134,15 +167,22 @@
         <nuxt-link to="/dashboard/profile">
           <div class="desktop-nav">
             <div class="nav-content">
-              <svg class="fifth" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <!-- <svg class="fifth" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M10.0007 10.0013C12.3018 10.0013 14.1673 8.13582 14.1673 5.83464C14.1673 3.53345 12.3018 1.66797 10.0007 1.66797C7.69946 1.66797 5.83398 3.53345 5.83398 5.83464C5.83398 8.13582 7.69946 10.0013 10.0007 10.0013Z"
-                   stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path class="try"
                   d="M17.1585 18.3343C17.1585 15.1093 13.9501 12.501 10.0001 12.501C6.05013 12.501 2.8418 15.1093 2.8418 18.3343"
-                   stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg> -->
+              <svg class="fifthSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path
+                  d="M9.99992 10.0006C12.3011 10.0006 14.1666 8.13507 14.1666 5.83389C14.1666 3.5327 12.3011 1.66722 9.99992 1.66722C7.69873 1.66722 5.83325 3.5327 5.83325 5.83389C5.83325 8.13507 7.69873 10.0006 9.99992 10.0006Z"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M17.1582 18.3339C17.1582 15.1089 13.9499 12.5005 9.99988 12.5005C6.04988 12.5005 2.84155 15.1089 2.84155 18.3339"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-
               <p>Profile</p>
             </div>
           </div>
@@ -150,38 +190,49 @@
         <div class="cursor">
           <div class="desktop-nav" @click="togglePopup">
             <div class="nav-content">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.5 5.83398H17.5" stroke="#565C69" stroke-width="1.5" stroke-linecap="round" />
                 <path d="M2.5 10.001H17.5H2.5Z" fill="#565C69" />
                 <path d="M2.5 10.001H17.5" stroke="#565C69" stroke-width="1.5" stroke-linecap="round" />
                 <path d="M2.5 14.168H17.5" stroke="#565C69" stroke-width="1.5" stroke-linecap="round" />
+              </svg> -->
+              <svg class="sixthSvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                <path d="M2.5 5.83389H17.5"  stroke-width="1.5" stroke-linecap="round" />
+                <path d="M2.5 10.0005H17.5H2.5Z" fill="#344054" />
+                <path d="M2.5 10.0005H17.5"  stroke-width="1.5" stroke-linecap="round" />
+                <path d="M2.5 14.1672H17.5"  stroke-width="1.5" stroke-linecap="round" />
               </svg>
-
               <p>More</p>
             </div>
           </div>
         </div>
 
         <div class="popup" v-if="showPopup" ref="popup" @click="togglePopup">
-           <nuxt-link to="/dashboard/saved-items">
-            <div class="desktop-nav">
+          <nuxt-link to="/dashboard/saved-items">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
-         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-  <path d="M13.3333 7.49168V16.9584C13.3333 18.1667 12.4666 18.675 11.4083 18.0917L8.1333 16.2667C7.7833 16.075 7.21662 16.075 6.86662 16.2667L3.59162 18.0917C2.53329 18.675 1.66663 18.1667 1.66663 16.9584V7.49168C1.66663 6.06668 2.83328 4.90002 4.25828 4.90002H10.7416C12.1666 4.90002 13.3333 6.06668 13.3333 7.49168Z" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M18.3333 4.25828V13.725C18.3333 14.9333 17.4666 15.4416 16.4083 14.8583L13.3333 13.1416V7.49162C13.3333 6.06662 12.1666 4.89996 10.7416 4.89996H6.66663V4.25828C6.66663 2.83328 7.83328 1.66663 9.25828 1.66663H15.7416C17.1666 1.66663 18.3333 2.83328 18.3333 4.25828Z" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M5.83337 10H9.16671" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M7.5 11.6667V8.33337" stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                <p>Saved items</p> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M13.3333 7.49168V16.9584C13.3333 18.1667 12.4666 18.675 11.4083 18.0917L8.1333 16.2667C7.7833 16.075 7.21662 16.075 6.86662 16.2667L3.59162 18.0917C2.53329 18.675 1.66663 18.1667 1.66663 16.9584V7.49168C1.66663 6.06668 2.83328 4.90002 4.25828 4.90002H10.7416C12.1666 4.90002 13.3333 6.06668 13.3333 7.49168Z"
+                    stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M18.3333 4.25828V13.725C18.3333 14.9333 17.4666 15.4416 16.4083 14.8583L13.3333 13.1416V7.49162C13.3333 6.06662 12.1666 4.89996 10.7416 4.89996H6.66663V4.25828C6.66663 2.83328 7.83328 1.66663 9.25828 1.66663H15.7416C17.1666 1.66663 18.3333 2.83328 18.3333 4.25828Z"
+                    stroke="#344054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M5.83337 10H9.16671" stroke="#344054" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M7.5 11.6667V8.33337" stroke="#344054" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <p>Saved items</p>
 
-         <!-- <div class="badge" v-if="savedItem.length > 0">
+                <!-- <div class="badge" v-if="savedItem.length > 0">
                   <p>{{ getCartLength }}</p>
                 </div>  -->
-          </div>
+              </div>
             </div>
-          </nuxt-link> 
+          </nuxt-link>
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -203,7 +254,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M6.66663 1.66663V4.16663" stroke="#344054" stroke-width="1.5" stroke-miterlimit="10"
@@ -224,7 +275,7 @@
             </div>
           </nuxt-link>
           <nuxt-link to="https://ipc-africa.com/">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -243,7 +294,7 @@
             </div>
           </nuxt-link>
           <a class="cursor" @click="logoutUser">
-            <div class="desktop-nav">
+            <div class="pop-desktop-nav">
               <div class="nav-content">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M14.5333 12.1833L16.6667 10.05L14.5333 7.91663" stroke="#D42620" stroke-width="1.5"
@@ -268,7 +319,7 @@
           <RandomAvatar :name="`${user?.firstName}`" />
         </div>
         <div class="profile-details">
-          <p class="name">{{ user.firstName.toLowerCase() }} {{ initials}}.</p>
+          <p class="name">{{ user.firstName.toLowerCase() }} {{ initials }}.</p>
           <p class="email truncate">{{ user.email }}</p>
         </div>
       </div>
@@ -294,9 +345,9 @@ export default {
       const [lastName] = this.user.lastName.trim().split(" ");
       return (
         lastName.charAt(0).toLowerCase()
-        
+
       );
-      
+
     },
   },
   methods: {
@@ -306,7 +357,7 @@ export default {
     logoutUser() {
       this.$emit("update:logout", !this.logout);
     },
- 
+
   },
 };
 </script>
@@ -384,17 +435,15 @@ export default {
   align-items: flex-start;
   gap: 4px;
   padding: 16px 0px;
-
   position: absolute;
   width: 278px;
   /* height: 168px; */
   left: 0px;
   top: 255px;
   background: var(--white);
-  box-shadow: 0px 1px 12px 0px rgba(0, 6, 125, 0.20);
-
-  filter: drop-shadow(0px 1px 12px rgba(0, 6, 125, 0.2));
+  box-shadow: 0px 20px 24px 0px rgba(71, 83, 103, 0.15);
   border-radius: 16px;
+  border: 1px solid var(--grey-grey5);
   z-index: 12;
 }
 
@@ -406,11 +455,12 @@ export default {
   cursor: pointer;
 }
 
-.popup .ddesktop-nav:hover {
-  background: var(--grey-grey2)
+.popup .pop-desktop-nav:hover {
+  background: var(--grey-grey6);
+  border-radius: 0px;
 }
 
-.popup .desktop-nav {
+.popup .pop-desktop-nav {
   border-radius: 0px;
 }
 
@@ -469,7 +519,7 @@ export default {
   font-size: 18px;
   line-height: 24px;
   /* identical to box height, or 150% */
-  font-family: var(--graphikSemibold) ;
+  font-family: var(--graphikSemibold);
   /* Grey/Grey1 */
 
   color: var(--grey-grey1);
@@ -513,65 +563,140 @@ export default {
 }
 
 .nuxt-link-exact-active .desktop-nav {
-  background: var(--supporting-green-s-300);
+  background: var(--primary-p50);
 }
 
 .nuxt-link-exact-active .desktop-nav p {
-  color: #fff;
+  color: var(--supporting-green-s-300);
 }
-.first{
-  fill:white;
+
+.first {
+  fill: white;
 }
-.second{
-  fill:white;
+
+
+
+.second {
+  fill: white;
 }
+
 .forth {
   fill: none;
 }
-.fifth{
+
+.fifth {
   fill: none;
 }
-.fifth path{
+
+.fifth path {
   stroke: #565C69;
 }
-.forth path{
+
+.forth path {
   stroke: #344054;
   fill: none;
 }
-.third path{
+
+.third path {
   fill: white;
 }
-.second path{
+
+.second path {
   stroke: #565C69;
 }
+
+.firstSvg,
+.secondSvg,
+.thirdSvg, .forthSvg, .fifthSvg, .sixthSvg {
+  fill: none;
+}
+
+.firstSvg path,
+.secondSvg path,
+.thirdSvg path ,  .forthSvg path, .fifthSvg path, .sixthSvg path {
+  stroke: #344054
+}
+
 .nuxt-link-exact-active .desktop-nav .first {
   fill: white;
   stroke: none;
 }
+
+.nuxt-link-exact-active .desktop-nav .firstSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .firstSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+
+.nuxt-link-exact-active .desktop-nav .secondSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .secondSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+
+.nuxt-link-exact-active .desktop-nav .thirdSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .thirdSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+.nuxt-link-exact-active .desktop-nav .forthSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .forthSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+.nuxt-link-exact-active .desktop-nav .fifthSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .fifthSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+.nuxt-link-exact-active .desktop-nav .sixthSvg {
+  fill: none;
+}
+
+.nuxt-link-exact-active .desktop-nav .sixthSvg path {
+  stroke: var(--supporting-green-s-300);
+}
+
 .nuxt-link-exact-active .desktop-nav .second {
   fill: white;
 }
+
 .nuxt-link-exact-active .desktop-nav .second path {
   fill: white;
   stroke: none;
 }
+
 .nuxt-link-exact-active .desktop-nav .third path {
   fill: white;
   stroke: none;
 }
+
 .nuxt-link-exact-active .desktop-nav .forth path {
   stroke: none;
   fill: #fff;
   /* stroke: #344054; */
 }
+
 .nuxt-link-exact-active .desktop-nav .fifth path {
   fill: #fff;
   stroke: none;
 }
+
 .nuxt-link-exact-active .desktop-nav .fifth path .try {
   fill: #fff;
   stroke: #fff;
 }
+
 /* .nuxt-link-exact-active .desktop-nav svg {
   fill: #fff;
 }
@@ -590,4 +715,5 @@ export default {
 
 .nuxt-link-exact-active .desktop-nav .nav-content .badge p {
   color: #ff3b2d !important;
-}</style>
+}
+</style>
