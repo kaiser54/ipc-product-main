@@ -3,48 +3,55 @@
     <h3 class="h3-medium header-text">Payment</h3>
     <div class="content-select">
       <div
-        class="list-select"
-        :class="{ clicked: selectedItem === item.value }"
+        class=""
         v-for="(item, index) in listSelect"
         :key="index"
-        @click="selectItem(item)"
+        style="width: 100%"
       >
-        <label>
-          <input
-            type="radio"
-            :value="item.value"
-            v-model="selectedItem"
-            hidden
-          />
-          <svg
-            :class="{ selected: selectedItem === item.value }"
-            viewBox="0 0 25 25"
-            width="25"
-            height="25"
-          >
-            <rect
-              x="1"
-              y="1"
-              width="22"
-              height="22"
-              rx="11"
-              fill="white"
-              stroke="#BDC0CE"
-              stroke-width="2"
+        <div
+          class="list-select"
+          :class="{
+            clicked: selectedItem === item.value,
+          }"
+          v-if="!canBuyOnCredit && index == 0"
+          @click="selectItem(item)"
+        >
+          <label>
+            <input
+              type="radio"
+              :value="item.value"
+              v-model="selectedItem"
+              hidden
             />
-            <circle
-              v-if="selectedItem === item.value"
-              cx="11.9992"
-              cy="11.9992"
-              r="7.8"
-              fill="#0009B3"
-            />
-          </svg>
-        </label>
-        <div class="list-select-header">
-          <div class="img__title">
-            <p class="title">{{ item.title }}</p>
-            <!-- <div class="img" v-if="item.images.length > 0">
+            <svg
+              :class="{ selected: selectedItem === item.value }"
+              viewBox="0 0 25 25"
+              width="25"
+              height="25"
+            >
+              <rect
+                x="1"
+                y="1"
+                width="22"
+                height="22"
+                rx="11"
+                fill="white"
+                stroke="#BDC0CE"
+                stroke-width="2"
+              />
+              <circle
+                v-if="selectedItem === item.value"
+                cx="11.9992"
+                cy="11.9992"
+                r="7.8"
+                fill="#0009B3"
+              />
+            </svg>
+          </label>
+          <div class="list-select-header">
+            <div class="img__title">
+              <p class="title">{{ item.title }}</p>
+              <!-- <div class="img" v-if="item.images.length > 0">
               <img
                 :src="`/${image}`"
                 alt=""
@@ -52,8 +59,9 @@
                 :key="index"
               />
             </div> -->
+            </div>
+            <!-- <p class="snippet">{{ item.snippet }}</p> -->
           </div>
-          <!-- <p class="snippet">{{ item.snippet }}</p> -->
         </div>
       </div>
     </div>
@@ -82,7 +90,13 @@
   
 <script>
 export default {
-  props: ["data"],
+  props: {
+    data: {},
+    canBuyOnCredit: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       selectedItem: "",
@@ -103,7 +117,7 @@ export default {
   methods: {
     selectItem(item) {
       this.selectedItem = item.value;
-      this.data.paymentMethod = item.value
+      this.data.paymentMethod = item.value;
     },
     submitForm() {
       this.$emit("lastStep", this.data);
@@ -143,6 +157,7 @@ export default {
   padding: 16px;
   gap: 16px;
   max-width: 491px;
+  width: 100%;
   /* min-height: 127px; */
 
   /* White */
@@ -158,7 +173,6 @@ export default {
 .list-select label {
   margin-bottom: 0 !important;
 }
-
 button:disabled {
   cursor: not-allowed;
 }
@@ -241,14 +255,14 @@ svg circle {
   margin-bottom: 70px;
 }
 .delivery__time {
-    display: flex;
-    padding: 16px;
-    align-items: flex-start;
-    gap: 12px;
-    border-radius: 12px;
-    background: #fbeee6;
-    background: var(--warning-w-50, #fbeee6);
-    border: none;
+  display: flex;
+  padding: 16px;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 12px;
+  background: #fbeee6;
+  background: var(--warning-w-50, #fbeee6);
+  border: none;
 }
 @media (max-width: 950px) {
   .list-select {

@@ -53,9 +53,10 @@
           />
 
           <CheckoutPayment
-            v-show="currentStep === 3 && submittedData"
+            v-show="currentStep === 3 && submittedData && user"
             @lastStep="lastStep"
             :data="submittedData"
+            :canBuyOnCredit="user?.canBuyOnCredits"
           />
         </div>
         <div class="__order__data" v-if="!mobile">
@@ -117,6 +118,7 @@ export default {
   data() {
     return {
       spinner: true,
+      userID: "",
       user: null,
       currentStep: 1,
       isPaid: false,
@@ -146,8 +148,6 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
-
-    this.user = false;
     this.spinner = true;
     if (process.client) {
       // Check if localStorage is available
@@ -157,7 +157,9 @@ export default {
 
         if (userData) {
           // User data is available, log it
-          this.user = JSON.parse(userData);
+          const data = JSON.parse(userData);
+          this.userID = data._id
+          await this.fetchUserData();
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -170,7 +172,6 @@ export default {
     }
     this.spinner = false;
   },
-
   computed: {
     reference() {
       let text = "";
@@ -193,7 +194,6 @@ export default {
       "cartFullPrice",
     ]),
   },
-
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
     if (this.$route.path === "/dashboard") {
@@ -237,11 +237,10 @@ export default {
       if (data.paymentMethod === "CARD") {
         this.payWithPaystack(data);
       } else {
-        this.ref = "PAYMENT IS MADE ON CREDIT"
+        this.ref = "PAYMENT IS MADE ON CREDIT";
         this.submitForm(data);
       }
     },
-
     payWithPaystack(data) {
       this.ref = this.reference;
       this.spinner = true;
@@ -263,12 +262,10 @@ export default {
       this.spinner = false;
       handler.openIframe();
     },
-
     step1() {
       this.currentStep = 1;
       ("clicked");
     },
-
     async submitForm(data) {
       this.spinner = true;
       data.reference = this.ref;
@@ -329,6 +326,17 @@ export default {
         width: 190,
         windowWidth: 675,
       });
+    },
+    async fetchUserData() {
+      try {
+        const response = await axios.get(
+          `${DEV_URL}/business-customers/${this.userID}`
+        );
+        console.log(response);
+        this.user = response.data.data.customer;
+      } catch (error) {
+        console.error("Error getting user:", error);
+      }
     },
   },
 };
