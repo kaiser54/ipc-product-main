@@ -56,7 +56,7 @@
             v-show="currentStep === 3 && submittedData && user"
             @lastStep="lastStep"
             :data="submittedData"
-            :canBuyOnCredit="user?.canBuyOnCredits"
+            :canBuyOnCredit="user?.canBuyOnCredit"
           />
         </div>
         <div class="__order__data" v-if="!mobile">

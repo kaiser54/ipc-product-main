@@ -13,7 +13,7 @@
           :class="{
             clicked: selectedItem === item.value,
           }"
-          v-if="!canBuyOnCredit && index == 0"
+          v-if="item.show"
           @click="selectItem(item)"
         >
           <label>
@@ -105,11 +105,13 @@ export default {
           title: "Pay with Card / USSD / Transfer",
           value: "CARD",
           route: "/business",
+          show: true,
         },
         {
           title: "Purchase on credit",
           value: "CREDIT",
           route: "/individual",
+          show: this.canBuyOnCredit,
         },
       ],
     };
