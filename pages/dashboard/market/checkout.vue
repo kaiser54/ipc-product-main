@@ -53,7 +53,8 @@
           />
 
           <CheckoutPayment
-            v-show="currentStep === 3 && submittedData && user"
+            v-show="currentStep === 3 && submittedData"
+            v-if="user"
             @lastStep="lastStep"
             :data="submittedData"
             :canBuyOnCredit="user?.canBuyOnCredit"
