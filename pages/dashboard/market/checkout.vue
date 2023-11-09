@@ -332,7 +332,6 @@ export default {
         const response = await axios.get(
           `${DEV_URL}/business-customers/${this.userID}`
         );
-        console.log(response);
         this.user = response.data.data.customer;
       } catch (error) {
         console.error("Error getting user:", error);
