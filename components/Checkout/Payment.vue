@@ -64,6 +64,36 @@
           </div>
         </div>
       </div>
+      <div class="disabled no-hover" style="width: 100%; display: none;" v-if="!canBuyOnCredit" >
+        <div class="list-select">
+          <label>
+            <svg viewBox="0 0 25 25" width="25" height="25">
+              <rect
+                x="1"
+                y="1"
+                width="22"
+                height="22"
+                rx="11"
+                fill="white"
+                stroke="#BDC0CE"
+                stroke-width="2"
+              />
+              <circle
+                class="circle"
+                cx="11.9992"
+                cy="11.9992"
+                r="7.8"
+                fill=""
+              />
+            </svg>
+          </label>
+          <div class="list-select-header">
+            <div class="img__title">
+              <p class="title">Purchase on credit</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <userInfo :data="data" v-if="data" :checkout="true">
       <template v-slot:button>
@@ -81,7 +111,7 @@
     </userInfo>
     <PrimaryBtn
       class="bottom"
-      buttonText="Make payment"
+      :buttonText="selectedItem === 'CREDIT' ? 'Purchase on credit' : 'Make payment'"
       @click="submitForm"
       :disabled="!selectedItem"
     />
@@ -149,6 +179,19 @@ export default {
   align-items: center;
   gap: 16px;
   width: 100%;
+}
+.content-select .disabled {
+  cursor: not-allowed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.disabled .list-select .title {
+  color: var(--grey-grey4);
 }
 
 .list-select {
@@ -286,5 +329,18 @@ svg circle {
     /* flex-direction: column; */
     flex-wrap: wrap;
   }
+}
+.no-hover .list-select:hover {
+  cursor: not-allowed;
+  background: #ffffff;
+  /* Grey/Grey4 */
+
+  border: 1px solid var(--grey-grey4);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+.circle {
+  cursor: not-allowed;
+  stroke: none;
 }
 </style>

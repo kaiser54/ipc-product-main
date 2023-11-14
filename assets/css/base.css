@@ -350,7 +350,7 @@ button {
 
 .primary-btn:disabled,
 .primary-btn-small:disabled {
-  background-color: var(--grey-grey-4);
+  background-color: var(--grey-grey4);
 }
 
 /* styles for the secondary buutton */
