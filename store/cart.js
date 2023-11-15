@@ -408,27 +408,31 @@ export default {
       commit("SET_DISTANCE", dist);
     },
 
-    getDeliveryFee({ commit }, { distance, value }) {
-      const baseFare = 1500;
-      const baseDistance = 5;
-      const baseValue = 50000;
-      const pricePerKm = 200;
-      let totalCharge = 0;
+    // getDeliveryFee({ commit }, { distance, value }) {
+    //   const baseFare = 1500;
+    //   const baseDistance = 5;
+    //   const baseValue = 50000;
+    //   const pricePerKm = 200;
+    //   let totalCharge = 0;
 
-      if (distance > baseDistance && value > baseValue) {
-        let extraValueCharge = 0.01 * value;
-        let extraDistance = distance - baseDistance;
-        let extraDistanceCharge = extraDistance * pricePerKm;
-        totalCharge = extraValueCharge + extraDistanceCharge + baseFare;
-      } else if (value > baseValue) {
-        totalCharge = 0.01 * value + baseFare;
-      } else if (distance > baseDistance) {
-        let extraDistance = distance - baseDistance;
-        totalCharge = extraDistance * pricePerKm + baseFare;
-      } else {
-        totalCharge = baseFare;
-      }
-      commit("SET_DELIVERY_FEE", totalCharge);
+    //   if (distance > baseDistance && value > baseValue) {
+    //     let extraValueCharge = 0.01 * value;
+    //     let extraDistance = distance - baseDistance;
+    //     let extraDistanceCharge = extraDistance * pricePerKm;
+    //     totalCharge = extraValueCharge + extraDistanceCharge + baseFare;
+    //   } else if (value > baseValue) {
+    //     totalCharge = 0.01 * value + baseFare;
+    //   } else if (distance > baseDistance) {
+    //     let extraDistance = distance - baseDistance;
+    //     totalCharge = extraDistance * pricePerKm + baseFare;
+    //   } else {
+    //     totalCharge = baseFare;
+    //   }
+    //   commit("SET_DELIVERY_FEE", totalCharge);
+    // },
+    getDeliveryFee({ commit }, { distance, value }) {
+      const fixedDeliveryFee = 2000;
+      commit("SET_DELIVERY_FEE", fixedDeliveryFee);
     },
   },
 

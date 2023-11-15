@@ -287,6 +287,8 @@ export default {
         );
         if (response.status === 201 || response.status === 200) {
           this.invoiceData = response.data.data;
+          console.log(this.invoiceData)
+
           this.isPaid = true;
           window.startConfetti();
         } else {

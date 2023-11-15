@@ -78,7 +78,7 @@
           >₦
           {{
             formatPriceWithCommas(
-              getTotalProductPrice(data?.products) + data?.deliveryFee
+              getTotalProductPrice(data?.products) + data?.deliveryFee + serviceCharge
             )
           }}</span
         >

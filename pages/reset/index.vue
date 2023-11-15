@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <loading /> -->
-        <Loading :message="message"  v-if="verificationLoading" />
+        <Loading :message="message" v-if="verificationLoading" />
         <div class="content" v-if="!isConfirm">
             <div class="container">
                 <div class="wrapper">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <AuthConfirmation :maskedEmail="hiddenMail" v-else-if="confirmation" class="animate__animated animate__zoomIn" />
-        <AuthFailedState  :maskedEmail="hiddenMail"  v-else-if="Notconfirmed" class="animate__animated animate__zoomIn" />
+        <AuthFailedState :maskedEmail="hiddenMail" v-else-if="Notconfirmed" class="animate__animated animate__zoomIn" />
     </div>
 </template>
   
@@ -112,6 +112,7 @@ export default {
             if (!this.isEmailValid) {
                 this.invalidEmail = true;
                 this.emailErrorMessage = "Invalid email address";
+                console.log(this.email)
             } else {
                 // Submit form or perform other actions
                 // Navigate to another page with query parameters
@@ -146,14 +147,14 @@ export default {
                     email: this.email
                 });
                 this.verificationLoading = false
-                ('Email sent successfully', response.data);
+                    ('Email sent successfully', response.data);
                 this.confirmation = true
-                
-               
+                console.log(this.email)
+
             } catch (error) {
                 console.error('Error sending email:', error);
                 this.verificationLoading = false
-              this.Notconfirmed = true
+                this.Notconfirmed = true
             }
         }
     },

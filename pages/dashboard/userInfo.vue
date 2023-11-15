@@ -23,6 +23,7 @@
       const response = await this.$axios.$get(`/orders/${this.orderId}`);
       ("orderDetails:",response.data.order)
       this.orderDetails = response?.data?.order;
+      console.log(this.orderDetails)
       this.loading = false;
     } catch (error) {
       console.error('Error fetching order details:', error);
