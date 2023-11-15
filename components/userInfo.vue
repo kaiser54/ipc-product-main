@@ -67,9 +67,7 @@
       </div>
       <div class="client-frame">
         <span>Service charge</span
-        ><span class="bold"
-          >₦ {{ formatPriceWithCommas(serviceCharge) }}</span
-        >
+        ><span class="bold">₦ {{ formatPriceWithCommas(serviceCharge) }}</span>
       </div>
       <div class="client-frame total">
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
@@ -78,7 +76,9 @@
           >₦
           {{
             formatPriceWithCommas(
-              getTotalProductPrice(data?.products) + data?.deliveryFee
+              getTotalProductPrice(data?.products) +
+                data?.deliveryFee +
+                0.035 * getTotalProductPrice(data?.products)
             )
           }}</span
         >
@@ -102,7 +102,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice", "serviceCharge"]),
+    ...mapGetters("cart", [
+      "TotalCart",
+      "cartTotalQuantity",
+      "cartTotalPrice",
+      "serviceCharge",
+    ]),
     progressPercentage() {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
@@ -185,10 +190,10 @@ export default {
 }
 .total span {
   color: var(--grey-grey-1-base, #101928);
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px; /* 150% */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
 }
 .total .bold {
   font-weight: 700;

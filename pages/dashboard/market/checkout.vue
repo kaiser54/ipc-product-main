@@ -218,7 +218,6 @@ export default {
     },
     handleFormSubmission(data) {
       this.submittedData = data;
-      data;
       if (this.currentStep < 3) {
         this.currentStep++;
       }
@@ -268,11 +267,10 @@ export default {
       ("clicked");
     },
     async submitForm(data) {
-      this.spinner = true;
+      // this.spinner = true;
       data.reference = this.ref;
       data.serviceCharge = this.serviceCharge;
-      console.log(data);
-
+      data.businessName = this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
       try {
         const headers = {
           "Content-Type": "application/json",

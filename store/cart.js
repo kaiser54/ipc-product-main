@@ -441,8 +441,9 @@ export default {
       state.cart.reduce((acc, item) => acc + item.totalPrice, 0),
     serviceCharge: (state, getters) => 0.035 * getters.cartTotalPrice,
     cartFullPrice: (state, getters) => {
-      const totalWithDeliveryFee = getters.cartTotalPrice + state.deliveryFee;
-      return totalWithDeliveryFee + getters.serviceCharge;
+      // const totalWithDeliveryFee = getters.cartTotalPrice + state.deliveryFee;
+      const totalWithDeliveryFee = getters.cartTotalPrice + 2000 + getters.serviceCharge;
+      return totalWithDeliveryFee;
     },
   },
 };
