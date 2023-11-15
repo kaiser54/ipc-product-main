@@ -158,7 +158,9 @@ export default {
 
         if (userData) {
           // User data is available, log it
-          this.user = JSON.parse(userData);
+          const newData = JSON.parse(userData);
+          this.userID = newData._id;
+          this.fetchUserData();
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -230,7 +232,7 @@ export default {
         this.currentStep--;
       }
     },
-    async lastStep() {
+    async lastStep(data) {
       this.spinner = true;
       if (data.paymentMethod === "CARD") {
         this.payWithPaystack(data);
@@ -268,7 +270,9 @@ export default {
       this.spinner = true;
       data.reference = this.ref;
       data.serviceCharge = this.serviceCharge;
-      data.businessName = this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
+      data.businessName =
+        this.user.businessName ||
+        `${this.user.firstName} ${this.user.lastName}`;
       try {
         const headers = {
           "Content-Type": "application/json",
