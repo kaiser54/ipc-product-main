@@ -76,7 +76,7 @@ export default {
 }
 .top p{
   color: var(--grey-grey-2, #565C69);
-font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;

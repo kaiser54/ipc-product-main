@@ -105,7 +105,6 @@ flex-shrink: 0;
 }
 .modal-cancel-btn p{
 color: var(--grey-grey-1, #303237);
-font-family: var(--new-primary-font);
 font-size: 24px;
 font-style: normal;
 font-weight: 500;
@@ -118,7 +117,6 @@ letter-spacing: -0.5px;
 }
 .desktop-modal-text p{
  color: var(--grey-grey-2, #565C69);
-font-family: var(--new-primary-font);
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
@@ -165,9 +163,6 @@ line-height: 24px; /* 150% */
 }
 .modal-cancel-btn p{
     color: var(--grey-grey-1, #303237);
-
-/* H3/Heading 3 Small Medium */
-font-family: var(--new-primary-font);
 font-size: 20px;
 font-style: normal;
 font-weight: 500;
@@ -176,9 +171,6 @@ letter-spacing: -0.5px;
 }
 .desktop-modal-text P{
     color: var(--grey-grey-2, #565C69);
-
-/* Body Large/Body Large Regular */
-font-family: var(--new-primary-font);
 font-size: 16px;
 font-style: normal;
 font-weight: 400;

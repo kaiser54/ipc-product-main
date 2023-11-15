@@ -529,8 +529,7 @@ export default {
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
-  /* identical to box height, or 200% */
-  font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
   /* Grey/Grey3 */
 
   color: var(--grey-grey3);

@@ -35,7 +35,7 @@ export default {
 }
 
 body {
-  font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
 }
 
 #app {

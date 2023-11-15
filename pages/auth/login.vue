@@ -186,7 +186,7 @@ export default {
 
 .pass-link,
 .signup-link {
-  font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

@@ -128,7 +128,6 @@ export default {
 .recommended-text h3 {
   font-size: 20px;
   line-height: 36px;
-  font-family: var(--new-primary-font);
   margin: 0px;
 }
 .recommend {
