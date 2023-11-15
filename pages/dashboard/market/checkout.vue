@@ -158,9 +158,7 @@ export default {
 
         if (userData) {
           // User data is available, log it
-          const data = JSON.parse(userData);
-          this.userID = data._id
-          await this.fetchUserData();
+          this.user = JSON.parse(userData);
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -232,7 +230,7 @@ export default {
         this.currentStep--;
       }
     },
-    async lastStep(data) {
+    async lastStep() {
       this.spinner = true;
       if (data.paymentMethod === "CARD") {
         this.payWithPaystack(data);
@@ -267,7 +265,7 @@ export default {
       ("clicked");
     },
     async submitForm(data) {
-      // this.spinner = true;
+      this.spinner = true;
       data.reference = this.ref;
       data.serviceCharge = this.serviceCharge;
       data.businessName = this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;

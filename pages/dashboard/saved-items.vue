@@ -200,21 +200,19 @@ export default {
 
 
 <style>
+
+
 .nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+  background: var(--primary-p50) !important;
 }
 
 .nuxt-link-active .desktop-nav p {
-  color: #fff;
+  color: var(--supporting-green-s-300);
 }
 
-.nuxt-link-active .desktop-nav svg {
-  stroke: #fff;
-}
-
-.nuxt-link-active .desktop-nav .nav-content svg path {
+/* .nuxt-link-active .desktop-nav .nav-content svg path {
   stroke: #fff !important;
-}
+} */
 .categories {
   width: 100%;
 }

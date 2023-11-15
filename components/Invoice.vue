@@ -236,9 +236,7 @@ html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-feature-settings: normal;
   font-variation-settings: normal;
 }
@@ -928,7 +926,7 @@ figure,
 p,
 pre {
   margin: 0;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 .td-img img,
 p img {

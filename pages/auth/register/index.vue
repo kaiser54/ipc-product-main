@@ -157,7 +157,7 @@ export default {
   color: var(--grey-grey-1, #303237);
 
 /* H2/Heading 2 Small Bold */
-font-family: var(--new-primary-font);
+font-family: 'Inter', sans-serif;
 font-size: 24px;
 font-style: normal;
 font-weight: 600;
@@ -166,8 +166,7 @@ letter-spacing: -1px;
 }
 .title-text {
   color: var(--grey-grey-1, #303237);
-  /* H3/Heading 3 Medium */
-  font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -234,7 +233,6 @@ button:disabled {
 }
 
 .signup-link p {
-  font-family: var(--new-primary-font);
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -295,7 +293,7 @@ button:disabled {
     color: var(--grey-grey-1, #303237);
 
     /* Body Large/Body Large Medium */
-    font-family: var(--new-primary-font);
+    font-family: 'Inter', sans-serif;
     font-size: 16zpx;
     font-style: normal;
     font-weight: 500;
@@ -316,9 +314,7 @@ button:disabled {
 }
 .header-text{
   color: var(--grey-grey-1, #303237);
-
-/* H2/Heading 2 Small Bold */
-font-family: var(--new-primary-font);
+  font-family: 'Inter', sans-serif;
 font-size: 24px;
 font-style: normal;
 font-weight: 600;
