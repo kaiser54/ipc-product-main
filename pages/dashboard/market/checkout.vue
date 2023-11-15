@@ -54,8 +54,10 @@
 
           <CheckoutPayment
             v-show="currentStep === 3 && submittedData"
+            v-if="user"
             @lastStep="lastStep"
             :data="submittedData"
+            :canBuyOnCredit="user?.canBuyOnCredit"
           />
         </div>
         <div class="__order__data" v-if="!mobile">
@@ -82,7 +84,7 @@
                 ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
               </p>
             </div>
-            <div class="__price">
+            <div class="__price" style="display: none">
               <p class="total">Total</p>
               <p class="price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
             </div>
@@ -117,6 +119,7 @@ export default {
   data() {
     return {
       spinner: true,
+      userID: "",
       user: null,
       currentStep: 1,
       isPaid: false,
@@ -146,8 +149,6 @@ export default {
     window.addEventListener("resize", this.checkScreenSize);
     // set loading to true again when component is mounted
     // this.loading = true;
-
-    this.user = false;
     this.spinner = true;
     if (process.client) {
       // Check if localStorage is available
@@ -157,7 +158,9 @@ export default {
 
         if (userData) {
           // User data is available, log it
-          this.user = JSON.parse(userData);
+          const data = JSON.parse(userData);
+          this.userID = data._id
+          await this.fetchUserData();
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -170,7 +173,6 @@ export default {
     }
     this.spinner = false;
   },
-
   computed: {
     reference() {
       let text = "";
@@ -193,7 +195,6 @@ export default {
       "cartFullPrice",
     ]),
   },
-
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
     if (this.$route.path === "/dashboard") {
@@ -232,12 +233,16 @@ export default {
         this.currentStep--;
       }
     },
-    async lastStep() {
+    async lastStep(data) {
       this.spinner = true;
-      this.payWithPaystack();
+      if (data.paymentMethod === "CARD") {
+        this.payWithPaystack(data);
+      } else {
+        this.ref = "PAYMENT IS MADE ON CREDIT";
+        this.submitForm(data);
+      }
     },
-
-    payWithPaystack() {
+    payWithPaystack(data) {
       this.ref = this.reference;
       this.spinner = true;
       const handler = PaystackPop.setup({
@@ -252,23 +257,21 @@ export default {
         callback: (response) => {
           const message = "Payment complete! Reference: " + response.reference;
           // alert(message);
-          this.submitForm();
+          this.submitForm(data);
         },
       });
       this.spinner = false;
       handler.openIframe();
     },
-
     step1() {
       this.currentStep = 1;
       ("clicked");
     },
-
-    async submitForm() {
+    async submitForm(data) {
       this.spinner = true;
-      this.submittedData.reference = this.ref;
-      this.submittedData.serviceCharge = this.serviceCharge;
-      // alert("hello");
+      data.reference = this.ref;
+      data.serviceCharge = this.serviceCharge;
+      console.log(data);
 
       try {
         const headers = {
@@ -324,6 +327,16 @@ export default {
         width: 190,
         windowWidth: 675,
       });
+    },
+    async fetchUserData() {
+      try {
+        const response = await axios.get(
+          `${DEV_URL}/business-customers/${this.userID}`
+        );
+        this.user = response.data.data.customer;
+      } catch (error) {
+        console.error("Error getting user:", error);
+      }
     },
   },
 };

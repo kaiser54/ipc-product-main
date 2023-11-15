@@ -48,7 +48,7 @@
         <span>Placed on</span><span class="bold">{{ data.paymentDate }}</span>
       </div>
     </div>
-    <div class="client-user-name bdr">
+    <div class="client-user-name bdr section2">
       <div class="client-frame">
         <!-- <span>Subtotal</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
         <span>Subtotal</span
@@ -78,7 +78,7 @@
           >₦
           {{
             formatPriceWithCommas(
-              getTotalProductPrice(data?.products) + data?.deliveryFee
+              getTotalProductPrice(data?.products) + data?.deliveryFee + serviceCharge
             )
           }}</span
         >
@@ -173,9 +173,22 @@ export default {
 }
 
 .client-frame .bold {
-  color: var(--grey-grey1);
+  color: var(--grey-grey-1-base, #101928);
   max-width: 50%;
   text-align: right;
+}
+.section2 .client-frame .bold {
+  color: var(--grey-grey-1-base, #101928);
+  max-width: 50%;
+  text-align: right;
+  font-weight: 700;
+}
+.total span {
+  color: var(--grey-grey-1-base, #101928);
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
 }
 .total .bold {
   font-weight: 700;

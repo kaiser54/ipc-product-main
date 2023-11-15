@@ -347,7 +347,8 @@ export default {
           LGA: this.selectedLGA.name,
           products: this.cart,
           totalPrice: this.cartFullPrice,
-          deliveryFee: this.deliveryFee,
+          // deliveryFee: this.deliveryFee,
+          deliveryFee: 2000,
           subtotalPrice: this.cartTotalPrice,
         };
         this.$emit("customEvent", data);

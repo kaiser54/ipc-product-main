@@ -40,16 +40,16 @@
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Reference Id</p>
-            <p class="text-xs text-[#303237] font-medium">{{ orders.order.reference }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ orders.order.reference ? "NILL" : "NILL" }}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Payment Method</p>
             <div class="flex gap-1 items-center">
-              <img
+              <!-- <img
                 alt=""
                 class="w-16px"
                 src="https://gosource.app/paystack.png"
-              />
+              /> -->
               <span class="text-xs text-[#303237] font-medium">{{
                 orders?.order?.paymentMethod || "xxx xxxx xxxx 1234"
               }}</span>
