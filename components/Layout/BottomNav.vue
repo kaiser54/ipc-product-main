@@ -239,7 +239,6 @@ export default {
   font-size: 12px;
   line-height: 18px;
   /* identical to box height, or 150% */
-  font-family: var(--new-primary-font);
   text-align: center;
 
   /* Primary/P300 */

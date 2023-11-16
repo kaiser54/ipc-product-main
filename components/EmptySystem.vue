@@ -80,9 +80,6 @@
     .empty-header h2{
         color: var(--grey-grey-1, #303237);
         text-align: center;
-
-        /* H2/Heading 2 Small Medium */
-        font-family: var(--new-primary-font);
         font-size: 24px;
         font-style: normal;
         font-weight: 500;
@@ -92,9 +89,6 @@
     .empty-snippet p{
         color: var(--grey-grey-3, #7E8494);
         text-align: center;
-
-        /* Body Large/Body Large Regular */
-        font-family: var(--new-primary-font);
         font-size: 16px;
         font-style: normal;
         font-weight: 400;

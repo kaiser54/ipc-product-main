@@ -33,7 +33,7 @@
 .table-loader {
   width: 100%;
   overflow: hidden;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 table {

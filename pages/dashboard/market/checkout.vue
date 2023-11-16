@@ -158,9 +158,9 @@ export default {
 
         if (userData) {
           // User data is available, log it
-          const data = JSON.parse(userData);
-          this.userID = data._id
-          await this.fetchUserData();
+          const newData = JSON.parse(userData);
+          this.userID = newData._id;
+          this.fetchUserData();
         } else {
           // User data is not found in localStorage
           ("User data not found in localStorage.");
@@ -218,7 +218,6 @@ export default {
     },
     handleFormSubmission(data) {
       this.submittedData = data;
-      data;
       if (this.currentStep < 3) {
         this.currentStep++;
       }
@@ -271,8 +270,9 @@ export default {
       this.spinner = true;
       data.reference = this.ref;
       data.serviceCharge = this.serviceCharge;
-      console.log(data);
-
+      data.businessName =
+        this.user.businessName ||
+        `${this.user.firstName} ${this.user.lastName}`;
       try {
         const headers = {
           "Content-Type": "application/json",
