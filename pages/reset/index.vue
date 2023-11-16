@@ -104,24 +104,12 @@ export default {
     methods: {
         submitReset() {
             const maskedEmail = this.maskEmail(this.email);
-            // Inside your submitReset() method
-            // this.$store.commit("SET_MASKED_EMAIL", maskedEmail);
-
-            // localStorage.setItem("maskedEmail", maskedEmail);
-
             if (!this.isEmailValid) {
                 this.invalidEmail = true;
                 this.emailErrorMessage = "Invalid email address";
             } else {
-                // Submit form or perform other actions
-                // Navigate to another page with query parameters
-                // this.$router.push({
-                //   name: "confirmation",
-                //   params: { maskedEmail },
-                // });
                 this.hiddenMail = maskedEmail;
                 this.isConfirm = true;
-                // this.$router.push({ name: "confirmation" });
                 this.sendForgotPasswordEmail()
             }
 
@@ -146,7 +134,6 @@ export default {
                     email: this.email
                 });
                 this.verificationLoading = false
-                ('Email sent successfully', response.data);
                 this.confirmation = true
                 
                

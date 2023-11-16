@@ -328,12 +328,12 @@ export default {
 
 
 <style>
-.nuxt-link-active .desktop-nav {
-  background: var(--primary-p300);
+.nuxt-link-exact-active .desktop-nav {
+  background: var(--primary-p50);
 }
 
-.nuxt-link-active .desktop-nav p {
-  color: #fff;
+.nuxt-link-exact-active .desktop-nav p {
+  color: var(--supporting-green-s-300);
 }
 
 /* .nuxt-link-active .desktop-nav svg {
