@@ -146,7 +146,6 @@ export default {
                     email: this.email
                 });
                 this.verificationLoading = false
-                ('Email sent successfully', response.data);
                 this.confirmation = true
                 
                

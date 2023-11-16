@@ -2,24 +2,24 @@
     <div class="tracking-bar">
         <div class="track-wrapped">
             <!-- First Circle -->
-            <div class="circle"
-                :class="{ 'green': trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
-                <div class="inner-circle"
-                    v-if="trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED'">
+            <div class="circle" :class="{ 'green': trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
+                <div class="inner-circle" :class="{ 'green': trackLevel.status === 'PROCESSING' || trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }" 
+                   
+                    >
                 </div>
             </div>
-            <!-- First Line -->
-            <div class="line" :class="{ 'green': trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
+
+            <div class="line" :class="{ 'green':trackLevel.status === 'PROCESSING'|| trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
             </div>
             <!-- Second Circle -->
             <div class="circle" :class="{ 'green': trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }">
-                <div class="inner-circle" v-if="trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED'"></div>
+                <div class="inner-circle" :class="{ 'green': trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED' }" ></div>
             </div>
             <!-- Second Line -->
             <div class="line" :class="{ 'green': trackLevel.status === 'DELIVERED' }"></div>
             <!-- Third Circle -->
             <div class="circle" :class="{ 'green': trackLevel.status === 'DELIVERED' }">
-                <div class="inner-circle" v-if="trackLevel.status === 'DELIVERED'"></div>
+                <div class="inner-circle" :class="{ 'green': trackLevel.status === 'DELIVERED' }"></div>
             </div>
         </div>
         <!-- Status -->
@@ -31,10 +31,10 @@
                     <p class="snippet">{{ track.snippet }}</p>
                 </div>
                 <div class="tag-date">
-                    <div class="tagged">
+                    <!-- <div class="tagged">
                         <DynamicTags :tagText="track.status" :size="size" :type="getTagType(track.status)" />
-                    </div>
-                    <p class="date">{{ track.date }}</p>
+                    </div> -->
+                    <!-- <p class="date">{{ track.date }}</p> -->
                 </div>
             </div>
         </div>
@@ -139,13 +139,13 @@ export default {
     gap: 4px;
     flex-direction: column;
     /* border: 1px solid red; */
-    height: 100%;
+    height: 70%;
 }
 
 .circle {
     padding: 10px;
     border-radius: 50%;
-    border: 2px solid grey;
+    border: 2px solid var(--grey-grey4);
     /* Green border */
     background-color: white;
     /* White interior */
@@ -158,7 +158,7 @@ export default {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: green;
+    background-color: var(--grey-grey4);
     /* Small green circle color */
     position: absolute;
     top: 50%;
@@ -166,11 +166,15 @@ export default {
     transform: translate(-50%, -50%);
     z-index: 1;
 }
+.inner-circle.green {
+    background-color: var(--positive-p300);
+
+}
 
 .circle.green {
     background-color: white;
     /* Interior color when green class is applied */
-    border-color: green;
+    border-color: var(--positive-p300);
     /* Border color when green class is applied */
 }
 
@@ -178,12 +182,12 @@ export default {
     width: 2px;
     height: 100%;
     max-height: 160px;
-    background-color: grey;
+    background-color: var(--grey-grey4);
     transition: background-color 0.3s ease;
 }
 
 .line.green {
-    background-color: green;
+    background-color: var(--positive-p300);
 }
 
 .status {
@@ -206,7 +210,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 16px;
 }
 .track-wrapper {
     display: flex;
@@ -218,8 +222,8 @@ export default {
 }
 
 .processing {
-    stroke: #20af0b;
-    fill: #20af0b;
+    stroke: var(--positive-p300);
+    fill: var(--positive-p300);
 }
 
 .grey {
