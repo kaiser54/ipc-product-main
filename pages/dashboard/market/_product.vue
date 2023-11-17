@@ -718,6 +718,15 @@ export default {
 .counter-btn .circle {
   background: var(--new-primary-p300);
 }
+.counter-btn .circle:hover{
+  background: var(--new-primary-p400);
+}
+.counter-btn .circle:focus{
+  background: var(--new-primary-p500);
+}
+.counter-btn .circle:active{
+  background: var(--new-primary-p500);
+}
 
 .counter-btn .circle svg path {
   stroke: var(--white) !important;

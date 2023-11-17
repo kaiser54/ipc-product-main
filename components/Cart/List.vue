@@ -288,9 +288,14 @@ p.price {
   gap: 10px;
 
   border-radius: 100px;
-  border: 1px solid var(--grey-grey4, #bdc0ce);
+  background: var(--grey-grey6);
 }
-
+.circle:hover{
+    background: var(--grey-grey6);
+  }
+  .circle:focus, .circle:active{
+    background: var(--grey-grey5);
+  }
 .quantity {
   display: flex;
   flex-direction: row;
@@ -317,7 +322,10 @@ p.price {
     gap: 10px;
 
     border-radius: 100px;
-    border: 1px solid var(--grey-grey-4, #bdc0ce);
+    background: var(--grey-grey6);
+  }
+  .circle:hover{
+    background: var(--grey-grey6);
   }
 }
 

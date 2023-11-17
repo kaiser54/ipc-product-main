@@ -506,7 +506,7 @@ button:hover svg{
   position: relative;
   /* Primary/P75 */
 
-  border: 1px solid var(--grey-grey6);
+  border: none;
   background: var(--grey-grey6);
   width: 40px;
   height: 40px;
@@ -514,6 +514,12 @@ button:hover svg{
   left: 0;
 }
 .counter-btn:hover .circle:hover{
+  background: var(--grey-grey6);
+}
+.counter-btn:focus .circle:focus{
+  background: var(--grey-grey5);
+}
+.counter-btn:active .circle:active{
   background: var(--grey-grey5);
 }
 .counter {
