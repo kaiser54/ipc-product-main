@@ -42,7 +42,9 @@
         <div class="user-form-data">
           <CheckoutAddress
             v-show="currentStep === 1"
+            v-if="lastCheckoutDetails"
             @customEvent="handleFormSubmission"
+            :lastCheckoutDetails="lastCheckoutDetails"
           />
 
           <CheckoutOrderSummary
@@ -118,6 +120,7 @@ export default {
   layout: "checkOut",
   data() {
     return {
+      lastCheckoutDetails: null,
       spinner: true,
       userID: "",
       user: null,
@@ -217,6 +220,7 @@ export default {
       }
     },
     handleFormSubmission(data) {
+      console.log(data)
       this.submittedData = data;
       if (this.currentStep < 3) {
         this.currentStep++;
@@ -225,6 +229,7 @@ export default {
     nextStep() {
       if (this.currentStep < 3) {
         this.currentStep++;
+
       }
     },
     prevStep() {
@@ -334,6 +339,7 @@ export default {
           `${DEV_URL}/business-customers/${this.userID}`
         );
         this.user = response.data.data.customer;
+        this.lastCheckoutDetails = this.user.lastCheckoutDetails
       } catch (error) {
         console.error("Error getting user:", error);
       }

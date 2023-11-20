@@ -48,7 +48,7 @@
               :required="true"
               :invalid="invalidNumber"
               :errorMessage="PNErrorMessage"
-                @input="clearInputError('phoneNumbers')"
+              @input="clearInputError('phoneNumbers')"
             />
             <InputOne
               id="address"
@@ -59,7 +59,7 @@
               :required="true"
               :invalid="invalidAddress"
               :errorMessage="addressErrorMessage"
-                @input="clearInputError('address')"
+              @input="clearInputError('address')"
             />
             <InputOne
               id="Directions"
@@ -113,6 +113,7 @@ import { State, Country, City } from "country-state-city";
 import axios from "axios";
 
 export default {
+  props: ["lastCheckoutDetails"],
   data() {
     return {
       customerId: "",
@@ -181,6 +182,7 @@ export default {
   },
   watch: {
     selectedLGA(newSelectedLGA) {
+      console.log(newSelectedLGA)
       if (
         newSelectedLGA &&
         newSelectedLGA.latlon &&
@@ -198,6 +200,7 @@ export default {
     },
   },
   async mounted() {
+    this.loadLastCheckoutDetails();
     this.loadUser();
   },
   methods: {
@@ -205,25 +208,21 @@ export default {
     clearInputError(fieldName) {
       // Clear the error for the specified field
       // this[fieldName] = ''; // Clear the field value
-      if (fieldName === 'FirstName') {
+      if (fieldName === "FirstName") {
         this.invalidName = false;
-        this.FNErrorMessage = '';
-      }
-      else if (fieldName === 'lastName') {
+        this.FNErrorMessage = "";
+      } else if (fieldName === "lastName") {
         this.invalidLastName = false;
-        this.LNErrorMessage = '';
-      }
-      else if (fieldName === 'phoneNumbers') {
+        this.LNErrorMessage = "";
+      } else if (fieldName === "phoneNumbers") {
         this.invalidNumber = false;
-        this.PNErrorMessage = '';
-      }
-      else if (fieldName === 'address') {
+        this.PNErrorMessage = "";
+      } else if (fieldName === "address") {
         this.invalidAddress = false;
-        this.addressErrorMessage = '';
-      }
-      else if (fieldName === 'selectedLGA') {
+        this.addressErrorMessage = "";
+      } else if (fieldName === "selectedLGA") {
         this.invalidLGA = false;
-        this.errLGAmsg = '';
+        this.errLGAmsg = "";
       }
     },
     validateForm() {
@@ -322,6 +321,19 @@ export default {
     getCities() {
       this.cities = City.getCitiesOfState(NG, stateCode);
       this.selectedCity = ""; // Reset selected city when changing the state
+    },
+    loadLastCheckoutDetails() {
+      if (this.lastCheckoutDetails) {
+        const { address, firstName, lastName } = this.lastCheckoutDetails;
+        this.address = address.streetAddress;
+        this.Directions = address.directions;
+        this.selectedState = address.state;
+        this.selectedLGA = address.lga;
+        this.FirstName = firstName;
+        this.lastName = lastName;
+
+        this.submitForm();
+      }
     },
     submitForm() {
       if (this.validateForm()) {
