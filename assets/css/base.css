@@ -1,4 +1,28 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap'); */
+@font-face{
+  font-family: "Inter";
+  src:url("../fonts/Inter-Font-Family/Inter-Regular.otf" );
+}
+@font-face{
+  font-family: "InterSemibold";
+  src:url("../fonts/Inter-Font-Family/Inter-SemiBold.otf" );
+}
+@font-face{
+  font-family: "InterBlack";
+  src:url("../fonts/Inter-Font-Family/Inter-Black.otf" );
+}
+@font-face{
+  font-family: "InterBold";
+  src:url("../fonts/Inter-Font-Family/Inter-Bold.otf" );
+}
+@font-face{
+  font-family: "InterExtrabold";
+  src:url("../fonts/Inter-Font-Family/Inter-ExtraBold.otf" );
+}
+@font-face{
+  font-family: "InterMedium";
+  src:url("../fonts/Inter-Font-Family/Inter-Medium.otf" );
+}
 @font-face {
   font-family: "GraphikMedium";
   src: url("../fonts/Graphik-Font-Family/GraphikMedium.otf");
