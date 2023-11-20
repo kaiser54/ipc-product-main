@@ -184,16 +184,16 @@ export default {
     selectedLGA(newSelectedLGA) {
       console.log(newSelectedLGA)
       if (
-        newSelectedLGA &&
-        newSelectedLGA.latlon &&
-        newSelectedLGA.latlon.length >= 2
+        newSelectedLGA
+        // newSelectedLGA.latlon &&
+        // newSelectedLGA.latlon.length >= 2
       ) {
-        const latitude = newSelectedLGA.latlon[0];
-        const longitude = newSelectedLGA.latlon[1];
-        this.getDistanceFromLatLonInKm({
-          latitude2: latitude,
-          longitude2: longitude,
-        });
+        // const latitude = newSelectedLGA.latlon[0];
+        // const longitude = newSelectedLGA.latlon[1];
+        // this.getDistanceFromLatLonInKm({
+        //   latitude2: latitude,
+        //   longitude2: longitude,
+        // });
       } else {
         console.error("Invalid or undefined newSelectedLGA:", newSelectedLGA);
       }
