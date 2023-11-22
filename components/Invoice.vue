@@ -32,15 +32,15 @@
         <div class="grid grid-cols-4">
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Order Date</p>
-            <p class="text-xs text-[#303237] font-medium">{{ formatDate(orders.order.createdAt) }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ formatDate(orders?.order ?.createdAt? orders?.order?.createdAt : orders?.createdAt) }}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Customer name</p>
-            <p class="text-xs text-[#303237] font-medium">{{ orders.order.firstName }} {{ orders.order.lastName }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ orders.order.firstName ? orders.order.firstName : orders.firstName }} {{ orders.order.lastName ? orders.order.lastName : orders.lastName }}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Reference Id</p>
-            <p class="text-xs text-[#303237] font-medium">{{ orders.order.reference ? "NILL" : "NILL" }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ orders.order.reference ? "NILL" : "NILL"}}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Payment Method</p>
@@ -60,7 +60,7 @@
         <div class="grid grid-cols-4">
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Invoice No.</p>
-            <p class="text-xs text-[#303237] font-medium">{{ formatNumberWithLeadingZeros(orders.totalCount) }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ orders.totalCount ? formatNumberWithLeadingZeros(orders.totalCount) : "--" }}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Order Id</p>
