@@ -504,7 +504,6 @@ export default {
       this.addToCart(this.product).then(() => {
         this.loader = false;
       });
-      console.log('yo')
     },
     increaseQuantity() {
       // console.log("this.cartid", this.cartId)

@@ -19,6 +19,7 @@
           :getStepLabel="getStepLabel"
         />
       </div>
+      
       <!-- ------------- -->
 
       <div class="main">

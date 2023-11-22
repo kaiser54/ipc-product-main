@@ -3,7 +3,44 @@
     <div class="top-header">
       <div class="title-header">
         <goback />
-        <h2 class="h2-medium header-text">Track orders</h2>
+        <div class="header__flex">
+          <h2 class="h2-medium header-text">Track orders</h2>
+          <DynamicButton
+            class="max-w"
+            icon="icon-left"
+            size="standard"
+            type="neutral"
+            buttonText="Download invoice"
+            @clickButton="generateAndDownloadPDF"
+          >
+            <template v-slot:svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M15.0581 12.0312L9.99974 17.0896L4.94141 12.0312"
+                  stroke="#344054"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M10 2.92578V16.9508"
+                  stroke="#344054"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </template>
+          </DynamicButton>
+        </div>
       </div>
     </div>
     <div class="product-transaction">
@@ -14,13 +51,12 @@
             <div class="orderProduct">
               <div class="userProduct" @click="moreOrder">
                 <NewOrderProduct
-                  v-if ="orderDetails"
+                  v-if="orderDetails"
                   :tagText="dynamicTagProps.tagText"
                   size="small"
                   :type="dynamicTagProps.type"
                   :data="orderDetails"
                 />
-               
               </div>
               <div class="" style="position: sticky; overflow: hidden">
                 <div :class="{ 'slide-out': !more, 'slide-in': more }">
@@ -70,16 +106,31 @@
         </div>
       </div>
     </div>
+    <div class="invoice">
+      <Invoice
+        v-if="user && invoiceData"
+        :customer="user"
+        :orders="invoiceData"
+        :user="user"
+        ref="myComponent"
+        id="componentToSave"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import jsPDF from "jspdf";
+import axios from "axios";
+import { DEV_URL } from "@/plugins/api";
 export default {
   props: {},
   layout: "dashboardview",
   // Other component properties and methods
   data() {
     return {
+      userID: "",
+      user: null,
       trackLevel: {},
       pageTitle: "Gosource | Track orders",
       selectedIndex: 2,
@@ -104,6 +155,7 @@ export default {
         },
       ],
       orderDetails: null,
+      invoiceData: null,
     };
   },
   head() {
@@ -150,7 +202,29 @@ export default {
     this.orderId = this.$route.params.trackOrder;
     this.getOrders();
   },
-  mounted() {},
+  async mounted() {
+    if (process.client) {
+      // Check if localStorage is available
+      if (typeof localStorage !== "undefined") {
+        // Check if user data is saved in localStorage
+        const userData = localStorage.getItem("user");
+
+        if (userData) {
+          // User data is available, log it
+          const newData = JSON.parse(userData);
+          this.userID = newData._id;
+          this.fetchUserData();
+        } else {
+          // User data is not found in localStorage
+          ("User data not found in localStorage.");
+        }
+      } else {
+        // Local Storage is not available in this environment
+        // You can handle this situation accordingly
+        ("LocalStorage is not available in this environment.");
+      }
+    }
+  },
   methods: {
     setTrackOrderLevel(val) {
       this.selectedIndex = val.level;
@@ -161,26 +235,71 @@ export default {
     },
     async getOrders() {
       this.orderId = this.$route.params.trackOrder;
-      this.verificationLoading = true
+      this.verificationLoading = true;
       try {
         const response = await this.$axios.$get(`/orders/${this.orderId}`);
-        this.verificationLoading = false
+        this.verificationLoading = false;
         this.orderDetails = response?.data?.order;
+        this.invoiceData = response?.data;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
       } catch (error) {
-        this.verificationLoading = true
+        this.verificationLoading = true;
         console.error("Error fetching order details:", error);
       }
     },
+    async fetchUserData() {
+      try {
+        const response = await axios.get(
+          `${DEV_URL}/business-customers/${this.userID}`
+        );
+        this.user = response.data.data.customer;
+      } catch (error) {
+        console.error("Error getting user:", error);
+      }
+    },
+    async generateAndDownloadPDF() {
+      var doc = new jsPDF();
+
+      // Wait for the document to be fully loaded before generating the PDF
+      doc.html(document.querySelector("#componentToSave"), {
+        callback: function (pdf) {
+          // Save the PDF with the desired filename
+          pdf.save("Invoice_gosource.pdf");
+        },
+        margin: 5,
+        autoPaging: "text",
+        x: 0,
+        y: 0,
+        width: 190,
+        windowWidth: 675,
+      });
+    },
     showUserModal() {
       this.showUserInfoModal = true;
-      },
+    },
   },
 };
 </script>
 
 <style scoped>
+
+.invoice {
+  position: absolute;
+  left: 95%;
+  height: 0vh;
+  overflow: hidden;
+}
+
+.header__flex {
+  display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.max-w {
+  width: fit-content;
+}
 .slide-in {
   transform: translateY(0);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
@@ -324,7 +443,6 @@ export default {
     margin-bottom: 20px;
   }
 }
-
 
 .nuxt-link-exact-active .desktop-nav {
   background: var(--primary-p50);
