@@ -148,7 +148,7 @@
 :root {
   --new-primary-font: 'Inter', sans-serif;
   --graphikMedium: "GraphikMedium", sans-serif;
-  --graphikRegular: "GraphikRegular", sans-serif;
+  --graphikRegular: "g", sans-serif;
   --graphikLight: "GraphikLight", sans-serif;
   --graphikBold: "GraphikBold", sans-serif;
   --graphikSemibold: "GraphikSemibold", sans-serif;
