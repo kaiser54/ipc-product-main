@@ -332,7 +332,7 @@ export default {
         this.FirstName = firstName;
         this.lastName = lastName;
 
-        this.submitForm();
+        // this.submitForm();
       }
     },
     submitForm() {
