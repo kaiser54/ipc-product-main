@@ -6,7 +6,7 @@
         <div class="header__flex">
           <h2 class="h2-medium header-text">Track orders</h2>
           <DynamicButton
-            class="max-w"
+            class="max-w media950"
             icon="icon-left"
             size="standard"
             type="neutral"
@@ -92,6 +92,42 @@
                 @set-level="setTrackOrderLevel($event)"
               />
             </div>
+
+            <DynamicButton
+              class="media"
+              icon="icon-left"
+              size="standard"
+              type="neutral"
+              buttonText="Download invoice"
+              @clickButton="generateAndDownloadPDF"
+            >
+              <template v-slot:svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.0581 12.0312L9.99974 17.0896L4.94141 12.0312"
+                    stroke="#344054"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M10 2.92578V16.9508"
+                    stroke="#344054"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </template>
+            </DynamicButton>
             <TrackingBar :track-level="trackLevel" />
             <div
               class="modal-overlay"
@@ -283,7 +319,6 @@ export default {
 </script>
 
 <style scoped>
-
 .invoice {
   position: absolute;
   left: 95%;
@@ -293,9 +328,9 @@ export default {
 
 .header__flex {
   display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 .max-w {
   width: fit-content;
@@ -418,6 +453,11 @@ export default {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
+.media {
+  display: none;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 1030px) {
   .child:nth-child(1) {
     flex: 100;
@@ -429,6 +469,12 @@ export default {
 }
 
 @media screen and (max-width: 950px) {
+  .media950 {
+    display: none !important;
+  }
+  .media {
+    display: block;
+  }
   .userInform {
     display: none;
   }
