@@ -191,76 +191,125 @@ h1 {
   font-family: var(--new-primary-font);
   font-style: normal;
   font-size: 48px;
-  line-height: 62px;
+  line-height: normal;
   letter-spacing: -1px;
 }
 
 .h1-bold {
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 48px;
+  line-height: normal;
+  letter-spacing: -1px;
+
 }
 
 .h1-medium {
   font-weight: 500;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 48px;
+  line-height: normal;
+  letter-spacing: -1px;
 }
 
 .h1-regular {
   font-weight: 400;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 48px;
+  line-height: normal;
+  letter-spacing: -1px;
 }
 
 .h1-small-bold {
   font-size: 34px;
-  line-height: 44px;
-  font-weight: 700;
+  /* line-height: 44px; */
+  line-height: normal;
+  font-weight: 600;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  letter-spacing: -1px;
 }
 
 .h1-small-medium {
   font-weight: 500;
   font-size: 34px;
-  line-height: 44px;
+  /* line-height: 44px; */
+  line-height: normal;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  letter-spacing: -1px;
 }
 
 .h1-small-regular {
   font-weight: 400;
   font-size: 34px;
-  line-height: 44px;
+  /* line-height: 44px; */
+  line-height: normal;
 }
 
 h2 {
   font-family: var(--new-primary-font);
   font-style: normal;
   font-size: 34px;
-  line-height: 44px;
+  line-height: normal;
   letter-spacing: -1px;
 }
 
 .h2-bold {
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 34px;
+  line-height: normal;
+  letter-spacing: -1px;
 }
 
 .h2-medium {
   font-weight: 500;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 34px;
+  line-height: normal;
+  letter-spacing: -1px;
 }
 
 .h2-regular {
   font-weight: 400;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 34px;
+  line-height: normal;
+  letter-spacing: -1px;
 }
 
 .h2-small-bold {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 24px;
   line-height: 36px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  letter-spacing: -1px;
 }
 
 .h2-small-medium {
   font-weight: 500;
   font-size: 24px;
   line-height: 36px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  letter-spacing: -1px;
 }
 
 .h2-small-regular {
   font-weight: 400;
   font-size: 24px;
   line-height: 36px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  letter-spacing: -1px;
 }
 
 h3 {
@@ -268,39 +317,62 @@ h3 {
   font-style: normal;
   font-size: 24px;
   line-height: 36px;
-  /* identical to box height, or 150% */
-
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
 }
 
 .h3-bold {
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.2px;
 }
 
 .h3-medium {
   font-weight: 500;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.2px;
 }
 
 .h3-regular {
   font-weight: 400;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.2px;
 }
 
 .h3-small-bold {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 20px;
   line-height: 30px;
+  letter-spacing: -0.2px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
+
 }
 
 .h3-small-medium {
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
+  letter-spacing: -0.2px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
 }
 
 .h3-small-regular {
   font-weight: 400;
   font-size: 20px;
   line-height: 30px;
+  letter-spacing: -0.2px;
+  font-family: var(--new-primary-font);
+  font-style: normal;
 }
 
 button {
@@ -314,21 +386,14 @@ button {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-
   border-radius: 100px;
-
   width: 100%;
-
   outline: 0;
   border: 0;
-
   cursor: pointer;
   overflow: hidden;
-
   transition: 0.3s;
-
-  font-family: var(--graphikSemibold) ;
+  font-family: var(--graphikRegular) ;
 }
 
 /* styles for the primary buutton */
@@ -339,7 +404,7 @@ button {
   font-weight: 600;
   font-size: 18px;
   line-height: 18px;
-
+  letter-spacing: -0.2px;
   height: 48px;
 
   color: var(--white);
@@ -348,17 +413,30 @@ button {
 }
 
 .primary-btn-small {
-  padding: 8px 12px;
+  padding: 8px 16px;
   gap: 8px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
   line-height: 14px;
-
   height: 32px;
-
   /* identical to box height, or 150% */
-  letter-spacing: 0.01em;
-
+  /* letter-spacing:-0.2px; */
+  border-radius: 100px;
+  font-family: var(--graphikRegular);
+  color: var(--white);
+  background: var(--primary-p300);
+}
+.primary-btn-medium {
+  padding: 16px 20px;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  height: 40px;
+  /* identical to box height, or 150% */
+  letter-spacing:-0.2px;
+  border-radius: 100px;
+  font-family: var(--graphikRegular);
   color: var(--white);
   background: var(--primary-p300);
 }
@@ -383,10 +461,10 @@ button {
 .secondary-btn {
   padding: 16px 24px;
   gap: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+letter-spacing: -0.2px;
   height: 48px;
   color: var(--primary-p300);
   background-color: var(--white);
@@ -396,15 +474,27 @@ button {
 .secondary-btn-small {
   padding: 8px 12px;
   gap: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  height: 32px;
+  border-radius: 100px;
+  /* identical to box height, or 150% */
+  letter-spacing: -0.2px;
+
+  color: var(--primary-p300);
+  background-color: var(--white);
+  border: 1px solid var(--primary-p300);
+}
+.secondary-btn-small {
+  padding: 8px 12px;
+  gap: 4px;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 14px;
 
   height: 32px;
   border-radius: 100px;
-
-  /* identical to box height, or 150% */
-  letter-spacing: 0.01em;
 
   color: var(--primary-p300);
   background-color: var(--white);
@@ -460,30 +550,45 @@ button {
   padding: 8px 12px;
   gap: 8px;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 18px;
 
   height: 48px;
   outline: 0;
   border: none;
-
+  letter-spacing:-0.2px;
   /* color: var(--primary-p300); */
   color: var( --new-primary-p300);
 }
 
+.ghost-btn-medium {
+  padding: 4px 8px;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  height: 40px;
+  outline: 0;
+  border: none;
+
+  /* identical to box height, or 150% */
+  letter-spacing:-0.2px;
+
+  color: var(--primary-p300);
+}
 .ghost-btn-small {
   padding: 4px 8px;
   gap: 8px;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 14px;
 
   height: 40px;
   outline: 0;
   border: none;
 
   /* identical to box height, or 150% */
-  letter-spacing: 0.01em;
+  /* letter-spacing: 0.01em; */
 
   color: var(--primary-p300);
 }
@@ -491,11 +596,13 @@ button {
 .ghost-btn:hover,
 .ghost-btn-small:hover {
   color: var(--new-primary-p500);
+  background-color: var(--grey-grey6);
 }
 
 .ghost-btn:active,
 .ghost-btn:focus {
   color: var(--primary-p500);
+  background-color: var(--grey-grey5);
 }
 
 .ghost-btn:disabled,
@@ -508,7 +615,7 @@ button {
 .neutral-btn {
   padding: 16px 24px;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 
@@ -520,12 +627,27 @@ button {
   border: 1px solid var(--grey-grey4);
 }
 
+.neutral-btn-medium {
+  padding: 16px 20px;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  height: 40px;
+  border-radius: 100px;
+  /* identical to box height, or 150% */
+  letter-spacing: -0.2px;
+  color: var(--grey-grey1);
+  background-color: var(--white);
+  border: 1px solid var(--grey-grey4);
+}
+
 .neutral-btn-small {
   padding: 8px 12px;
   gap: 4px;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 14px;
 
   height: 32px;
   border-radius: 100px;
@@ -562,7 +684,7 @@ button {
 .negative-btn {
   padding: 16px 24px;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 
@@ -572,14 +694,28 @@ button {
   background-color: var(--negative-n300);
 }
 
+.negative-btn-medum {
+  padding: 16px 20px;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  height: 40px;
+  border-radius: 100px;
+  /* identical to box height, or 150% */
+  letter-spacing: 0.01em;
+
+  color: var(--white);
+  background: var(--negative-n300);
+}
 .negative-btn-small {
   padding: 8px 16px;
   gap: 8px;
   font-weight: 500;
   font-size: 14px;
-  line-height: 21px;
+  line-height: 14px;
 
-  height: 40px;
+  height: 32px;
   border-radius: 100px;
 
   /* identical to box height, or 150% */
