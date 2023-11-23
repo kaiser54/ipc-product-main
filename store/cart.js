@@ -258,6 +258,75 @@ export default {
         commit("SET_LOADING", false);
       }
     },
+    // made a mistake in the codes that's why im duplicating the increseItem twice to increaseQuantity func.
+    async IncreaseQuantity({ commit, state }, e) {
+      try {
+        commit("SET_LOADING", true);
+        commit("ADD_TO_CART_ALERT", null);
+        const user = process.client
+          ? JSON.parse(localStorage.getItem("user")) || null
+          : null;
+
+        const customerId = user?._id;
+
+        const { productId } = e;
+
+        // console.log("Data sending to backend", productId);
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        // Send a PATCH request to the endpoint using axios.patch
+        const response = await axios.patch(
+          `${DEV_URL}/cart/increase-item/${productId}`,
+          {
+            customerId,
+          },
+          {
+            headers,
+          }
+        );
+        // console.log(response);
+
+        const { update } = response.data.data;
+        const cartItem = update;
+
+        if (response.status === 200) {
+          commit("ADD_TO_CART_ALERT", true);
+        } else {
+          commit("ADD_TO_CART_ALERT", false);
+        }
+
+        const { cart } = state;
+
+        const indexOfCartItem = cart.findIndex(
+          (c) => c.productId === cartItem.productId
+        );
+
+        // console.log("Response indexOfCartItem: ", indexOfCartItem);
+
+        if (indexOfCartItem !== -1) {
+          commit("UPDATE_CARTITEM_QUANTITY", {
+            index: indexOfCartItem,
+            quantity: cartItem.quantity,
+            totalPrice: cartItem.totalPrice,
+          });
+        } else {
+          const newCart = [...state.cart, cartItem];
+          commit("ADD_TO_CART", newCart);
+        }
+
+        if (response.status !== 200) {
+          throw new Error("Failed to add the product to the cart.");
+        }
+
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", null);
+      } catch (error) {
+        commit("SET_ERROR", error.message);
+        commit("SET_LOADING", false);
+      }
+    },
 
     async reduceQuantity({ commit, state }, e) {
       try {
