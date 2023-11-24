@@ -2,29 +2,6 @@
   <!-- product card container starts here -->
 
   <div class="product-card">
-    <!-- like button -->
-
-    <!-- <div class="circle">
-      <svg
-        :class="{ liked: isLiked || liked }"
-        @click="toggleFav"
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-      >
-        <path
-          d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div> -->
-
-    <!-- -------------------------------- -->
-
     <nuxt-link
       :to="`/dashboard/market/${product.name}~${product._id}`"
       class="card_wrap"
@@ -66,62 +43,39 @@
 
     <button
       class="btn addtocart-btn-small"
-      @click="addProductToCart"
+      @click="addProductToCart(getProductQuantity + 1)"
       v-if="!isInCart"
     >
-    <svg v-if="!loader" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="add-plus">
-<path id="Vector" d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</svg>
+      <svg
+        v-if="!loader"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="add-plus">
+          <path
+            id="Vector"
+            d="M3.33398 7.99967H12.6673M8.00065 3.33301V12.6663V3.33301Z"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+      </svg>
 
       <p v-if="!loader">Add to cart</p>
       <span class="loader" v-if="loader"></span>
     </button>
 
     <!-- -------------------------------- -->
-
-    <div class="counter-btn" v-if="isInCart">
-      <button @click="decrementQuantity" class="circle btn">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-        >
-          <path
-            d="M3.33325 8H12.6666"
-            stroke="#0009B3"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-
-      <div class="counter" v-if="!loader">{{ getProductQuantity }}</div>
-      <span class="loader" v-if="loader"></span>
-
-      <button @click="increaseQuantity" class="circle">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-        >
-          <path
-            d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-            stroke="#0009B3"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-    </div>
-
+    <Counter
+      :loader="loader"
+      :counterValue="getProductQuantity"
+      @postQuantity="addProductToCart"
+      v-if="isInCart"
+    />
     <!-- -------------------------------- -->
   </div>
 </template>
@@ -134,7 +88,6 @@ import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      quantity: 0,
       loader: false,
       productId: this.product ? this.product._id : "",
       // productId: this.product && this.product._id ? this.product._id : "",
@@ -156,8 +109,11 @@ export default {
   computed: {
     ...mapState("cart", ["favorites", "cartLoading", "cart"]),
     displayUnit() {
-      if (this.product.unit === undefined || this.product.unit === "undefined") {
-        return '';
+      if (
+        this.product.unit === undefined ||
+        this.product.unit === "undefined"
+      ) {
+        return "";
       } else {
         return this.product.unit;
       }
@@ -201,32 +157,28 @@ export default {
   methods: {
     formatPriceWithCommas,
     ...mapActions("cart", ["addToCart", "increaseItem", "reduceQuantity"]),
-    addProductToCart() {
-      this.loader = true;
-      this.addToCart(this.product).then(() => {
-        this.loader = false;
-      });
+    addProductToCart(e) {
+      console.log(e);
     },
-    increaseQuantity() {
-      // console.log("this.cartid", this.cartId)
-      const e = {
-        productId: this.cartId,
-      };
+    addProductToCart(quantity) {
       this.loader = true;
-      this.increaseItem(e).then(() => {
-        this.loader = false;
-      });
-    },
-    decrementQuantity() {
-      if (this.getProductQuantity > 1) {
-        this.loader = true;
-        this.reduceQuantity(this.cartId).then(() => {
+      // if (quantity < 1 || typeof(quantity) !== Number || !quantity) {
+      //   quantity = 1
+      // }
+
+      // Call addToCart with the product and quantity
+      this.addToCart({ product: this.product, quantity })
+        .then(() => {
+          // This block will be executed when the addToCart Promise resolves
+          this.loader = false;
+        })
+        .catch((error) => {
+          // Handle errors if the addToCart Promise rejects
+          console.error("Error adding product to cart:", error);
           this.loader = false;
         });
-      }
     },
     toggleLike() {},
-
     async toggleFav() {
       if (process.client) {
         const userData = JSON.parse(localStorage.getItem("user"));
@@ -392,8 +344,8 @@ a {
   position: relative;
   /* Establish a positioning context for the child image */
 }
-.addtocart-btn-small:hover{
-  color:white;
+.addtocart-btn-small:hover {
+  color: white;
 }
 .image-container img {
   width: 100%;
@@ -406,7 +358,7 @@ a {
 }
 
 .productcard-details {
-  min-height:76px;
+  min-height: 76px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -472,13 +424,13 @@ button p {
 
   color: var(--grey-grey1);
 }
-button:hover p{
+button:hover p {
   color: var(--grey-grey1);
 }
-button svg{
+button svg {
   stroke: var(--grey-grey1);
 }
-button:hover svg{
+button:hover svg {
   stroke: var(--grey-grey1);
 }
 .loader {
@@ -513,13 +465,13 @@ button:hover svg{
   top: 0;
   left: 0;
 }
-.counter-btn:hover .circle:hover{
+.counter-btn:hover .circle:hover {
   background: var(--grey-grey6);
 }
-.counter-btn:focus .circle:focus{
+.counter-btn:focus .circle:focus {
   background: var(--grey-grey5);
 }
-.counter-btn:active .circle:active{
+.counter-btn:active .circle:active {
   background: var(--grey-grey5);
 }
 .counter {
