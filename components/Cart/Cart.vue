@@ -165,8 +165,6 @@
                 :key="index"
                 :items="items"
                 :inCart="true"
-                @counterPlus="counterPlus"
-                @counterMinus="counterMinus"
               />
             </div>
           </div>
@@ -380,6 +378,7 @@ header {
   left: 0;
   padding: 24px;
   background: white;
+  z-index: 1;
 }
 
 .checkout-container {

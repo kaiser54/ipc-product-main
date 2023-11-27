@@ -157,9 +157,6 @@ export default {
   methods: {
     formatPriceWithCommas,
     ...mapActions("cart", ["addToCart", "increaseItem", "reduceQuantity"]),
-    addProductToCart(e) {
-      console.log(e);
-    },
     addProductToCart(quantity) {
       this.loader = true;
       // if (quantity < 1 || typeof(quantity) !== Number || !quantity) {
