@@ -96,7 +96,7 @@ export default {
         },
     },
     created() {
-        (this.$route.params.token)
+        console.log(this.$route.params.token)
     },
     methods: {
         submitLogin() {
@@ -110,7 +110,6 @@ export default {
                         "Password must be at least 4 characters long";
                 }
             } else {
-                
                 this.resetTokenSent()
             }
         },
@@ -120,8 +119,7 @@ export default {
                     password: this.password,
                     confirmPassword: this.rePassword,
                     token: this.$route.params.token
-                }
-                )
+                })
                 this.$router.push("/auth/login");
             } catch(error){
                 console.error('Wrong Token:', error)

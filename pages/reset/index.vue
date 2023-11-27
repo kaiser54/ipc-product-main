@@ -102,6 +102,15 @@ export default {
         },
     },
     methods: {
+        maskEmail: (email) => {
+            // function body
+            if (email.length < 12) {
+                return email;
+            }
+            const [username, domain] = email.split("@");
+            const maskedUsername = `${username.substring(0, 3)}${"*".repeat(4)}`;
+            return `${maskedUsername}@${domain}`;
+        },
         submitReset() {
             const maskedEmail = this.maskEmail(this.email);
             // Inside your submitReset() method
@@ -126,15 +135,7 @@ export default {
             }
 
         },
-        maskEmail: (email) => {
-            // function body
-            if (email.length < 12) {
-                return email;
-            }
-            const [username, domain] = email.split("@");
-            const maskedUsername = `${username.substring(0, 3)}${"*".repeat(4)}`;
-            return `${maskedUsername}@${domain}`;
-        },
+
         goBack() {
             this.$router.go(-1);
         },
@@ -150,7 +151,7 @@ export default {
                 
                
             } catch (error) {
-                console.error('Error sending email:', error);
+                // console.error('Error sending email:', error);
                 this.verificationLoading = false
               this.Notconfirmed = true
             }
