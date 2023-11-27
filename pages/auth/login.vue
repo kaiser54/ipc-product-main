@@ -45,6 +45,8 @@
                 buttonText="Log in"
                 @click="submitLogin"
                 :buttonTextLoader="loading"
+                
+                
               />
               <div class="pass-link">
                 <p>
@@ -82,12 +84,9 @@ export default {
       invalidPassword: false,
       emailErrorMessage: "",
       passwordErrorMessage: "",
-
       inputType: "password",
       showPassword: true,
-
       alertType: "error",
-
       pageTitle: "Gosource | Login",
     };
   },

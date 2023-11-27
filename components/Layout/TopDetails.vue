@@ -15,7 +15,7 @@
           </defs>
         </svg>
       </div>
-      <p class="username">{{truncateId( user.businessName, 20) }}</p>
+      <p class="username">{{ truncateId(user.businessName, 20) }}</p>
     </div>
     <div class="search-input">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -30,17 +30,19 @@
           </clipPath>
         </defs>
       </svg>
-      <input class="input-search" ref="search" type="search" name="search" id="search" placeholder="Search for products" v-model="searchQuery" />
+      <input class="input-search" ref="search" type="search" name="search" id="search" placeholder="Search for products"
+        v-model="searchQuery" />
     </div>
     <div class="notify-cart">
       <div class="notification" @click="triggerNotification">
-        <div class="circle">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <div class="circle notify">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M5.6 9.45798V8.4C5.6 4.86538 8.46538 2 12 2C15.5346 2 18.4 4.86537 18.4 8.4V9.45798C18.4 11.7583 19.0649 14.0096 20.3146 15.9409L21 17H3L3.68539 15.9408C4.93512 14.0096 5.6 11.7583 5.6 9.45798Z"
-              stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M11 20.8889C11.5344 21.4827 12.4656 21.4827 13 20.8889" stroke="#565C69" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
+              d="M19.3399 14.49L18.3399 12.83C18.1299 12.46 17.9399 11.76 17.9399 11.35V8.82C17.9399 6.47 16.5599 4.44 14.5699 3.49C14.0499 2.57 13.0899 2 11.9899 2C10.8999 2 9.91994 2.59 9.39994 3.52C7.44994 4.49 6.09994 6.5 6.09994 8.82V11.35C6.09994 11.76 5.90994 12.46 5.69994 12.82L4.68994 14.49C4.28994 15.16 4.19994 15.9 4.44994 16.58C4.68994 17.25 5.25994 17.77 5.99994 18.02C7.93994 18.68 9.97994 19 12.0199 19C14.0599 19 16.0999 18.68 18.0399 18.03C18.7399 17.8 19.2799 17.27 19.5399 16.58C19.7999 15.89 19.7299 15.13 19.3399 14.49Z"
+              fill="#344054" />
+            <path
+              d="M14.8297 20.01C14.4097 21.17 13.2997 22 11.9997 22C11.2097 22 10.4297 21.68 9.87969 21.11C9.55969 20.81 9.31969 20.41 9.17969 20C9.30969 20.02 9.43969 20.03 9.57969 20.05C9.80969 20.08 10.0497 20.11 10.2897 20.13C10.8597 20.18 11.4397 20.21 12.0197 20.21C12.5897 20.21 13.1597 20.18 13.7197 20.13C13.9297 20.11 14.1397 20.1 14.3397 20.07C14.4997 20.05 14.6597 20.03 14.8297 20.01Z"
+              fill="#344054" />
           </svg>
         </div>
         <!-- <div class="badge">
@@ -49,14 +51,20 @@
       </div>
 
       <div class="cart" @click="triggerCart">
-        <div class="circle">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <div class="circle carty">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="24" fill="#19B820" />
             <path
-              d="M3 9C3 7.89543 3.89543 7 5 7H19C20.1046 7 21 7.89543 21 9V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V9Z"
-              stroke="#565C69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M8 10V6C8 3.79086 9.79086 2 12 2C14.2091 2 16 3.79086 16 6V9.6888" stroke="#565C69" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
+              d="M15.5957 14C15.0434 14 14.5957 14.4477 14.5957 15C14.5957 15.5523 15.0434 16 15.5957 16C16.3241 16 16.9605 16.5293 17.0915 17.274L17.7775 21.1733C17.7834 21.2069 17.791 21.2399 17.8 21.2721L18.0025 22.4035C18.5681 25.5646 18.8509 27.1451 19.829 28.2301C20.1919 28.6327 20.6176 28.9784 21.0907 29.2549C22.3656 30 24.0286 30 27.3545 30H27.7604C29.2631 30 30.0144 30 30.6328 29.7364C31.1356 29.522 31.5727 29.1864 31.9021 28.7619C32.3071 28.2398 32.4756 27.5336 32.8126 26.1212C33.3215 23.9881 33.576 22.9215 33.2797 22.0874C33.0406 21.4142 32.5677 20.8412 31.9411 20.4655C31.1647 20 30.0299 20 27.7604 20H19.6018L19.0613 16.9275C18.7646 15.2414 17.31 14 15.5957 14Z"
+              fill="white" />
+            <path
+              d="M22.4058 32.75C22.4058 33.4404 21.8461 34 21.1558 34C20.4654 34 19.9058 33.4404 19.9058 32.75C19.9058 32.0596 20.4654 31.5 21.1558 31.5C21.8461 31.5 22.4058 32.0596 22.4058 32.75Z"
+              fill="white" />
+            <path
+              d="M30.1558 34C30.8461 34 31.4058 33.4404 31.4058 32.75C31.4058 32.0596 30.8461 31.5 30.1558 31.5C29.4654 31.5 28.9058 32.0596 28.9058 32.75C28.9058 33.4404 29.4654 34 30.1558 34Z"
+              fill="white" />
           </svg>
+
         </div>
         <div class="badge">
           <p>{{ TotalCart }}</p>
@@ -67,7 +75,7 @@
 </template>
 
 <script>
-import {EventBus} from "@/utils/event-bus"
+import { EventBus } from "@/utils/event-bus"
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
@@ -82,8 +90,8 @@ export default {
       cart: null,
     };
   },
-  mounted(){
-    EventBus.$on('clearInput', ()=> {
+  mounted() {
+    EventBus.$on('clearInput', () => {
       this.searchQuery = ""
     })
   },
@@ -211,13 +219,11 @@ input {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 12px;
+  /* padding: 12px; */
   gap: 10px;
-
+/* 
   width: 48px;
-  height: 48px;
-
-  /* Grey/Grey4 */
+  height: 48px; */
 
   border: 1px solid var(--grey-grey4);
   border-radius: 100px;
@@ -226,8 +232,14 @@ input {
 
 
 }
-
+.notify{
+  width: 48px;
+  height: 48px;
+}
+.carty svg{
+  width: 48px;
+  height: 48px;
+}
 .circle:hover {
   background: var(--grey-grey6);
-}
-</style>
+}</style>

@@ -557,7 +557,7 @@ letter-spacing: -0.2px;
   outline: 0;
   border: none;
   letter-spacing:-0.2px;
-  /* color: var(--primary-p300); */
+ font-family: var(--graphikRegular);
   color: var( --new-primary-p300);
 }
 
