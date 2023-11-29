@@ -46,44 +46,19 @@
 
             <!-- counter button -->
           </div>
-          <div class="quantity">
-            <button class="circle" @click="decreaseQuantity">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M3.33325 8H12.6666"
-                  stroke="#303237"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-            <div class="counter" v-if="!loader">{{ items?.quantity }}</div>
-            <span class="loader" v-if="loader"></span>
-            <button class="circle" @click="IncreaseQuantity">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M3.33325 7.99967H12.6666M7.99992 3.33301V12.6663V3.33301Z"
-                  stroke="#303237"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
+          <!-- <div class="quantity">
+            <Counter
+              :loader="loader"
+              :counterValue="items?.quantity"
+              @postQuantity="addProductToCart"
+            />
+          </div> -->
+          <Counter
+            style="width: 200px"
+            :loader="loader"
+            :counterValue="items?.quantity"
+            @postQuantity="addProductToCart"
+          />
         </div>
       </div>
       <div class="divider-"></div>
@@ -115,29 +90,18 @@ export default {
     ...mapState("cart", ["cartLoading"]),
   },
   methods: {
-    ...mapActions("cart", [
-      "addToCart",
-      "increaseItem",
-      "reduceQuantity",
-      "removeFromCart",
-    ]),
+    ...mapActions("cart", ["addToCart", "removeFromCart"]),
     formatPriceWithCommas,
-    IncreaseQuantity() {
+    addProductToCart(quantity) {
       this.loader = true;
-      // console.log("items", this.items._id);
-      const e = {
-        productId: this.items._id,
-      };
-      this.$emit("counterPlus", e);
-    },
-    decreaseQuantity() {
-      if (this.items.quantity > 1) {
-        this.loader = true;
-        this.$emit("counterMinus", this.items._id);
-      } else {
-        // this.removeFromCart(this.items.product._id);
-        this.removeFromCart(this.items.productId);
-      }
+      this.addToCart({ product: this.items.product, quantity })
+        .then(() => {
+          this.loader = false;
+        })
+        .catch((error) => {
+          console.error("Error adding product to cart:", error);
+          this.loader = false;
+        });
     },
     removeItem() {
       this.loader = true;
@@ -290,19 +254,20 @@ p.price {
   border-radius: 100px;
   background: var(--grey-grey6);
 }
-.circle:hover{
-    background: var(--grey-grey6);
-  }
-  .circle:focus, .circle:active{
-    background: var(--grey-grey5);
-  }
+.circle:hover {
+  background: var(--grey-grey6);
+}
+.circle:focus,
+.circle:active {
+  background: var(--grey-grey5);
+}
 .quantity {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0px;
   justify-content: space-between;
-  width: 129px;
+  width: 160px;
 }
 
 @media (max-width: 950px) {
@@ -324,7 +289,7 @@ p.price {
     border-radius: 100px;
     background: var(--grey-grey6);
   }
-  .circle:hover{
+  .circle:hover {
     background: var(--grey-grey6);
   }
 }
