@@ -79,7 +79,7 @@ export default {
 <style scoped>
 @media (max-width: 400px) {
     .alert__prompt {
-        width: auto;
+        width: 100%;
     }
 }
 .slide-enter-active {
@@ -111,6 +111,7 @@ export default {
 }
 
 .top {
+    width: 100%;
     top: 30px;
     position: absolute;
     position: fixed;
@@ -122,6 +123,7 @@ export default {
 }
 
 .alert__prompt {
+    margin-inline: auto;
     display: flex;
     flex-direction: row;
     align-items: center;

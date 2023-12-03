@@ -114,8 +114,6 @@ export default {
 
         const customerId = user?._id;
 
-        console.log("quantity", quantity)
-
         const data = {
           product: product,
           productId: product._id,
@@ -131,7 +129,6 @@ export default {
           headers: headers,
         });
 
-        console.log(response)
 
         const { cartItem } = response.data.data;
 
