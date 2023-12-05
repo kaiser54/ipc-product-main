@@ -152,23 +152,6 @@
                   Brand: <span>{{ productDetails?.brand }}</span>
                 </p>
               </div>
-              <!-- <div class="circle" @click="toggleLike">
-                  <svg
-                    :class="{ liked: isLiked || isInSaved }"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M7.63018 13.8405L2.38403 8.37754C0.906344 6.8388 0.999397 4.31573 2.58606 2.89953C4.16015 1.49454 6.54688 1.76737 7.79078 3.49447L7.99992 3.78483L8.20905 3.49447C9.45298 1.76737 11.8397 1.49454 13.4138 2.89953C15.0004 4.31573 15.0935 6.8388 13.6158 8.37754L8.36965 13.8405C8.16545 14.0531 7.83438 14.0531 7.63018 13.8405Z"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div> -->
             </div>
             <!-- ------------------------------- -->
 
@@ -196,7 +179,7 @@
               @click="addProductToCart"
               v-if="!isInCart"
             >
-            <p v-if="!loader" class="btn primary-btn" >Add to cart</p>
+            <span v-if="!loader" style="color: white;">Add to cart</span>
               <span class="loader" v-if="loader"></span>
             </button>
 
@@ -223,10 +206,7 @@
                 </svg>
               </button>
 
-              <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-              <div class="counter" v-if="!cartLoading">
-                {{ getProductQuantity }}
-              </div>
+              <input type="number" class="counter input" v-model="quantity"  v-if="!cartLoading">
               <span class="loader" v-if="cartLoading"></span>
 
               <button @click="increaseQuantity" class="circle">
@@ -285,11 +265,8 @@
           </svg>
         </button>
 
-        <!-- <input type="number" v-model.number="itemCount" min="1" class="counter input" /> -->
-
-        <div class="counter" v-if="!cartLoading">
-          {{ getProductQuantity }}
-        </div>
+        <!-- <input type="numberer" v-model.number="itemCount" min="1" class="counter input" /> -->
+        <input type="number" class="counter input" v-model="quantity"  v-if="!cartLoading">
         <span class="loader" v-if="cartLoading"></span>
 
         <button @click="increaseQuantity" class="circle">
@@ -399,11 +376,12 @@ export default {
     getProductQuantity() {
       if (this.isInCart) {
         const cartItem = this.cart.find(
-          (c) => c.productId === this.product._id
+          (c) => c.product._id === this.currentPage
         );
 
         if (cartItem) {
           this.cartId = cartItem._id;
+          this.quantity = cartItem.quantity
           return cartItem.quantity;
         } else {
           return 0;
@@ -424,45 +402,19 @@ export default {
       this.loading = false;
       ("Product detailsssssssss:", newProduct);
     },
+    quantity(newQuantity) {
+      this.scheduleUpdate(newQuantity);
+    },
   },
   async mounted() {
     this.$store.dispatch("product/fetchAllProducts");
     const pathArray = this.$route.path.split("~");
     const lastSegment = decodeURIComponent(pathArray[pathArray.length - 1]);
     this.currentPage = lastSegment;
-    (this.currentPage);
     this.checkScreenSize();
     this.fetchCartItemsByUserID();
     window.addEventListener("resize", this.checkScreenSize);
-
-    const zoomLevel = 2; // Change this value to adjust the zoom level
-
-    const addZoomListeners = () => {
-      const zoomImage = this.$refs.zoomImage;
-      const zoomContainer = this.$refs.zoomContainer;
-
-      if (!zoomImage) {
-        return;
-      }
-
-      zoomImage.addEventListener("mousemove", (e) => {
-        const mouseX = e.offsetX / zoomContainer.offsetWidth;
-        const mouseY = e.offsetY / zoomContainer.offsetHeight;
-
-        zoomImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
-        zoomImage.style.transform = `scale(${zoomLevel})`;
-      });
-
-      zoomImage.addEventListener("mouseleave", () => {
-        zoomImage.style.transform = "scale(1)";
-      });
-    };
-
-    addZoomListeners();
-
-    this.zoomInterval = setInterval(() => {
-      addZoomListeners();
-    }, 1000 * 60); // Check every minute
+    this.fetchProductByID(this.currentPage)
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -476,6 +428,7 @@ export default {
       "increaseItem",
       "fetchCartItemsByUserID",
     ]),
+    ...mapActions("product", ["fetchProductByID"]),
     formatPriceWithCommas(number) {
       if (number === undefined) {
         return number; // or any default value or error message you prefer
@@ -501,7 +454,7 @@ export default {
     },
     addProductToCart() {
       this.loader = true;
-      this.addToCart(this.product).then(() => {
+      this.addToCart({product: this.productDetails, quantity: this.quantity}).then(() => {
         this.loader = false;
       });
     },
@@ -526,7 +479,17 @@ export default {
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked;
-      this.$store.commit("addToSaved", this.product);
+      this.$store.commit("addToSaved", this.product);},
+    scheduleUpdate() {
+      // Cancel any existing scheduled update
+      if (this.updateTimeout) {
+        clearTimeout(this.updateTimeout);
+      }
+      // Schedule a new update after 1000ms (1 second)
+      this.updateTimeout = setTimeout(() => {
+        this.addProductToCart();
+        this.updateTimeout = null;
+      }, 1000);
     },
   },
 };
@@ -618,10 +581,6 @@ export default {
 .product-img {
   width: 266.67px;
   height: 300px;
-
-  /* Grey/Grey6 */
-
-  background: #f4f5f8;
   border-radius: 8px;
 }
 
@@ -806,11 +765,13 @@ p.product-details-snippet {
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  /* identical to box height, or 150% */
-
-  /* Grey/Grey1 */
-
+  max-width: 85px;
+  width: 100%;
   color: var(--grey-grey1);
+  outline: none;
+  border: none;
+  text-align: center;
+  padding: 0;
 }
 .categories-ctn {
   margin-top: 48px;

@@ -44,6 +44,26 @@ export default {
         commit("SET_LOADING", false);
       }
     },
+    async fetchProductByID({ commit }, id) {
+      try {
+        commit("SET_LOADING", true);
+
+        const requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+
+        const data = await fetchData("/products/" + id, requestOptions);
+        console.log(data)
+
+        // commit("SET_PRODUCTS", data.data.products);
+        commit("SET_LOADING", false);
+        commit("SET_ERROR", null);
+      } catch (error) {
+        commit("SET_ERROR", error.message);
+        commit("SET_LOADING", false);
+      }
+    },
     updateQuery({ commit }, value) {
       commit("SET_QUERY", value);
     },

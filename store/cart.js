@@ -103,7 +103,7 @@ export default {
       }
     },
 
-    async addToCart({ commit, state }, product) {
+    async addToCart({ commit, state }, { product, quantity }) {
       try {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
@@ -118,9 +118,8 @@ export default {
           product: product,
           productId: product._id,
           customerId: customerId,
+          quantity: quantity
         };
-
-        ("data sending to backend", data);
 
         const headers = {
           "Content-Type": "application/json",
@@ -130,6 +129,7 @@ export default {
           headers: headers,
         });
 
+
         const { cartItem } = response.data.data;
 
         if (response.status === 200) {
@@ -137,10 +137,6 @@ export default {
         } else {
           commit("ADD_TO_CART_ALERT", false);
         }
-
-        (" response data: ", response);
-
-        (" response cartItem: ", cartItem);
 
         const { cart } = state;
 

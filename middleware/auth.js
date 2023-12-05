@@ -8,7 +8,7 @@ export default function ({ route, redirect }) {
   const allowedPages = [
     "/auth/login",
     "/reset",
-    "/reset/token",
+    "/reset/:id",
     "/auth/register",
     "/auth/register/sign-up/business",
   ];
