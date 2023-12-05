@@ -123,7 +123,7 @@ export default {
                 this.$router.push("/auth/login");
             } catch(error){
                 console.error('Wrong Token:', error)
-            }
+            } 
       }
     },
 };

@@ -8,13 +8,14 @@ export default function ({ route, redirect }) {
   const allowedPages = [
     "/auth/login",
     "/reset",
+    "/reset/token",
     "/auth/register",
     "/auth/register/sign-up/business",
   ];
 
   // If the user is not logged in and is trying to access a restricted page, redirect to login
-  if (!USER && !allowedPages.includes(route.path)) {
+  if (!USER && !allowedPages.includes(route.path) && !route.path.startsWith("/reset")) {
     return redirect("/auth/login"); // You can change this URL to your actual login page
   }
-  ("route path middleware :", route.path)
+  console.log("route path middleware :", route.path)
 }

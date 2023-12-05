@@ -6,7 +6,7 @@
     :style="buttonStyles"
     :disabled="disabled"
   >
-    <div class="" v-if="showText">{{ buttonText }}</div>
+    <div class="" v-if="showText"> {{ buttonText }} </div>
     <slot name="svg"></slot>
   </button>
 </template>
