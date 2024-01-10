@@ -58,9 +58,9 @@
           </div>
           <div class="signup-link">
             <p>
-              Are you new to Gosource ?<nuxt-link to="/auth/register">
-                Create an account</nuxt-link
-              >
+              Are you new to Gosource ?
+              <!-- <nuxt-link to="/auth/register">Create an account</nuxt-link> -->
+              <a href="https://www.gosource.app/waitlist">Create an account</a>
             </p>
           </div>
         </div>
