@@ -32,7 +32,11 @@
         <div class="grid grid-cols-4">
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Order Date</p>
-            <p class="text-xs text-[#303237] font-medium">{{ formatDate(orders?.order ?.createdAt? orders?.order?.createdAt : orders?.createdAt) }}</p>
+            <p class="text-xs text-[#303237] font-medium">{{ formatDate(orders?.createdAt) }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-[#7E8494] mb-3">Order Time</p>
+            <p class="text-xs text-[#303237] font-medium">{{ formatTime(orders?.createdAt) }}</p>
           </div>
           <div>
             <p class="text-xs text-[#7E8494] mb-3">Customer name</p>
@@ -175,7 +179,7 @@
 </template>
 
 <script>
-import { formatDate, formatTimeWithAMPM, formatNumberWithLeadingZeros, calculateDeliveryDate } from '~/utils/dateUtils'; // Adjust the import path as needed
+import { formatDate, formatTimeWithAMPM,formatDate,formatTimme, formatNumberWithLeadingZeros, calculateDeliveryDate } from '~/utils/dateUtils'; // Adjust the import path as needed
 export default {
   props: {
     orders: {

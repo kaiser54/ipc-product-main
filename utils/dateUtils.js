@@ -79,3 +79,15 @@ export function getCurrentTimeAMPM() {
 
   return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
+
+
+import moment from 'moment';
+
+export function formatDate(dateTimeString) {
+  // return moment(dateTimeString).format('YYYY-MM-DD HH:mm:ss');
+  return moment(dateTimeString).format('MMMM Do YYYY');
+}
+export function formatTime(dateTimeString) {
+  // return moment(dateTimeString).format('YYYY-MM-DD HH:mm:ss');
+  return moment(dateTimeString).format(' h:mm a');
+}
