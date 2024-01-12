@@ -19,6 +19,9 @@ export default {
   }),
 
   mutations: {
+    CLEAR_CART(state) {
+      state.cart = [];
+    },
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
       // state.cart.push(cartItem);
@@ -66,6 +69,23 @@ export default {
   },
 
   actions: {
+    async clearCartItems({ commit }, customerId) {
+      try {
+        // Make a DELETE request to clear the cart
+        const response = await axios.delete(`${DEV_URL}/cart/delete-customers-items/${customerId}`);
+  
+        if (response.status === 204) {
+          // Update the cart to an empty array
+          commit("CLEAR_CART");
+        } else {
+          // Handle the case where the cart items were not cleared
+          console.error("Failed to clear cart items:", response.data);
+        }
+      } catch (error) {
+        console.error("Error clearing cart items:", error);
+      }
+    },
+    
     async fetchCartItemsByUserID({ commit }) {
       try {
         commit("SET_LOADING", true);

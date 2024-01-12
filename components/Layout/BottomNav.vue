@@ -140,12 +140,13 @@
     </div>
     <div class="checkout-bottom mobile-nav-bar" v-if="this.pageName === 'cart'">
       <button class="btn primary-btn" @click="leaveCart">Checkout</button>
+      <button class="btn neutral-btn" @click="clearCart">Clear cart</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -167,6 +168,17 @@ export default {
     ...mapState("cart", ["cart"]),
   },
   methods: {
+    ...mapActions("cart", [
+      "clearCartItems"
+    ]),
+    async clearCart() {
+      if (process.client) {
+        const userData = JSON.parse(localStorage.getItem("user"));
+        const customerId = userData._id;
+        console.log(customerId)
+        await this.clearCartItems(customerId);
+      }
+    },
     leaveCart() {
       this.$router.push("/dashboard/market/checkout");
     },
@@ -249,6 +261,11 @@ export default {
 .checkout-bottom {
   padding: 16px;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
 }
 
 .history path,
