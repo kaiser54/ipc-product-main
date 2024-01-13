@@ -459,7 +459,6 @@ export default {
       });
     },
     increaseQuantity() {
-      // console.log("this.cartid", this.cartId)
       const e = {
         productId: this.cartId,
       };

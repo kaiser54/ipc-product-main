@@ -17,5 +17,4 @@ export default function ({ route, redirect }) {
   if (!USER && !allowedPages.includes(route.path) && !route.path.startsWith("/reset")) {
     return redirect("/auth/login"); // You can change this URL to your actual login page
   }
-  console.log("route path middleware :", route.path)
 }

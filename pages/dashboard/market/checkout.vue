@@ -43,7 +43,6 @@
         <div class="user-form-data">
           <CheckoutAddress
             v-show="currentStep === 1"
-            v-if="lastCheckoutDetails"
             @customEvent="handleFormSubmission"
             :lastCheckoutDetails="lastCheckoutDetails"
           />
@@ -59,8 +58,11 @@
             v-show="currentStep === 3 && submittedData"
             v-if="user"
             @lastStep="lastStep"
+            @handleCoupon="handleCoupon($event)"
             :data="submittedData"
             :canBuyOnCredit="user?.canBuyOnCredit"
+            :loaderClass="loaderClass"
+            :couponError="couponError"
           />
         </div>
         <div class="__order__data" v-if="!mobile">
@@ -131,6 +133,9 @@ export default {
       submittedData: null,
       ref: "",
       invoiceData: null,
+      couponError: false,
+      couponLoading: false,
+      loaderClass: '',
     };
   },
   created() {
@@ -221,7 +226,6 @@ export default {
       }
     },
     handleFormSubmission(data) {
-      console.log(data);
       this.submittedData = data;
       if (this.currentStep < 3) {
         this.currentStep++;
@@ -271,6 +275,24 @@ export default {
       this.currentStep = 1;
       ("clicked");
     },
+
+    async handleCoupon(newVal) {
+      this.couponLoading = true;
+      this.loaderClass = "coupon-loader";
+      try {
+        const res = await axios.get(`${DEV_URL}/coupon/${newVal}`);
+        this.loaderClass = "check";
+      } catch (error) {
+      this.couponError = true;
+      } finally {
+        setTimeout(() => {
+          this.couponLoading = false;
+          this.loaderClass = null;
+      this.couponError = false;
+        }, 3000);
+      }
+    },
+
     async submitForm(data) {
       this.spinner = true;
       data.reference = this.ref;

@@ -2,12 +2,7 @@
   <div class="payment">
     <h3 class="h3-medium header-text">Payment</h3>
     <div class="content-select">
-      <div
-        class=""
-        v-for="(item, index) in listSelect"
-        :key="index"
-        style="width: 100%"
-      >
+      <div class="" v-for="(item, index) in listSelect" :key="index" style="width: 100%">
         <div
           class="list-select"
           :class="{
@@ -17,12 +12,7 @@
           @click="selectItem(item)"
         >
           <label>
-            <input
-              type="radio"
-              :value="item.value"
-              v-model="selectedItem"
-              hidden
-            />
+            <input type="radio" :value="item.value" v-model="selectedItem" hidden />
             <svg
               :class="{ selected: selectedItem === item.value }"
               viewBox="0 0 25 25"
@@ -64,7 +54,11 @@
           </div>
         </div>
       </div>
-      <div class="disabled no-hover" style="width: 100%; display: none;" v-if="!canBuyOnCredit" >
+      <div
+        class="disabled no-hover"
+        style="width: 100%; display: none"
+        v-if="!canBuyOnCredit"
+      >
         <div class="list-select">
           <label>
             <svg viewBox="0 0 25 25" width="25" height="25">
@@ -78,13 +72,7 @@
                 stroke="#BDC0CE"
                 stroke-width="2"
               />
-              <circle
-                class="circle"
-                cx="11.9992"
-                cy="11.9992"
-                r="7.8"
-                fill=""
-              />
+              <circle class="circle" cx="11.9992" cy="11.9992" r="7.8" fill="" />
             </svg>
           </label>
           <div class="list-select-header">
@@ -99,11 +87,108 @@
       <template v-slot:button>
         <button class="btn ghost-btn">Change delivery address</button>
       </template>
+      <template v-slot:email>
+        <form action="">
+          <label for="coupon">Coupon free delivery</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input
+              :class="{ 'input-error': couponError }"
+              type="text"
+              class="input"
+              placeholder="Enter coupon"
+              v-model="coupon"
+            />
+            <div :class="loaderClass"></div>
+          </div>
+          <div class="caution" :class="{ error: couponError, caution: !couponError }">
+            <svg
+              v-if="couponError"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_2260_9969)">
+                <path
+                  d="M8 5.33334V8"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 10.6797V10.6667"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8C14.6667 4.3181 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.3181 1.33334 8C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
+                  stroke="#FF3B2D"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_2260_9969">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <svg
+              v-if="!couponError"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_5373_7723)">
+                <path
+                  d="M8 5.33203V7.9987"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 10.681V10.668"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.00065 14.6654C11.6825 14.6654 14.6673 11.6806 14.6673 7.9987C14.6673 4.3168 11.6825 1.33203 8.00065 1.33203C4.31875 1.33203 1.33398 4.3168 1.33398 7.9987C1.33398 11.6806 4.31875 14.6654 8.00065 14.6654Z"
+                  stroke="#565C69"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_5373_7723">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <p v-if="!couponError">
+              This coupon code will give you access to free delivery
+            </p>
+            <p v-if="couponError" style="color: rgb(255, 59, 45)">
+              Invalid coupon, please enter a valid coupon
+            </p>
+          </div>
+        </form>
+      </template>
       <template v-slot:delivery>
         <div class="delivery__time">
           <div class="delivery">
-            Your items will be delivered to you in 24hours. If there will be any
-            delay in some order items, we’ll contact you immediately
+            Your items will be delivered to you in 24hours. If there will be any delay in
+            some order items, we’ll contact you immediately
           </div>
           <!-- <div class="time">24hours</div> -->
         </div>
@@ -113,11 +198,11 @@
       class="bottom"
       :buttonText="selectedItem === 'CREDIT' ? 'Purchase on credit' : 'Make payment'"
       @click="submitForm"
-      :disabled="!selectedItem"
+      :disabled="!selectedItem && !couponLoading"
     />
   </div>
 </template>
-  
+
 <script>
 export default {
   props: {
@@ -125,6 +210,17 @@ export default {
     canBuyOnCredit: {
       type: Boolean,
       default: false,
+    },
+    couponError: {
+      type: Boolean,
+      default: false,
+    },
+    couponLoading: {
+      type: Boolean,
+      default: false,
+    },
+    loaderClass: {
+      type: String,
     },
   },
   data() {
@@ -144,9 +240,26 @@ export default {
           show: this.canBuyOnCredit,
         },
       ],
+      coupon: "",
+      typingTimer: null,
+      doneTypingInterval: 2000,
     };
   },
+  watch: {
+    coupon(newVal, oldVal) {
+      // Clear the previous timer
+      clearTimeout(this.typingTimer);
+
+      // Start a new timer to validate after the specified interval
+      this.typingTimer = setTimeout(() => {
+        this.handleCoupon(newVal);
+      }, this.doneTypingInterval);
+    },
+  },
   methods: {
+    handleCoupon(newVal) {
+      this.$emit("handleCoupon", newVal);
+    },
     selectItem(item) {
       this.selectedItem = item.value;
       this.data.paymentMethod = item.value;
@@ -162,7 +275,6 @@ export default {
 };
 </script>
 
-  
 <style scoped>
 .payment {
   display: flex;
@@ -342,5 +454,32 @@ svg circle {
 .circle {
   cursor: not-allowed;
   stroke: none;
+}
+
+/* HTML: <div class="loader"></div> */
+.coupon-loader {
+  width: 16px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #000000 94%, #0000) top/3px 3px no-repeat,
+    conic-gradient(#0000 30%, #000000);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 3px), #000 0);
+  animation: l13 1s infinite linear;
+}
+
+.check {
+  margin-bottom: 4px;
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 12px;
+  width: 6px;
+  border-bottom: 2px solid #00ff1e;
+  border-right: 2px solid #00ff1e;
+}
+
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
 }
 </style>

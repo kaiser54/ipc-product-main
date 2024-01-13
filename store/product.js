@@ -54,7 +54,6 @@ export default {
         };
 
         const data = await fetchData("/products/" + id, requestOptions);
-        console.log(data)
 
         // commit("SET_PRODUCTS", data.data.products);
         commit("SET_LOADING", false);

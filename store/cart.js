@@ -198,7 +198,6 @@ export default {
 
         const { productId } = e;
 
-        // console.log("Data sending to backend", productId);
         const headers = {
           "Content-Type": "application/json",
         };
@@ -213,7 +212,6 @@ export default {
             headers,
           }
         );
-        // console.log(response);
 
         const { update } = response.data.data;
         const cartItem = update;
@@ -230,7 +228,6 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-        // console.log("Response indexOfCartItem: ", indexOfCartItem);
 
         if (indexOfCartItem !== -1) {
           commit("UPDATE_CARTITEM_QUANTITY", {
@@ -267,7 +264,6 @@ export default {
 
         const { productId } = e;
 
-        // console.log("Data sending to backend", productId);
         const headers = {
           "Content-Type": "application/json",
         };
@@ -282,7 +278,6 @@ export default {
             headers,
           }
         );
-        // console.log(response);
 
         const { update } = response.data.data;
         const cartItem = update;
@@ -299,7 +294,6 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-        // console.log("Response indexOfCartItem: ", indexOfCartItem);
 
         if (indexOfCartItem !== -1) {
           commit("UPDATE_CARTITEM_QUANTITY", {
@@ -340,8 +334,6 @@ export default {
             headers: headers,
           }
         );
-
-        // console.log("response", response)
 
         if (response.status === 204) {
           const indexOfCartItem = state.cart.findIndex(
@@ -413,7 +405,6 @@ export default {
       try {
         commit("SET_LOADING", true);
         commit("ADD_TO_CART_ALERT", null);
-        // console.log("Data sending to backend", arg);
 
         const { _id } = arg;
 

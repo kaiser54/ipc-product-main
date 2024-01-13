@@ -182,7 +182,6 @@ export default {
   },
   watch: {
     selectedLGA(newSelectedLGA) {
-      console.log(newSelectedLGA)
       if (
         newSelectedLGA
         // newSelectedLGA.latlon &&
