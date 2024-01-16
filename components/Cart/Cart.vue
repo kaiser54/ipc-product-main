@@ -218,7 +218,6 @@ export default {
   },
   async mounted() {
     await this.fetchCartItemsByUserID();
-    console.log("Cart Items:", this.cartItems);
   },
   computed: {
     cartItems() {
@@ -255,7 +254,6 @@ export default {
       if (process.client) {
         const userData = JSON.parse(localStorage.getItem("user"));
         const customerId = userData._id;
-        console.log(customerId)
         await this.clearCartItems(customerId);
       }
     },
