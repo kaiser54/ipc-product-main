@@ -184,9 +184,14 @@
                   </p>
                 </div>
               </div>
-              <button class="btn primary-btn" @click="checkout">
+                <div class="set-btn">
+                  <button class="btn primary-btn" @click="checkout">
                 Checkout
               </button>
+              <button class="btn neutral-btn" @click="clearCart">
+                Clear cart
+              </button>
+                </div>
             </div>
           </div>
         </div>
@@ -213,6 +218,7 @@ export default {
   },
   async mounted() {
     await this.fetchCartItemsByUserID();
+    console.log("Cart Items:", this.cartItems);
   },
   computed: {
     cartItems() {
@@ -221,6 +227,7 @@ export default {
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     ...mapGetters("cart", ["TotalCart", "cartTotalQuantity", "cartTotalPrice"]),
   },
+
   methods: {
     formatPriceWithCommas,
     counterPlus(e) {
@@ -234,6 +241,7 @@ export default {
       "addToCart",
       "reduceQuantity",
       "increaseItem",
+      "clearCartItems"
     ]),
     checkout() {
       this.$emit("closeCart");
@@ -243,8 +251,25 @@ export default {
       this.$emit("closeCart");
       this.$router.push("/dashboard/market");
     },
-  },
-};
+    async clearCart() {
+      if (process.client) {
+        const userData = JSON.parse(localStorage.getItem("user"));
+        const customerId = userData._id;
+        console.log(customerId)
+        await this.clearCartItems(customerId);
+      }
+    },
+    // async sendPostRequest(customerId) {
+    //   try {
+    //     const response = await this.$axios.delete(`/cart/delete-customers-items/${customerId}`);
+    //     console.log(response.data); 
+
+    //   } catch (error) {
+    //     console.error('Error deleting customer items:', error);
+    //   }
+    // },
+  }
+}
 </script>
 
 <style scoped>
@@ -254,7 +279,14 @@ export default {
   left: auto;
   z-index: 2;
 }
-
+.set-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
 .full-cart-bg {
   display: flex;
   justify-content: flex-end;
