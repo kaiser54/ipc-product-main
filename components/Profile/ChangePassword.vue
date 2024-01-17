@@ -75,7 +75,7 @@
               v-model="newPassword"
               :value="passwordValue"
               :type="inputType"
-              placeholder="Enter your old password"
+              placeholder="Enter your new password"
               :required="true"
               :error="error"
               :invalid="validNewPassword"
@@ -92,11 +92,11 @@
             /> -->
             <InputField
               id="confirmPassword"
-              label="Enter your old password again"
+              label="Enter your new password again"
               v-model="confirmPassword"
               :value="passwordValue"
               :type="inputType"
-              placeholder="Enter your old password again"
+              placeholder="Enter your new password again"
               :required="true"
               :error="error"
               :invalid="ValidConfirmPassword"
