@@ -71,7 +71,7 @@
                 />
               </svg>
 
-              <DynamicTags
+              <!-- <DynamicTags
                 class="auto"
                 tagText="BETA"
                 size="small"
@@ -92,7 +92,7 @@
                   font-weight: 500;
                   line-height: 15px;
                 "
-              />
+              /> -->
             </div>
           </nuxt-link>
         </div>

@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <userInfo :data="data" v-if="data" :checkout="true">
+    <userInfo :data="data" v-if="data" :checkout="true" :validCoupon="validCoupon">
       <template v-slot:button>
         <button class="btn ghost-btn">Change delivery address</button>
       </template>
@@ -212,6 +212,10 @@ export default {
       default: false,
     },
     couponError: {
+      type: Boolean,
+      default: false,
+    },
+    validCoupon: {
       type: Boolean,
       default: false,
     },

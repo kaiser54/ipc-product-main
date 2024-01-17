@@ -60,8 +60,8 @@
         >
       </div>
       <div class="client-frame">
-        <span>Delivery fee</span
-        ><span class="bold"
+        <span>Delivery fee <span v-if="validCoupon">(Coupon applied)</span></span
+        ><span class="bold" :class="{ strike: validCoupon }"
           >₦ {{ formatPriceWithCommas(data.deliveryFee) }}</span
         >
       </div>
@@ -94,6 +94,10 @@ export default {
     data: {
       type: Object,
       required: true,
+    },
+    validCoupon: {
+      type: Boolean,
+      default: false,
     },
     checkout: {
       type: Boolean,
@@ -196,5 +200,8 @@ line-height: 24px; /* 150% */
   /* identical to box height, or 150% */
 
   letter-spacing: -0.5px;
+}
+.bold.strike {
+  text-decoration: line-through;
 }
 </style>

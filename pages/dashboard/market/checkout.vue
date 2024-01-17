@@ -32,9 +32,7 @@
           </div>
           <div class="mobile_ _total">
             <div class="mobile-order">Subtotal</div>
-            <div class="total-price">
-              ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
-            </div>
+            <div class="total-price">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</div>
           </div>
         </div>
 
@@ -57,12 +55,13 @@
           <CheckoutPayment
             v-show="currentStep === 3 && submittedData"
             v-if="user"
-            @lastStep="lastStep"
-            @handleCoupon="handleCoupon($event)"
             :data="submittedData"
             :canBuyOnCredit="user?.canBuyOnCredit"
             :loaderClass="loaderClass"
             :couponError="couponError"
+            :validCoupon="validCoupon"
+            @lastStep="lastStep($event)"
+            @handleCoupon="handleCoupon($event)"
           />
         </div>
         <div class="__order__data" v-if="!mobile">
@@ -85,9 +84,7 @@
           <div class="__pricing">
             <div class="__price">
               <p class="subtotal">Subtotal</p>
-              <p class="subprice">
-                ₦ {{ formatPriceWithCommas(cartTotalPrice) }}
-              </p>
+              <p class="subprice">₦ {{ formatPriceWithCommas(cartTotalPrice) }}</p>
             </div>
             <div class="__price" style="display: none">
               <p class="total">Total</p>
@@ -124,6 +121,7 @@ export default {
   data() {
     return {
       lastCheckoutDetails: null,
+      validCoupon: false,
       spinner: true,
       userID: "",
       user: null,
@@ -135,7 +133,9 @@ export default {
       invoiceData: null,
       couponError: false,
       couponLoading: false,
-      loaderClass: '',
+      coupon: "",
+      loaderClass: "",
+      finalData: null,
     };
   },
   created() {
@@ -185,8 +185,7 @@ export default {
   computed: {
     reference() {
       let text = "";
-      let possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       for (let i = 0; i < 10; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       return text;
@@ -242,12 +241,13 @@ export default {
       }
     },
     async lastStep(data) {
+      this.finalData = data;
       this.spinner = true;
       if (data.paymentMethod === "CARD") {
         this.payWithPaystack(data);
       } else {
         this.ref = "PAYMENT IS MADE ON CREDIT";
-        this.submitForm(data);
+        this.submitForm();
       }
     },
     payWithPaystack(data) {
@@ -281,37 +281,37 @@ export default {
       this.loaderClass = "coupon-loader";
       try {
         const res = await axios.get(`${DEV_URL}/coupon/${newVal}`);
-        this.loaderClass = "check";
+        if (res.status === 200) {
+          this.coupon = newVal;
+          this.validCoupon = true;
+          this.loaderClass = "check";
+        }
       } catch (error) {
-      this.couponError = true;
+        this.couponError = true;
       } finally {
         setTimeout(() => {
           this.couponLoading = false;
           this.loaderClass = null;
-      this.couponError = false;
+          this.couponError = false;
         }, 3000);
       }
     },
 
-    async submitForm(data) {
+    async submitForm() {
       this.spinner = true;
-      data.reference = this.ref;
-      data.serviceCharge = this.serviceCharge;
-      data.businessName =
-        this.user.businessName ||
-        `${this.user.firstName} ${this.user.lastName}`;
+      this.finalData.coupon = this.coupon;
+      this.finalData.deliveryFee = 0;
+      this.finalData.reference = this.ref;
+      this.finalData.serviceCharge = this.serviceCharge;
+      this.finalData.businessName =
+        this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
       try {
         const headers = {
           "Content-Type": "application/json",
         };
-
-        const response = await axios.post(
-          `${DEV_URL}/orders`,
-          this.submittedData,
-          {
-            headers: headers,
-          }
-        );
+        const response = await axios.post(`${DEV_URL}/orders`, this.finalData, {
+          headers: headers,
+        });
         if (response.status === 201 || response.status === 200) {
           this.invoiceData = response.data.data;
           this.isPaid = true;
@@ -357,9 +357,7 @@ export default {
     },
     async fetchUserData() {
       try {
-        const response = await axios.get(
-          `${DEV_URL}/business-customers/${this.userID}`
-        );
+        const response = await axios.get(`${DEV_URL}/business-customers/${this.userID}`);
         this.user = response.data.data.customer;
         this.lastCheckoutDetails = this.user.lastCheckoutDetails;
       } catch (error) {

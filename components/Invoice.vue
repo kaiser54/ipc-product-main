@@ -199,7 +199,7 @@ export default {
     return {};
   },
   methods: {
-    formatDate,
+    formatDates,
     formatTimeWithAMPM,
     formatNumberWithLeadingZeros,
     calculateDeliveryDate,

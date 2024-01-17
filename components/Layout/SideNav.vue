@@ -35,7 +35,7 @@
             fill="#09420C" />
         </svg>
 
-        <DynamicTags class="auto" tagText="BETA" size="small" type="positive" style="
+        <!-- <DynamicTags class="auto" tagText="BETA" size="small" type="positive" style="
               background: var(--positive-p300);
               color: white;
               height: 16px;
@@ -50,7 +50,7 @@
               font-style: normal;
               font-weight: 500;
               line-height: 15px;
-            " />
+            " /> -->
       </div>
 
       <section class="menu">

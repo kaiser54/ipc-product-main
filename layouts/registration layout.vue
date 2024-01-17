@@ -52,7 +52,7 @@
                 fill="#09420C"
               />
             </svg>
-
+<!-- 
             <DynamicTags
               class="auto"
               tagText="BETA"
@@ -74,7 +74,7 @@
                 font-weight: 500;
                 line-height: 15px;
               "
-            />
+            /> -->
           </div>
         </nuxt-link>
       </div>
