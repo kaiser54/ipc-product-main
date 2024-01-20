@@ -67,7 +67,7 @@
       </div>
       <div class="client-frame">
         <span>Service charge</span>
-        <span class="bold">₦ {{ (0.035 * getTotalProductPrice(data?.products)).toFixed(2) }}</span>
+        <span class="bold">₦ {{ formatPriceWithCommas(parseFloat((0.035 * getTotalProductPrice(data?.products)).toFixed(2))) }}</span>
 
       </div>
       <div class="client-frame total">
