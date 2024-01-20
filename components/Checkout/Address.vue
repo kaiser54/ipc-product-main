@@ -169,6 +169,7 @@ export default {
       "cartTotalQuantity",
       "cartTotalPrice",
       "cartFullPrice",
+      "calculatedDeliveryFee",
     ]),
     isEmailValid() {
       // Define a regular expression for email validation
@@ -359,7 +360,7 @@ export default {
           products: this.cart,
           totalPrice: this.cartFullPrice,
           // deliveryFee: this.deliveryFee,
-          deliveryFee: 2000,
+          deliveryFee: this.calculatedDeliveryFee,
           subtotalPrice: this.cartTotalPrice,
         };
         this.$emit("customEvent", data);

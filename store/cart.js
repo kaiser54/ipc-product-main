@@ -25,13 +25,13 @@ export default {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
       // state.cart.push(cartItem);
-      ("mutant cart", state.cart);
+      "mutant cart", state.cart;
     },
 
     ADD_TO_CART_ALERT(state, arg) {
       state.cartAlert = arg;
       // state.cart.push(cartItem);
-      ("mutant cart", state.cart);
+      "mutant cart", state.cart;
     },
     UPDATE_CARTITEM({ cart }, { index, product }) {
       cart[index] = product;
@@ -61,7 +61,7 @@ export default {
       state.cartLoading = cartLoading;
     },
     REMOVE_FROM_CART(state, _id) {
-      state.cart = state.cart.filter(c => c._id !== _id);
+      state.cart = state.cart.filter((c) => c._id !== _id);
     },
     CLEAR_CART(state) {
       state.cart = [];
@@ -72,8 +72,10 @@ export default {
     async clearCartItems({ commit }, customerId) {
       try {
         // Make a DELETE request to clear the cart
-        const response = await axios.delete(`${DEV_URL}/cart/delete-customers-items/${customerId}`);
-  
+        const response = await axios.delete(
+          `${DEV_URL}/cart/delete-customers-items/${customerId}`
+        );
+
         if (response.status === 204) {
           // Update the cart to an empty array
           commit("CLEAR_CART");
@@ -85,7 +87,7 @@ export default {
         console.error("Error clearing cart items:", error);
       }
     },
-    
+
     async fetchCartItemsByUserID({ commit }) {
       try {
         commit("SET_LOADING", true);
@@ -111,7 +113,7 @@ export default {
 
         commit("CLEAR_CART");
 
-        ("cart :", cart);
+        "cart :", cart;
 
         // Handle the response data as needed
         commit("ADD_TO_CART", cart);
@@ -138,7 +140,7 @@ export default {
           product: product,
           productId: product._id,
           customerId: customerId,
-          quantity: quantity
+          quantity: quantity,
         };
 
         const headers = {
@@ -148,7 +150,6 @@ export default {
         const response = await axios.post(`${DEV_URL}/cart`, data, {
           headers: headers,
         });
-
 
         const { cartItem } = response.data.data;
 
@@ -172,7 +173,7 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-        (" response indexOfCartItem: ", indexOfCartItem);
+        " response indexOfCartItem: ", indexOfCartItem;
 
         // if (Object.keys(findItem).length) {
         //   commit("UPDATE_CARTITEM_QUANTITY", {index: indexOfCartItem, quantity: cartItem.quantity})
@@ -248,7 +249,6 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-
         if (indexOfCartItem !== -1) {
           commit("UPDATE_CARTITEM_QUANTITY", {
             index: indexOfCartItem,
@@ -314,7 +314,6 @@ export default {
           (c) => c.productId === cartItem.productId
         );
 
-
         if (indexOfCartItem !== -1) {
           commit("UPDATE_CARTITEM_QUANTITY", {
             index: indexOfCartItem,
@@ -348,17 +347,12 @@ export default {
         };
 
         // Send a DELETE request to your server to reduce the quantity
-        const response = await axios.delete(
-          `${DEV_URL}/cart/${e}`,
-          {
-            headers: headers,
-          }
-        );
+        const response = await axios.delete(`${DEV_URL}/cart/${e}`, {
+          headers: headers,
+        });
 
         if (response.status === 204) {
-          const indexOfCartItem = state.cart.findIndex(
-            (c) => c._id === e
-          );
+          const indexOfCartItem = state.cart.findIndex((c) => c._id === e);
 
           commit("ADD_TO_CART_ALERT", "removed");
 
@@ -406,8 +400,8 @@ export default {
           body: state.checkout,
         });
 
-        (state.checkout);
-        (response);
+        state.checkout;
+        response;
 
         if (response.status !== 200) {
           throw new Error("Failed to add the product to the cart.");
@@ -428,7 +422,6 @@ export default {
 
         const { _id } = arg;
 
-
         const headers = {
           "Content-Type": "application/json",
         };
@@ -448,7 +441,7 @@ export default {
           commit("ADD_TO_CART_ALERT", false);
         }
 
-        ("Response status:", response.status);
+        "Response status:", response.status;
 
         if (response.status !== 204) {
           console.error(
@@ -506,9 +499,18 @@ export default {
     //   }
     //   commit("SET_DELIVERY_FEE", totalCharge);
     // },
-    getDeliveryFee({ commit }, { distance, value }) {
-      const fixedDeliveryFee = 2000;
-      commit("SET_DELIVERY_FEE", fixedDeliveryFee);
+    getDeliveryFee({ commit }, { price }) {
+      let deliveryFee = 0;
+
+      if (price >= 0 && price <= 70000) {
+        deliveryFee = 2000; // Tier 1
+      } else if (price > 70000 && price <= 180000) {
+        deliveryFee = 4500; // Tier 2
+      } else if (price > 180000) {
+        deliveryFee = 8000; // Tier 3
+      }
+
+      commit("SET_DELIVERY_FEE", deliveryFee);
     },
   },
 
@@ -519,10 +521,25 @@ export default {
       state.cart.reduce((total, item) => total + item.quantity, 0),
     cartTotalPrice: (state) =>
       state.cart.reduce((acc, item) => acc + item.totalPrice, 0),
+
+    calculatedDeliveryFee: (state, getters) => {
+      let deliveryFee = 0;
+
+      if (getters.cartTotalPrice >= 0 && getters.cartTotalPrice <= 70000) {
+        deliveryFee = 3500; // Tier 1
+      } else if (getters.cartTotalPrice > 70000 && getters.cartTotalPrice <= 180000) {
+        deliveryFee = 6000; // Tier 2
+      } else if (getters.cartTotalPrice > 180000) {
+        deliveryFee = 10000; // Tier 3
+      }
+
+      return deliveryFee;
+    },
     serviceCharge: (state, getters) => 0.035 * getters.cartTotalPrice,
     cartFullPrice: (state, getters) => {
       // const totalWithDeliveryFee = getters.cartTotalPrice + state.deliveryFee;
-      const totalWithDeliveryFee = getters.cartTotalPrice + 2000 + getters.serviceCharge;
+      const totalWithDeliveryFee =
+        getters.cartTotalPrice + getters.calculatedDeliveryFee + getters.serviceCharge;
       return totalWithDeliveryFee;
     },
   },

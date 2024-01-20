@@ -201,6 +201,7 @@ export default {
       "cartTotalPrice",
       "serviceCharge",
       "cartFullPrice",
+      "calculatedDeliveryFee"
     ]),
   },
   beforeDestroy() {
@@ -305,6 +306,9 @@ export default {
       this.finalData.serviceCharge = this.serviceCharge;
       this.finalData.businessName =
         this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
+      if( this.finalData.deliveryFee === 0) {
+      this.finalData.totalPrice = this.finalData.totalPrice - this.calculatedDeliveryFee
+      }
       try {
         const headers = {
           "Content-Type": "application/json",
