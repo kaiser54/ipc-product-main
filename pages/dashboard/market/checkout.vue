@@ -215,7 +215,7 @@ export default {
   methods: {
     setData() {
       this.finalData.coupon = this.coupon;
-      this.finalData.reference = this.ref;
+      this.finalData.reference = this.reference;
       this.finalData.serviceCharge = this.serviceCharge;
       this.finalData.businessName =
         this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
