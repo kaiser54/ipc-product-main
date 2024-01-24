@@ -324,7 +324,7 @@ export default {
         const headers = {
           "Content-Type": "application/json",
         };
-        const response = await axios.post(`${DEV_URL}/orderss`, this.finalData, {
+        const response = await axios.post(`${DEV_URL}/orders`, this.finalData, {
           headers: headers,
         });
         if (response.status === 201 || response.status === 200) {
