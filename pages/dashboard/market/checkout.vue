@@ -201,7 +201,7 @@ export default {
       "cartTotalPrice",
       "serviceCharge",
       "cartFullPrice",
-      "calculatedDeliveryFee"
+      "calculatedDeliveryFee",
     ]),
   },
   beforeDestroy() {
@@ -213,6 +213,14 @@ export default {
   },
 
   methods: {
+    setData() {
+      this.finalData.coupon = this.coupon;
+      this.finalData.reference = this.ref;
+      this.finalData.serviceCharge = this.serviceCharge;
+      this.finalData.businessName =
+        this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
+      // console.log("yay", this.finalData);
+    },
     nairaToKobo(amount) {
       return Math.ceil(amount * 100);
     },
@@ -244,20 +252,31 @@ export default {
     async lastStep(data) {
       this.finalData = data;
       this.spinner = true;
+      this.setData();
       if (data.paymentMethod === "CARD") {
-        this.payWithPaystack(data);
+        this.payWithPaystack();
       } else {
         this.ref = "PAYMENT IS MADE ON CREDIT";
         this.submitForm();
       }
     },
-    payWithPaystack(data) {
+    payWithPaystack() {
+      // const data = {...this.finalData}; 
+      // OR
+      const data = structuredClone(this.finalData);
       this.ref = this.reference;
+      data.ref = this.reference;
+      data.reference = this.reference;
+      if (this.validCoupon) {
+        data.totalPrice =
+          data.totalPrice - this.calculatedDeliveryFee;
+      }
+      // console.log("data", data);
       this.spinner = true;
       const handler = PaystackPop.setup({
         key: this.$config.PAYSTACK_PUBLIC_KEY,
         email: this.submittedData?.email,
-        amount: this.nairaToKobo(this.submittedData?.totalPrice),
+        amount: this.nairaToKobo(data?.totalPrice),
         // ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
         ref: this.ref, // Generate a pseudo-unique reference
         onClose: () => {
@@ -266,7 +285,7 @@ export default {
         callback: (response) => {
           const message = "Payment complete! Reference: " + response.reference;
           // alert(message);
-          this.submitForm(data);
+          this.submitForm();
         },
       });
       this.spinner = false;
@@ -276,6 +295,7 @@ export default {
       this.currentStep = 1;
       ("clicked");
     },
+
 
     async handleCoupon(newVal) {
       this.couponLoading = true;
@@ -300,20 +320,11 @@ export default {
 
     async submitForm() {
       this.spinner = true;
-      this.finalData.coupon = this.coupon;
-      this.finalData.deliveryFee = 0;
-      this.finalData.reference = this.ref;
-      this.finalData.serviceCharge = this.serviceCharge;
-      this.finalData.businessName =
-        this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
-      if( this.finalData.deliveryFee === 0) {
-      this.finalData.totalPrice = this.finalData.totalPrice - this.calculatedDeliveryFee
-      }
       try {
         const headers = {
           "Content-Type": "application/json",
         };
-        const response = await axios.post(`${DEV_URL}/orders`, this.finalData, {
+        const response = await axios.post(`${DEV_URL}/orderss`, this.finalData, {
           headers: headers,
         });
         if (response.status === 201 || response.status === 200) {
