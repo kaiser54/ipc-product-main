@@ -72,15 +72,23 @@
       </div>
       <div class="client-frame total">
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
-        <span>Total</span
-        ><span class="bold"
-          >₦
-          {{
-            formatPriceWithCommas(
+        <span>Total</span>
+          <span class="bold">
+            <template v-if="validCoupon">
+              ₦ {{
+                formatPriceWithCommas(
+              getTotalProductPrice(data?.products) - data?.deliveryFee + 0.035 * getTotalProductPrice(data?.products)
+                )
+              }}
+            </template>
+            <template v-else>
+              ₦ {{
+              formatPriceWithCommas(
               getTotalProductPrice(data?.products) + data?.deliveryFee + 0.035 * getTotalProductPrice(data?.products)
-            )
-          }}</span
-        >
+              )
+              }}
+            </template>
+          </span>
       </div>
     </div>
   </div>
