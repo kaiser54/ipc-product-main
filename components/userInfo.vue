@@ -60,8 +60,8 @@
         >
       </div>
       <div class="client-frame">
-        <span>Delivery fee <span v-if="validCoupon">(Coupon applied)</span></span
-        ><span class="bold" :class="{ strike: validCoupon }"
+        <span>Delivery fee <span v-if="validCoupon || data.coupon">(Coupon applied)</span></span
+        ><span class="bold" :class="{ strike: validCoupon || data.coupon }"
           >₦ {{ formatPriceWithCommas(data.deliveryFee) }}</span
         >
       </div>
@@ -74,7 +74,7 @@
         <!-- <span>Total</span><span class="bold">₦ {{ calculateTotalPrice().toFixed(2) }}</span> -->
         <span>Total</span>
           <span class="bold">
-            <template v-if="validCoupon">
+            <template v-if="validCoupon || data.coupon">
               ₦ {{
                 formatPriceWithCommas(
               getTotalProductPrice(data?.products) + 0.035 * getTotalProductPrice(data?.products)
@@ -118,6 +118,10 @@ export default {
       // return `${(this.currentStep - 1) * 49.5}`; //returns a string
       return (this.currentStep - 1) * 49.5;
     },
+  },
+
+  mounted() {
+    // console.log('data', this.data)
   },
 
   methods: {
