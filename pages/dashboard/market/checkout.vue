@@ -96,14 +96,21 @@
       </div>
     </div>
     <div class="invoice">
-      <Invoice
+      <Invoice2
+        v-if="currentStep === 3 && isPaid"
+        :customer="submittedData"
+        :data="invoiceData"
+        ref="myComponent"
+        id="componentToSave"
+      />
+      <!-- <Invoice
         v-if="currentStep === 3 && isPaid"
         :customer="submittedData"
         :orders="invoiceData"
         :user="user"
         ref="myComponent"
         id="componentToSave"
-      />
+      /> -->
     </div>
   </div>
 </template>
