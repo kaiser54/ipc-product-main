@@ -138,7 +138,7 @@
           <div class="flex items-center justify-between">
             <p class="text-[#565C69] text-xs">Delivery fee</p>
             <p class="text-sm text-[#303237] font-medium td-img">
-              # {{ formatPriceWithCommas(orders?.order?.deliveryFee || 0) }}
+              # {{ orders.order.coupon ? 0 : formatPriceWithCommas(orders?.order?.deliveryFee || 0) }}
             </p>
           </div>
           <div class="flex items-center justify-between">
@@ -153,7 +153,7 @@
         >
           <p class="text-[#565C69] text-sm">Total</p>
           <p class="text-base text-[#303237] font-medium td-img">
-            # {{ formatPriceWithCommas(orders?.order?.totalPrice || 0) }}
+            # {{ orders.order.coupon ? formatPriceWithCommas(orders?.order?.totalPrice - orders?.order?.deliveryFee) : formatPriceWithCommas(orders?.order?.totalPrice || 0) }}
           </p>
         </div>
       </div>
@@ -197,6 +197,9 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted () {
+    // console.log('orders', this.orders)
   },
   methods: {
     formatDates,
