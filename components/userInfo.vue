@@ -77,7 +77,7 @@
             <template v-if="validCoupon">
               ₦ {{
                 formatPriceWithCommas(
-              getTotalProductPrice(data?.products) - data?.deliveryFee + 0.035 * getTotalProductPrice(data?.products)
+              getTotalProductPrice(data?.products) + 0.035 * getTotalProductPrice(data?.products)
                 )
               }}
             </template>
