@@ -143,10 +143,10 @@
       </div>
     </div>
     <div class="invoice">
-      <Invoice
+      <Invoice2
         v-if="user && invoiceData"
         :customer="user"
-        :orders="invoiceData"
+        :data="invoiceData"
         :user="user"
         ref="myComponent"
         id="componentToSave"
@@ -286,9 +286,7 @@ export default {
     },
     async fetchUserData() {
       try {
-        const response = await axios.get(
-          `${DEV_URL}/business-customers/${this.userID}`
-        );
+        const response = await axios.get(`${DEV_URL}/business-customers/${this.userID}`);
         this.user = response.data.data.customer;
       } catch (error) {
         console.error("Error getting user:", error);
