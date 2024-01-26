@@ -3,17 +3,22 @@
     <table>
       <tr>
         <td class="logo" colspan="2">
-          <h1
+          <div
             style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
               width: 100%;
-              font-family: Inter;
+              font-family: 'system-ui', -apple-system, 'Segoe UI', Roboto, Helvetica,
+                Arial, sans-serif;
               font-size: 34px;
               font-weight: 700;
               letter-spacing: -1px;
             "
           >
-            Invoice #000{{ data.orderCount }}
-          </h1>
+            <LogoWhite />  
+            <span>Invoice #000{{ data.orderCount }}</span>
+          </div>
         </td>
       </tr>
     </table>
@@ -107,7 +112,8 @@
                   border-bottom: 1px solid #e4e7ec;
                 "
               >
-                Delivery fee <span v-if="data.coupon || data.order.coupon">(coupon was used)</span>
+                Delivery fee
+                <span v-if="data.coupon || data.order.coupon">(coupon was used)</span>
               </td>
               <td
                 style="
@@ -248,10 +254,9 @@ export default {
     formatNumberWithLeadingZeros,
     calculateDeliveryDate,
     roundToTwoDecimalPlaces(num) {
-      if (!num || num == undefined){
-        return false
-      }
-      else return parseFloat(num.toFixed(2));
+      if (!num || num == undefined) {
+        return false;
+      } else return parseFloat(num.toFixed(2));
     },
     formatPriceWithCommas(price) {
       // Use the toLocaleString method with appropriate options to add commas
@@ -273,7 +278,8 @@ export default {
 }
 
 body {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   background-color: #ffffff;
   color: #101928;
 }
@@ -288,14 +294,16 @@ body {
 }
 
 table {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   width: 100%;
   margin: 0 auto;
 }
 
 td,
 th {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   /* padding: 20px; */
   text-align: left;
   font-weight: 400;
@@ -313,17 +321,20 @@ th {
   font-size: 24px;
   font-weight: bold;
   margin-left: 0;
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 a {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   color: #19b820;
 }
 
 .cta {
   margin: 24px 0;
-  font-family: "Graphik Trial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   font-weight: 600;
   display: inline-block;
   padding: 14.5px 20px;
@@ -349,22 +360,26 @@ a {
 }
 
 .footer td {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   font-size: 0.8em;
 }
 
 .a1 {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   color: #19b820;
 }
 
 .a1 {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   color: #19b820;
 }
 
 .content a {
-  font-family: "Inter", "inter", "Arial", sans-serif;
+  font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   color: #09420c;
 }
 

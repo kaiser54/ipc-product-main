@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Invoice2 />
+    <NewInvoice />
   </div>
 </template>
 
