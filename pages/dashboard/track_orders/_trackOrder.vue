@@ -143,7 +143,7 @@
       </div>
     </div>
     <div class="invoice">
-      <Invoice2
+      <NewInvoice
         v-if="user && invoiceData"
         :customer="user"
         :data="invoiceData"
