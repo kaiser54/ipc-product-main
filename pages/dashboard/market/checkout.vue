@@ -96,7 +96,7 @@
       </div>
     </div>
     <div class="invoice">
-      <Invoice2
+      <NewInvoice
         v-if="currentStep === 3 && isPaid"
         :customer="submittedData"
         :data="invoiceData"
