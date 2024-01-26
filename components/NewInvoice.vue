@@ -3,6 +3,7 @@
     <table>
       <tr>
         <td class="logo" colspan="2">
+          <!-- <img src="~/static/Gosourcelogo.png" alt="" /> -->
           <div
             style="
               display: flex;
@@ -16,7 +17,7 @@
               letter-spacing: -1px;
             "
           >
-            <LogoWhite />  
+            <img src="~/static/Gosourcelogo.png" alt="" />
             <span>Invoice #000{{ data.orderCount }}</span>
           </div>
         </td>
@@ -51,8 +52,8 @@
         <td>{{ data.order._id }}</td>
         <td>
           <span style="max-width: 176px">
-            {{ data.order.streetAddress || data.order.address.streetAddress }},
-            {{ data.order.lga || data.order.address.lga }},
+            {{ data.order.streetAddress || data.order.address.streetAddress }}, <br>
+            {{ data.order.lga || data.order.address.lga }}, <br>
             {{ data.order.state || data.order.address.state }}.
           </span>
         </td>
@@ -72,9 +73,9 @@
         <td class="orders-data">{{ data.productName || data.product.name }}</td>
         <td class="orders-data">{{ data.quantity }}</td>
         <td class="orders-data">
-          ₦ {{ data.product.discountPrice || data.product.discountPrice }}
+          # {{ data.product.discountPrice || data.product.discountPrice }}
         </td>
-        <td class="orders-data">₦ {{ data.totalPrice }}</td>
+        <td class="orders-data"># {{ data.totalPrice }}</td>
       </tr>
     </table>
     <!-- invoice pricing -->
@@ -100,7 +101,7 @@
                 "
                 class="right"
               >
-                <b>₦ {{ data.subtotal || data.order.subtotal }}</b>
+                <b># {{ data.subtotal || data.order.subtotal }}</b>
               </td>
             </tr>
             <tr>
@@ -125,10 +126,10 @@
                 class="right"
               >
                 <template v-if="data.coupon || data.order.coupon">
-                  <b>₦0</b>
+                  <b>#0</b>
                 </template>
                 <template v-else>
-                  <b>₦ {{ data.deliveryFee || data.order.deliveryFee }}</b>
+                  <b># {{ data.deliveryFee || data.order.deliveryFee }}</b>
                 </template>
               </td>
             </tr>
@@ -153,7 +154,7 @@
                 class="right"
               >
                 <b
-                  >₦
+                  >#
                   {{
                     roundToTwoDecimalPlaces(data.serviceCharge) ||
                     roundToTwoDecimalPlaces(data.order.serviceCharge)
@@ -166,7 +167,7 @@
               <td style="height: 32px; padding-top: 8px" class="right">
                 <template v-if="data.coupon || data.order.coupon">
                   <b
-                    >₦
+                    >#
                     {{
                       data.totalPrice - data.deliveryFee ||
                       data.order.totalPrice - data.order.deliveryFee
@@ -174,7 +175,7 @@
                   >
                 </template>
                 <template v-else>
-                  <b>₦ {{ data.totalPrice || data.order.totalPrice }}</b>
+                  <b># {{ data.totalPrice || data.order.totalPrice }}</b>
                 </template>
               </td>
             </tr>
@@ -311,14 +312,14 @@ th {
   /* 150% */
   letter-spacing: -0.2px;
   color: #101928;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .logo {
   background-color: #09420c;
   color: #fff;
   padding: 24px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   margin-left: 0;
   font-family: "system-ui", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,

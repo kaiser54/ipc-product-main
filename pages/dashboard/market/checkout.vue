@@ -369,12 +369,12 @@ export default {
           // Save the PDF with the desired filename
           pdf.save("Invoice_gosource.pdf");
         },
-        margin: 5,
+        margin: 0,
         autoPaging: "text",
         x: 0,
         y: 0,
-        width: 190,
-        windowWidth: 675,
+        width: 210,
+        windowWidth: 821,
       });
     },
     async fetchUserData() {
