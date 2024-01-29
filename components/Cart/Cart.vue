@@ -290,7 +290,6 @@ export default {
   justify-content: flex-end;
   position: absolute;
   width: 100%;
-  /* height: 100vh; */
   left: 0px;
   top: 0px;
 }

@@ -158,6 +158,9 @@
             <p class="product-details-snippet">
               {{ productDetails.description }}
             </p>
+            <p class="product-details-snippet">
+              {{ productDetails.inStock }}
+            </p>
             <div class="product-details-price-grp">
               <h3 class="h3-bold">
                 <span class="naira"><span class="naira">₦</span></span>
@@ -400,7 +403,7 @@ export default {
     product(newProduct) {
       this.productDetails = newProduct;
       this.loading = false;
-      ("Product detailsssssssss:", newProduct);
+      console.log("Product detailsssssssss:", newProduct);
     },
     quantity(newQuantity) {
       this.scheduleUpdate(newQuantity);

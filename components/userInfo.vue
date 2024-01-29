@@ -35,6 +35,12 @@
         <span>State</span
         ><span class="bold">{{ data.state || data.address.state }}</span>
       </div>
+      <div class="client-frame">
+        <span>Date</span><span class="bold">{{ formatDates(data?.createdAt) }}</span>
+      </div>
+      <div class="client-frame">
+        <span>Time</span><span class="bold">{{  formatTimeWithAMPM(data?.createdAt) }}</span>
+      </div>
       <slot name="button"></slot>
     </div>
     <slot name="delivery"></slot>
@@ -96,6 +102,11 @@
 
 <script>
 import { formatPriceWithCommas } from "~/static/formatPrice";
+import {
+  formatDate,
+  formatTimeWithAMPM,
+  formatDates,
+} from "~/utils/dateUtils";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   props: {
@@ -121,10 +132,12 @@ export default {
   },
 
   mounted() {
-    // console.log('data', this.data)
+    console.log('data', this.data)
   },
 
   methods: {
+    formatDates,
+    formatTimeWithAMPM,
     formatPriceWithCommas,
     getTotalProductPrice(products) {
       let price = 0;

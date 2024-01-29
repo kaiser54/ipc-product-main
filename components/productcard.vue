@@ -1,10 +1,11 @@
 <template>
   <!-- product card container starts here -->
 
-  <div class="product-card">
+  <div class="product-card" :class="{'isDisable':!product.inStock}">
     <nuxt-link
-      :to="`/dashboard/market/${product.name}~${product._id}`"
+      :to="productLink"
       class="card_wrap"
+      
     >
       <div class="product-img-grp">
         <!-- product image -->
@@ -23,6 +24,7 @@
       <div class="productcard-details">
         <div class="productcard-name text-container">
           <p>{{ product.name }} {{ displayUnit }}</p>
+      
         </div>
         <div class="productcard-price">
           <p>
@@ -43,6 +45,7 @@
 
     <button
       class="btn addtocart-btn-small"
+      :disabled="!product.inStock"
       @click="addProductToCart(getProductQuantity + 1)"
       v-if="!isInCart"
     >
@@ -118,6 +121,17 @@ export default {
         return this.product.unit;
       }
     },
+
+    productLink() {
+      if (this.product.inStock) {
+        // If the product is in stock, return the regular link
+        return `/dashboard/market/${this.product.name}~${this.product._id}`;
+      } else {
+        // If the product is not in stock, return a different link or an empty string
+        return ''; // You can return an alternative link or an empty string here
+      }
+    },
+
     isLiked: {
       get() {
         const productIdToCheck = this.productId;
@@ -429,6 +443,19 @@ button svg {
 }
 button:hover svg {
   stroke: var(--grey-grey1);
+}
+button:disabled svg {
+  stroke: white;
+}
+button:disabled p{
+  color: white;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+.isDisable{
+  opacity: 0.5;
+
 }
 .loader {
   width: 20px;

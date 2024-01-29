@@ -136,6 +136,7 @@ export default {
       ("User data not found in localStorage.");
     }
     this.getAllProduct();
+    console.log(this.getAllProduct())
     // this.getUserDetails()
   },
   computed: {
@@ -160,8 +161,10 @@ export default {
       // set welcome modal to show on condition that a user is new or not
       // this.showModal = localStorage.getItem('welcomeFlow') !== 'complete'
       await this.fetchAllProducts(); // Fetch all products when the component is mounted
+
       this.checkScreenSize();
       window.addEventListener("resize", this.checkScreenSize);
+      console.log('Products:', this.fetchAllProducts());
     },
     welcomeUser() {
       const welcome = localStorage.getItem("welcomeFlow");
