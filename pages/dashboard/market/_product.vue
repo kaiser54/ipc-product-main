@@ -181,6 +181,7 @@
               class="btn primary-btn"
               @click="addProductToCart"
               v-if="!isInCart"
+              :disabled="!productDetails.inStock"
             >
             <span v-if="!loader" style="color: white;">Add to cart</span>
               <span class="loader" v-if="loader"></span>
@@ -674,7 +675,15 @@ export default {
 .product-details-brand span {
   color: var(--new-primary-p300);
 }
-
+.btn:disabled svg {
+  stroke: white;
+}
+.btn:disabled span{
+  color: white;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}
 .counter-btn .circle {
   background: var(--new-primary-p300);
 }

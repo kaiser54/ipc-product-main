@@ -47,7 +47,26 @@ export default {
   },
   methods: {
     toggleTab(index) {
-      this.$emit("clickTab", { status: this.tabs[index] });
+      this.status = index;
+      ("Selected status:", this.status);
+      if (index === "All") {
+        this.tableData = this.tableDataClone;
+      } else if (index === "Completed") {
+        this.tableData = this.tableDataClone.filter(
+          (item) => item.status === "DELIVERED"
+        );
+      } else if (index === "Pending") {
+        this.tableData = this.tableDataClone.filter(
+          (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
+        );
+      } else if (index === "Cancelled") {
+        this.tableData = this.tableDataClone.filter(
+          (item) => item.status === "CANCELLED"
+        );
+      } else {
+        console.error("Invalid status selected");
+        this.tableData = [];
+      }
       this.activeTab = index;
     },
     filterProducts() {
@@ -81,7 +100,7 @@ export default {
 .datepicker-toggle-button {
   max-width: 160px;
   height: 48px;
-  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.10);
+  box-shadow: 0px 1px 2px 0px rgba(47, 43, 67, 0.1);
   padding: 16px;
   /* White */
 

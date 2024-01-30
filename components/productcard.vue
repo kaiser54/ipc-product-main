@@ -3,7 +3,7 @@
 
   <div class="product-card" :class="{'isDisable':!product.inStock}">
     <nuxt-link
-      :to="productLink"
+    :to="`/dashboard/market/${product.name}~${product._id}`"
       class="card_wrap"
       
     >
@@ -122,15 +122,13 @@ export default {
       }
     },
 
-    productLink() {
-      if (this.product.inStock) {
-        // If the product is in stock, return the regular link
-        return `/dashboard/market/${this.product.name}~${this.product._id}`;
-      } else {
-        // If the product is not in stock, return a different link or an empty string
-        return ''; // You can return an alternative link or an empty string here
-      }
-    },
+    // productLink() {
+    //   if (this.product.inStock) {
+    //     return `/dashboard/market/${this.product.name}~${this.product._id}`;
+    //   } else {
+    //     return '';
+    //   }
+    // },
 
     isLiked: {
       get() {
