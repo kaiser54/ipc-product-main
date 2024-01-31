@@ -443,16 +443,16 @@ button:hover svg {
   stroke: var(--grey-grey1);
 }
 button:disabled svg {
-  stroke: white;
+  stroke: var(--grey-grey1);
 }
 button:disabled p{
-  color: white;
+  color: var(--grey-grey1);
 }
 button:disabled {
   cursor: not-allowed;
 }
 .isDisable{
-  opacity: 0.5;
+  opacity: 0.6;
 
 }
 .loader {

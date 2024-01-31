@@ -127,7 +127,7 @@ export default {
     (this.tableData);
     (this.tableDataClone);
     this.tableData.forEach((data) => {
-      ("data Status:", data.status);
+      console.log("data Status:", data.status);
     });
     ("tableDataMobile", this.tableDataClone);
   },
@@ -186,11 +186,11 @@ export default {
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
         this.tableDataClone = this.tableData;
-        (this.tableData);
-        (this.tableDataClone);
+       console.log(this.tableData);
+        console.log(this.tableDataClone);
         this.tableDatas.forEach((order) => {
           this.filteredStatus = order.status;
-          ("Order Status:", this.filteredStatus);
+          console.log("Order Status:", this.filteredStatus);
         });
         
         this.loading = false;

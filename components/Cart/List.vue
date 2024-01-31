@@ -1,12 +1,9 @@
 <template>
   <div class="div">
-    <div class="cart-wrap">
+    <div class="cart-wrap" v-if="!mobile">
       <div class="cart-product">
         <div class="image">
-          <img
-            :src="items?.product?.images[0]?.url"
-            :alt="items?.product?.name"
-          />
+          <img :src="items?.product?.images[0]?.url" :alt="items?.product?.name" />
         </div>
       </div>
       <div class="cart-product-details">
@@ -23,28 +20,29 @@
         <!-- -------------- -->
 
         <div class="button-group">
-          <div class="delete-tag">
-            <!-- delete button here -->
-            <div class="circle" @click="removeItem">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <path
-                  d="M5.33333 3.99967V2.66634C5.33333 1.92996 5.93029 1.33301 6.66667 1.33301H9.33333C10.0697 1.33301 10.6667 1.92996 10.6667 2.66634V3.99967M2 3.99967H14H2ZM3.33333 3.99967V13.333C3.33333 14.0694 3.93029 14.6663 4.66667 14.6663H11.3333C12.0697 14.6663 12.6667 14.0694 12.6667 13.333V3.99967H3.33333Z"
-                  stroke="#565C69"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+          <div class="flexed-btn">
+            <div class="delete-tag">
+              <!-- delete button here -->
+              <div class="circle" @click="removeItem">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M5.33333 3.99967V2.66634C5.33333 1.92996 5.93029 1.33301 6.66667 1.33301H9.33333C10.0697 1.33301 10.6667 1.92996 10.6667 2.66634V3.99967M2 3.99967H14H2ZM3.33333 3.99967V13.333C3.33333 14.0694 3.93029 14.6663 4.66667 14.6663H11.3333C12.0697 14.6663 12.6667 14.0694 12.6667 13.333V3.99967H3.33333Z"
+                    stroke="#565C69"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <!-- -------------- -->
+              <tags :text="items?.product?.inStock" />
             </div>
-            <!-- -------------- -->
-
-            <!-- counter button -->
           </div>
           <!-- <div class="quantity">
             <Counter
@@ -63,7 +61,52 @@
       </div>
       <div class="divider-"></div>
     </div>
-    <!-- </div> -->
+    <div class="mobile-cart-wrap" v-if="mobile">
+      <div class="mobile-cart-product">
+        <div class="image">
+          <img :src="items?.product?.images[0]?.url" :alt="items?.product?.name" />
+        </div>
+        <div class="cart-mobile-product-details">
+          <div class="name-details">
+            <div class="text-container">
+              <p class="name">{{ items?.product?.name }}</p>
+            </div>
+            <div class="price-tag">
+              <p class="price">
+                <span class="naira">₦</span>
+                {{ formatPriceWithCommas(items?.product?.discountPrice) }}
+              </p>
+              <tags :text="items?.product?.inStock" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="counter-delete">
+        <div class="circle" @click="removeItem">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <path
+                    d="M5.33333 3.99967V2.66634C5.33333 1.92996 5.93029 1.33301 6.66667 1.33301H9.33333C10.0697 1.33301 10.6667 1.92996 10.6667 2.66634V3.99967M2 3.99967H14H2ZM3.33333 3.99967V13.333C3.33333 14.0694 3.93029 14.6663 4.66667 14.6663H11.3333C12.0697 14.6663 12.6667 14.0694 12.6667 13.333V3.99967H3.33333Z"
+                    stroke="#565C69"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <Counter
+            style="width: 200px"
+            :loader="loader"
+            :counterValue="items?.quantity"
+            @postQuantity="addProductToCart"
+          />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,6 +127,7 @@ export default {
   data() {
     return {
       loader: false,
+      mobile: false,
     };
   },
   computed: {
@@ -110,6 +154,13 @@ export default {
       };
       this.removeFromCart(e);
     },
+    checkScreenSize() {
+      if (window.innerWidth <= 950) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    },
   },
   watch: {
     cartLoading(newValue, oldValue) {
@@ -118,10 +169,23 @@ export default {
       }
     },
   },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
+  },
 };
 </script>
 
 <style scoped>
+
+
+
+
+
+
+
+
+
 .div {
   display: flex;
   flex-direction: column;
@@ -292,6 +356,7 @@ p.price {
   .circle:hover {
     background: var(--grey-grey6);
   }
+  
 }
 
 @media (max-width: 350px) {
@@ -310,4 +375,41 @@ p.price {
 
   border-bottom: 1px solid var(--grey-grey5);
 } */
+
+.mobile-cart-wrap{
+  width: 100%;
+  display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+}
+.mobile-cart-product {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.name-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.price-tag{
+  width: 100%;
+  display: flex;
+justify-content: space-between;
+}
+.counter-delete{
+  display: flex;
+justify-content: space-between;
+align-items: flex-start;
+align-self: stretch;
+height: 40px;
+}
+.cart-mobile-product-details{
+  width: 100%;
+}
 </style>

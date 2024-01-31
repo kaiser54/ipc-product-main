@@ -100,6 +100,11 @@ export default {
           type: "positive",
           size: "small",
         },
+        {
+          title: "Cancelled",
+          type: "negative",
+          size: "small",
+        },
       ],
     };
   },
@@ -137,7 +142,9 @@ export default {
         return "info";
       } else if (status === "DELIVERED") {
         return "positive";
-      } else {
+      } else if (status === "CANCELLED") {
+        return "negative";
+      }  else {
         return ""; // Handle any other cases if needed
       }
     },

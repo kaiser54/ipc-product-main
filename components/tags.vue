@@ -1,50 +1,49 @@
 <template>
-    <div class="tags">
-        <p>In stock</p>
+    <div :class="['tags', { 'out-of-stock': !text }]">
+        <p>{{ stockStatus }}</p>
     </div>
 </template>
 
 <script>
-    export default {
-        
+export default {
+    props: {
+        text: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        stockStatus() {
+            return this.text ? 'In stock' : 'Out of stock';
+        }
     }
+}
 </script>
 
 <style scoped>
 .tags {
     box-sizing: border-box;
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 4px 12px;
-gap: 10px;
-
-
-height: 24px;
-
-/* Positive/P50 */
-
-background: #E9F7E7;
-/* Positive/P75 */
-
-border: 1px solid #A4DE9B;
-border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    gap: 10px;
+    height: 24px;
+    background: var(--positive-p50);
+    border-radius: 100px;
 }
 .tags p {
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 18px;
-/* identical to box height, or 150% */
-
-
-/* Positive/P400 */
-
-color: #167A08;
-
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--positive-p400);
+}
+.out-of-stock {
+    background-color: var(--Negative-N50);
+}
+.out-of-stock p {
+    color: var(--Negative-N400);
 }
 </style>

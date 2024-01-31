@@ -117,6 +117,8 @@
   --negative-n300: #D42620;
   --negative-n400: #941B16;
   --negative-n500: #811714;
+--Negative-N50: #FBE9E9;
+--Negative-N400: #941B16;
 
   /* --positive-p50: #e9f7e7; */
   --positive-p50: #E6F8EF;
@@ -129,6 +131,7 @@
   /* --positive-p400: #167a08; */
   --positive-p400: #057E45;
   --positive-p500: #146b07;
+  
 
   /* --warning-w50: #fff9ea; */
   --warning-w50: #FBEEE6;

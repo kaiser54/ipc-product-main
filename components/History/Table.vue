@@ -89,6 +89,11 @@ export default {
           type: "positive",
           size: "small",
         },
+        {
+          title: "Cancelled",
+          type: "negative",
+          size: "small",
+        },
       ],
     };
   },
@@ -196,6 +201,8 @@ calculateTotalOrderPrice(products) {
         return "info";
       } else if (status === "DELIVERED") {
         return "positive";
+      }else if (status === "CANCELLED") {
+        return "negative";
       } else {
         return ""; // Handle any other cases if needed
       }

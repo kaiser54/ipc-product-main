@@ -158,9 +158,7 @@
             <p class="product-details-snippet">
               {{ productDetails.description }}
             </p>
-            <p class="product-details-snippet">
-              {{ productDetails.inStock }}
-            </p>
+         
             <div class="product-details-price-grp">
               <h3 class="h3-bold">
                 <span class="naira"><span class="naira">₦</span></span>
@@ -169,7 +167,7 @@
                   formatPriceWithCommas(productDetails.discountPrice)
                 }}
               </h3>
-              <tags />
+              <tags :text="productDetails?.inStock" />
             </div>
             <!-- cart button -->
 
@@ -675,12 +673,7 @@ export default {
 .product-details-brand span {
   color: var(--new-primary-p300);
 }
-.btn:disabled svg {
-  stroke: white;
-}
-.btn:disabled span{
-  color: white;
-}
+
 .btn:disabled {
   cursor: not-allowed;
 }
