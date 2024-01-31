@@ -120,8 +120,6 @@ export default {
   mounted() {
     this.checkScreenSize();
     window.addEventListener("resize", this.checkScreenSize);
-    // set loading to true again when component is mounted
-    // this.loading = true;
 
     this.getOrders();
     (this.tableData);
@@ -133,7 +131,6 @@ export default {
   },
   created() {
     if (this.$route.path === "/dashboard") {
-      // Perform an automatic redirect to "/dashboard/market"
       this.$router.redirect("/dashboard/market");
     }
 
