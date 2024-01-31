@@ -205,30 +205,28 @@ export default {
     },
 
     filterTableDataByStatus(status) {
-      this.status = status.status;
-      ("Selected status:", this.status);
-      if (status.status === "All") {
-        this.tableData = this.tableDataClone;
-      } else if (status.status === "Completed") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "DELIVERED"
-        );
-      } else if (status.status === "Pending") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
-        );
-      } else if (status.status === "Cancelled") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "CANCELLED"
-        );
-      } else {
-        console.error("Invalid status selected");
-        this.tableData = [];
-      }
-
-      // Set the activeTabs array to reflect the selected status
-      this.activeTabs = [status];
-    },
+  this.status = status.status;
+  if (status.status === "All") {
+    this.tableData = this.tableDataClone;
+  } else if (status.status === "Completed") {
+    this.tableData = this.tableDataClone.filter(
+      (item) => item.status === "DELIVERED"
+    );
+  } else if (status.status === "Pending") {
+    this.tableData = this.tableDataClone.filter(
+      (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
+    );
+  } else if (status.status === "Cancelled") {
+    this.tableData = this.tableDataClone.filter(
+      (item) => item.status === "CANCELLED"
+    );
+  } else {
+    console.error("Invalid status selected");
+    this.tableData = [];
+  }
+  this.activeTabs = [status];
+}
+,
 
     checkScreenSize() {
       if (window.innerWidth <= 950) {

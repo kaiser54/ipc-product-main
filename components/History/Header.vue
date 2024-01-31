@@ -47,26 +47,7 @@ export default {
   },
   methods: {
     toggleTab(index) {
-      this.status = index;
-      ("Selected status:", this.status);
-      if (index === "All") {
-        this.tableData = this.tableDataClone;
-      } else if (index === "Completed") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "DELIVERED"
-        );
-      } else if (index === "Pending") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "SHIPPED" || item.status === "PROCESSING"
-        );
-      } else if (index === "Cancelled") {
-        this.tableData = this.tableDataClone.filter(
-          (item) => item.status === "CANCELLED"
-        );
-      } else {
-        console.error("Invalid status selected");
-        this.tableData = [];
-      }
+      this.$emit("clickTab", { status: this.tabs[index] });
       this.activeTab = index;
     },
     filterProducts() {
