@@ -199,7 +199,6 @@ export default {
     return {};
   },
   mounted () {
-    // console.log('orders', this.orders)
   },
   methods: {
     formatDates,

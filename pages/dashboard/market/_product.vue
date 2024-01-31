@@ -402,7 +402,6 @@ export default {
     product(newProduct) {
       this.productDetails = newProduct;
       this.loading = false;
-      console.log("Product detailsssssssss:", newProduct);
     },
     quantity(newQuantity) {
       this.scheduleUpdate(newQuantity);

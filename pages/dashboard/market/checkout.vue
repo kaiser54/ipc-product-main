@@ -226,7 +226,6 @@ export default {
       this.finalData.serviceCharge = this.serviceCharge;
       this.finalData.businessName =
         this.user.businessName || `${this.user.firstName} ${this.user.lastName}`;
-      // console.log("yay", this.finalData);
     },
     nairaToKobo(amount) {
       return Math.ceil(amount * 100);
@@ -278,7 +277,6 @@ export default {
         data.totalPrice =
           data.totalPrice - this.calculatedDeliveryFee;
       }
-      // console.log("data", data);
       this.spinner = true;
       const handler = PaystackPop.setup({
         key: this.$config.PAYSTACK_PUBLIC_KEY,

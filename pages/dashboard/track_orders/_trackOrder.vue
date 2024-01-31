@@ -188,6 +188,11 @@ export default {
           title: "Delivered",
           type: "positive",
           size: "small",
+        }, 
+        {
+          title: "Cancelled",
+          type: "negative",
+          size: "small",
         },
       ],
       orderDetails: null,
@@ -229,6 +234,8 @@ export default {
         type = "info";
       } else if (tagText === "DELIVERED") {
         type = "positive";
+      }else if (tagText === "CANCELLED") {
+        type = "negative";
       }
 
       return { tagText, type };
