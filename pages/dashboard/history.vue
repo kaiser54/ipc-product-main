@@ -127,9 +127,8 @@ export default {
     (this.tableData);
     (this.tableDataClone);
     this.tableData.forEach((data) => {
-      console.log("data Status:", data.status);
+  
     });
-    ("tableDataMobile", this.tableDataClone);
   },
   created() {
     if (this.$route.path === "/dashboard") {
@@ -186,11 +185,10 @@ export default {
         this.tableDataMobile = response?.data?.data?.orders;
         this.tableData = this.tableDatas;
         this.tableDataClone = this.tableData;
-       console.log(this.tableData);
-        console.log(this.tableDataClone);
+  
         this.tableDatas.forEach((order) => {
           this.filteredStatus = order.status;
-          console.log("Order Status:", this.filteredStatus);
+      
         });
         
         this.loading = false;

@@ -136,8 +136,7 @@ export default {
       ("User data not found in localStorage.");
     }
     this.getAllProduct();
-    console.log(this.getAllProduct())
-    // this.getUserDetails()
+
   },
   computed: {
     ...mapState("product", ["loading", "error"]),
@@ -164,7 +163,7 @@ export default {
 
       this.checkScreenSize();
       window.addEventListener("resize", this.checkScreenSize);
-      console.log('Products:', this.fetchAllProducts());
+  
     },
     welcomeUser() {
       const welcome = localStorage.getItem("welcomeFlow");

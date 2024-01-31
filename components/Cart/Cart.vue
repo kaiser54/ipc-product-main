@@ -257,15 +257,7 @@ export default {
         await this.clearCartItems(customerId);
       }
     },
-    // async sendPostRequest(customerId) {
-    //   try {
-    //     const response = await this.$axios.delete(`/cart/delete-customers-items/${customerId}`);
-    //     console.log(response.data); 
 
-    //   } catch (error) {
-    //     console.error('Error deleting customer items:', error);
-    //   }
-    // },
   }
 }
 </script>
