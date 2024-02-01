@@ -50,7 +50,7 @@
       v-if="!isInCart"
     >
       <svg
-        v-if="!loader"
+        v-if="!loader && product.inStock"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -68,7 +68,8 @@
         </g>
       </svg>
 
-      <p v-if="!loader">Add to cart</p>
+      <p v-if="!loader && product.inStock ">Add to cart</p>
+      <p v-if="!loader && !product.inStock">Out of Stock</p>
       <span class="loader" v-if="loader"></span>
     </button>
 
@@ -77,7 +78,7 @@
       :loader="loader"
       :counterValue="getProductQuantity"
       @postQuantity="addProductToCart"
-      v-if="isInCart"
+      v-if="isInCart && product.inStock"
     />
     <!-- -------------------------------- -->
   </div>

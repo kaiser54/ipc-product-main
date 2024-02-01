@@ -5,21 +5,21 @@
       <div class="component-header-main">
         <!-- back button for mobile view -->
         <svg
-            @click="$router.go(-1)"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
-              stroke="#565C69"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          @click="$router.go(-1)"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M3 12L10 19M21 12H3H21ZM3 12L10 5L3 12Z"
+            stroke="#565C69"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
         <!-- ---------------------------- -->
 
         <!-- header -->
@@ -59,7 +59,7 @@
     </div>
 
     <!-- back button -->
-    <goback style="margin-bottom: 28px; margin-left: 16px" />  
+    <goback style="margin-bottom: 28px; margin-left: 16px" />
     <!-- ----------- -->
 
     <div class="product-detail-con">
@@ -79,9 +79,7 @@
           <!-- product title, brand name and like button -->
 
           <div class="product-details-title">
-            <h3 class="h3-small-medium">
-              {{ productDetails?.name }} {{ displayUnit }}
-            </h3>
+            <h3 class="h3-small-medium">{{ productDetails?.name }} {{ displayUnit }}</h3>
             <p class="product-details-brand">
               Brand: <span>{{ productDetails?.brand }}</span>
             </p>
@@ -89,10 +87,7 @@
           <div class="product-details-price-grp">
             <h3 class="h3-bold">
               <span class="naira">₦</span>
-              {{
-                productDetails &&
-                formatPriceWithCommas(productDetails.discountPrice)
-              }}
+              {{ productDetails && formatPriceWithCommas(productDetails.discountPrice) }}
             </h3>
             <tags />
           </div>
@@ -113,9 +108,7 @@
             <div
               class="product-img zoom-container"
               ref="zoomContainer"
-              v-if="
-                productDetails?.images && Array.isArray(productDetails.images)
-              "
+              v-if="productDetails?.images && Array.isArray(productDetails.images)"
             >
               <img
                 v-for="(image, index) in productDetails.images"
@@ -146,7 +139,7 @@
               <!-- product title, brand name and like button -->
               <div class="product-details-title">
                 <h3 class="h3-small-medium">
-                  {{ productDetails?.name }}  {{ displayUnit }}
+                  {{ productDetails?.name }} {{ displayUnit }}
                 </h3>
                 <p class="product-details-brand">
                   Brand: <span>{{ productDetails?.brand }}</span>
@@ -158,13 +151,12 @@
             <p class="product-details-snippet">
               {{ productDetails.description }}
             </p>
-         
+
             <div class="product-details-price-grp">
               <h3 class="h3-bold">
                 <span class="naira"><span class="naira">₦</span></span>
                 {{
-                  productDetails &&
-                  formatPriceWithCommas(productDetails.discountPrice)
+                  productDetails && formatPriceWithCommas(productDetails.discountPrice)
                 }}
               </h3>
               <tags :text="productDetails?.inStock" />
@@ -181,13 +173,19 @@
               v-if="!isInCart"
               :disabled="!productDetails.inStock"
             >
-            <span v-if="!loader" style="color: white;">Add to cart</span>
+              <span v-if="!loader && productDetails.inStock" style="color: white"
+                >Add to cart</span
+              >
+              <span v-if="!loader && !productDetails.inStock" style="color: white"
+                >Out of Stock</span
+              >
+
               <span class="loader" v-if="loader"></span>
             </button>
 
             <!-- -------------------------------- -->
 
-            <div v-else class="counter-btn">
+            <div v-if="isInCart && productDetails.inStock" class="counter-btn">
               <!-- counter button -->
 
               <button @click="decrementQuantity" class="circle btn">
@@ -208,7 +206,12 @@
                 </svg>
               </button>
 
-              <input type="number" class="counter input" v-model="quantity"  v-if="!cartLoading">
+              <input
+                type="number"
+                class="counter input"
+                v-model="quantity"
+                v-if="!cartLoading"
+              />
               <span class="loader" v-if="cartLoading"></span>
 
               <button @click="increaseQuantity" class="circle">
@@ -242,9 +245,7 @@
 
     <div class="bottom-nav" v-if="mobile">
       <div class="addBtn">
-        <button class="btn primary-btn" @click="addProductToCart">
-          Add to cart
-        </button>
+        <button class="btn primary-btn" @click="addProductToCart">Add to cart</button>
       </div>
       <div class="operation">
         <!-- counter button -->
@@ -268,7 +269,12 @@
         </button>
 
         <!-- <input type="numberer" v-model.number="itemCount" min="1" class="counter input" /> -->
-        <input type="number" class="counter input" v-model="quantity"  v-if="!cartLoading">
+        <input
+          type="number"
+          class="counter input"
+          v-model="quantity"
+          v-if="!cartLoading"
+        />
         <span class="loader" v-if="cartLoading"></span>
 
         <button @click="increaseQuantity" class="circle">
@@ -328,7 +334,6 @@
   </div>
 </template>
 
-
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
@@ -363,27 +368,25 @@ export default {
     ...mapGetters("cart", ["TotalCart"]),
     ...mapState("cart", ["cart", "cartLoading", "totalPrice", "error"]),
     isInCart() {
-      return this.cart.some(
-        (cartItem) => cartItem.product._id === this.currentPage
-      );
-      
+      return this.cart.some((cartItem) => cartItem.product._id === this.currentPage);
     },
     displayUnit() {
-      if (this.productDetails.unit === undefined || this.productDetails.unit === "undefined") {
-        return '';
+      if (
+        this.productDetails.unit === undefined ||
+        this.productDetails.unit === "undefined"
+      ) {
+        return "";
       } else {
         return this.productDetails.unit;
       }
     },
     getProductQuantity() {
       if (this.isInCart) {
-        const cartItem = this.cart.find(
-          (c) => c.product._id === this.currentPage
-        );
+        const cartItem = this.cart.find((c) => c.product._id === this.currentPage);
 
         if (cartItem) {
           this.cartId = cartItem._id;
-          this.quantity = cartItem.quantity
+          this.quantity = cartItem.quantity;
           return cartItem.quantity;
         } else {
           return 0;
@@ -415,7 +418,7 @@ export default {
     this.checkScreenSize();
     this.fetchCartItemsByUserID();
     window.addEventListener("resize", this.checkScreenSize);
-    this.fetchProductByID(this.currentPage)
+    this.fetchProductByID(this.currentPage);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.checkScreenSize);
@@ -455,9 +458,11 @@ export default {
     },
     addProductToCart() {
       this.loader = true;
-      this.addToCart({product: this.productDetails, quantity: this.quantity}).then(() => {
-        this.loader = false;
-      });
+      this.addToCart({ product: this.productDetails, quantity: this.quantity }).then(
+        () => {
+          this.loader = false;
+        }
+      );
     },
     increaseQuantity() {
       const e = {
@@ -479,7 +484,8 @@ export default {
     toggleLike() {
       // Method logic goes here
       this.isLiked = !this.isLiked;
-      this.$store.commit("addToSaved", this.product);},
+      this.$store.commit("addToSaved", this.product);
+    },
     scheduleUpdate() {
       // Cancel any existing scheduled update
       if (this.updateTimeout) {
@@ -530,7 +536,6 @@ export default {
 }
 
 @media (max-width: 750px) {
-  
 }
 
 .mobile-product-details {
@@ -679,13 +684,13 @@ export default {
 .counter-btn .circle {
   background: var(--new-primary-p300);
 }
-.counter-btn .circle:hover{
+.counter-btn .circle:hover {
   background: var(--new-primary-p400);
 }
-.counter-btn .circle:focus{
+.counter-btn .circle:focus {
   background: var(--new-primary-p500);
 }
-.counter-btn .circle:active{
+.counter-btn .circle:active {
   background: var(--new-primary-p500);
 }
 
