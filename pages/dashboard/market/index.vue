@@ -125,6 +125,7 @@ export default {
     };
   },
   mounted() {
+    this.updateQuery("")
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
@@ -147,7 +148,7 @@ export default {
   
   },
   methods: {
-    ...mapActions("product", ["fetchAllProducts"]),
+    ...mapActions("product", ["fetchAllProducts", "updateQuery"]),
     ...mapActions("cart", ["fetchCartItemsByUserID", "fetchFavouriteByUserID"]),
     checkScreenSize() {
       this.animate =
