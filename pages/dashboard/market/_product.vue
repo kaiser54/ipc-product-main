@@ -153,7 +153,13 @@
             </p>
 
             <div class="product-details-price-grp">
-              <h3 class="h3-bold">
+              <h3 class="h3-bold" v-if="hasSpecialPrice">
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails && formatPriceWithCommas(specialPrice)
+                }}
+              </h3>
+              <h3 class="h3-bold" v-else>
                 <span class="naira"><span class="naira">₦</span></span>
                 {{
                   productDetails && formatPriceWithCommas(productDetails.discountPrice)
@@ -356,6 +362,7 @@ export default {
       loader: false,
       cartId: "",
       quantity: 0,
+      userId: localStorage.getItem("userId"),
     };
   },
   head() {
@@ -400,6 +407,20 @@ export default {
       return this.getProductById(this.currentPage);
     },
     isInSaved() {},
+    hasSpecialPrice() {
+      // Check if the specialPrices array exists and if the user's ID matches the customer ID in the special prices array
+      return (
+        this.productDetails.specialPrices &&
+        this.productDetails.specialPrices.some((price) => price.customerId === this.userId)
+      );
+    },
+    specialPrice() {
+      // Find the special price for the user
+      const specialPrice = this.productDetails.specialPrices.find(
+        (price) => price.customerId === this.userId
+      );
+      return specialPrice ? specialPrice.price : this.productDetails.discountPrice; // Use discountPrice as fallback
+    },
   },
   watch: {
     product(newProduct) {
