@@ -29,8 +29,11 @@
         <div class="productcard-price">
           <p>
             <span class="naira">₦</span>
-            {{ formatPriceWithCommas(product.discountPrice) }}
+            <span v-if="hasSpecialPrice">{{ specialPrice }}</span>
+            <span v-else>{{ formatPriceWithCommas(product.discountPrice) }}</span>
+            
           </p>
+          
           <p class="slashprice">
             <span class="naira">₦</span>
             {{ formatPriceWithCommas(product.actualPrice) }}
@@ -98,6 +101,7 @@ export default {
       favoriteId: null,
       liked: this.isLiked ? this.isLiked : null,
       cartId: "",
+        userId: localStorage.getItem("userId"),
     };
   },
   props: {
@@ -166,6 +170,15 @@ export default {
         return 0;
       }
     },
+    hasSpecialPrice() {
+      // Check if the specialPrices array exists and if the user's ID matches the customer ID in the special prices array
+      return this.product.specialPrices && this.product.specialPrices.some(price => price.customerId === this.userId);
+    },
+    specialPrice() {
+      // Find the special price for the user
+      const specialPrice = this.product.specialPrices.find(price => price.customerId === this.userId);
+      return specialPrice ? specialPrice.price : this.product.discountPrice; // Use discountPrice as fallback
+    }
   },
   methods: {
     formatPriceWithCommas,
@@ -252,6 +265,8 @@ export default {
       }
     },
   },
+  
+
 };
 </script>
 
