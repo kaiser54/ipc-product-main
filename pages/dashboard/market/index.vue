@@ -164,7 +164,8 @@ export default {
 
       this.checkScreenSize();
       window.addEventListener("resize", this.checkScreenSize);
-  
+      // console.log('All Products:', this.filteredProducts);
+      // console.log('All Products:', this.filteredProducts[0].specialPrices);
     },
     welcomeUser() {
       const welcome = localStorage.getItem("welcomeFlow");

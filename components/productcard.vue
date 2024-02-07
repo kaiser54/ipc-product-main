@@ -1,12 +1,8 @@
 <template>
   <!-- product card container starts here -->
 
-  <div class="product-card" :class="{'isDisable':!product.inStock}">
-    <nuxt-link
-    :to="`/dashboard/market/${product.name}~${product._id}`"
-      class="card_wrap"
-      
-    >
+  <div class="product-card" :class="{ isDisable: !product.inStock }">
+    <nuxt-link :to="`/dashboard/market/${product.name}~${product._id}`" class="card_wrap">
       <div class="product-img-grp">
         <!-- product image -->
         <div class="image-container">
@@ -24,13 +20,19 @@
       <div class="productcard-details">
         <div class="productcard-name text-container">
           <p>{{ product.name }} {{ displayUnit }}</p>
-      
         </div>
-        <div class="productcard-price">
+        <div class="productcard-price" v-if="hasSpecialPrice">
+          <p>
+            <span class="naira">₦</span>
+            {{ formatPriceWithCommas(specialPrice) }}
+          </p>
+        </div>
+        <div class="productcard-price" v-else>
           <p>
             <span class="naira">₦</span>
             {{ formatPriceWithCommas(product.discountPrice) }}
           </p>
+
           <p class="slashprice">
             <span class="naira">₦</span>
             {{ formatPriceWithCommas(product.actualPrice) }}
@@ -50,7 +52,7 @@
       v-if="!isInCart"
     >
       <svg
-        v-if="!loader"
+        v-if="!loader && product.inStock"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -68,7 +70,8 @@
         </g>
       </svg>
 
-      <p v-if="!loader">Add to cart</p>
+      <p v-if="!loader && product.inStock">Add to cart</p>
+      <p v-if="!loader && !product.inStock">Out of Stock</p>
       <span class="loader" v-if="loader"></span>
     </button>
 
@@ -77,7 +80,7 @@
       :loader="loader"
       :counterValue="getProductQuantity"
       @postQuantity="addProductToCart"
-      v-if="isInCart"
+      v-if="isInCart && product.inStock"
     />
     <!-- -------------------------------- -->
   </div>
@@ -97,6 +100,7 @@ export default {
       favoriteId: null,
       liked: this.isLiked ? this.isLiked : null,
       cartId: "",
+      userId: localStorage.getItem("userId"),
     };
   },
   props: {
@@ -112,10 +116,7 @@ export default {
   computed: {
     ...mapState("cart", ["favorites", "cartLoading", "cart"]),
     displayUnit() {
-      if (
-        this.product.unit === undefined ||
-        this.product.unit === "undefined"
-      ) {
+      if (this.product.unit === undefined || this.product.unit === "undefined") {
         return "";
       } else {
         return this.product.unit;
@@ -151,9 +152,7 @@ export default {
     },
     getProductQuantity() {
       if (this.isInCart) {
-        const cartItem = this.cart.find(
-          (c) => c.productId === this.product._id
-        );
+        const cartItem = this.cart.find((c) => c.productId === this.product._id);
 
         if (cartItem) {
           this.cartId = cartItem._id;
@@ -164,6 +163,20 @@ export default {
       } else {
         return 0;
       }
+    },
+    hasSpecialPrice() {
+      // Check if the specialPrices array exists and if the user's ID matches the customer ID in the special prices array
+      return (
+        this.product.specialPrices &&
+        this.product.specialPrices.some((price) => price.customerId === this.userId)
+      );
+    },
+    specialPrice() {
+      // Find the special price for the user
+      const specialPrice = this.product.specialPrices.find(
+        (price) => price.customerId === this.userId
+      );
+      return specialPrice ? specialPrice.price : this.product.discountPrice; // Use discountPrice as fallback
     },
   },
   methods: {
@@ -253,8 +266,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 a {
@@ -445,15 +456,14 @@ button:hover svg {
 button:disabled svg {
   stroke: var(--grey-grey1);
 }
-button:disabled p{
+button:disabled p {
   color: var(--grey-grey1);
 }
 button:disabled {
   cursor: not-allowed;
 }
-.isDisable{
+.isDisable {
   opacity: 0.6;
-
 }
 .loader {
   width: 20px;
