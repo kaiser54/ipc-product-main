@@ -16,7 +16,8 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import Loading from "~/components/Loader/Rolling.vue";
+// import Loading from "~/components/Loader/Rolling.vue";
+import Loading from "~/components/Loader/General.vue";
 export default {
   components: { Loading },
   layout: "dashboardview",

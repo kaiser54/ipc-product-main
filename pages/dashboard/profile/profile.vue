@@ -1,6 +1,7 @@
 <template>
   <div class="view-page goTop">
-    <LoaderComponent v-if="!user" />
+    <!-- <LoaderComponent v-if="!user" /> -->
+    <LoaderGeneral v-if="!user" />
     <div class="aaa" v-if="user" style="padding-bottom: 20%">
       <div
         class="inner_profile"

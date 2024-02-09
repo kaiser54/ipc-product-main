@@ -18,17 +18,17 @@
         <div class="order-content">
           <div class="title">{{ item.product.name }}</div>
           <div class="order-id-price">
-            <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
+            <!-- <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div> -->
             <div class="order-qty">Qty: {{ item.quantity }}</div>
           </div>
           <div class="order-price">
             <span class="naira">₦</span> {{ formatPriceWithCommas(item.totalPrice) }}
           </div>
-          <DynamicTags
+          <!-- <DynamicTags
             :tagText="status"
             :size="size"
             :type="getTagType(status)"
-          />
+          /> -->
         </div>
 
         <div class="price-qty">

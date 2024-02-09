@@ -9,12 +9,11 @@
       <div class="image_wrap">
         <div
           class="image"
-          v-for="(image, index) in getProductImages(item.products)"
-          :key="index"
+        
         >
-          <!-- {{ image.url }} -->
-          <img :src="image?.url" alt="product Image" />
+           <img :src="getProductImages(item.products)" alt="Product Image" />
         </div>
+        <!-- <img v-if="item.images && item.images.length > 0" :src="item.images[0]" alt="Product Image" /> -->
       </div>
       <div class="order-product-details">
         <div class="order-content">
@@ -23,7 +22,7 @@
             {{ getProductNames(item.products) }}
           </span>
           <div class="order-id-price">
-            <div class="order-id">Order Id: {{ truncateId(item._id, 10) }}</div>
+            <div class="order-id">Order Id: {{ item._id }}</div>
             <!-- <div class="order-qty">Qty: {{ item?.products?.length }}</div> -->
             <div class="order-qty">Qty: {{ calculateTotalProductQuantity(item.products) }}</div>
           </div>
@@ -200,7 +199,7 @@ export default {
       } else {
         const firstProductName =
           products[0].product.name.length > 16
-            ? products[0].product.name.substring(0, 16) + "..."
+            ? products[0].product.name.substring(0, 50) + " "
             : products[0].product.name;
         const additionalProductCount = number - 1;
         return `${firstProductName} and ${additionalProductCount} more`;
@@ -208,23 +207,21 @@ export default {
     },
 
     getProductImages(products) {
-      // Use the `map` function to create a new array
-      const images = products.slice(0, 3).map((product, index) => {
-        // Access the `images` property of each product (assuming it's an array)
-        const productImages = product.images;
-
-        // Log the chosen products
-        if (index < 3) {
-          // (`Chosen Product ${index + 1}:`, product);
-        }
-
-        // Return the first image URL
-        return productImages ? productImages[0] : product.product.images[0];
-      });
-
-
-      return images;
-    },
+  // Check if products is defined and not empty
+  if (Array.isArray(products) && products.length > 0) {
+    // Check if the first product has images
+    if (
+      products[0].product &&
+      Array.isArray(products[0].product.images) &&
+      products[0].product.images.length > 0
+    ) {
+      // Return the URL of the first image of the first product
+      return products[0].product.images[0].url;
+    }
+  }
+  // Return a default value or handle the case where images are not available
+  return 'default-image-url';
+},
 
     getProductPrice(products) {
       if (Array.isArray(products) && products.length > 0) {
@@ -291,6 +288,7 @@ a {
   height: auto;
   max-height: 64px;
   border-radius: 1.70667px;
+  /* border: 1px solid red; */
 }
 
 .image img {

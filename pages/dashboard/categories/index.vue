@@ -3,6 +3,7 @@
     <div class="title-header">
       <h2 class="h2-medium header-text">Categories</h2>
     </div>
+    <!-- <LoaderGeneral v-if="loading" /> -->
     <LoaderComponent v-if="loading" />
     <div class="page-content">
       <div class="categories-content">

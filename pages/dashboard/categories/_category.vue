@@ -8,6 +8,7 @@
       </div>
       <h2 class="h2-medium header-text">{{ this.searchQuery }}</h2>
     </div>
+    <!-- <LoaderGeneral v-if="loading" /> -->
     <LoaderComponent v-if="loading" />
     <section class="market-product" v-if="filteredProducts.length > 0">
       <productcard

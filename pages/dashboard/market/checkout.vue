@@ -1,6 +1,7 @@
 <template>
   <div class="checkout__delivery">
-    <LoaderSpin v-if="spinner" />
+    <!-- <LoaderSpin v-if="spinner" /> -->
+    <LoaderGeneral v-if="spinner" />
 
     <!-- Order on the way message -->
     <CheckoutOnTheWayMsg

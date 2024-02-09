@@ -45,7 +45,7 @@
     </div>
     <div class="product-transaction">
       <div class="product-description">
-        <LoaderTracking v-if="verificationLoading" />
+        <LoaderGeneral v-if="verificationLoading" />
         <div class="child order-track" v-else>
           <div class="user">
             <div class="orderProduct">

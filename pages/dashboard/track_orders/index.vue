@@ -4,7 +4,7 @@
       <h2 class="h2-medium header-text">Track orders</h2>
     </div>
 
-    <LoaderTracking v-if="loading" />
+    <LoaderGeneral v-if="loading" />
 
     <div class="empty-state" v-if="order.length === 0  && !loading">
       <EmptyStates @leaveCart="leaveCart">
@@ -441,9 +441,9 @@ export default {
     try {
       const response = await this.$axios.get(`/orders/customer/${userId}`);
       this.order = response?.data?.data?.orders;
-      (this.order);
+      console.log('order',this.order);
       this.products = response?.data?.data?.orders?.products;
-      (this.products);
+      console.log('products',this.products);
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);

@@ -42,7 +42,8 @@
       <!-- ================================ -->
     </div>
 
-    <LoaderTracking v-if="verificationLoading && mobile" class="load" />
+    <!-- <LoaderTracking v-if="verificationLoading " class="load" /> -->
+    <LoaderGeneral v-if="verificationLoading " class="load" />
 
     <p v-if="!tableData">No history yet</p>
     <div class="history-content" v-if="tableData">
@@ -312,6 +313,8 @@ export default {
     padding: 16px;
   } */
 }
+
+
 </style>
 
 <style>

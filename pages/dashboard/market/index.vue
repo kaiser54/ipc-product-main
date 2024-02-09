@@ -1,6 +1,7 @@
 <template>
   <div class="container" style="width: 100%">
     <!-- <ModalWelcome v-if="showModal" @cancelModal="removeModal()" @complete-flow="removeModal()" /> -->
+    <!-- <LoaderGeneral v-if="loading" /> -->
     <LoaderComponent v-if="loading" />
     <div class="empty" v-else-if="filteredProducts.length === 0 && !mobile">
       <EmptySystem  @leavePage="cleared" :header="header" :snippet="snippet">

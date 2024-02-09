@@ -1,6 +1,7 @@
 <template>
   <div :class="{ 'user-details-component': mobile }" v-if="productDetails" class="goTop">
-    <LoaderComponent v-if="loading" />
+    <LoaderGeneral v-if="loading" />
+    <!-- <LoaderComponent v-if="loading" /> -->
     <div class="component-header" v-if="mobile">
       <div class="component-header-main">
         <!-- back button for mobile view -->

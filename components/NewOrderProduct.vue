@@ -115,7 +115,7 @@ export default {
             } else {
                 const firstProductName =
                     products[0].product.name.length > 16
-                        ? products[0].product.name.substring(0, 16) + "..."
+                        ? products[0].product.name.substring(0, 50) + " "
                         : products[0].product.name;
                 const additionalProductCount = number - 1;
                 return `${firstProductName} and ${additionalProductCount} more`;
