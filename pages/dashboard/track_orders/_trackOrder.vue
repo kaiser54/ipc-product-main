@@ -74,7 +74,7 @@
                 </div>
               </div>
 
-              <TrackingBar :track-level="trackLevel" />
+              <TrackingBar :track-level="trackLevel" :order="orderDetails" />
             </div>
             <UserInfo
               class="userInform"
@@ -128,7 +128,7 @@
                 </svg>
               </template>
             </DynamicButton>
-            <TrackingBar :track-level="trackLevel" />
+            <TrackingBar :track-level="trackLevel" :order="orderDetails" />
             <div
               class="modal-overlay"
               v-if="showUserInfoModal"
@@ -188,7 +188,7 @@ export default {
           title: "Delivered",
           type: "positive",
           size: "small",
-        }, 
+        },
         {
           title: "Cancelled",
           type: "negative",
@@ -234,7 +234,7 @@ export default {
         type = "info";
       } else if (tagText === "DELIVERED") {
         type = "positive";
-      }else if (tagText === "CANCELLED") {
+      } else if (tagText === "CANCELLED") {
         type = "negative";
       }
 
@@ -267,6 +267,7 @@ export default {
         ("LocalStorage is not available in this environment.");
       }
     }
+    this.getOrders() 
   },
   methods: {
     setTrackOrderLevel(val) {
@@ -286,6 +287,7 @@ export default {
         this.invoiceData = response?.data;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
+        console.log('ordered', this.orderDetails, this.orderDetails.shipedAt)
       } catch (error) {
         this.verificationLoading = true;
         console.error("Error fetching order details:", error);
