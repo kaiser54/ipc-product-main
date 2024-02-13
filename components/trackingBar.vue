@@ -1,8 +1,9 @@
 <template>
   <div class="tracking-bar">
-    <div class="track-wrapped">
+    <div class="track-wrapped-cont">
       <!-- First Circle -->
-      <div
+      <div class="track-wrapped" v-if=" trackLevel.status !== 'CANCELLED'">
+        <div
         class="circle"
         :class="{
           green:
@@ -54,10 +55,40 @@
           :class="{ green: trackLevel.status === 'DELIVERED' }"
         ></div>
       </div>
+      </div>
+      <div class="cancelled-circle" v-else>
+        <div class="circle" :class="{ red: trackLevel.status === 'CANCELLED' }">
+        <div
+          class="inner-circle"
+          :class="{ red: trackLevel.status === 'CANCELLED' }"
+        ></div>
+      </div>
+      </div>
     </div>
     <!-- Status -->
     <div class="track-container">
-      <div class="track-wrapper" v-for="(track, index) in tracking" :key="index">
+
+      <div class="cancelled-wrapper"  v-if=" trackLevel.status === 'CANCELLED'">
+        <div class="track-wrapper-cancelled">
+          <div class="tracking-cancelled">
+          <div class="details">
+            <p class="title">Order cancelled</p>
+            <p class="snippet">Your order has been cancelled</p>
+          </div>
+          </div>
+          <div class="tag-date">
+            <div class="date">
+              <p>{{ formatDates(order?.cancelledAt) }}</p>
+              <div class="divider"></div>
+              <p>{{ formatTimeWithAMPM(order?.cancelledAt) }}</p>
+            </div>
+        </div>
+        </div>
+      </div>
+
+
+      <div class="track-wrapper" v-else>
+        <div class="track-wrapper" v-for="(track, index) in tracking" :key="index" >
         <div class="tracking">
           <div class="details">
             <p class="title">{{ track.title }}</p>
@@ -97,7 +128,10 @@
             <!-- <p v-else-if="track.status === 'Completed'" class="date">{{ order.deliveredAt }}</p> -->
           </div>
         </div>
+        
       </div>
+      </div>
+   
     </div>
   </div>
 </template>
@@ -162,6 +196,11 @@ export default {
           type: "positive",
           size: "small",
         },
+        {
+          title: "Cancelled",
+          type: "negative",
+          size: "small",
+        },
       ],
     };
   },
@@ -195,7 +234,9 @@ export default {
         return "info";
       } else if (status === "Completed") {
         return "positive";
-      } else {
+      } else if (status === "Cancelled") {
+        return "negative";
+      }else {
         return "";
       }
     },
@@ -204,13 +245,21 @@ export default {
 </script>
 
 <style scoped>
+.track-wrapped-cont{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-direction: column;
+  height: 100%;
+}
 .track-wrapped {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   flex-direction: column;
-  height: 80%;
+  height: 83%;
 }
 
 .circle {
@@ -258,6 +307,16 @@ export default {
   border-color: var(--positive-p300);
   /* Border color when green class is applied */
 }
+.inner-circle.red {
+  background-color: var(--Negative-N400);
+}
+
+.circle.red {
+  background-color: white;
+  /* Interior color when green class is applied */
+  border-color: var(--Negative-N400);
+  /* Border color when green class is applied */
+}
 
 .line {
   width: 2px;
@@ -301,6 +360,14 @@ export default {
   gap: 16px;
   /* border: 1px solid purple; */
 }
+.track-wrapper-cancelled {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 0px;
+  /* border: 1px solid purple; */
+}
 
 .processing {
   stroke: var(--positive-p300);
@@ -330,6 +397,16 @@ export default {
   max-width: 295px;
   width: 100%;
   margin-bottom: 21px;
+}
+.tracking-cancelled {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 2px;
+  max-width: 295px;
+  width: 100%;
+  margin-bottom: 0px;
 }
 
 .details {
