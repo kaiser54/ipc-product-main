@@ -62,7 +62,7 @@
             </div>
             <div class="view-wrapper">
               <section class="view">
-                <div class="" style="padding: 16px">
+                <div class="" >
                   <promptAlert
                     @openMail="okModal"
                     v-if="!verifiedEmail && $route.name === 'dashboard-market'"

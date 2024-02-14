@@ -2,18 +2,29 @@
   <div class="tracking-bar">
     <div class="track-wrapped-cont">
       <!-- First Circle -->
-      <div class="track-wrapped" v-if=" trackLevel.status !== 'CANCELLED'">
+      <div class="track-wrapped" v-if="trackLevel.status !== 'CANCELLED'">
         <div
-        class="circle"
-        :class="{
-          green:
-            trackLevel.status === 'PROCESSING' ||
-            trackLevel.status === 'SHIPPED' ||
-            trackLevel.status === 'DELIVERED',
-        }"
-      >
+          class="circle"
+          :class="{
+            green:
+              trackLevel.status === 'PROCESSING' ||
+              trackLevel.status === 'SHIPPED' ||
+              trackLevel.status === 'DELIVERED',
+          }"
+        >
+          <div
+            class="inner-circle"
+            :class="{
+              green:
+                trackLevel.status === 'PROCESSING' ||
+                trackLevel.status === 'SHIPPED' ||
+                trackLevel.status === 'DELIVERED',
+            }"
+          ></div>
+        </div>
+
         <div
-          class="inner-circle"
+          class="line"
           :class="{
             green:
               trackLevel.status === 'PROCESSING' ||
@@ -21,117 +32,113 @@
               trackLevel.status === 'DELIVERED',
           }"
         ></div>
-      </div>
-
-      <div
-        class="line"
-        :class="{
-          green:
-            trackLevel.status === 'PROCESSING' ||
-            trackLevel.status === 'SHIPPED' ||
-            trackLevel.status === 'DELIVERED',
-        }"
-      ></div>
-      <!-- Second Circle -->
-      <div
-        class="circle"
-        :class="{
-          green: trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED',
-        }"
-      >
+        <!-- Second Circle -->
         <div
-          class="inner-circle"
+          class="circle"
           :class="{
             green: trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED',
           }"
-        ></div>
-      </div>
-      <!-- Second Line -->
-      <div class="line" :class="{ green: trackLevel.status === 'DELIVERED' }"></div>
-      <!-- Third Circle -->
-      <div class="circle" :class="{ green: trackLevel.status === 'DELIVERED' }">
-        <div
-          class="inner-circle"
-          :class="{ green: trackLevel.status === 'DELIVERED' }"
-        ></div>
-      </div>
+        >
+          <div
+            class="inner-circle"
+            :class="{
+              green: trackLevel.status === 'SHIPPED' || trackLevel.status === 'DELIVERED',
+            }"
+          ></div>
+        </div>
+        <!-- Second Line -->
+        <div class="line" :class="{ green: trackLevel.status === 'DELIVERED' }"></div>
+        <!-- Third Circle -->
+        <div class="circle" :class="{ green: trackLevel.status === 'DELIVERED' }">
+          <div
+            class="inner-circle"
+            :class="{ green: trackLevel.status === 'DELIVERED' }"
+          ></div>
+        </div>
       </div>
       <div class="cancelled-circle" v-else>
         <div class="circle" :class="{ red: trackLevel.status === 'CANCELLED' }">
-        <div
-          class="inner-circle"
-          :class="{ red: trackLevel.status === 'CANCELLED' }"
-        ></div>
-      </div>
+          <div
+            class="inner-circle"
+            :class="{ red: trackLevel.status === 'CANCELLED' }"
+          ></div>
+        </div>
       </div>
     </div>
     <!-- Status -->
     <div class="track-container">
-
-      <div class="cancelled-wrapper"  v-if=" trackLevel.status === 'CANCELLED'">
+      <div class="cancelled-wrapper" v-if="trackLevel.status === 'CANCELLED'">
         <div class="track-wrapper-cancelled">
           <div class="tracking-cancelled">
-          <div class="details">
-            <p class="title">Order cancelled</p>
-            <p class="snippet">Your order has been cancelled</p>
-          </div>
+            <div class="details">
+              <p class="title">Order cancelled</p>
+              <p class="snippet">Your order has been cancelled</p>
+            </div>
           </div>
           <div class="tag-date">
             <div class="date">
-              <p>{{ formatDates(order?.cancelledAt) }}</p>
-              <div class="divider"></div>
-              <p>{{ formatTimeWithAMPM(order?.cancelledAt) }}</p>
-            </div>
-        </div>
-        </div>
-      </div>
-
-
-      <div class="track-wrapper" v-else>
-        <div class="track-wrapper" v-for="(track, index) in tracking" :key="index" >
-        <div class="tracking">
-          <div class="details">
-            <p class="title">{{ track.title }}</p>
-            <p class="snippet">{{ track.snippet }}</p>
-          </div>
-          <div class="tag-date">
-            <!-- <div class="tagged">
-                        <DynamicTags :tagText="track.status" :size="size" :type="getTagType(track.status)" />
-                    </div> -->
-            <div v-if="track.status === 'Processing'" class="date">
-              <p>{{ formatDates(order?.createdAt) }}</p>
-              <div class="divider"></div>
-              <p>{{ formatTimeWithAMPM(order?.createdAt) }}</p>
-            </div>
-
-            <div v-if="track.status === 'Shipped'" class="date">
-              <p>{{ order && order.shippedAt ? formatDates(order.shippedAt) : "" }}</p>
-
-              <p class="divider" v-if="order?.shippedAt"></p>
               <p>
-                {{ order && order.shippedAt ? formatTimeWithAMPM(order?.shippedAt) : "" }}
+                {{ order && order.cancelledAt ? formatDates(order.cancelledAt) : "--" }}
               </p>
-            </div>
 
-            <div v-if="track.status === 'Completed'" class="date">
-              <p>
-                {{ order && order.deliveredAt ? formatDates(order.deliveredAt) : "" }}
-              </p>
-              <p class="divider" v-if="order?.deliveredAt"></p>
+              <p class="divider" v-if="order?.cancelledAt"></p>
               <p>
                 {{
-                  order && order.deliveredAt ? formatTimeWithAMPM(order?.deliveredAt) : ""
+                  order && order.cancelledAt ? formatTimeWithAMPM(order?.cancelledAt) : "--"
                 }}
               </p>
             </div>
-            <!-- <p v-else-if="track.status === 'Shipped'" class="date">{{ order.shippedAt }}</p> -->
-            <!-- <p v-else-if="track.status === 'Completed'" class="date">{{ order.deliveredAt }}</p> -->
           </div>
         </div>
-        
       </div>
+
+      <div class="track-wrapper" v-else>
+        <div class="track-wrapper" v-for="(track, index) in tracking" :key="index">
+          <div class="tracking">
+            <div class="details">
+              <p class="title">{{ track.title }}</p>
+              <p class="snippet">{{ track.snippet }}</p>
+            </div>
+            <div class="tag-date">
+              <!-- <div class="tagged">
+                        <DynamicTags :tagText="track.status" :size="size" :type="getTagType(track.status)" />
+                    </div> -->
+              <div v-if="track.status === 'Processing'" class="date">
+                <p>{{ formatDates(order?.createdAt) }}</p>
+                <div class="divider"></div>
+                <p>{{ formatTimeWithAMPM(order?.createdAt) }}</p>
+              </div>
+
+              <div v-if="track.status === 'Shipped'" class="date">
+                <p>{{ order && order.shippedAt ? formatDates(order.shippedAt) : "--" }}</p>
+
+                <p class="divider" v-if="order?.shippedAt"></p>
+                <p>
+                  {{
+                    order && order.shippedAt ? formatTimeWithAMPM(order?.shippedAt) : "--"
+                  }}
+                </p>
+              </div>
+
+              <div v-if="track.status === 'Completed'" class="date">
+                <p>
+                  {{ order && order.deliveredAt ? formatDates(order.deliveredAt) : "--" }}
+                </p>
+                <p class="divider" v-if="order?.deliveredAt"></p>
+                <p>
+                  {{
+                    order && order.deliveredAt
+                      ? formatTimeWithAMPM(order?.deliveredAt)
+                      : "--"
+                  }}
+                </p>
+              </div>
+              <!-- <p v-else-if="track.status === 'Shipped'" class="date">{{ order.shippedAt }}</p> -->
+              <!-- <p v-else-if="track.status === 'Completed'" class="date">{{ order.deliveredAt }}</p> -->
+            </div>
+          </div>
+        </div>
       </div>
-   
     </div>
   </div>
 </template>
@@ -236,7 +243,7 @@ export default {
         return "positive";
       } else if (status === "Cancelled") {
         return "negative";
-      }else {
+      } else {
         return "";
       }
     },
@@ -245,7 +252,7 @@ export default {
 </script>
 
 <style scoped>
-.track-wrapped-cont{
+.track-wrapped-cont {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -422,7 +429,6 @@ p.title {
   font-size: 16px;
   line-height: 24px;
   color: var(--grey-grey1);
-
 }
 
 p.snippet {
@@ -441,14 +447,12 @@ p.snippet {
 }
 
 .date p {
-    font-size: 12px;
-font-weight: 400;
-line-height: 18px;
-letter-spacing: 0px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0px;
   color: var(--grey-grey2);
 }
-
-
 
 @media (max-width: 950px) {
   .tracking-bar {
