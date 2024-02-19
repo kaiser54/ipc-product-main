@@ -287,7 +287,6 @@ export default {
         this.invoiceData = response?.data;
         this.selectedItem = this.orderDetails?.status;
         this.loading = false;
-        console.log('ordered', this.orderDetails, this.orderDetails.shipedAt)
       } catch (error) {
         this.verificationLoading = true;
         console.error("Error fetching order details:", error);

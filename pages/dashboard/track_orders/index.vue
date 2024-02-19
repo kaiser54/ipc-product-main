@@ -441,9 +441,6 @@ export default {
     try {
       const response = await this.$axios.get(`/orders/customer/${userId}`);
       this.order = response?.data?.data?.orders;
-      console.log('order',this.order);
-      this.products = response?.data?.data?.orders?.products;
-      console.log('products',this.products);
       this.loading = false;
     } catch (error) {
       console.error("Error fetching order details:", error);
@@ -481,7 +478,6 @@ export default {
         this.order = response?.data?.data?.orders;
         console.log("chris",this.order);
         this.products = response?.data?.data?.orders[0]?.products;
-        (this.products);
         this.loading = false;
       } catch (error) {
         this.loading = true;
