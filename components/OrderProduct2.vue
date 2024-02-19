@@ -105,8 +105,6 @@ export default {
 },
 
   mounted() {
-  console.log(this.data);
-  console.log(this. hasSpecialPrice, this.specialPrice)
 },
   methods: {
     formatPriceWithCommas,

@@ -218,7 +218,6 @@ export default {
   },
   async mounted() {
     await this.fetchCartItemsByUserID();
-    console.log('Cart Items:', this.cart);
   },
   computed: {
     cartItems() {
