@@ -25,7 +25,7 @@ export default {
     ADD_TO_CART(state, cartItem) {
       state.cart.push(...cartItem);
       // state.cart.push(cartItem);
-      "mutant cart", state.cart;
+      // console.log("mutant cart", state.cart);
     },
 
     ADD_TO_CART_ALERT(state, arg) {

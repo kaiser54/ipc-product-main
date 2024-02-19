@@ -12,7 +12,11 @@
           <div class="text-container">
             <p class="name">{{ items?.product?.name }}</p>
           </div>
-          <p class="price">
+          <p class="price" v-if="hasSpecialPrice">
+            <span class="naira">₦</span>
+            {{ formatPriceWithCommas(specialPrice) }}
+          </p>
+          <p class="price" v-else>
             <span class="naira">₦</span>
             {{ formatPriceWithCommas(items?.product?.discountPrice) }}
           </p>
@@ -72,10 +76,15 @@
               <p class="name">{{ items?.product?.name }}</p>
             </div>
             <div class="price-tag">
-              <p class="price">
+              <p class="price" v-if="hasSpecialPrice">
+                <span class="naira">₦</span>
+                {{ formatPriceWithCommas(specialPrice) }}
+              </p>
+              <p class="price" v-else>
                 <span class="naira">₦</span>
                 {{ formatPriceWithCommas(items?.product?.discountPrice) }}
               </p>
+              {{ hasSpecialPrice }}
               <tags :text="items?.product?.inStock" />
             </div>
           </div>
@@ -83,28 +92,28 @@
       </div>
       <div class="counter-delete">
         <div class="circle" @click="removeItem">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M5.33333 3.99967V2.66634C5.33333 1.92996 5.93029 1.33301 6.66667 1.33301H9.33333C10.0697 1.33301 10.6667 1.92996 10.6667 2.66634V3.99967M2 3.99967H14H2ZM3.33333 3.99967V13.333C3.33333 14.0694 3.93029 14.6663 4.66667 14.6663H11.3333C12.0697 14.6663 12.6667 14.0694 12.6667 13.333V3.99967H3.33333Z"
-                    stroke="#565C69"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-              <Counter
-            style="width: 200px"
-            :loader="loader"
-            :counterValue="items?.quantity"
-            @postQuantity="addProductToCart"
-          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M5.33333 3.99967V2.66634C5.33333 1.92996 5.93029 1.33301 6.66667 1.33301H9.33333C10.0697 1.33301 10.6667 1.92996 10.6667 2.66634V3.99967M2 3.99967H14H2ZM3.33333 3.99967V13.333C3.33333 14.0694 3.93029 14.6663 4.66667 14.6663H11.3333C12.0697 14.6663 12.6667 14.0694 12.6667 13.333V3.99967H3.33333Z"
+              stroke="#565C69"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <Counter
+          style="width: 200px"
+          :loader="loader"
+          :counterValue="items?.quantity"
+          @postQuantity="addProductToCart"
+        />
       </div>
     </div>
   </div>
@@ -128,10 +137,25 @@ export default {
     return {
       loader: false,
       mobile: false,
+      userId: localStorage.getItem("userId"),
     };
   },
   computed: {
     ...mapState("cart", ["cartLoading"]),
+    hasSpecialPrice() {
+      // Check if the specialPrices array exists and if the user's ID matches the customer ID in the special prices array
+      return (
+        this.items.product.specialPrices &&
+        this.items.product.specialPrices.some((price) => price.customerId === this.userId)
+      );
+    },
+    specialPrice() {
+      // Find the special price for the user
+      const specialPrice = this.items.product.specialPrices.find(
+        (price) => price.customerId === this.userId
+      );
+      return specialPrice ? specialPrice.price : this.items.product.discountPrice; // Use discountPrice as fallback
+    },
   },
   methods: {
     ...mapActions("cart", ["addToCart", "removeFromCart"]),
@@ -161,6 +185,7 @@ export default {
         this.mobile = false;
       }
     },
+
   },
   watch: {
     cartLoading(newValue, oldValue) {
@@ -177,15 +202,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
-
-
-
-
-
 .div {
   display: flex;
   flex-direction: column;
@@ -356,7 +372,6 @@ p.price {
   .circle:hover {
     background: var(--grey-grey6);
   }
-  
 }
 
 @media (max-width: 350px) {
@@ -376,12 +391,12 @@ p.price {
   border-bottom: 1px solid var(--grey-grey5);
 } */
 
-.mobile-cart-wrap{
+.mobile-cart-wrap {
   width: 100%;
   display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 .mobile-cart-product {
   width: 100%;
@@ -397,19 +412,19 @@ gap: 8px;
   gap: 16px;
 }
 
-.price-tag{
+.price-tag {
   width: 100%;
   display: flex;
-justify-content: space-between;
+  justify-content: space-between;
 }
-.counter-delete{
+.counter-delete {
   display: flex;
-justify-content: space-between;
-align-items: flex-start;
-align-self: stretch;
-height: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  height: 40px;
 }
-.cart-mobile-product-details{
+.cart-mobile-product-details {
   width: 100%;
 }
 </style>

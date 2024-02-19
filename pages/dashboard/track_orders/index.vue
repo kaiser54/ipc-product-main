@@ -479,7 +479,7 @@ export default {
         const response = await this.$axios.get(`/orders/customer/${userId}`);
         this.loading = false;
         this.order = response?.data?.data?.orders;
-        (this.order);
+        console.log("chris",this.order);
         this.products = response?.data?.data?.orders[0]?.products;
         (this.products);
         this.loading = false;
