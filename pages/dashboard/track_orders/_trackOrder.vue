@@ -204,43 +204,10 @@ export default {
       title: this.pageTitle,
     };
   },
-  computed: {
-    tagText() {
-      // return this.listSelect[this.selectedIndex].title;
-      if (this.orderDetails?.status) {
-        return this.orderDetails?.status;
-      }
-    },
-    type() {
-      return this.listSelect[this.selectedIndex].type;
-    },
-    size() {
-      return this.listSelect[this.selectedIndex].size;
-    },
-    statusTagType() {
-      if (this.statusTagText === "In Active") {
-        return "warning";
-      } else {
-        return "info";
-      }
-    },
-    dynamicTagProps() {
-      let tagText = this.orderDetails?.status;
-      let type = "";
 
-      if (tagText === "PROCESSING") {
-        type = "warning";
-      } else if (tagText === "SHIPPED") {
-        type = "info";
-      } else if (tagText === "DELIVERED") {
-        type = "positive";
-      } else if (tagText === "CANCELLED") {
-        type = "negative";
-      }
 
-      return { tagText, type };
-    },
-  },
+  
+
   created() {
     this.orderId = this.$route.params.trackOrder;
     this.getOrders();
@@ -249,7 +216,7 @@ export default {
     if (process.client) {
       // Check if localStorage is available
       if (typeof localStorage !== "undefined") {
-        // Check if user data is saved in localStorage
+        // Check if user invoiceData is saved in localStorage
         const userData = localStorage.getItem("user");
 
         if (userData) {
@@ -267,7 +234,8 @@ export default {
         ("LocalStorage is not available in this environment.");
       }
     }
-    this.getOrders() 
+    
+
   },
   methods: {
     setTrackOrderLevel(val) {
@@ -320,6 +288,73 @@ export default {
     showUserModal() {
       this.showUserInfoModal = true;
     },
+  },
+  computed: {
+    tagText() {
+      // return this.listSelect[this.selectedIndex].title;
+      if (this.orderDetails?.status) {
+        return this.orderDetails?.status;
+      }
+    },
+    type() {
+      return this.listSelect[this.selectedIndex].type;
+    },
+    size() {
+      return this.listSelect[this.selectedIndex].size;
+    },
+    statusTagType() {
+      if (this.statusTagText === "In Active") {
+        return "warning";
+      } else {
+        return "info";
+      }
+    },
+    dynamicTagProps() {
+      let tagText = this.orderDetails?.status;
+      let type = "";
+
+      if (tagText === "PROCESSING") {
+        type = "warning";
+      } else if (tagText === "SHIPPED") {
+        type = "info";
+      } else if (tagText === "DELIVERED") {
+        type = "positive";
+      } else if (tagText === "CANCELLED") {
+        type = "negative";
+      }
+
+      return { tagText, type };
+    },
+
+    hasSpecialPrices() {
+    // Ensure orderDetails is not null before accessing its properties
+    if (!this.orderDetails || !this.orderDetails.products) return false;
+
+    for (let product of this.orderDetails.products) {
+      if (product.product.specialPrices && product.product.specialPrices.length > 0) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  specialPrice() {
+    // Ensure orderDetails is not null before accessing its properties
+    if (!this.hasSpecialPrices || !this.orderDetails || !this.orderDetails.customerId) return null;
+
+    const customerId = this.orderDetails.customerId;
+
+    for (let product of this.orderDetails.products) {
+      if (product.product.specialPrices && product.product.specialPrices.length > 0) {
+        for (let specialPrice of product.product.specialPrices) {
+          if (specialPrice.customerId === customerId) {
+            return specialPrice.price;
+          }
+        }
+      }
+    }
+    return null; // Return null if no matching customerId found
+  }
   },
 };
 </script>
