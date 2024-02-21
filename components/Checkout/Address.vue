@@ -88,7 +88,7 @@
                 @input="clearInputError('selectedLGA')"
               >
                 <option value="" selected>Please select a LGA</option>
-                <option v-for="(lga, index) in lgas" :key="index" :value="lga">
+                <option v-for="(lga) in lgas" :key="lga.name" :value="lga.name" >
                   {{ lga.name }}
                 </option>
               </select>
@@ -198,9 +198,17 @@ export default {
         console.error("Invalid or undefined newSelectedLGA:", newSelectedLGA);
       }
     },
+
+    lastCheckoutDetails: {
+      immediate:true,
+      handler(newVal) {
+        if (newVal) {
+          this.loadLastCheckoutDetails()
+        }
+      }
+    }
   },
   async mounted() {
-    this.loadLastCheckoutDetails();
     this.loadUser();
   },
   methods: {
@@ -324,13 +332,14 @@ export default {
     },
     loadLastCheckoutDetails() {
       if (this.lastCheckoutDetails) {
-        const { address, firstName, lastName } = this.lastCheckoutDetails;
+        const { address, firstName, lastName, phoneNumbers } = this.lastCheckoutDetails;
         this.address = address.streetAddress;
         this.Directions = address.directions;
         this.selectedState = address.state;
         this.selectedLGA = address.lga;
         this.FirstName = firstName;
         this.lastName = lastName;
+        this.phoneNumbers = phoneNumbers;
 
         // this.submitForm();
       }
