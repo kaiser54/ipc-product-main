@@ -353,7 +353,7 @@ export default {
           streetAddress: this.address,
           directions: this.Directions,
           state: this.selectedState,
-          lga: this.selectedLGA.name,
+          lga: this.selectedLGA.name || this.selectedLGA,
           // customerId: this.customerId,
         };
         const data = {
@@ -365,7 +365,7 @@ export default {
           // phoneNumbers: this.phoneNumbers,
           phoneNumbers: [this.phoneNumbers],
           state: this.selectedState,
-          LGA: this.selectedLGA.name,
+          LGA: this.selectedLGA.name || this.selectedLGA,
           products: this.cart,
           totalPrice: this.cartFullPrice,
           // deliveryFee: this.deliveryFee,
