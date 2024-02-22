@@ -47,7 +47,7 @@
         <td class="table-head">Delivery Address</td>
       </thead>
       <tr>
-        <td>{{ formatDates(data.order.createdAt) }}</td>
+        <td>{{  formatTime(data.order.createdAt) }}</td>
         <td>{{ data.order.paymentMethod }}</td>
         <td>{{ data.order._id }}</td>
         <td>
@@ -233,7 +233,7 @@ import {
   formatDate,
   formatTimeWithAMPM,
   formatDates,
-  formatTimme,
+  formatTime,
   formatNumberWithLeadingZeros,
   calculateDeliveryDate,
 } from "~/utils/dateUtils"; // Adjust the import path as needed
@@ -291,6 +291,7 @@ computed:{
     formatTimeWithAMPM,
     formatNumberWithLeadingZeros,
     calculateDeliveryDate,
+    formatTime,
     roundToTwoDecimalPlaces(num) {
       if (!num || num == undefined) {
         return false;
