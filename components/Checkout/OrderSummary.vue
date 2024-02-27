@@ -1,7 +1,7 @@
 <template>
   <div class="payment">
     <h3 class="h3-medium header-text">Order summary</h3>
-    <userInfo :data="data" v-if="data" :checkout="true">
+    <userInfo :data="data" v-if="data" :checkout="true" :isTimeandDateNeeded="isTimeandDateNeeded">
       <template v-slot:button>
         <button class="btn ghost-btn" @click="step1">
           Change delivery address
@@ -129,6 +129,7 @@ export default {
     return {
       email: "",
       emailError: null,
+      isTimeandDateNeeded: false
     };
   },
   methods: {

@@ -35,10 +35,10 @@
         <span>State</span
         ><span class="bold">{{ data.state || data.address.state }}</span>
       </div>
-      <div class="client-frame">
+      <div class="client-frame" v-if="isTimeandDateNeeded">
         <span>Date</span><span class="bold">{{ formatDates(data?.createdAt) }}</span>
       </div>
-      <div class="client-frame">
+      <div class="client-frame" v-if="isTimeandDateNeeded">
         <span>Time</span><span class="bold">{{  formatTimeWithAMPM(data?.createdAt) }}</span>
       </div>
       <slot name="button"></slot>
@@ -114,6 +114,10 @@ export default {
       type: Object,
       required: true,
     },
+    isTimeandDateNeeded :{
+      type: Boolean,
+      default: false,
+    },
     validCoupon: {
       type: Boolean,
       default: false,
@@ -132,7 +136,7 @@ export default {
   },
 
   mounted() {
-  
+    console.log(this.data)
   },
 
   methods: {

@@ -85,13 +85,23 @@
               Brand: <span>{{ productDetails?.brand }}</span>
             </p>
           </div>
+ 
+          
           <div class="product-details-price-grp">
-            <h3 class="h3-bold">
-              <span class="naira">₦</span>
-              {{ productDetails && formatPriceWithCommas(productDetails.discountPrice) }}
-            </h3>
-            <tags />
-          </div>
+              <h3 class="h3-bold" v-if="hasSpecialPrice">
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails && formatPriceWithCommas(specialPrice)
+                }}
+              </h3>
+              <h3 class="h3-bold" v-else>
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails && formatPriceWithCommas(productDetails.discountPrice)
+                }}
+              </h3>
+              <tags :text="productDetails?.inStock" />
+            </div>
           <p class="product-details-snippet">
             {{ productDetails?.description }}
           </p>

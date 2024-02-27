@@ -81,6 +81,7 @@
               v-if="orderDetails"
               :data="orderDetails"
               style="max-width: 387px; width: 100%; margin-left: 20px"
+              :isTimeandDateNeeded="isTimeandDateNeeded"
             />
           </div>
           <div class="mobile-user">
@@ -135,7 +136,7 @@
               @click="showUserInfoModal = false"
             >
               <div class="modal-content">
-                <UserInfo v-if="orderDetails" :data="orderDetails" />
+                <UserInfo v-if="orderDetails" :data="orderDetails" :isTimeandDateNeeded="isTimeandDateNeeded" />
               </div>
             </div>
           </div>
@@ -173,6 +174,7 @@ export default {
       showUserInfoModal: false,
       verificationLoading: true,
       more: false,
+      isTimeandDateNeeded: true,
       listSelect: [
         {
           title: "Order procesing",
