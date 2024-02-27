@@ -339,7 +339,7 @@ export default {
         this.selectedLGA = address.lga;
         this.FirstName = firstName;
         this.lastName = lastName;
-        this.phoneNumbers = phoneNumbers;
+        this.phoneNumbers = phoneNumbers[0];
 
         // this.submitForm();
       }
