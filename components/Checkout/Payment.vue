@@ -230,7 +230,7 @@ export default {
   data() {
     return {
       selectedItem: "",
-      isTimeandDateNeeded: true,
+      isTimeandDateNeeded: false,
       listSelect: [
         {
           title: "Pay with Card / USSD / Transfer",
