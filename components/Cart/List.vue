@@ -84,7 +84,6 @@
                 <span class="naira">₦</span>
                 {{ formatPriceWithCommas(items?.product?.discountPrice) }}
               </p>
-              {{ hasSpecialPrice }}
               <tags :text="items?.product?.inStock" />
             </div>
           </div>

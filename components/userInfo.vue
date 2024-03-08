@@ -136,7 +136,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.data)
+    console.log("data", this.data)
   },
 
   methods: {
