@@ -41,6 +41,7 @@
 
         <div class="user-form-data">
           <CheckoutAddress
+            :userID="userID"
             v-show="currentStep === 1"
             @customEvent="handleFormSubmission"
             :lastCheckoutDetails="lastCheckoutDetails"
@@ -268,15 +269,14 @@ export default {
       }
     },
     payWithPaystack() {
-      // const data = {...this.finalData}; 
+      // const data = {...this.finalData};
       // OR
       const data = structuredClone(this.finalData);
       this.ref = this.reference;
       data.ref = this.reference;
       data.reference = this.reference;
       if (this.validCoupon) {
-        data.totalPrice =
-          data.totalPrice - this.calculatedDeliveryFee;
+        data.totalPrice = data.totalPrice - this.calculatedDeliveryFee;
       }
       this.spinner = true;
       const handler = PaystackPop.setup({
@@ -301,7 +301,6 @@ export default {
       this.currentStep = 1;
       ("clicked");
     },
-
 
     async handleCoupon(newVal) {
       this.couponLoading = true;

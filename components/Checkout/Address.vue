@@ -113,7 +113,7 @@ import { State, Country, City } from "country-state-city";
 import axios from "axios";
 
 export default {
-  props: ["lastCheckoutDetails"],
+  props: ["lastCheckoutDetails", "userID"],
   data() {
     return {
       customerId: "",
@@ -302,6 +302,7 @@ export default {
           this.lastName = user.lastName;
           this.phoneNumbers = user.phoneNumbers[0];
         }
+        console.log("loded")
       } catch (err) {}
     },
 
@@ -341,7 +342,7 @@ export default {
         this.lastName = lastName;
         this.phoneNumbers = phoneNumbers[0];
 
-        // this.submitForm();
+        this.submitForm();
       }
     },
     submitForm() {
@@ -357,7 +358,7 @@ export default {
           // customerId: this.customerId,
         };
         const data = {
-          customerId: this.customerId,
+          customerId: this.userID,
           firstName: this.FirstName,
           lastName: this.lastName,
           address: address,
