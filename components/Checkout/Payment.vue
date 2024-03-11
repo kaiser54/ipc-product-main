@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <userInfo :data="data" v-if="data" :checkout="true" :validCoupon="validCoupon">
+    <userInfo :data="data" v-if="data" :checkout="true" :validCoupon="validCoupon" :isTimeandDateNeeded="isTimeandDateNeeded">
       <template v-slot:button>
         <button class="btn ghost-btn">Change delivery address</button>
       </template>
@@ -230,6 +230,7 @@ export default {
   data() {
     return {
       selectedItem: "",
+      isTimeandDateNeeded: false,
       listSelect: [
         {
           title: "Pay with Card / USSD / Transfer",

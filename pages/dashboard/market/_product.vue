@@ -85,13 +85,23 @@
               Brand: <span>{{ productDetails?.brand }}</span>
             </p>
           </div>
+ 
+          
           <div class="product-details-price-grp">
-            <h3 class="h3-bold">
-              <span class="naira">₦</span>
-              {{ productDetails && formatPriceWithCommas(productDetails.discountPrice) }}
-            </h3>
-            <tags />
-          </div>
+              <h3 class="h3-bold" v-if="hasSpecialPrice">
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails && formatPriceWithCommas(specialPrice)
+                }}
+              </h3>
+              <h3 class="h3-bold" v-else>
+                <span class="naira"><span class="naira">₦</span></span>
+                {{
+                  productDetails && formatPriceWithCommas(productDetails.discountPrice)
+                }}
+              </h3>
+              <tags :text="productDetails?.inStock" />
+            </div>
           <p class="product-details-snippet">
             {{ productDetails?.description }}
           </p>
@@ -251,10 +261,11 @@
     </div>
 
     <div class="bottom-nav" v-if="mobile">
-      <div class="addBtn">
+      <div class="mobile-instock-btn" v-if="productDetails.inStock">
+        <div class="addBtn" >
         <button class="btn primary-btn" @click="addProductToCart">Add to cart</button>
       </div>
-      <div class="operation">
+      <div class="operation" >
         <!-- counter button -->
 
         <button @click="decrementQuantity" class="circle">
@@ -301,6 +312,19 @@
             />
           </svg>
         </button>
+      </div>
+      </div>
+
+
+      <div class="mobile-btn" v-else> 
+        <button
+              class="btn primary-btn mobile-btn"
+              @click="addProductToCart"
+              :disabled="!productDetails.inStock"
+            >
+            
+                Out of Stock
+            </button>
       </div>
     </div>
 
@@ -524,6 +548,19 @@ export default {
 </script>
 
 <style scoped>
+.mobile-btn{
+  width: 100%;
+  /* border: 1px solid red; */
+}
+.mobile-instock-btn{
+  width: 100%;
+  display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+  /* border: 1px solid red; */
+}
 .loader {
   width: 20px;
   height: 20px;

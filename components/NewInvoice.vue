@@ -47,7 +47,7 @@
         <td class="table-head">Delivery Address</td>
       </thead>
       <tr>
-        <td>{{ formatDates(data.order.createdAt) }}</td>
+        <td>{{  formatTime(data.order.createdAt) }}</td>
         <td>{{ data.order.paymentMethod }}</td>
         <td>{{ data.order._id }}</td>
         <td>
@@ -73,7 +73,8 @@
         <td class="orders-data">{{ data.productName || data.product.name }}</td>
         <td class="orders-data">{{ data.quantity }}</td>
         <td class="orders-data">
-          # {{ data.product.discountPrice || data.product.discountPrice }}
+          <span v-if="hasSpecialPrices"> # {{ specialPrice }}</span>
+          <span v-else># {{ data.product.discountPrice || data.product.discountPrice }}</span>
         </td>
         <td class="orders-data"># {{ data.totalPrice }}</td>
       </tr>
@@ -232,7 +233,7 @@ import {
   formatDate,
   formatTimeWithAMPM,
   formatDates,
-  formatTimme,
+  formatTime,
   formatNumberWithLeadingZeros,
   calculateDeliveryDate,
 } from "~/utils/dateUtils"; // Adjust the import path as needed
@@ -246,13 +247,51 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-  },
+
+computed:{
+  specialPrice() {
+  if (!this.data || !this.data.order || !this.data.order.products || !this.data.order.customerId) {
+    return null;
+  }
+
+  const customerId = this.data.order.customerId;
+  const products = this.data.order.products;
+
+  // Iterate through each product
+  for (let product of products) {
+    const specialPrices = product.product.specialPrices;
+    
+    // Find the special price for the customer
+    const specialPrice = specialPrices.find(price => price.customerId === customerId);
+    
+    // Return the special price if found
+    if (specialPrice) {
+      return specialPrice.price;
+    }
+  }
+  
+  // Return null if no matching special price found
+  return null;
+},
+
+    hasSpecialPrices() {
+      if (this.data.order && this.data.order.products && this.data.order.products.length > 0) {
+        for (let product of this.data.order.products) {
+          if (product.product && product.product.specialPrices && product.product.specialPrices.length > 0) {
+            return true; // Special prices array found
+          }
+        }
+      }
+      return false; // Special prices array not found
+    }
+  
+},
   methods: {
     formatDates,
     formatTimeWithAMPM,
     formatNumberWithLeadingZeros,
     calculateDeliveryDate,
+    formatTime,
     roundToTwoDecimalPlaces(num) {
       if (!num || num == undefined) {
         return false;
