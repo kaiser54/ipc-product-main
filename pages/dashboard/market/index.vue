@@ -4,7 +4,8 @@
     <!-- <LoaderGeneral v-if="loading" /> -->
     <LoaderComponent v-if="loading" />
     <div class="empty" v-else-if="filteredProducts.length === 0 && !mobile">
-      <EmptySystem @leavePage="cleared" :header="header" :snippet="snippet">
+      <EmptySystem  @leavePage="cleared" :header="header" :snippet="snippet">
+
         <template v-slot:svg>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +96,7 @@
 </template>
 
 <script>
-import { EventBus } from "@/utils/event-bus";
+import {EventBus} from "@/utils/event-bus"
 import { mapState, mapActions, mapGetters } from "vuex";
 import ProductCard from "@/components/productcard";
 export default {
@@ -117,26 +118,27 @@ export default {
       animate: null,
       // showModal: false,
       header: "Search not found",
-      snippet: "This product is not currently available, search for another item",
+      snippet:
+        "This product is not currently available, search for another item",
       verifiedEmail: false,
       showVerifiedModal: true,
       mobile: false,
     };
   },
   mounted() {
-    this.reloadPage();
-    this.updateQuery("");
+    this.updateQuery("")
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
-      "User data in localStorage:", JSON.parse(userData);
-      "User:", this.user.verified;
+      ("User data in localStorage:", JSON.parse(userData));
+      ("User:", this.user.verified);
       localStorage.setItem("userId", this.user._id);
       localStorage.setItem("userEmail", this.user.email);
     } else {
       ("User data not found in localStorage.");
     }
     this.getAllProduct();
+
   },
   computed: {
     ...mapState("product", ["loading", "error"]),
@@ -144,15 +146,17 @@ export default {
     filteredProducts() {
       return this.getProductsBySearch; // Use the searchQuery here
     },
+  
   },
   methods: {
     ...mapActions("product", ["fetchAllProducts", "updateQuery"]),
     ...mapActions("cart", ["fetchCartItemsByUserID", "fetchFavouriteByUserID"]),
     checkScreenSize() {
-      this.animate = window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
+      this.animate =
+        window.innerWidth <= 950 ? "animate__slideInUp" : "animate__zoomIn";
     },
-    cleared() {
-      EventBus.$emit("clearInput");
+    cleared(){
+      EventBus.$emit('clearInput')
     },
     async getAllProduct() {
       // set welcome modal to show on condition that a user is new or not
@@ -191,9 +195,6 @@ export default {
         this.animate = "animate__zoomIn";
       }
     },
-    reloadPage() {
-      window.location.reload();
-    },
   },
 
   beforeDestroy() {
@@ -202,6 +203,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style scoped>
 .product-top-wrap {
@@ -225,9 +228,10 @@ export default {
   /* border: 1px solid red; */
   text-align: center;
   margin: auto;
-  margin-top: 8%;
+  margin-top:8%;
+
 }
-.modal {
+.modal{
   z-index: 1000;
   border: 1px solid red;
 }
